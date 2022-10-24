@@ -15,13 +15,13 @@ namespace AnnKvs
   private:
     InvertedLists lists;
 
-    vector<result_t> extract_results(heap_t knn)
+    vector<result_t> extract_results(heap_t candidates)
     {
       vector<result_t> results;
-      while (!knn.empty())
+      while (!candidates.empty())
       {
-        results.push_back(knn.top());
-        knn.pop();
+        results.push_back(candidates.top());
+        candidates.pop();
       }
       return results;
     }
@@ -30,7 +30,7 @@ namespace AnnKvs
         list_id_t list_id,
         vector_t *query,
         size_t k,
-        heap_t knn)
+        heap_t candidates)
     {
       vector_t *vectors = lists.get_vectors(list_id);
       vector_id_t *ids = lists.get_ids(list_id);
@@ -43,7 +43,15 @@ namespace AnnKvs
         float distance = L2Sqr(vector, query, &list_size);
         vector_id_t id = ids[j];
         result_t result = {distance, id};
-        knn.push(result);
+        if (candidates.size() < k)
+        {
+          candidates.push(result);
+        }
+        else if (distance < candidates.top().first)
+        {
+          candidates.pop();
+          candidates.push(result);
+        }
       }
     }
 
