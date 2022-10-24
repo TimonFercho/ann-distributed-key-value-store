@@ -14,6 +14,7 @@ namespace AnnKvs
 
   private:
     InvertedLists lists;
+    size_t vector_dims;
 
     vector<result_t> extract_results(heap_t candidates)
     {
@@ -28,18 +29,17 @@ namespace AnnKvs
 
     void search_list(
         list_id_t list_id,
-        vector_t *query,
+        vector_el_t *query,
         size_t k,
         heap_t candidates)
     {
-      vector_t *vectors = lists.get_vectors(list_id);
+      vector_el_t *vectors = lists.get_vectors(list_id);
       vector_id_t *ids = lists.get_ids(list_id);
       size_t list_size = lists.get_size(list_id);
       size_t vector_size = lists.get_vector_size();
-      size_t vector_element_size = vector_size / sizeof(vector_t);
       for (int j = 0; j < list_size; j++)
       {
-        vector_t *vector = vectors + j * vector_element_size;
+        vector_el_t *vector = vectors + j * vector_size;
         float distance = L2Sqr(vector, query, &list_size);
         vector_id_t id = ids[j];
         result_t result = {distance, id};
@@ -56,12 +56,14 @@ namespace AnnKvs
     }
 
   public:
-    IndexIVFFlat(size_t vector_size, string base_path) : lists(vector_size, base_path) {}
+    IndexIVFFlat(size_t vector_dims, string base_path)
+        : vector_dims(vector_dims),
+          lists(vector_dims * sizeof(vector_el_t), base_path) {}
 
     vector<result_t> search(
         list_id_t *list_ids,
         size_t nlist,
-        vector_t *query,
+        vector_el_t *query,
         size_t k)
     {
       heap_t knn;

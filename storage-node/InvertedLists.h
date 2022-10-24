@@ -6,7 +6,6 @@
 #include <string>
 #include <string.h>
 #include <stdio.h>
-// #include <cstdlib>
 
 #define PPROT_READ 0x1
 #define FLAG_READ "r"
@@ -22,7 +21,7 @@ namespace AnnKvs
     {
       size_t id;
       size_t size;
-      vector_t *data;
+      vector_el_t *data;
     };
 
     typedef std::unordered_map<list_id_t, InvertedList> hash_map_t;
@@ -52,7 +51,7 @@ namespace AnnKvs
       list->data = data;
     }
 
-    vector_t *get_vectors(InvertedList *list) const
+    vector_el_t *get_vectors(InvertedList *list) const
     {
       return list->data;
     }
@@ -82,7 +81,7 @@ namespace AnnKvs
       return vector_size;
     }
 
-    vector_t *get_vectors(list_id_t list_no)
+    vector_el_t *get_vectors(list_id_t list_no)
     {
       InvertedList *list = &id_to_list_map[list_no];
       return get_vectors(list);
@@ -102,7 +101,7 @@ namespace AnnKvs
 
     void insert_list(
         list_id_t list_id,
-        vector_t *vectors,
+        vector_el_t *vectors,
         vector_id_t *ids,
         size_t size)
     {
