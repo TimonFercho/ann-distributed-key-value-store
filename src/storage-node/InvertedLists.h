@@ -34,19 +34,18 @@ namespace ann_dkvs
 
   public:
     InvertedLists(size_t vector_size, string base_path);
-    size_t get_list_count() const;
+    size_t get_size() const;
     size_t get_vector_size() const;
     vector_el_t *get_vectors(list_id_t list_no);
     vector_id_t *get_ids(list_id_t list_no);
-    size_t get_size(list_id_t list_no);
+    size_t get_list_size(list_id_t list_no);
     void insert_list(
         list_id_t list_id,
         vector_el_t *vectors,
         vector_id_t *ids,
         size_t size);
     void delete_list(list_id_t list_id);
-    InvertedList *get_list(list_id_t id) const;
   };
-};
+}
 
 #endif // INVERTED_LISTS_H_

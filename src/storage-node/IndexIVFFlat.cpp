@@ -43,7 +43,7 @@ namespace ann_dkvs
   {
     vector_el_t *vectors = lists.get_vectors(list_id);
     vector_id_t *ids = lists.get_ids(list_id);
-    size_t list_size = lists.get_size(list_id);
+    size_t list_size = lists.get_list_size(list_id);
     size_t vector_size = lists.get_vector_size();
     for (int j = 0; j < list_size; j++)
     {

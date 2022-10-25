@@ -47,7 +47,7 @@ namespace ann_dkvs
   {
   }
 
-  size_t InvertedLists::get_list_count() const
+  size_t InvertedLists::get_size() const
   {
     return id_to_list_map.size();
   }
@@ -69,7 +69,7 @@ namespace ann_dkvs
     return get_ids_by_list(list);
   }
 
-  size_t InvertedLists::get_size(list_id_t list_no)
+  size_t InvertedLists::get_list_size(list_id_t list_no)
   {
     InvertedList *list = &id_to_list_map[list_no];
     return list->size;
@@ -101,15 +101,5 @@ namespace ann_dkvs
       exit(1);
     }
     id_to_list_map.erase(list_id);
-  }
-
-  InvertedList *InvertedLists::get_list(list_id_t id) const
-  {
-    hash_map_t::const_iterator it = id_to_list_map.find(id);
-    if (it == id_to_list_map.end())
-    {
-      return nullptr;
-    }
-    return (InvertedList *)&it->second;
   }
 }
