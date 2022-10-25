@@ -45,7 +45,7 @@ namespace ann_dkvs
     vector_id_t *ids = lists.get_ids(list_id);
     size_t list_size = lists.get_list_size(list_id);
     size_t vector_size = lists.get_vector_size();
-    for (int j = 0; j < list_size; j++)
+    for (size_t j = 0; j < list_size; j++)
     {
       vector_el_t *vector = vectors + j * vector_size;
       float distance = L2Sqr(vector, query, &list_size);
@@ -74,7 +74,7 @@ namespace ann_dkvs
       size_t k)
   {
     heap_t knn;
-    for (int i = 0; i < nlist; i++)
+    for (size_t i = 0; i < nlist; i++)
     {
       search_list(list_ids[i], query, k, knn);
     }

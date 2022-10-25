@@ -16,8 +16,8 @@ namespace ann_dkvs
   class IndexIVFFlat
   {
   private:
-    InvertedLists lists;
     size_t vector_dims;
+    InvertedLists lists;
     vector<result_t> extract_results(heap_t candidates);
     void search_list(
         list_id_t list_id,
