@@ -2,8 +2,9 @@
 #define INVERTED_LISTS_H_
 
 #include <unordered_map>
+#include <string>
 
-#include "../types.h"
+#include "types.h"
 
 #define PPROT_READ 0x1
 #define FLAG_READ "r"
