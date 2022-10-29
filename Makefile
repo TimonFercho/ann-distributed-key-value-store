@@ -65,7 +65,6 @@ OBJECTS		:= $(SOURCES:.cpp=.o)
 OUTPUTMAIN	:= $(call FIXPATH,$(OUTPUT)/$(MAIN))
 
 all: $(OUTPUT) $(MAIN)
-	@echo Executing 'all' complete!
 
 $(OUTPUT):
 	$(MD) $(OUTPUT)
@@ -84,8 +83,6 @@ $(MAIN): $(OBJECTS)
 clean:
 	$(RM) $(OUTPUTMAIN)
 	$(RM) $(call FIXPATH,$(OBJECTS))
-	@echo Cleanup complete!
 
 run: all
 	./$(OUTPUTMAIN)
-	@echo Executing 'run: all' complete!
