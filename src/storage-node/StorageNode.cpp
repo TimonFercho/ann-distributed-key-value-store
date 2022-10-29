@@ -2,7 +2,7 @@
 
 namespace ann_dkvs
 {
-  StorageNode::StorageNode(size_t vector_dims, string base_path) : index(vector_dims, base_path) {}
+  StorageNode::StorageNode(size_t vector_dims, string base_path) : index(vector_dims) {}
 
   vector<result_t> StorageNode::receive_knn_request(
       list_id_t *list_ids,

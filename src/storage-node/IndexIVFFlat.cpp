@@ -63,9 +63,9 @@ namespace ann_dkvs
     }
   }
 
-  IndexIVFFlat::IndexIVFFlat(size_t vector_dims, string base_path)
+  IndexIVFFlat::IndexIVFFlat(size_t vector_dims)
       : vector_dims(vector_dims),
-        lists(vector_dims * sizeof(vector_el_t), base_path) {}
+        lists(vector_dims * sizeof(vector_el_t)) {}
 
   vector<result_t> IndexIVFFlat::search(
       list_id_t *list_ids,

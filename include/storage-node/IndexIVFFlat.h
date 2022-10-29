@@ -26,7 +26,7 @@ namespace ann_dkvs
         heap_t candidates);
 
   public:
-    IndexIVFFlat(size_t vector_dims, string base_path);
+    IndexIVFFlat(size_t vector_dims);
     vector<result_t> search(
         list_id_t *list_ids,
         size_t nlist,
