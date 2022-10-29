@@ -16,20 +16,19 @@ namespace ann_dkvs
   class IndexIVFFlat
   {
   private:
-    size_t vector_dims;
     InvertedLists lists;
     vector<result_t> extract_results(heap_t candidates);
-    void search_list(
+    void search_preassigned_list(
         list_id_t list_id,
         vector_el_t *query,
         size_t k,
         heap_t candidates);
 
   public:
-    IndexIVFFlat(size_t vector_dims);
-    vector<result_t> search(
+    IndexIVFFlat(InvertedLists lists);
+    vector<result_t> search_preassigned(
         list_id_t *list_ids,
-        size_t nlist,
+        size_t n_lists,
         vector_el_t *query,
         size_t k);
   };

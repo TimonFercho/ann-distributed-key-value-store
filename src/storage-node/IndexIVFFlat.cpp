@@ -35,7 +35,7 @@ namespace ann_dkvs
     return results;
   }
 
-  void IndexIVFFlat::search_list(
+  void IndexIVFFlat::search_preassigned_list(
       list_id_t list_id,
       vector_el_t *query,
       size_t k,
@@ -44,11 +44,12 @@ namespace ann_dkvs
     vector_el_t *vectors = lists.get_vectors(list_id);
     vector_id_t *ids = lists.get_ids(list_id);
     size_t list_size = lists.get_list_size(list_id);
+    size_t vector_dim = lists.get_vector_dim();
     size_t vector_size = lists.get_vector_size();
     for (size_t j = 0; j < list_size; j++)
     {
       vector_el_t *vector = vectors + j * vector_size;
-      float distance = L2Sqr(vector, query, &list_size);
+      float distance = L2Sqr(vector, query, &vector_dim);
       vector_id_t id = ids[j];
       result_t result = {distance, id};
       if (candidates.size() < k)
@@ -63,11 +64,10 @@ namespace ann_dkvs
     }
   }
 
-  IndexIVFFlat::IndexIVFFlat(size_t vector_dims)
-      : vector_dims(vector_dims),
-        lists(vector_dims * sizeof(vector_el_t)) {}
+  IndexIVFFlat::IndexIVFFlat(InvertedLists lists)
+      : lists(lists) {}
 
-  vector<result_t> IndexIVFFlat::search(
+  vector<result_t> IndexIVFFlat::search_preassigned(
       list_id_t *list_ids,
       size_t nlist,
       vector_el_t *query,
@@ -76,7 +76,7 @@ namespace ann_dkvs
     heap_t knn;
     for (size_t i = 0; i < nlist; i++)
     {
-      search_list(list_ids[i], query, k, knn);
+      search_preassigned_list(list_ids[i], query, k, knn);
     }
     return extract_results(knn);
   }

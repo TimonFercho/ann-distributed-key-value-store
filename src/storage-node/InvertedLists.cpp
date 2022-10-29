@@ -9,50 +9,29 @@ using namespace std;
 
 namespace ann_dkvs
 {
-  void InvertedLists::mmap_list(InvertedList *list)
+  void InvertedLists::mmap_region()
   {
-    size_t total_size = get_total_size(list);
-    string filename = list->filename;
-    FILE *f = fopen(filename.c_str(), FLAG_READ);
-    vector_el_t *data =
-        (vector_el_t *)mmap(
-            nullptr,
-            total_size,
-            PROT_READ,
-            MAP_SHARED,
-            fileno(f),
-            0);
-    if (data == MAP_FAILED)
-    {
-      cout << "mapping file " << filename << " failed!" << endl;
-      perror("mmap");
-      exit(1);
-    }
-    cout << "mapped file " << filename << " of size " << total_size << endl;
-    list->data = data;
+    throw "mmap_region() not implemented";
   }
 
   vector_el_t *InvertedLists::get_vectors_by_list(InvertedList *list) const
   {
-    return list->data;
+    return (vector_el_t *)base_ptr + list->offset;
   }
 
   vector_id_t *InvertedLists::get_ids_by_list(InvertedList *list) const
   {
-    cout << "list data " << list->data << endl;
-    cout << "list size " << list->size << endl;
-    cout << "vector size " << vector_size << endl;
-    vector_el_t *res = list->data + list->size * vector_size;
-    cout << "res" << res << endl;
-    return (vector_id_t *)res;
+    vector_el_t *vector_ptr = get_vectors_by_list(list);
+    vector_id_t *id_ptr = (vector_id_t *)(vector_ptr + vector_size * list->capacity);
+    return id_ptr;
   }
 
-  size_t InvertedLists::get_total_size(InvertedList *list) const
+  size_t InvertedLists::get_total_list_size(InvertedList *list) const
   {
     return list->size * (vector_size + sizeof(vector_id_t));
   }
 
-  InvertedLists::InvertedLists(size_t vector_size) : vector_size(vector_size)
+  InvertedLists::InvertedLists(size_t vector_dim, string filename) : vector_dim(vector_dim), filename(filename), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
   {
   }
 
@@ -64,6 +43,21 @@ namespace ann_dkvs
   size_t InvertedLists::get_vector_size() const
   {
     return vector_size;
+  }
+
+  size_t InvertedLists::get_vector_dim() const
+  {
+    return vector_dim;
+  }
+
+  string InvertedLists::get_filename() const
+  {
+    return filename;
+  }
+
+  InvertedLists::Slot InvertedLists::alloc_slot(size_t size)
+  {
+    throw "alloc_slot() not implemented";
   }
 
   vector_el_t *InvertedLists::get_vectors(list_id_t list_id)
@@ -84,44 +78,33 @@ namespace ann_dkvs
     return list->size;
   }
 
-  string InvertedLists::get_filename(list_id_t list_id)
+  size_t InvertedLists::round_up_to_next_power_of_two(size_t n)
   {
-    InvertedList *list = &id_to_list_map[list_id];
-    return list->filename;
+    size_t power = 1;
+    while (power < n)
+    {
+      power *= 2;
+    }
+    return power;
   }
 
   void InvertedLists::insert_list(
       list_id_t list_id,
-      string filename,
       size_t size)
   {
+    if (id_to_list_map.find(list_id) != id_to_list_map.end())
+    {
+      throw "List already exists";
+    }
+    Slot slot = alloc_slot(size);
     InvertedList list;
-    list.id = list_id;
-    list.filename = filename;
+    list.offset = slot.offset;
+    list.capacity = slot.capacity;
     list.size = size;
-    mmap_list(&list);
     id_to_list_map[list_id] = list;
-    cout << "inserted list " << list_id << endl;
   }
 
   void InvertedLists::delete_list(list_id_t list_id)
   {
-    InvertedList list = id_to_list_map[list_id];
-    size_t total_size = get_total_size(&list);
-    int err = munmap(list.data, total_size);
-    if (err)
-    {
-      perror("munmap");
-      exit(1);
-    }
-    id_to_list_map.erase(list_id);
-  }
-
-  void InvertedLists::write_list(string filename, vector_el_t *vectors, vector_id_t *ids, size_t size)
-  {
-    FILE *f = fopen(filename.c_str(), "w");
-    fwrite(vectors, vector_size, size, f);
-    fwrite(ids, sizeof(list_id_t), size, f);
-    fclose(f);
   }
 }

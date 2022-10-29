@@ -2,6 +2,7 @@
 #define INVERTED_LISTS_H_
 
 #include <unordered_map>
+#include <vector>
 #include <string>
 
 #include "types.h"
@@ -15,43 +16,59 @@ using namespace std;
 
 namespace ann_dkvs
 {
-  struct InvertedList
-  {
-    size_t id;
-    size_t size;
-    string filename;
-    vector_el_t *data;
-  };
-  typedef std::unordered_map<list_id_t, InvertedList> hash_map_t;
-
   class InvertedLists
   {
   private:
-    size_t vector_size;
+    struct InvertedList
+    {
+      size_t offset;
+      size_t capacity;
+      size_t size;
+    };
+
+    struct Slot
+    {
+      size_t offset;
+      size_t capacity;
+    };
+
+    typedef std::unordered_map<list_id_t, InvertedList> hash_map_t;
+    const size_t vector_dim;
+    const string filename;
+    const size_t vector_size;
+
+    size_t total_size;
+    uint8_t *base_ptr;
     hash_map_t id_to_list_map;
-    void mmap_list(InvertedList *list);
+    vector<Slot> free_slots;
+
+    void mmap_region();
     vector_el_t *get_vectors_by_list(InvertedList *list) const;
     vector_id_t *get_ids_by_list(InvertedList *list) const;
-    size_t get_total_size(InvertedList *list) const;
+    size_t get_total_list_size(InvertedList *list) const;
+    void resize_list(InvertedList *list, size_t new_size);
+    void resize_region(size_t new_size);
+    Slot alloc_slot(size_t size);
+    void free_slot(Slot slot);
+    size_t round_up_to_next_power_of_two(size_t n);
 
   public:
-    InvertedLists(size_t vector_size);
+    InvertedLists(size_t vector_dim, string filename);
+    ~InvertedLists();
     size_t get_size() const;
     size_t get_vector_size() const;
+    size_t get_vector_dim() const;
+    string get_filename() const;
     vector_el_t *get_vectors(list_id_t list_id);
     vector_id_t *get_ids(list_id_t list_id);
-    string get_filename(list_id_t list_id);
     size_t get_list_size(list_id_t list_id);
+    void add_entries(list_id_t list_id, vector_el_t *vectors, vector_id_t *ids, size_t n_entries);
+    void update_entries(list_id_t list_id, vector_el_t *vectors, vector_id_t *ids, size_t n_entries, size_t offset);
     void insert_list(
         list_id_t list_id,
-        string filename,
         size_t size);
     void delete_list(list_id_t list_id);
-    void write_list(
-        string filename,
-        vector_el_t *vectors,
-        vector_id_t *ids,
-        size_t size);
+    void reserve_space(size_t n_entries);
   };
 }
 

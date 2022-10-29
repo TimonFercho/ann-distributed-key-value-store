@@ -11,7 +11,7 @@ namespace ann_dkvs
     IndexIVFFlat index;
 
   public:
-    StorageNode(size_t vector_dims, string base_path);
+    StorageNode(IndexIVFFlat index);
     vector<result_t> receive_knn_request(
         list_id_t *list_ids,
         size_t nlist,
