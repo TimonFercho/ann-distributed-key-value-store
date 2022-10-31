@@ -1,17 +1,17 @@
 #ifndef STORAGE_NODE_H_
 #define STORAGE_NODE_H_
 
-#include "IndexIVFFlat.h"
+#include "Index.h"
 
 namespace ann_dkvs
 {
   class StorageNode
   {
   private:
-    IndexIVFFlat index;
+    Index index;
 
   public:
-    StorageNode(IndexIVFFlat index);
+    StorageNode(Index index);
     vector<result_t> receive_knn_request(
         list_id_t *list_ids,
         size_t nlist,

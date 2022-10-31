@@ -1,4 +1,4 @@
-#include "IndexIVFFlat.h"
+#include "Index.h"
 
 using namespace std;
 
@@ -24,7 +24,7 @@ namespace ann_dkvs
     return (res);
   }
 
-  vector<result_t> IndexIVFFlat::extract_results(heap_t candidates)
+  vector<result_t> Index::extract_results(heap_t candidates)
   {
     vector<result_t> results;
     while (!candidates.empty())
@@ -35,7 +35,7 @@ namespace ann_dkvs
     return results;
   }
 
-  void IndexIVFFlat::search_preassigned_list(
+  void Index::search_preassigned_list(
       list_id_t list_id,
       vector_el_t *query,
       size_t k,
@@ -64,10 +64,10 @@ namespace ann_dkvs
     }
   }
 
-  IndexIVFFlat::IndexIVFFlat(InvertedLists lists)
+  Index::Index(InvertedLists lists)
       : lists(lists) {}
 
-  vector<result_t> IndexIVFFlat::search_preassigned(
+  vector<result_t> Index::search_preassigned(
       list_id_t *list_ids,
       size_t nlist,
       vector_el_t *query,

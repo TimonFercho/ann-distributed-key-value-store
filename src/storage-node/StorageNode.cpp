@@ -2,7 +2,7 @@
 
 namespace ann_dkvs
 {
-  StorageNode::StorageNode(IndexIVFFlat index) : index(index) {}
+  StorageNode::StorageNode(Index index) : index(index) {}
 
   vector<result_t> StorageNode::receive_knn_request(
       list_id_t *list_ids,

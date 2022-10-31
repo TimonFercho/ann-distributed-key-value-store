@@ -1,5 +1,5 @@
-#ifndef INDEX_IVF_FLAT_H_
-#define INDEX_IVF_FLAT_H_
+#ifndef INDEX_H_
+#define INDEX_H_
 
 #include <string>
 #include <queue>
@@ -13,7 +13,7 @@ namespace ann_dkvs
   typedef pair<distance_t, vector_id_t> result_t;
   typedef priority_queue<result_t> heap_t;
 
-  class IndexIVFFlat
+  class Index
   {
   private:
     InvertedLists lists;
@@ -25,7 +25,7 @@ namespace ann_dkvs
         heap_t candidates);
 
   public:
-    IndexIVFFlat(InvertedLists lists);
+    Index(InvertedLists lists);
     vector<result_t> search_preassigned(
         list_id_t *list_ids,
         size_t n_lists,
@@ -33,4 +33,4 @@ namespace ann_dkvs
         size_t k);
   };
 }
-#endif // INDEX_IVF_FLAT_H_
+#endif // INDEX_H_
