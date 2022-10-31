@@ -19,17 +19,14 @@ namespace ann_dkvs
   class InvertedLists
   {
   private:
-    struct InvertedList
-    {
-      size_t offset;
-      size_t capacity;
-      size_t size;
-    };
-
     struct Slot
     {
       size_t offset;
       size_t capacity;
+    };
+    struct InvertedList : Slot
+    {
+      size_t size;
     };
 
     typedef std::unordered_map<list_id_t, InvertedList> hash_map_t;
@@ -46,14 +43,15 @@ namespace ann_dkvs
     vector_el_t *get_vectors_by_list(InvertedList *list) const;
     vector_id_t *get_ids_by_list(InvertedList *list) const;
     size_t get_total_list_size(InvertedList *list) const;
-    void resize_list(InvertedList *list, size_t new_size);
     void resize_region(size_t new_size);
-    Slot alloc_slot(size_t size);
-    void free_slot(Slot slot);
+    Slot *alloc_slot(size_t size);
+    void free_slot(Slot *slot);
     size_t round_up_to_next_power_of_two(size_t n);
     bool has_free_slot_at_end();
     void ensure_file_created_and_region_unmapped();
     void resize_file(size_t size);
+    bool does_list_need_reallocation(InvertedList *list, size_t new_size);
+    void copy_shared_data(InvertedList *dst, InvertedList *src);
 
   public:
     InvertedLists(size_t vector_dim, string filename);
@@ -65,6 +63,7 @@ namespace ann_dkvs
     vector_el_t *get_vectors(list_id_t list_id);
     vector_id_t *get_ids(list_id_t list_id);
     size_t get_list_size(list_id_t list_id);
+    void resize_list(list_id_t list_id, size_t new_size);
     void add_entries(list_id_t list_id, vector_el_t *vectors, vector_id_t *ids, size_t n_entries);
     void update_entries(list_id_t list_id, vector_el_t *vectors, vector_id_t *ids, size_t n_entries, size_t offset);
     void insert_list(

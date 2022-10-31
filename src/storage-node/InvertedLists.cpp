@@ -96,7 +96,7 @@ namespace ann_dkvs
     }
   }
 
-  void InvertedLists::truncate_file(size_t size)
+  void InvertedLists::resize_file(size_t size)
   {
     FILE *f = fopen(filename.c_str(), "w");
     if (f == nullptr)
@@ -139,7 +139,50 @@ namespace ann_dkvs
     mmap_region();
   }
 
-  InvertedLists::Slot InvertedLists::alloc_slot(size_t size)
+  bool InvertedLists::does_list_need_reallocation(InvertedList *list, size_t new_size)
+  {
+    return new_size <= list->capacity / 2 || new_size > list->capacity;
+  }
+
+  void InvertedLists::copy_shared_data(InvertedList *dst, InvertedList *src)
+  {
+    size_t n_entries_to_copy = min(dst->size, src->size);
+    size_t n_bytes_vectors = n_entries_to_copy * vector_size;
+    size_t n_bytes_ids = n_entries_to_copy * sizeof(vector_id_t);
+    memcpy(get_vectors_by_list(dst), get_vectors_by_list(src), n_bytes_vectors);
+    memcpy(get_ids_by_list(dst), get_ids_by_list(src), n_bytes_ids);
+  }
+
+  void InvertedLists::resize_list(list_id_t list_id, size_t new_size)
+  {
+    InvertedList *list = &id_to_list_map[list_id];
+    if (!does_list_need_reallocation(list, new_size))
+    {
+      list->size = new_size;
+      return;
+    }
+    free_slot(list);
+    InvertedList new_list;
+    new_list.size = new_size;
+    if (new_size == 0)
+    {
+      new_list.capacity = 0;
+    }
+    else
+    {
+      Slot *new_slot = alloc_slot(new_size);
+      size_t new_list_size = get_total_list_size(&new_list);
+      new_list.capacity = new_slot->capacity;
+      new_list.offset = new_slot->offset;
+      if (new_list.offset != list->offset)
+      {
+        copy_shared_data(&new_list, list);
+      }
+    }
+    id_to_list_map[list_id] = new_list;
+  }
+
+  InvertedLists::Slot *InvertedLists::alloc_slot(size_t size)
   {
     throw "alloc_slot() not implemented";
   }
@@ -178,7 +221,7 @@ namespace ann_dkvs
   {
     if (id_to_list_map.find(list_id) != id_to_list_map.end())
     {
-      throw "List already exists";
+      throw "list already exists";
     }
     Slot slot = alloc_slot(size);
     InvertedList list;
