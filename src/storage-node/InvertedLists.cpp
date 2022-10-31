@@ -147,6 +147,10 @@ namespace ann_dkvs
   void InvertedLists::copy_shared_data(InvertedList *dst, InvertedList *src)
   {
     size_t n_entries_to_copy = min(dst->size, src->size);
+    if (n_entries_to_copy == 0)
+    {
+      return;
+    }
     size_t n_bytes_vectors = n_entries_to_copy * vector_size;
     size_t n_bytes_ids = n_entries_to_copy * sizeof(vector_id_t);
     memcpy(get_vectors_by_list(dst), get_vectors_by_list(src), n_bytes_vectors);
