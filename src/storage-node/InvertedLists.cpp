@@ -12,7 +12,22 @@ namespace ann_dkvs
 {
   void InvertedLists::mmap_region()
   {
-    throw "mmap_region() not implemented";
+    FILE *f = fopen(filename.c_str(), "r+");
+    if (f == nullptr)
+    {
+      throw "could not open file";
+    }
+    base_ptr = (uint8_t *)mmap(nullptr,
+                               total_size,
+                               PROT_READ | PROT_WRITE,
+                               MAP_SHARED,
+                               fileno(f),
+                               0);
+    if (base_ptr == MAP_FAILED)
+    {
+      throw "could not mmap file";
+    }
+    fclose(f);
   }
 
   vector_el_t *InvertedLists::get_vectors_by_list(InvertedList *list) const
