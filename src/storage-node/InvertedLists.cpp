@@ -191,6 +191,11 @@ namespace ann_dkvs
     throw "alloc_slot() not implemented";
   }
 
+  void InvertedLists::free_slot(Slot *list)
+  {
+    throw "free_slot() not implemented";
+  }
+
   vector_el_t *InvertedLists::get_vectors(list_id_t list_id)
   {
     InvertedList *list = &id_to_list_map[list_id];
@@ -227,10 +232,10 @@ namespace ann_dkvs
     {
       throw "list already exists";
     }
-    Slot slot = alloc_slot(size);
+    Slot *slot = alloc_slot(size);
     InvertedList list;
-    list.offset = slot.offset;
-    list.capacity = slot.capacity;
+    list.offset = slot->offset;
+    list.capacity = slot->capacity;
     list.size = size;
     id_to_list_map[list_id] = list;
   }
