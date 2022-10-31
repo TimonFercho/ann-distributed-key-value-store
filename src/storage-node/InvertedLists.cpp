@@ -135,7 +135,7 @@ namespace ann_dkvs
       free_slots.push_back(new_slot);
     }
     total_size = new_size;
-    truncate_file(total_size);
+    resize_file(total_size);
     mmap_region();
   }
 
