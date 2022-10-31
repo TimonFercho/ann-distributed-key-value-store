@@ -51,6 +51,9 @@ namespace ann_dkvs
     Slot alloc_slot(size_t size);
     void free_slot(Slot slot);
     size_t round_up_to_next_power_of_two(size_t n);
+    bool has_free_slot_at_end();
+    void ensure_file_created_and_region_unmapped();
+    void truncate_file(size_t size);
 
   public:
     InvertedLists(size_t vector_dim, string filename);

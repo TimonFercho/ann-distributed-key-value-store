@@ -2,6 +2,7 @@
 #include <string.h>
 #include <string>
 #include <iostream>
+#include <unistd.h>
 
 #include "InvertedLists.h"
 
@@ -53,6 +54,74 @@ namespace ann_dkvs
   string InvertedLists::get_filename() const
   {
     return filename;
+  }
+
+  bool InvertedLists::has_free_slot_at_end()
+  {
+    if (free_slots.size() == 0)
+      return false;
+    Slot last_slot = free_slots.back();
+    return last_slot.offset + last_slot.capacity == total_size;
+  }
+
+  void InvertedLists::ensure_file_created_and_region_unmapped()
+  {
+    if (total_size == 0)
+    {
+      FILE *f = fopen(filename.c_str(), "w");
+      if (f == nullptr)
+      {
+        throw "could not create file";
+      }
+      fclose(f);
+    }
+    else
+    {
+      munmap(base_ptr, total_size);
+    }
+  }
+
+  void InvertedLists::truncate_file(size_t size)
+  {
+    FILE *f = fopen(filename.c_str(), "w");
+    if (f == nullptr)
+    {
+      throw "could not create file";
+    }
+    if (ftruncate(fileno(f), size) == -1)
+    {
+      throw "could not truncate file";
+    }
+    fclose(f);
+  }
+
+  void InvertedLists::resize_region(size_t new_size)
+  {
+    if (new_size < total_size)
+    {
+      throw "cannot shrink region";
+    }
+    if (new_size == total_size)
+    {
+      return;
+    }
+    ensure_file_created_and_region_unmapped();
+    size_t size_to_grow = new_size - total_size;
+    if (has_free_slot_at_end())
+    {
+      Slot last_slot = free_slots.back();
+      last_slot.capacity += size_to_grow;
+    }
+    else
+    {
+      Slot new_slot;
+      new_slot.offset = total_size;
+      new_slot.capacity = size_to_grow;
+      free_slots.push_back(new_slot);
+    }
+    total_size = new_size;
+    truncate_file(total_size);
+    mmap_region();
   }
 
   InvertedLists::Slot InvertedLists::alloc_slot(size_t size)
