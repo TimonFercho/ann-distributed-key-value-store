@@ -174,9 +174,9 @@ namespace ann_dkvs
     }
     else
     {
-      Slot *new_slot = alloc_slot(new_size);
-      new_list.capacity = new_slot->capacity;
-      new_list.offset = new_slot->offset;
+      Slot new_slot = alloc_slot(new_size);
+      new_list.capacity = new_slot.capacity;
+      new_list.offset = new_slot.offset;
       if (new_list.offset != list->offset)
       {
         copy_shared_data(&new_list, list);
@@ -185,16 +185,16 @@ namespace ann_dkvs
     id_to_list_map[list_id] = new_list;
   }
 
-  size_t InvertedLists::find_large_enough_slot_index(size_t capacity)
+  pair<size_t, InvertedLists::Slot *> InvertedLists::find_large_enough_slot_index(size_t capacity)
   {
     for (size_t i = 0; i < free_slots.size(); i++)
     {
       if (free_slots[i].capacity >= capacity)
       {
-        return i;
+        return make_pair(i, &free_slots[i]);
       }
     }
-    return -1;
+    return make_pair(-1, nullptr);
   }
 
   void InvertedLists::grow_region_until_free_capacity(size_t capacity)
@@ -207,15 +207,16 @@ namespace ann_dkvs
     resize_region(new_size);
   }
 
-  InvertedLists::Slot *InvertedLists::alloc_slot(size_t size)
+  InvertedLists::Slot InvertedLists::alloc_slot(size_t size)
   {
-    size_t slot_id = find_large_enough_slot_index(size);
-    if (slot_id == -1)
+    pair<size_t, Slot *> slot_id_and_slot = find_large_enough_slot_index(size);
+    if (slot_id_and_slot.second == nullptr)
     {
       grow_region_until_free_capacity(size);
-      slot_id = find_large_enough_slot_index(size);
+      slot_id_and_slot = find_large_enough_slot_index(size);
     }
-    Slot *slot = &free_slots[slot_id];
+    Slot *slot = slot_id_and_slot.second;
+    size_t slot_id = slot_id_and_slot.first;
     Slot alloced_slot;
     alloced_slot.offset = slot->offset;
     alloced_slot.capacity = size;
@@ -228,7 +229,7 @@ namespace ann_dkvs
       slot->offset += size;
       slot->capacity -= size;
     }
-    return &alloced_slot;
+    return alloced_slot;
   }
 
   void InvertedLists::free_slot(Slot *list)
@@ -272,10 +273,10 @@ namespace ann_dkvs
     {
       throw "list already exists";
     }
-    Slot *slot = alloc_slot(size);
+    Slot slot = alloc_slot(size);
     InvertedList list;
-    list.offset = slot->offset;
-    list.capacity = slot->capacity;
+    list.offset = slot.offset;
+    list.capacity = slot.capacity;
     list.size = size;
     id_to_list_map[list_id] = list;
   }

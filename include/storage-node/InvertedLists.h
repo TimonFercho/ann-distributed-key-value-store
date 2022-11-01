@@ -44,7 +44,7 @@ namespace ann_dkvs
     vector_id_t *get_ids_by_list(InvertedList *list) const;
     size_t get_total_list_size(InvertedList *list) const;
     void resize_region(size_t new_size);
-    Slot *alloc_slot(size_t size);
+    Slot alloc_slot(size_t size);
     void free_slot(Slot *slot);
     size_t round_up_to_next_power_of_two(size_t n);
     bool has_free_slot_at_end();
@@ -52,7 +52,7 @@ namespace ann_dkvs
     void resize_file(size_t size);
     bool does_list_need_reallocation(InvertedList *list, size_t new_size);
     void copy_shared_data(InvertedList *dst, InvertedList *src);
-    size_t find_large_enough_slot_index(size_t capacity);
+    pair<size_t, Slot *> find_large_enough_slot_index(size_t capacity);
     void grow_region_until_free_capacity(size_t capacity);
 
   public:
