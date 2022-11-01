@@ -175,7 +175,6 @@ namespace ann_dkvs
     else
     {
       Slot *new_slot = alloc_slot(new_size);
-      size_t new_list_size = get_total_list_size(&new_list);
       new_list.capacity = new_slot->capacity;
       new_list.offset = new_slot->offset;
       if (new_list.offset != list->offset)
