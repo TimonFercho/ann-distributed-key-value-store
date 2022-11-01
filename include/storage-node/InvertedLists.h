@@ -52,6 +52,8 @@ namespace ann_dkvs
     void resize_file(size_t size);
     bool does_list_need_reallocation(InvertedList *list, size_t new_size);
     void copy_shared_data(InvertedList *dst, InvertedList *src);
+    size_t find_large_enough_slot_index(size_t capacity);
+    void grow_region_until_free_capacity(size_t capacity);
 
   public:
     InvertedLists(size_t vector_dim, string filename);

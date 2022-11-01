@@ -186,9 +186,50 @@ namespace ann_dkvs
     id_to_list_map[list_id] = new_list;
   }
 
+  size_t InvertedLists::find_large_enough_slot_index(size_t capacity)
+  {
+    for (size_t i = 0; i < free_slots.size(); i++)
+    {
+      if (free_slots[i].capacity >= capacity)
+      {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  void InvertedLists::grow_region_until_free_capacity(size_t capacity)
+  {
+    size_t new_size = total_size;
+    while (new_size - total_size < capacity)
+    {
+      new_size *= 2;
+    }
+    resize_region(new_size);
+  }
+
   InvertedLists::Slot *InvertedLists::alloc_slot(size_t size)
   {
-    throw "alloc_slot() not implemented";
+    size_t slot_id = find_large_enough_slot_index(size);
+    if (slot_id == -1)
+    {
+      grow_region_until_free_capacity(size);
+      slot_id = find_large_enough_slot_index(size);
+    }
+    Slot *slot = &free_slots[slot_id];
+    Slot alloced_slot;
+    alloced_slot.offset = slot->offset;
+    alloced_slot.capacity = size;
+    if (slot->capacity == size)
+    {
+      free_slots.erase(free_slots.begin() + slot_id);
+    }
+    else
+    {
+      slot->offset += size;
+      slot->capacity -= size;
+    }
+    return &alloced_slot;
   }
 
   void InvertedLists::free_slot(Slot *list)
@@ -242,5 +283,6 @@ namespace ann_dkvs
 
   void InvertedLists::delete_list(list_id_t list_id)
   {
+    throw "delete_list() not implemented";
   }
 }
