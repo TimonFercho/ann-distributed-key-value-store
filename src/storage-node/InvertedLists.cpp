@@ -362,4 +362,15 @@ namespace ann_dkvs
     memcpy(list_vectors + offset, vectors, n_entries * vector_size);
     memcpy(list_ids + offset, ids, n_entries * sizeof(vector_id_t));
   }
+
+  void InvertedLists::add_entries(
+      list_id_t list_id,
+      vector_el_t *vectors,
+      vector_id_t *ids,
+      size_t n_entries)
+  {
+    InvertedList *list = &id_to_list_map[list_id];
+    resize_list(list_id, list->size + n_entries);
+    update_entries(list_id, vectors, ids, n_entries, list->size);
+  }
 }
