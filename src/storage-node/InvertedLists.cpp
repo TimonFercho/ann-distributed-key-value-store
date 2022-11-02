@@ -51,6 +51,14 @@ namespace ann_dkvs
   {
   }
 
+  InvertedLists::~InvertedLists()
+  {
+    if (base_ptr != nullptr)
+    {
+      munmap(base_ptr, total_size);
+    }
+  }
+
   size_t InvertedLists::get_size() const
   {
     return id_to_list_map.size();
