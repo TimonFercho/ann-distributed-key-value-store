@@ -348,4 +348,18 @@ namespace ann_dkvs
   {
     throw "delete_list() not implemented";
   }
+
+  void InvertedLists::update_entries(
+      list_id_t list_id,
+      vector_el_t *vectors,
+      vector_id_t *ids,
+      size_t n_entries,
+      size_t offset)
+  {
+    InvertedList *list = &id_to_list_map[list_id];
+    vector_el_t *list_vectors = get_vectors_by_list(list);
+    vector_id_t *list_ids = get_ids_by_list(list);
+    memcpy(list_vectors + offset, vectors, n_entries * vector_size);
+    memcpy(list_ids + offset, ids, n_entries * sizeof(vector_id_t));
+  }
 }
