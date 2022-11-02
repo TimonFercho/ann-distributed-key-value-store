@@ -47,7 +47,7 @@ namespace ann_dkvs
     return list->size * (vector_size + sizeof(vector_id_t));
   }
 
-  InvertedLists::InvertedLists(size_t vector_dim, string filename) : vector_dim(vector_dim), filename(filename), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
+  InvertedLists::InvertedLists(size_t vector_dim, string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
   {
   }
 
