@@ -207,7 +207,7 @@ namespace ann_dkvs
 
   void InvertedLists::grow_region_until_free_capacity(size_t capacity)
   {
-    size_t new_size = total_size;
+    size_t new_size = total_size == 0 ? 32 : total_size;
     while (new_size - total_size < capacity)
     {
       new_size *= 2;
