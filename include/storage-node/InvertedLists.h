@@ -30,6 +30,7 @@ namespace ann_dkvs
     };
 
     typedef std::unordered_map<list_id_t, InvertedList> hash_map_t;
+    typedef vector<InvertedLists::Slot>::iterator slot_it_t;
     const size_t vector_dim;
     const string filename;
     const size_t vector_size;
@@ -52,8 +53,12 @@ namespace ann_dkvs
     void resize_file(size_t size);
     bool does_list_need_reallocation(InvertedList *list, size_t new_size);
     void copy_shared_data(InvertedList *dst, InvertedList *src);
-    pair<size_t, Slot *> find_large_enough_slot_index(size_t capacity);
+    slot_it_t find_large_enough_slot_index(size_t capacity);
     void grow_region_until_free_capacity(size_t capacity);
+    slot_it_t find_next_slot_to_right(Slot *slot);
+    slot_it_t find_next_slot_to_left(slot_it_t next_slot_right);
+    bool are_slots_adjacent(Slot *slot_left, Slot *slot_right);
+    Slot *to_slot(slot_it_t it);
 
   public:
     InvertedLists(size_t vector_dim, string filename);

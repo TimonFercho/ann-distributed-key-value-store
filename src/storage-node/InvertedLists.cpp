@@ -185,16 +185,16 @@ namespace ann_dkvs
     id_to_list_map[list_id] = new_list;
   }
 
-  pair<size_t, InvertedLists::Slot *> InvertedLists::find_large_enough_slot_index(size_t capacity)
+  InvertedLists::slot_it_t InvertedLists::find_large_enough_slot_index(size_t capacity)
   {
-    for (size_t i = 0; i < free_slots.size(); i++)
+    for (auto it = free_slots.begin(); it != free_slots.end(); it++)
     {
-      if (free_slots[i].capacity >= capacity)
+      if (it->capacity >= capacity)
       {
-        return make_pair(i, &free_slots[i]);
+        return it;
       }
     }
-    return make_pair(-1, nullptr);
+    return free_slots.end();
   }
 
   void InvertedLists::grow_region_until_free_capacity(size_t capacity)
@@ -209,20 +209,19 @@ namespace ann_dkvs
 
   InvertedLists::Slot InvertedLists::alloc_slot(size_t size)
   {
-    pair<size_t, Slot *> slot_id_and_slot = find_large_enough_slot_index(size);
-    if (slot_id_and_slot.second == nullptr)
+    auto slot_it = find_large_enough_slot_index(size);
+    if (slot_it == free_slots.end())
     {
       grow_region_until_free_capacity(size);
-      slot_id_and_slot = find_large_enough_slot_index(size);
+      slot_it = find_large_enough_slot_index(size);
     }
-    Slot *slot = slot_id_and_slot.second;
-    size_t slot_id = slot_id_and_slot.first;
+    Slot *slot = &(*slot_it);
     Slot alloced_slot;
     alloced_slot.offset = slot->offset;
     alloced_slot.capacity = size;
     if (slot->capacity == size)
     {
-      free_slots.erase(free_slots.begin() + slot_id);
+      free_slots.erase(slot_it);
     }
     else
     {
@@ -232,9 +231,73 @@ namespace ann_dkvs
     return alloced_slot;
   }
 
-  void InvertedLists::free_slot(Slot *list)
+  InvertedLists::slot_it_t InvertedLists::find_next_slot_to_right(Slot *slot)
   {
-    throw "free_slot() not implemented";
+    for (auto it = free_slots.begin(); it != free_slots.end(); it++)
+    {
+      if (it->offset > slot->offset)
+      {
+        return it;
+      }
+    }
+    return free_slots.end();
+  }
+
+  InvertedLists::slot_it_t InvertedLists::find_next_slot_to_left(
+      slot_it_t next_slot_right)
+  {
+    if (next_slot_right == free_slots.begin())
+    {
+      return free_slots.end();
+    }
+    return prev(next_slot_right);
+  }
+
+  bool InvertedLists::are_slots_adjacent(
+      Slot *slot_left, Slot *slot_right)
+  {
+    if (slot_left == nullptr || slot_right == nullptr)
+    {
+      return false;
+    }
+    return slot_left->offset + slot_left->capacity == slot_right->offset;
+  }
+
+  InvertedLists::Slot *InvertedLists::to_slot(slot_it_t it)
+  {
+    if (it == free_slots.end())
+    {
+      return nullptr;
+    }
+    return &(*it);
+  }
+
+  void InvertedLists::free_slot(Slot *slot)
+  {
+    slot_it_t slot_right_it = find_next_slot_to_right(slot);
+    slot_it_t slot_left_it = find_next_slot_to_left(slot_right_it);
+    Slot *slot_right = to_slot(slot_right_it);
+    Slot *slot_left = to_slot(slot_left_it);
+    bool has_adjacent_slot_left = are_slots_adjacent(slot_left, slot);
+    bool has_adjacent_slot_right = are_slots_adjacent(slot, slot_right);
+    if (has_adjacent_slot_left && has_adjacent_slot_right)
+    {
+      slot_left->capacity += slot->capacity + slot_right->capacity;
+      free_slots.erase(slot_right_it);
+    }
+    else if (has_adjacent_slot_left && !has_adjacent_slot_right)
+    {
+      slot_left->capacity += slot->capacity;
+    }
+    else if (!has_adjacent_slot_left && has_adjacent_slot_right)
+    {
+      slot_right->offset -= slot->capacity;
+      slot_right->capacity += slot->capacity;
+    }
+    else
+    {
+      free_slots.insert(slot_right_it, *slot);
+    }
   }
 
   vector_el_t *InvertedLists::get_vectors(list_id_t list_id)
