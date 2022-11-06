@@ -39,7 +39,7 @@ namespace ann_dkvs
   vector_id_t *InvertedLists::get_ids_by_list(InvertedList *list) const
   {
     vector_el_t *vector_ptr = get_vectors_by_list(list);
-    vector_id_t *id_ptr = (vector_id_t *)(vector_ptr + vector_size * list->allocated_entries);
+    vector_id_t *id_ptr = (vector_id_t *)((size_t)vector_ptr + vector_size * list->allocated_entries);
     return id_ptr;
   }
 
