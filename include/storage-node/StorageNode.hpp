@@ -1,7 +1,7 @@
 #ifndef STORAGE_NODE_H_
 #define STORAGE_NODE_H_
 
-#include "Index.h"
+#include "Index.hpp"
 
 namespace ann_dkvs
 {

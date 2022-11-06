@@ -4,7 +4,8 @@
 #include <string>
 #include <queue>
 
-#include "InvertedLists.h"
+#include "InvertedLists.hpp"
+
 using namespace std;
 
 namespace ann_dkvs

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "InvertedLists.h"
+#include "InvertedLists.hpp"
 
 using namespace std;
 

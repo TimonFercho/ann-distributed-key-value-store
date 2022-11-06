@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-#include "types.h"
+#include "types.hpp"
 
 #define PPROT_READ 0x1
 #define PROT_WRITE 0x2
