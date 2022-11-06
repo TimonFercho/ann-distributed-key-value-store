@@ -258,6 +258,8 @@ namespace ann_dkvs
     }
     Slot *slot = &(*slot_it);
     cout << "found slot at " << slot->offset << " with size " << slot->size << endl;
+    size_t offset = slot->offset;
+    cout << "list with size " << size << " will be at " << offset << endl;
     if (slot->size == size)
     {
       free_slots.erase(slot_it);
@@ -267,7 +269,7 @@ namespace ann_dkvs
       slot->offset += size;
       slot->size -= size;
     }
-    return slot->offset;
+    return offset;
   }
 
   InvertedLists::slot_it_t InvertedLists::find_next_slot_to_right(Slot *slot)
