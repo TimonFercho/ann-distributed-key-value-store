@@ -46,7 +46,6 @@ namespace ann_dkvs
     void mmap_region();
     vector_el_t *get_vectors_by_list(InvertedList *list) const;
     vector_id_t *get_ids_by_list(InvertedList *list) const;
-    size_t get_slot_size(len_t n_entries) const;
     size_t get_ids_size(len_t n_entries) const;
     size_t get_vectors_size(len_t n_entries) const;
     size_t get_total_list_size(InvertedList *list) const;
