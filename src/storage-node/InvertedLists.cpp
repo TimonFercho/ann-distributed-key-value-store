@@ -43,11 +43,6 @@ namespace ann_dkvs
     return id_ptr;
   }
 
-  size_t InvertedLists::get_slot_size(len_t n_entries) const
-  {
-    return n_entries * vector_size;
-  }
-
   size_t InvertedLists::get_vectors_size(len_t n_entries) const
   {
     return n_entries * vector_size;
@@ -223,8 +218,8 @@ namespace ann_dkvs
     list.used_entries = n_entries;
     len_t allocated_entries = round_up_to_next_power_of_two(n_entries);
     list.allocated_entries = allocated_entries;
-    size_t slot_size = get_slot_size(allocated_entries);
-    list.offset = alloc_slot(slot_size);
+    size_t list_size = get_total_list_size(&list);
+    list.offset = alloc_slot(list_size);
     return list;
   }
 
