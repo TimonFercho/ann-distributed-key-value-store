@@ -110,3 +110,6 @@ run: all
 
 runtest: test
 	./$(OUTPUTTEST)
+
+runtests: test
+	./$(OUTPUTTEST) --success
