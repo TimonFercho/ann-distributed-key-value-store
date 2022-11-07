@@ -26,6 +26,9 @@ INCLUDE	:= include
 # define lib directory
 LIB		:= lib
 
+# define test directory
+TEST	:= tests
+
 ifeq ($(OS),Windows_NT)
 MAIN	:= main.exe
 SOURCEDIRS	:= $(SRC)
@@ -36,7 +39,9 @@ RM			:= del /q /f
 MD	:= mkdir
 else
 MAIN	:= main
+TESTMAIN  := testmain
 SOURCEDIRS	:= $(shell find $(SRC) -type d)
+TESTDIRS	:= $(shell find $(TEST) -type d)
 INCLUDEDIRS	:= $(shell find $(INCLUDE) -type d)
 LIBDIRS		:= $(shell find $(LIB) -type d)
 FIXPATH = $1
@@ -53,8 +58,15 @@ LIBS		:= $(patsubst %,-L%, $(LIBDIRS:%/=%))
 # define the C source files
 SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, $(SOURCEDIRS)))
 
+# define test source files
+TESTS_NO_SRC		  := $(wildcard $(patsubst %,%/*.cpp, $(TESTDIRS)))
+TESTS             := $(TESTS_NO_SRC) $(SOURCES:$(SRC)/$(MAIN).cpp=)
+
 # define the C object files 
 OBJECTS		:= $(SOURCES:.cpp=.o)
+
+TESTOBJECTS	:= $(TESTS:.cpp=.o)
+TESTOBJECTS_NO_TESTMAIN := $(TESTOBJECTS:$(TEST)/TestMain.o=)
 
 #
 # The following part of the makefile is generic; it can be used to 
@@ -64,7 +76,11 @@ OBJECTS		:= $(SOURCES:.cpp=.o)
 
 OUTPUTMAIN	:= $(call FIXPATH,$(OUTPUT)/$(MAIN))
 
+OUTPUTTEST  := $(call FIXPATH,$(OUTPUT)/$(TESTMAIN))
+
 all: $(OUTPUT) $(MAIN)
+
+test: $(OUTPUT) $(TESTMAIN)
 
 $(OUTPUT):
 	$(MD) $(OUTPUT)
@@ -72,6 +88,9 @@ $(OUTPUT):
 $(MAIN): $(OBJECTS) 
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTMAIN) $(OBJECTS) $(LFLAGS) $(LIBS)
 
+$(TESTMAIN): $(TESTOBJECTS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTTEST) $(TESTOBJECTS) $(LFLAGS) $(LIBS)
+	
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
@@ -83,6 +102,11 @@ $(MAIN): $(OBJECTS)
 clean:
 	$(RM) $(OUTPUTMAIN)
 	$(RM) $(call FIXPATH,$(OBJECTS))
+	$(RM) $(OUTPUTTEST)
+	$(RM) $(call FIXPATH,$(TESTOBJECTS_NO_TESTMAIN))
 
 run: all
 	./$(OUTPUTMAIN)
+
+runtest: test
+	./$(OUTPUTTEST)
