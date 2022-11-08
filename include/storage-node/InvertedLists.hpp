@@ -72,6 +72,8 @@ namespace ann_dkvs
     ~InvertedLists();
     len_t get_length() const;
     size_t get_total_size() const;
+    size_t get_free_space() const;
+    size_t get_largest_continuous_free_space() const;
     size_t get_vector_size() const;
     len_t get_vector_dim() const;
     string get_filename() const;

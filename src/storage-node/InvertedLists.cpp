@@ -59,6 +59,29 @@ namespace ann_dkvs
     return get_vectors_size(n_entries) + get_ids_size(n_entries);
   }
 
+  size_t InvertedLists::get_free_space() const
+  {
+    size_t free_space = 0;
+    for (auto slot : free_slots)
+    {
+      free_space += slot.size;
+    }
+    return free_space;
+  }
+
+  size_t InvertedLists::get_largest_continuous_free_space() const
+  {
+    size_t max_free_space = 0;
+    for (auto slot : free_slots)
+    {
+      if (slot.size > max_free_space)
+      {
+        max_free_space = slot.size;
+      }
+    }
+    return max_free_space;
+  }
+
   InvertedLists::InvertedLists(len_t vector_dim, string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
   {
   }
