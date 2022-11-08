@@ -76,6 +76,11 @@ namespace ann_dkvs
     return id_to_list_map.size();
   }
 
+  size_t InvertedLists::get_total_size() const
+  {
+    return total_size;
+  }
+
   size_t InvertedLists::get_vector_size() const
   {
     return vector_size;
