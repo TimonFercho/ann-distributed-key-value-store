@@ -399,6 +399,10 @@ namespace ann_dkvs
     {
       throw "list already exists";
     }
+    if (n_entries == 0)
+    {
+      throw "cannot create list with 0 entries";
+    }
     InvertedList list = alloc_list(n_entries);
     id_to_list_map[list_id] = list;
   }
