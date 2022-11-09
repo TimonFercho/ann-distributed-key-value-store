@@ -172,8 +172,7 @@ namespace ann_dkvs
     size_t size_to_grow = new_size - total_size;
     if (has_free_slot_at_end())
     {
-      Slot last_slot = free_slots.back();
-      last_slot.size += size_to_grow;
+      free_slots.back().size += size_to_grow;
     }
     else
     {
