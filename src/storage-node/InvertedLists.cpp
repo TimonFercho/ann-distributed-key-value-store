@@ -269,6 +269,10 @@ namespace ann_dkvs
   void InvertedLists::grow_region_until_enough_space(size_t size)
   {
     size_t new_size = total_size == 0 ? min_total_size : total_size;
+    if (has_free_slot_at_end())
+    {
+      size -= free_slots.back().size;
+    }
     while (new_size - total_size < size)
     {
       new_size *= 2;
