@@ -436,4 +436,18 @@ namespace ann_dkvs
     resize_list(list_id, list->used_entries + n_entries);
     update_entries(list_id, vectors, ids, list->used_entries, n_entries);
   }
+
+  void InvertedLists::reserve_space(len_t n_entries)
+  {
+    if (n_entries == 0)
+    {
+      throw "cannot reserve 0 entries";
+    }
+    if (total_size != 0)
+    {
+      throw "cannot reserve space after space has been allocated";
+    }
+    size_t size_to_reserve = get_vectors_size(n_entries) + get_ids_size(n_entries);
+    grow_region_until_enough_space(size_to_reserve);
+  }
 }

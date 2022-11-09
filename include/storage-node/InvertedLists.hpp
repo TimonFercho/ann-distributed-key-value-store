@@ -66,6 +66,7 @@ namespace ann_dkvs
     slot_it_t find_next_slot_to_left(slot_it_t next_slot_right);
     bool are_slots_adjacent(Slot *slot_left, Slot *slot_right);
     Slot *to_slot(slot_it_t it);
+    void reserve_space(len_t n_entries);
 
   public:
     InvertedLists(len_t vector_dim, string filename);
@@ -87,7 +88,6 @@ namespace ann_dkvs
         list_id_t list_id,
         len_t n_entries);
     void delete_list(list_id_t list_id);
-    void reserve_space(len_t n_entries);
   };
 }
 
