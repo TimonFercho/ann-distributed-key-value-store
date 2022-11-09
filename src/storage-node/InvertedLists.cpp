@@ -131,10 +131,14 @@ namespace ann_dkvs
   {
     if (total_size == 0)
     {
-      FILE *f = fopen(filename.c_str(), "w");
+      FILE *f = fopen(filename.c_str(), "r+");
       if (f == nullptr)
       {
-        throw "could not create file";
+        f = fopen(filename.c_str(), "w+");
+        if (f == nullptr)
+        {
+          throw "could not create file";
+        }
       }
       fclose(f);
     }
@@ -146,10 +150,10 @@ namespace ann_dkvs
 
   void InvertedLists::resize_file(size_t size)
   {
-    FILE *f = fopen(filename.c_str(), "w");
+    FILE *f = fopen(filename.c_str(), "r+");
     if (f == nullptr)
     {
-      throw "could not create file";
+      throw "could not open file";
     }
     if (ftruncate(fileno(f), size) == -1)
     {
