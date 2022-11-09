@@ -416,3 +416,102 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
     }
   }
 }
+
+SCENARIO("add_entries(): entries can be appended to an inverted list")
+{
+  GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
+  {
+    size_t vector_dim = 1;
+    string filename = "lists.bin";
+    len_t list_length = 5;
+    InvertedLists lists = InvertedLists(vector_dim, filename);
+    vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
+    list_id_t ids[list_length] = {1, 2, 3, 4, 5};
+    vector_el_t vectors2[5] = {11.0, 12.0, 13.0, 14.0, 15.0};
+    list_id_t ids2[5] = {6, 7, 8, 9, 10};
+
+    WHEN("an inverted list is created")
+    {
+      list_id_t list_id = 1;
+      lists.create_list(list_id, list_length);
+      size_t total_size_before_update = lists.get_total_size();
+
+      AND_WHEN("all entries of the list are updated with the vectors and ids of the first list")
+      {
+        lists.update_entries(list_id, vectors, ids, 0, list_length);
+
+        THEN("all vectors are updated")
+        {
+          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          for (len_t i = 0; i < list_length; i++)
+          {
+            REQUIRE(list_vectors[i] == vectors[i]);
+          }
+        }
+
+        THEN("all ids are updated")
+        {
+          list_id_t *list_ids = lists.get_ids(list_id);
+          for (len_t i = 0; i < list_length; i++)
+          {
+            REQUIRE(list_ids[i] == ids[i]);
+          }
+        }
+
+        THEN("the list length is unaffected")
+        {
+          REQUIRE(lists.get_list_length(list_id) == list_length);
+        }
+
+        THEN("the total size is unaffected")
+        {
+          REQUIRE(lists.get_total_size() == total_size_before_update);
+        }
+
+        AND_WHEN("the list is appended with the entries of the second list")
+        {
+          lists.add_entries(list_id, vectors2, ids2, list_length);
+
+          THEN("all vectors of the second list are correctly appended")
+          {
+            vector_el_t *list_vectors = lists.get_vectors(list_id);
+            for (len_t i = 0; i < list_length; i++)
+            {
+              REQUIRE(list_vectors[i] == vectors[i]);
+            }
+            for (len_t i = list_length; i < 2 * list_length; i++)
+            {
+              REQUIRE(list_vectors[i] == vectors2[i - list_length]);
+            }
+          }
+
+          THEN("all ids of the second list are correctly appended")
+          {
+            list_id_t *list_ids = lists.get_ids(list_id);
+            for (len_t i = 0; i < list_length; i++)
+            {
+              REQUIRE(list_ids[i] == ids[i]);
+            }
+            for (len_t i = list_length; i < 2 * list_length; i++)
+            {
+              REQUIRE(list_ids[i] == ids2[i - list_length]);
+            }
+          }
+
+          THEN("the list length is updated")
+          {
+            REQUIRE(lists.get_list_length(list_id) == 2 * list_length);
+          }
+
+          THEN("the total size is updated")
+          {
+            size_t list_size_before_append = get_list_size(lists, list_length);
+            size_t list_size_after_append = get_list_size(lists, 2 * list_length);
+            size_t total_size_after_append = get_total_size(lists, list_size_after_append);
+            REQUIRE(lists.get_total_size() == total_size_after_append);
+          }
+        }
+      }
+    }
+  }
+}
