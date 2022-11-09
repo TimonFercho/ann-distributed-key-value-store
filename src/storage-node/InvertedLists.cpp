@@ -269,24 +269,19 @@ namespace ann_dkvs
     {
       new_size *= 2;
     }
-    cout << "growing region to " << new_size << endl;
     resize_region(new_size);
   }
 
   size_t InvertedLists::alloc_slot(size_t size)
   {
-    cout << "looking for slot of size " << size << endl;
     auto slot_it = find_large_enough_slot_index(size);
     if (slot_it == free_slots.end())
     {
-      cout << "no slot found, growing region" << endl;
       grow_region_until_enough_space(size);
       slot_it = find_large_enough_slot_index(size);
     }
     Slot *slot = &(*slot_it);
-    cout << "found slot at " << slot->offset << " with size " << slot->size << endl;
     size_t offset = slot->offset;
-    cout << "list with size " << size << " will be at " << offset << endl;
     if (slot->size == size)
     {
       free_slots.erase(slot_it);
