@@ -202,10 +202,8 @@ namespace ann_dkvs
     {
       return;
     }
-    size_t vectors_size = n_entries_to_copy * vector_size;
-    size_t ids_size = n_entries_to_copy * sizeof(vector_id_t);
-    memcpy(get_vectors_by_list(dst), get_vectors_by_list(src), vectors_size);
-    memcpy(get_ids_by_list(dst), get_ids_by_list(src), ids_size);
+    memcpy(get_vectors_by_list(dst), get_vectors_by_list(src), get_vectors_size(n_entries_to_copy));
+    memcpy(get_ids_by_list(dst), get_ids_by_list(src), get_ids_size(n_entries_to_copy));
   }
 
   InvertedLists::Slot InvertedLists::list_to_slot(InvertedList *list)
@@ -235,7 +233,11 @@ namespace ann_dkvs
     else
     {
       new_list = alloc_list(n_entries);
-      if (new_list.offset != list->offset)
+      if (new_list.offset == list->offset)
+      {
+        memmove(get_ids_by_list(&new_list), get_ids_by_list(list), get_ids_size(list->used_entries));
+      }
+      else
       {
         copy_shared_data(&new_list, list);
       }
@@ -442,7 +444,7 @@ namespace ann_dkvs
   {
     InvertedList *list = &id_to_list_map[list_id];
     resize_list(list_id, list->used_entries + n_entries);
-    update_entries(list_id, vectors, ids, list->used_entries, n_entries);
+    update_entries(list_id, vectors, ids, list->used_entries - n_entries, n_entries);
   }
 
   void InvertedLists::reserve_space(len_t n_entries)
