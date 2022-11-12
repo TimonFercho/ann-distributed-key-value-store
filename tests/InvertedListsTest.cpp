@@ -29,7 +29,7 @@ auto get_list_size = [](InvertedLists lists, len_t n_entries)
   return list_size;
 };
 
-auto get_total_size = [](InvertedLists lists, size_t used_space)
+auto get_total_size = [](size_t used_space)
 {
   size_t total_size = max((size_t)32, round_up_to_next_power_of_two(used_space));
   return total_size;
@@ -102,7 +102,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
       THEN("the total size is correct")
       {
         size_t used_space = get_list_size(lists, list_length);
-        REQUIRE(lists.get_total_size() == get_total_size(lists, used_space));
+        REQUIRE(lists.get_total_size() == get_total_size(used_space));
       }
 
       AND_WHEN("another list with the same index is created")
@@ -122,7 +122,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
         THEN("the total size is still correct")
         {
           size_t used_space = get_list_size(lists, list_length);
-          REQUIRE(lists.get_total_size() == get_total_size(lists, used_space));
+          REQUIRE(lists.get_total_size() == get_total_size(used_space));
         }
       }
 
@@ -150,13 +150,13 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
         THEN("the total size is correct")
         {
           size_t used_space = get_list_size(lists, list_length) + get_list_size(lists, list_length2);
-          REQUIRE(lists.get_total_size() == get_total_size(lists, used_space));
+          REQUIRE(lists.get_total_size() == get_total_size(used_space));
         }
 
         THEN("the free space is correct")
         {
           size_t used_space = get_list_size(lists, list_length) + get_list_size(lists, list_length2);
-          size_t total_size = get_total_size(lists, used_space);
+          size_t total_size = get_total_size(used_space);
           REQUIRE(lists.get_free_space() == total_size - used_space);
         }
       }
@@ -475,7 +475,7 @@ SCENARIO("add_entries(): entries can be appended to an inverted list")
           lists.add_entries(list_id, vectors2, ids2, list2_length);
 
           vector_el_t *list_vectors = lists.get_vectors(list_id);
-          THEN("all vectors of the first list are stil present")
+          THEN("all vectors of the first list are still present")
           {
             for (len_t i = 0; i < list1_length; i++)
             {
@@ -490,7 +490,7 @@ SCENARIO("add_entries(): entries can be appended to an inverted list")
             }
           }
           list_id_t *list_ids = lists.get_ids(list_id);
-          THEN("all ids of the first list are stil present")
+          THEN("all ids of the first list are still present")
           for (len_t i = 0; i < list1_length; i++)
           {
             REQUIRE(list_ids[i] == ids[i]);
@@ -511,8 +511,98 @@ SCENARIO("add_entries(): entries can be appended to an inverted list")
           THEN("the total size is updated")
           {
             size_t list_size_after_append = get_list_size(lists, total_list_length);
-            size_t total_size_after_append = get_total_size(lists, list_size_after_append);
+            size_t total_size_after_append = get_total_size(list_size_after_append);
             REQUIRE(lists.get_total_size() == total_size_after_append);
+          }
+        }
+      }
+    }
+  }
+}
+
+SCENARIO("resize_list(): an inverted list can be resized")
+{
+  GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
+  {
+    size_t vector_dim = 1;
+    string filename = "lists.bin";
+    len_t list_length = 5;
+    InvertedLists lists = InvertedLists(vector_dim, filename);
+    vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
+    list_id_t ids[list_length] = {1, 2, 3, 4, 5};
+
+    WHEN("an inverted list is created")
+    {
+      list_id_t list_id = 1;
+      lists.create_list(list_id, list_length);
+
+      AND_WHEN("all entries of the list are updated with the vectors and ids of the first list")
+      {
+        lists.update_entries(list_id, vectors, ids, 0, list_length);
+        size_t total_size_before_resizing = lists.get_total_size();
+
+        AND_WHEN("the list is resized to a smaller size")
+        {
+          len_t new_list_length = 3;
+          lists.resize_list(list_id, new_list_length);
+
+          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          THEN("all vectors of the first list are unchanged")
+          {
+            for (len_t i = 0; i < new_list_length; i++)
+            {
+              REQUIRE(list_vectors[i] == vectors[i]);
+            }
+          }
+          list_id_t *list_ids = lists.get_ids(list_id);
+          THEN("all ids of the first list are unchanged")
+          {
+            for (len_t i = 0; i < new_list_length; i++)
+            {
+              REQUIRE(list_ids[i] == ids[i]);
+            }
+          }
+          THEN("the list length is updated")
+          {
+            REQUIRE(lists.get_list_length(list_id) == new_list_length);
+          }
+
+          THEN("the total size is unaffected")
+          {
+            REQUIRE(lists.get_total_size() == total_size_before_resizing);
+          }
+        }
+        AND_THEN("the list is resized to a larger size")
+        {
+          len_t new_list_length = 10;
+          lists.resize_list(list_id, new_list_length);
+
+          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          THEN("all vectors of the first list are unchanged")
+          {
+            for (len_t i = 0; i < list_length; i++)
+            {
+              REQUIRE(list_vectors[i] == vectors[i]);
+            }
+          }
+          list_id_t *list_ids = lists.get_ids(list_id);
+          THEN("all ids of the first list are unchanged")
+          {
+            for (len_t i = 0; i < list_length; i++)
+            {
+              REQUIRE(list_ids[i] == ids[i]);
+            }
+          }
+          THEN("the list length is updated")
+          {
+            REQUIRE(lists.get_list_length(list_id) == new_list_length);
+          }
+
+          THEN("the total size is updated")
+          {
+            size_t list_size_after_resize = get_list_size(lists, new_list_length);
+            size_t total_size_after_resize = get_total_size(list_size_after_resize);
+            REQUIRE(lists.get_total_size() == total_size_after_resize);
           }
         }
       }
