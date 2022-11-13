@@ -31,7 +31,7 @@ namespace ann_dkvs
       len_t used_entries;
     };
 
-    typedef std::unordered_map<list_id_t, InvertedList> hash_map_t;
+    typedef unordered_map<list_id_t, InvertedList> hash_map_t;
     typedef vector<InvertedLists::Slot>::iterator slot_it_t;
     const size_t min_total_size = 32;
     const string filename;

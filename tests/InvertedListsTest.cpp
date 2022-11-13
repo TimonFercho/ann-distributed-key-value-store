@@ -35,6 +35,13 @@ auto get_total_size = [](size_t used_space)
   return total_size;
 };
 
+auto write_to_file = [](string filename, void *data, size_t size)
+{
+  FILE *file = fopen(filename.c_str(), "w");
+  fwrite(data, size, 1, file);
+  fclose(file);
+};
+
 SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[InvertedLists]")
 {
   GIVEN("a vector dimension and a filename")
@@ -413,6 +420,25 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
           }
         }
       }
+      AND_WHEN("the list is updated with more entries than it has")
+      {
+        len_t update_length = 6;
+        lists.update_entries(list_id, vectors, ids, 0, update_length);
+
+        THEN("an exception is thrown")
+        {
+          REQUIRE_THROWS(lists.update_entries(list_id, vectors, ids, 0, update_length));
+        }
+      }
+      AND_WHEN("a list is updated which does not exist")
+      {
+        list_id_t list_id2 = 2;
+        len_t update_length = 5;
+        THEN("an exception is thrown")
+        {
+          REQUIRE_THROWS(lists.update_entries(list_id2, vectors, ids, 0, update_length));
+        }
+      }
     }
   }
 }
@@ -603,6 +629,131 @@ SCENARIO("resize_list(): an inverted list can be resized")
             size_t list_size_after_resize = get_list_size(lists, new_list_length);
             size_t total_size_after_resize = get_total_size(list_size_after_resize);
             REQUIRE(lists.get_total_size() == total_size_after_resize);
+          }
+        }
+      }
+
+      AND_WHEN("a list is resized which does not exist")
+      {
+        len_t new_list_length = 10;
+        list_id_t non_existing_list_id = 2;
+        THEN("an exception is thrown")
+        {
+          REQUIRE_THROWS(lists.resize_list(non_existing_list_id, new_list_length));
+        }
+      }
+    }
+  }
+}
+
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved")
+{
+  GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
+  {
+    size_t vector_dim = 1;
+    string filename = "lists.bin";
+    len_t list_length = 5;
+    InvertedLists lists = InvertedLists(vector_dim, filename);
+
+    WHEN("an inverted list is created")
+    {
+      list_id_t list_id = 1;
+      lists.create_list(list_id, list_length);
+
+      THEN("the list length is correct")
+      {
+        REQUIRE(lists.get_list_length(list_id) == list_length);
+      }
+
+      AND_WHEN("the length of list is retrieved which does not exist")
+      {
+        list_id_t list_id2 = 2;
+        THEN("an exception is thrown")
+        {
+          REQUIRE_THROWS(lists.get_list_length(list_id2));
+        }
+      }
+    }
+  }
+}
+
+SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved")
+{
+  GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
+  {
+    size_t vector_dim = 1;
+    string filename = "lists.bin";
+    len_t list_length = 5;
+    InvertedLists lists = InvertedLists(vector_dim, filename);
+    vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
+    list_id_t ids[list_length] = {1, 2, 3, 4, 5};
+
+    WHEN("an inverted list is created")
+    {
+      list_id_t list_id = 1;
+      lists.create_list(list_id, list_length);
+
+      AND_WHEN("all entries of the list are updated with the vectors and ids of the first list")
+      {
+        lists.update_entries(list_id, vectors, ids, 0, list_length);
+
+        vector_el_t *list_vectors = lists.get_vectors(list_id);
+        THEN("all vectors of the first list are correctly retrieved")
+        {
+          for (len_t i = 0; i < list_length; i++)
+          {
+            REQUIRE(list_vectors[i] == vectors[i]);
+          }
+        }
+
+        AND_WHEN("the vectors of list are retrieved which does not exist")
+        {
+          list_id_t list_id2 = 2;
+          THEN("an exception is thrown")
+          {
+            REQUIRE_THROWS(lists.get_vectors(list_id2));
+          }
+        }
+      }
+    }
+  }
+}
+
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved")
+{
+  GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
+  {
+    size_t vector_dim = 1;
+    string filename = "lists.bin";
+    len_t list_length = 5;
+    InvertedLists lists = InvertedLists(vector_dim, filename);
+    vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
+    list_id_t ids[list_length] = {1, 2, 3, 4, 5};
+
+    WHEN("an inverted list is created")
+    {
+      list_id_t list_id = 1;
+      lists.create_list(list_id, list_length);
+
+      AND_WHEN("all entries of the list are updated with the vectors and ids of the first list")
+      {
+        lists.update_entries(list_id, vectors, ids, 0, list_length);
+
+        list_id_t *list_ids = lists.get_ids(list_id);
+        THEN("all ids of the first list are correctly retrieved")
+        {
+          for (len_t i = 0; i < list_length; i++)
+          {
+            REQUIRE(list_ids[i] == ids[i]);
+          }
+        }
+
+        AND_WHEN("the ids of list are retrieved which does not exist")
+        {
+          list_id_t list_id2 = 2;
+          THEN("an exception is thrown")
+          {
+            REQUIRE_THROWS(lists.get_ids(list_id2));
           }
         }
       }
