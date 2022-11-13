@@ -82,7 +82,7 @@ namespace ann_dkvs
     vector_id_t *get_ids(list_id_t list_id);
     len_t get_list_length(list_id_t list_id);
     void resize_list(list_id_t list_id, len_t length);
-    void add_entries(list_id_t list_id, vector_el_t *vectors, vector_id_t *ids, len_t n_entries);
+    void insert_entries(list_id_t list_id, vector_el_t *vectors, vector_id_t *ids, len_t n_entries);
     void update_entries(list_id_t list_id, vector_el_t *vectors, vector_id_t *ids, size_t offset, len_t n_entries);
     void create_list(
         list_id_t list_id,

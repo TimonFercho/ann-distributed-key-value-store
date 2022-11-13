@@ -417,7 +417,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
   }
 }
 
-SCENARIO("add_entries(): entries can be appended to an inverted list")
+SCENARIO("insert_entries(): entries can be appended to an inverted list")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
@@ -472,7 +472,7 @@ SCENARIO("add_entries(): entries can be appended to an inverted list")
 
         AND_WHEN("the list is appended with the entries of the second list")
         {
-          lists.add_entries(list_id, vectors2, ids2, list2_length);
+          lists.insert_entries(list_id, vectors2, ids2, list2_length);
 
           vector_el_t *list_vectors = lists.get_vectors(list_id);
           THEN("all vectors of the first list are still present")

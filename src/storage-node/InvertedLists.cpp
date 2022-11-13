@@ -436,7 +436,7 @@ namespace ann_dkvs
     memcpy(list_ids + offset, ids, get_ids_size(n_entries));
   }
 
-  void InvertedLists::add_entries(
+  void InvertedLists::insert_entries(
       list_id_t list_id,
       vector_el_t *vectors,
       vector_id_t *ids,
