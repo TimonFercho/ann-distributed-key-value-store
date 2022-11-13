@@ -216,7 +216,7 @@ namespace ann_dkvs
 
   void InvertedLists::resize_list(list_id_t list_id, len_t n_entries)
   {
-    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
       throw invalid_argument("List " + to_string(list_id) + " does not exist");
@@ -376,7 +376,7 @@ namespace ann_dkvs
 
   vector_el_t *InvertedLists::get_vectors(list_id_t list_id)
   {
-    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
       throw invalid_argument("List not found");
@@ -386,7 +386,7 @@ namespace ann_dkvs
 
   vector_id_t *InvertedLists::get_ids(list_id_t list_id)
   {
-    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
       throw invalid_argument("List not found");
@@ -396,7 +396,7 @@ namespace ann_dkvs
 
   len_t InvertedLists::get_list_length(list_id_t list_id)
   {
-    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
       throw invalid_argument("List not found");
@@ -442,7 +442,7 @@ namespace ann_dkvs
       size_t offset,
       len_t n_entries)
   {
-    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
       throw invalid_argument("List not found");
@@ -475,6 +475,10 @@ namespace ann_dkvs
     {
       throw runtime_error("Cannot reserve 0 entries");
     }
+    size_t size_to_reserve = get_vectors_size(n_entries) + get_ids_size(n_entries);
+    grow_region_until_enough_space(size_to_reserve);
+  }
+
     if (total_size != 0)
     {
       throw "cannot reserve space after space has been allocated";

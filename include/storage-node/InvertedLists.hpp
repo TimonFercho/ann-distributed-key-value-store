@@ -31,7 +31,7 @@ namespace ann_dkvs
       len_t used_entries;
     };
 
-    typedef unordered_map<list_id_t, InvertedList> hash_map_t;
+    typedef unordered_map<list_id_t, InvertedList> list_id_list_map_t;
     typedef vector<InvertedLists::Slot>::iterator slot_it_t;
     const size_t min_total_size = 32;
     const string filename;
@@ -40,7 +40,7 @@ namespace ann_dkvs
 
     size_t total_size;
     uint8_t *base_ptr;
-    hash_map_t id_to_list_map;
+    list_id_list_map_t id_to_list_map;
     vector<Slot> free_slots;
 
     void mmap_region();
