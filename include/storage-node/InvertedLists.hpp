@@ -32,6 +32,7 @@ namespace ann_dkvs
     };
 
     typedef unordered_map<list_id_t, InvertedList> list_id_list_map_t;
+    typedef unordered_map<list_id_t, len_t> list_id_counts_map_t;
     typedef vector<InvertedLists::Slot>::iterator slot_it_t;
     const size_t min_total_size = 32;
     const string filename;
@@ -67,6 +68,7 @@ namespace ann_dkvs
     bool are_slots_adjacent(Slot *slot_left, Slot *slot_right);
     Slot *to_slot(slot_it_t it);
     void reserve_space(len_t n_entries);
+    void bulk_create_lists(string list_ids_filename, len_t n_entries);
 
   public:
     InvertedLists(len_t vector_dim, string filename);
@@ -88,6 +90,7 @@ namespace ann_dkvs
         list_id_t list_id,
         len_t n_entries);
     void delete_list(list_id_t list_id);
+    void bulk_insert_entries(string vectors_filename, string vector_ids_filename, string list_ids_filename, len_t n_entries);
   };
 }
 

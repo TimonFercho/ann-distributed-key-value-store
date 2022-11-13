@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <unistd.h>
+#include <fstream>
 
 #include "InvertedLists.hpp"
 
@@ -479,11 +480,50 @@ namespace ann_dkvs
     grow_region_until_enough_space(size_to_reserve);
   }
 
+  void InvertedLists::bulk_create_lists(
+      string list_ids_filename,
+      len_t n_entries)
+  {
+    list_id_counts_map_t list_id_counts;
+    ifstream list_ids_file(list_ids_filename.c_str(), ios::in | ios::binary);
+    if (!list_ids_file.is_open())
+    {
+      throw runtime_error("Could not open list ids file");
+    }
+    list_id_t list_id;
+    len_t n_entries_read = 0;
+    while (list_ids_file.read((char *)&list_id, sizeof(list_id_t)))
+    {
+      list_id_counts[list_id]++;
+      n_entries_read++;
+    }
+    list_ids_file.close();
+    if (list_ids_file.bad())
+    {
+      throw runtime_error("Error reading list ids file");
+    }
+    if (n_entries_read != n_entries)
+    {
+      throw runtime_error("Number of entries in list ids file does not match n_entries");
+    }
+
+    for (list_id_counts_map_t::iterator it = list_id_counts.begin(); it != list_id_counts.end(); it++)
+    {
+      create_list(it->first, it->second);
+    }
+  }
+
+  void InvertedLists::bulk_insert_entries(
+      string vectors_filename,
+      string ids_filename,
+      string list_ids_filename,
+      len_t n_entries)
+  {
     if (total_size != 0)
     {
-      throw "cannot reserve space after space has been allocated";
+      throw runtime_error("bulk_insert_entries() can only be called on an empty inverted lists");
     }
-    size_t size_to_reserve = get_vectors_size(n_entries) + get_ids_size(n_entries);
-    grow_region_until_enough_space(size_to_reserve);
+    reserve_space(n_entries);
+    bulk_create_lists(list_ids_filename, n_entries);
   }
 }
