@@ -15,7 +15,7 @@ namespace ann_dkvs
     FILE *f = fopen(filename.c_str(), "r+");
     if (f == nullptr)
     {
-      throw "could not open file";
+      throw runtime_error("Could not open file " + filename);
     }
     base_ptr = (uint8_t *)mmap(
         nullptr,
@@ -26,7 +26,7 @@ namespace ann_dkvs
         0);
     if (base_ptr == MAP_FAILED)
     {
-      throw "could not mmap file";
+      throw runtime_error("Could not mmap file " + filename);
     }
     fclose(f);
   }
@@ -137,7 +137,7 @@ namespace ann_dkvs
         f = fopen(filename.c_str(), "w+");
         if (f == nullptr)
         {
-          throw "could not create file";
+          throw runtime_error("Could not create file " + filename);
         }
       }
       fclose(f);
@@ -153,11 +153,11 @@ namespace ann_dkvs
     FILE *f = fopen(filename.c_str(), "r+");
     if (f == nullptr)
     {
-      throw "could not open file";
+      throw runtime_error("Could not open file " + filename);
     }
     if (ftruncate(fileno(f), size) == -1)
     {
-      throw "could not truncate file";
+      throw runtime_error("Could not resize file " + filename);
     }
     fclose(f);
   }
@@ -166,7 +166,7 @@ namespace ann_dkvs
   {
     if (new_size < total_size)
     {
-      throw "cannot shrink region";
+      throw runtime_error("Cannot shrink region");
     }
     if (new_size == total_size)
     {
@@ -216,7 +216,16 @@ namespace ann_dkvs
 
   void InvertedLists::resize_list(list_id_t list_id, len_t n_entries)
   {
-    InvertedList *list = &id_to_list_map[list_id];
+    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    if (list_it == id_to_list_map.end())
+    {
+      throw invalid_argument("List " + to_string(list_id) + " does not exist");
+    }
+    if (n_entries == 0)
+    {
+      throw out_of_range("Cannot resize list to 0 entries");
+    }
+    InvertedList *list = &list_it->second;
     if (!does_list_need_reallocation(list, n_entries))
     {
       list->used_entries = n_entries;
@@ -225,22 +234,14 @@ namespace ann_dkvs
     Slot slot = list_to_slot(list);
     free_slot(&slot);
     InvertedList new_list;
-    if (n_entries == 0)
+    new_list = alloc_list(n_entries);
+    if (new_list.offset == list->offset)
     {
-      new_list.allocated_entries = 0;
-      new_list.used_entries = 0;
+      memmove(get_ids_by_list(&new_list), get_ids_by_list(list), get_ids_size(list->used_entries));
     }
     else
     {
-      new_list = alloc_list(n_entries);
-      if (new_list.offset == list->offset)
-      {
-        memmove(get_ids_by_list(&new_list), get_ids_by_list(list), get_ids_size(list->used_entries));
-      }
-      else
-      {
-        copy_shared_data(&new_list, list);
-      }
+      copy_shared_data(&new_list, list);
     }
     id_to_list_map[list_id] = new_list;
   }
@@ -375,20 +376,32 @@ namespace ann_dkvs
 
   vector_el_t *InvertedLists::get_vectors(list_id_t list_id)
   {
-    InvertedList *list = &id_to_list_map[list_id];
-    return get_vectors_by_list(list);
+    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    if (list_it == id_to_list_map.end())
+    {
+      throw invalid_argument("List not found");
+    }
+    return get_vectors_by_list(&list_it->second);
   }
 
   vector_id_t *InvertedLists::get_ids(list_id_t list_id)
   {
-    InvertedList *list = &id_to_list_map[list_id];
-    return get_ids_by_list(list);
+    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    if (list_it == id_to_list_map.end())
+    {
+      throw invalid_argument("List not found");
+    }
+    return get_ids_by_list(&list_it->second);
   }
 
   len_t InvertedLists::get_list_length(list_id_t list_id)
   {
-    InvertedList *list = &id_to_list_map[list_id];
-    return list->used_entries;
+    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    if (list_it == id_to_list_map.end())
+    {
+      throw invalid_argument("List not found");
+    }
+    return list_it->second.used_entries;
   }
 
   size_t InvertedLists::round_up_to_next_power_of_two(size_t n)
@@ -407,11 +420,11 @@ namespace ann_dkvs
   {
     if (id_to_list_map.find(list_id) != id_to_list_map.end())
     {
-      throw "list already exists";
+      throw invalid_argument("List already exists");
     }
     if (n_entries == 0)
     {
-      throw "cannot create list with 0 entries";
+      throw out_of_range("List must have at least one entry");
     }
     InvertedList list = alloc_list(n_entries);
     id_to_list_map[list_id] = list;
@@ -429,7 +442,16 @@ namespace ann_dkvs
       size_t offset,
       len_t n_entries)
   {
-    InvertedList *list = &id_to_list_map[list_id];
+    hash_map_t::iterator list_it = id_to_list_map.find(list_id);
+    if (list_it == id_to_list_map.end())
+    {
+      throw invalid_argument("List not found");
+    }
+    InvertedList *list = &list_it->second;
+    if (offset + n_entries > list->used_entries)
+    {
+      throw out_of_range("updating more entries than list has");
+    }
     vector_el_t *list_vectors = get_vectors_by_list(list);
     vector_id_t *list_ids = get_ids_by_list(list);
     memcpy(list_vectors + offset, vectors, get_vectors_size(n_entries));
@@ -451,7 +473,7 @@ namespace ann_dkvs
   {
     if (n_entries == 0)
     {
-      throw "cannot reserve 0 entries";
+      throw runtime_error("Cannot reserve 0 entries");
     }
     if (total_size != 0)
     {
