@@ -114,7 +114,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
       AND_WHEN("another list with the same index is created")
       {
-        REQUIRE_THROWS_WITH(lists.create_list(1, 5), Contains("already") && Contains("exist"));
+        REQUIRE_THROWS_AS(lists.create_list(1, 5), invalid_argument);
 
         THEN("the number of lists is still 1")
         {
@@ -168,6 +168,16 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
         }
       }
     }
+    WHEN("a list of size 0 is created")
+    {
+      list_id_t list_id = 1;
+      len_t list_length = 0;
+
+      THEN("an exception is thrown")
+      {
+        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
+      }
+    }
 
     WHEN("a list of size < 32B is created")
     {
@@ -202,7 +212,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
       THEN("an exception is thrown")
       {
-        REQUIRE_THROWS(lists.create_list(list_id, list_length));
+        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
       }
     }
   }
@@ -423,11 +433,10 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
       AND_WHEN("the list is updated with more entries than it has")
       {
         len_t update_length = 6;
-        lists.update_entries(list_id, vectors, ids, 0, update_length);
 
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS(lists.update_entries(list_id, vectors, ids, 0, update_length));
+          REQUIRE_THROWS_AS(lists.update_entries(list_id, vectors, ids, 0, update_length), out_of_range);
         }
       }
       AND_WHEN("a list is updated which does not exist")
@@ -436,7 +445,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
         len_t update_length = 5;
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS(lists.update_entries(list_id2, vectors, ids, 0, update_length));
+          REQUIRE_THROWS_AS(lists.update_entries(list_id2, vectors, ids, 0, update_length), invalid_argument);
         }
       }
     }
@@ -631,15 +640,54 @@ SCENARIO("resize_list(): an inverted list can be resized")
             REQUIRE(lists.get_total_size() == total_size_after_resize);
           }
         }
-      }
+        AND_WHEN("the list is resized to the same size")
+        {
+          len_t new_list_length = list_length;
+          lists.resize_list(list_id, new_list_length);
 
+          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          THEN("all vectors of the first list are unchanged")
+          {
+            for (len_t i = 0; i < list_length; i++)
+            {
+              REQUIRE(list_vectors[i] == vectors[i]);
+            }
+          }
+          list_id_t *list_ids = lists.get_ids(list_id);
+          THEN("all ids of the first list are unchanged")
+          {
+            for (len_t i = 0; i < list_length; i++)
+            {
+              REQUIRE(list_ids[i] == ids[i]);
+            }
+          }
+          THEN("the list length is updated")
+          {
+            REQUIRE(lists.get_list_length(list_id) == new_list_length);
+          }
+
+          THEN("the total size is unaffected")
+          {
+            REQUIRE(lists.get_total_size() == total_size_before_resizing);
+          }
+        }
+        AND_WHEN("the list is resized to a size of 0")
+        {
+          len_t new_list_length = 0;
+
+          THEN("an expected exception is thrown")
+          {
+            REQUIRE_THROWS_AS(lists.resize_list(list_id, new_list_length), out_of_range);
+          }
+        }
+      }
       AND_WHEN("a list is resized which does not exist")
       {
         len_t new_list_length = 10;
         list_id_t non_existing_list_id = 2;
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS(lists.resize_list(non_existing_list_id, new_list_length));
+          REQUIRE_THROWS_AS(lists.resize_list(non_existing_list_id, new_list_length), invalid_argument);
         }
       }
     }
@@ -665,12 +713,12 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved")
         REQUIRE(lists.get_list_length(list_id) == list_length);
       }
 
-      AND_WHEN("the length of list is retrieved which does not exist")
+      AND_WHEN("the length of a list is retrieved which does not exist")
       {
         list_id_t list_id2 = 2;
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS(lists.get_list_length(list_id2));
+          REQUIRE_THROWS_AS(lists.get_list_length(list_id2), invalid_argument);
         }
       }
     }
@@ -706,12 +754,12 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved")
           }
         }
 
-        AND_WHEN("the vectors of list are retrieved which does not exist")
+        AND_WHEN("the vectors of a list are retrieved which does not exist")
         {
           list_id_t list_id2 = 2;
           THEN("an exception is thrown")
           {
-            REQUIRE_THROWS(lists.get_vectors(list_id2));
+            REQUIRE_THROWS_AS(lists.get_vectors(list_id2), invalid_argument);
           }
         }
       }
@@ -748,7 +796,7 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved")
           }
         }
 
-        AND_WHEN("the ids of list are retrieved which does not exist")
+        AND_WHEN("the ids of a list are retrieved which does not exist")
         {
           list_id_t list_id2 = 2;
           THEN("an exception is thrown")
