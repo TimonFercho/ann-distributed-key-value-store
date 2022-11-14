@@ -853,16 +853,16 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
         {
           for (len_t i = 0; i < list_length; i++)
           {
-            vector_el_t *list_vectors = lists.get_vectors(list_ids[i]);
-            REQUIRE(list_vectors[i] == vectors[i]);
+            vector_el_t *actual_vectors = lists.get_vectors(list_ids[i]);
+            REQUIRE(actual_vectors[i] == vectors[i]);
           }
         }
         THEN("the inverted lists have the correct ids")
         {
           for (len_t i = 0; i < list_length; i++)
           {
-            list_id_t *list_ids = lists.get_ids(list_ids[i]);
-            REQUIRE(list_ids[i] == ids[i]);
+            list_id_t *actual_ids = lists.get_ids(list_ids[i]);
+            REQUIRE(actual_ids[i] == ids[i]);
           }
         }
         THEN("the total size is updated")
