@@ -34,7 +34,7 @@ namespace ann_dkvs
 
   vector_el_t *InvertedLists::get_vectors_by_list(InvertedList *list) const
   {
-    return (vector_el_t *)base_ptr + list->offset;
+    return (vector_el_t *)(base_ptr + list->offset);
   }
 
   vector_id_t *InvertedLists::get_ids_by_list(InvertedList *list) const
