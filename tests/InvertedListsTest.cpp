@@ -814,25 +814,28 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
   GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
   {
     size_t vector_dim = 1;
-    string filename = "lists.bin";
-    InvertedLists lists = InvertedLists(vector_dim, filename);
     len_t list_length = 5;
     vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
     list_id_t ids[list_length] = {1, 2, 3, 4, 5};
-    list_id_t list_ids[list_length] = {1, 1, 2, 2, 3};
-    unordered_map<list_id_t, len_t> list_lengths;
+    list_id_t list_ids[list_length] = {1, 1, 2, 1, 4, 3};
+    string filename = "bulk_lists.bin";
+    remove(filename.c_str());
+    InvertedLists lists = InvertedLists(vector_dim, filename);
+    unordered_map<list_id_t, vector<vector_el_t>> list_vectors_map;
+    unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
     for (len_t i = 0; i < list_length; i++)
     {
-      list_lengths[list_ids[i]]++;
+      list_vectors_map[list_ids[i]].push_back(vectors[i]);
+      list_ids_map[list_ids[i]].push_back(ids[i]);
     }
 
     AND_GIVEN("the vectors, ids and list ids are written to files")
     {
-      string vectors_filename = "vectors.bin";
+      string vectors_filename = "bulk_vectors.bin";
       size_t vectors_size = list_length * vector_dim * sizeof(vector_el_t);
-      string ids_filename = "ids.bin";
+      string ids_filename = "bulk_vector_ids.bin";
       size_t ids_size = list_length * sizeof(list_id_t);
-      string list_ids_filename = "list_ids.bin";
+      string list_ids_filename = "bulk_list_ids.bin";
       size_t list_ids_size = list_length * sizeof(list_id_t);
       write_to_file(vectors_filename, vectors, vectors_size);
       write_to_file(ids_filename, ids, ids_size);
@@ -844,42 +847,47 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
 
         THEN("the inverted lists exist and have the correct length")
         {
-          for (auto list_length : list_lengths)
+          for (auto list : list_vectors_map)
           {
-            REQUIRE(lists.get_list_length(list_length.first) == list_length.second);
+            REQUIRE(lists.get_list_length(list.first) == list.second.size());
           }
         }
         THEN("the inverted lists have the correct vectors")
         {
-          for (len_t i = 0; i < list_length; i++)
+          for (auto list : list_vectors_map)
           {
-            vector_el_t *actual_vectors = lists.get_vectors(list_ids[i]);
-            REQUIRE(actual_vectors[i] == vectors[i]);
+            vector_el_t *actual_vectors = lists.get_vectors(list.first);
+            for (len_t i = 0; i < list.second.size(); i++)
+            {
+              REQUIRE(actual_vectors[i] == list.second[i]);
+            }
           }
         }
         THEN("the inverted lists have the correct ids")
         {
-          for (len_t i = 0; i < list_length; i++)
+          for (auto list : list_ids_map)
           {
-            list_id_t *actual_ids = lists.get_ids(list_ids[i]);
-            REQUIRE(actual_ids[i] == ids[i]);
+            list_id_t *actual_ids = lists.get_ids(list.first);
+            for (len_t i = 0; i < list.second.size(); i++)
+            {
+              REQUIRE(actual_ids[i] == list.second[i]);
+            }
           }
-        }
-        THEN("the total size is updated")
-        {
-          size_t total_size = 0;
-          for (auto list_length : list_lengths)
+          THEN("the total size is updated")
           {
-            total_size += get_list_size(lists, list_length.second);
+            size_t total_size = 0;
+            for (auto list : list_vectors_map)
+            {
+              total_size += get_list_size(lists, list.second.size());
+            }
+            REQUIRE(lists.get_total_size() == get_total_size(total_size));
           }
-          REQUIRE(lists.get_total_size() == total_size);
-        }
-
-        AND_WHEN("the entries are bulk inserted again")
-        {
-          THEN("an exception is thrown")
+          AND_WHEN("the entries are bulk inserted again")
           {
-            REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, list_length), runtime_error);
+            THEN("an exception is thrown")
+            {
+              REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, list_length), runtime_error);
+            }
           }
         }
       }
