@@ -68,7 +68,8 @@ namespace ann_dkvs
     bool are_slots_adjacent(Slot *slot_left, Slot *slot_right);
     Slot *to_slot(slot_it_t it);
     void reserve_space(len_t n_entries);
-    void bulk_create_lists(string list_ids_filename, len_t n_entries);
+    list_id_counts_map_t bulk_create_lists(string list_ids_filename, len_t n_entries);
+    ifstream open_filestream(string filename);
 
   public:
     InvertedLists(len_t vector_dim, string filename);

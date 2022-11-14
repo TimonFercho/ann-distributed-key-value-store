@@ -480,21 +480,27 @@ namespace ann_dkvs
     grow_region_until_enough_space(size_to_reserve);
   }
 
-  void InvertedLists::bulk_create_lists(
+  ifstream InvertedLists::open_filestream(string filename)
+  {
+    ifstream filestream(filename, ios::in | ios::binary);
+    if (!filestream.is_open())
+    {
+      throw runtime_error("Could not open file " + filename);
+    }
+    return filestream;
+  }
+
+  InvertedLists::list_id_counts_map_t InvertedLists::bulk_create_lists(
       string list_ids_filename,
       len_t n_entries)
   {
-    list_id_counts_map_t list_id_counts;
-    ifstream list_ids_file(list_ids_filename.c_str(), ios::in | ios::binary);
-    if (!list_ids_file.is_open())
-    {
-      throw runtime_error("Could not open list ids file");
-    }
+    list_id_counts_map_t lists_counts;
+    ifstream list_ids_file = open_filestream(list_ids_filename);
     list_id_t list_id;
     len_t n_entries_read = 0;
     while (list_ids_file.read((char *)&list_id, sizeof(list_id_t)))
     {
-      list_id_counts[list_id]++;
+      lists_counts[list_id]++;
       n_entries_read++;
     }
     list_ids_file.close();
@@ -507,10 +513,11 @@ namespace ann_dkvs
       throw runtime_error("Number of entries in list ids file does not match n_entries");
     }
 
-    for (list_id_counts_map_t::iterator it = list_id_counts.begin(); it != list_id_counts.end(); it++)
+    for (auto list_it : lists_counts)
     {
-      create_list(it->first, it->second);
+      create_list(list_it.first, list_it.second);
     }
+    return lists_counts;
   }
 
   void InvertedLists::bulk_insert_entries(
@@ -524,6 +531,50 @@ namespace ann_dkvs
       throw runtime_error("bulk_insert_entries() can only be called on an empty inverted lists");
     }
     reserve_space(n_entries);
-    bulk_create_lists(list_ids_filename, n_entries);
+    list_id_counts_map_t entries_left = bulk_create_lists(list_ids_filename, n_entries);
+
+    ifstream vectors_file = open_filestream(vectors_filename);
+    ifstream ids_file = open_filestream(ids_filename);
+    ifstream list_ids_file = open_filestream(list_ids_filename);
+
+    len_t n_entries_read = 0;
+    vector_el_t cur_vector;
+    vector_id_t cur_id;
+    list_id_t cur_list_id;
+
+    while (true)
+    {
+      if (!vectors_file.read((char *)&cur_vector, sizeof(vector_el_t)))
+      {
+        break;
+      }
+      if (!ids_file.read((char *)&cur_id, sizeof(vector_id_t)))
+      {
+        throw runtime_error("Error reading ids file");
+      }
+      if (!list_ids_file.read((char *)&cur_list_id, sizeof(list_id_t)))
+      {
+        throw runtime_error("Error reading list ids file");
+      }
+      len_t list_length = get_list_length(cur_list_id);
+      len_t cur_list_offset = list_length - entries_left[cur_list_id];
+      update_entries(cur_list_id, &cur_vector, &cur_id, cur_list_offset, 1);
+      entries_left[cur_list_id]--;
+      n_entries_read++;
+    }
+
+    if (vectors_file.bad() || ids_file.bad() || list_ids_file.bad())
+    {
+      throw runtime_error("Error reading files");
+    }
+
+    vectors_file.close();
+    ids_file.close();
+    list_ids_file.close();
+
+    if (n_entries_read != n_entries)
+    {
+      throw runtime_error("Number of entries in files does not match n_entries");
+    }
   }
 }
