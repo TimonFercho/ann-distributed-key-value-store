@@ -85,6 +85,10 @@ namespace ann_dkvs
 
   InvertedLists::InvertedLists(len_t vector_dim, string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
   {
+    if (vector_dim == 0)
+    {
+      throw out_of_range("Vector dimension must be greater than 0");
+    }
   }
 
   InvertedLists::~InvertedLists()
