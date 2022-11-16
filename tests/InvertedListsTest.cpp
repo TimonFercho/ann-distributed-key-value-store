@@ -25,7 +25,7 @@ using Catch::Matchers::Contains;
 
 #define gen_list_id() gen_list_ids(1)[0]
 
-#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_vals(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTHS, CHUNK_LEN, EXCLUDE_SET, true)
+#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_vals(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTHS, CHUNK_LEN, EXCLUDE_SET, false)
 
 #define gen_list_length(EXCLUDE_SET) gen_list_lengths(1, EXCLUDE_SET)[0]
 
