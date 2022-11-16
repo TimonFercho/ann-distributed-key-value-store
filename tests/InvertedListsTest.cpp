@@ -394,20 +394,20 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
   {
     size_t vector_dim = 1;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
-    // auto data = gen_vectors(vector_dim);
-    // len_t list_length = data.second.size();
-    // vector_el_t *vectors = to_ptr(vector_el_t, data.first);
-    // vector_id_t *vector_ids = to_ptr(vector_id_t, data.second);
-    vector_el_t vectors[5] = {6.0, 7.0, 8.0, 9.0, 10.0};
-    list_id_t ids[5] = {1, 2, 3, 4, 5};
-    // vector_id_t *ids = to_ptr(vector_id_t, gen_vector_ids_fixed(5));
-    vector_el_t vectors2[5] = {11.0, 12.0, 13.0, 14.0, 15.0};
-    list_id_t ids2[5] = {6, 7, 8, 9, 10};
+
+    auto data = gen_vectors(1);
+    len_t list_length = data.second.size();
+    vector_el_t *vectors = to_ptr(vector_el_t, data.first);
+    vector_id_t *ids = to_ptr(vector_id_t, data.second);
+
+    auto data2 = gen_vectors(1);
+    len_t list_length2 = data2.second.size();
+    vector_el_t *vectors2 = to_ptr(vector_el_t, data2.first);
+    vector_id_t *ids2 = to_ptr(vector_id_t, data2.second);
 
     WHEN("an inverted list is created")
     {
-      list_id_t list_id = 1;
-      len_t list_length = 5;
+      list_id_t list_id = gen_list_id();
       lists.create_list(list_id, list_length);
       size_t total_size_before_update = lists.get_total_size();
 
@@ -445,7 +445,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
 
         AND_WHEN("only the first few entries are updated with the second list")
         {
-          len_t update_length = 3;
+          len_t update_length = min((size_t)10, min(list_length, list_length2));
           lists.update_entries(list_id, vectors2, ids2, 0, update_length);
 
           THEN("only the first few entries are updated with the vectors from the second list")
@@ -487,7 +487,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
 
         AND_WHEN("only the last few entries are updated with the second list")
         {
-          len_t update_length = 3;
+          len_t update_length = min((size_t)10, min(list_length, list_length2));
           lists.update_entries(list_id, vectors2, ids2, list_length - update_length, update_length);
 
           THEN("only the last few entries are updated with the vectors from the second list")
@@ -529,7 +529,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
       }
       AND_WHEN("the list is updated with more entries than it has")
       {
-        len_t update_length = 6;
+        len_t update_length = list_length + 1;
 
         THEN("an exception is thrown")
         {
@@ -538,7 +538,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
       }
       AND_WHEN("a list is updated which does not exist")
       {
-        list_id_t list_id2 = 2;
+        list_id_t list_id2 = list_id + 1;
         len_t update_length = 5;
         THEN("an exception is thrown")
         {
