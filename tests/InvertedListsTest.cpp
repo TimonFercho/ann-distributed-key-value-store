@@ -8,14 +8,26 @@ using namespace ann_dkvs;
 using Catch::Matchers::Contains;
 
 #define FILE_NAME "test_lists.bin"
-#define MAX_VECTOR_DIM 5
-#define MAX_LIST_ID 1000
-#define MAX_LIST_LENGTH 1000
-#define N_VECTOR_DIMS 10
-#define N_LIST_IDS 10
-#define N_LIST_LENGTHS 10
+#define MAX_VECTOR_DIM 3
+#define MAX_LIST_ID 3
+#define MAX_LIST_LENGTH 3
+#define N_VECTOR_DIMS 5
+#define N_LIST_IDS 5
+#define N_LIST_LENGTHS 5
 
-#define gen_val(T, VAL_TYPE) gen_vals<T>(VAL_TYPE, 1)[0]
+#define gen_vals(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET, UNIQUE) (GENERATE(take(N_CHUNKS, filter([](vector<T> chunk) { return UNIQUE ? is_unique<T>(chunk) : true; }, chunk(CHUNK_LEN, map([](int val) { return (T)val; }, filter([&](int val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL))))))))
+
+#define gen_val(T, MIN_VAL, MAX_VAL, N_VALS, EXCLUDE_SET) (gen_vals(T, MIN_VAL, MAX_VAL, N_VALS, 1, EXCLUDE_SET, false)[0])
+
+#define gen_vector_dim(EXCLUDE_SET) gen_val(len_t, 0, MAX_VECTOR_DIM, N_VECTOR_DIMS, EXCLUDE_SET)
+
+#define gen_list_ids(CHUNK_LEN) gen_vals(list_id_t, 0, MAX_LIST_ID, N_LIST_IDS, CHUNK_LEN, {}, true)
+
+#define gen_list_id() gen_list_ids(1)[0]
+
+#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_vals(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTHS, CHUNK_LEN, EXCLUDE_SET, true)
+
+#define gen_list_length(EXCLUDE_SET) gen_list_lengths(1, EXCLUDE_SET)[0]
 
 auto round_up_to_next_power_of_two = [](size_t value)
 {
@@ -66,53 +78,11 @@ bool is_unique(vector<T> vec)
   return unique(vec.begin(), vec.end()) == vec.end();
 }
 
-enum val_type
-{
-  vector_dim_v,
-  list_id_v,
-  list_length_v
-};
-
-template <typename T>
-vector<T> gen_vals(
-    val_type val_type,
-    len_t chunk_len = 1)
-{
-  T min_val, max_val;
-  len_t n_chunks;
-  switch (val_type)
-  {
-  case vector_dim_v:
-    min_val = 1;
-    max_val = MAX_VECTOR_DIM;
-    n_chunks = N_VECTOR_DIMS;
-    break;
-  case list_id_v:
-    min_val = 0;
-    max_val = MAX_LIST_ID;
-    n_chunks = N_LIST_IDS;
-    break;
-  case list_length_v:
-    min_val = 1;
-    max_val = MAX_LIST_LENGTH;
-    n_chunks = N_LIST_LENGTHS;
-    break;
-  }
-  return GENERATE_REF(
-      take(n_chunks,
-           filter([&](vector<T> chunk)
-                  { return is_unique<T>(chunk); },
-                  chunk(chunk_len,
-                        map([](int val)
-                            { return (T)val; },
-                            random(min_val, max_val))))));
-};
-
 SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[InvertedLists]")
 {
   GIVEN("a nonzero vector dimension")
   {
-    auto vector_dim = gen_val(len_t, vector_dim_v);
+    len_t vector_dim = gen_vector_dim({0});
 
     CHECK(vector_dim > 0);
 
@@ -165,12 +135,12 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
   GIVEN("an InvertedLists object storing vectors of some dimension")
   {
-    len_t vector_dim = gen_val(len_t, vector_dim_v);
+    len_t vector_dim = gen_vector_dim({0});
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list of length 0 is created")
     {
-      len_t list_id = gen_val(len_t, list_id_v);
+      len_t list_id = gen_list_id();
       len_t list_length = 0;
       THEN("an exception is thrown")
       {
@@ -180,9 +150,11 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
     WHEN("a list of nonzero length is created")
     {
-      auto list_ids = gen_vals<list_id_t>(list_id_v, 2);
-      auto list_lengths = gen_vals<len_t>(list_length_v, 2);
+      auto list_ids = gen_list_ids(2);
+      auto list_lengths = gen_list_lengths(2, {0});
       CHECK(list_ids[0] != list_ids[1]);
+      CHECK(list_lengths[0] > 0);
+      CHECK(list_lengths[1] > 0);
 
       lists.create_list(list_ids[0], list_lengths[0]);
 
