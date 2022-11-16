@@ -42,11 +42,13 @@ using Catch::Matchers::Contains;
 
 #define gen_vector_vals_fixed(CHUNK_LEN) gen_vals_rand(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTOR_VALS, CHUNK_LEN, {}, false)
 
-#define gen_vectors_fixed(CHUNK_LEN) make_pair(gen_vector_vals_fixed(CHUNK_LEN), gen_vector_ids_fixed(CHUNK_LEN))
+#define gen_vectors_fixed(CHUNK_LEN, DIM) make_pair(gen_vector_vals_fixed((CHUNK_LEN) * (DIM)), gen_vector_ids_fixed(CHUNK_LEN))
 
 #define rand(MIN, MAX) (rand() % (MAX - MIN + 1) + MIN)
 
-#define gen_vectors() gen_vectors_fixed(rand(1, MAX_LIST_LENGTH))
+#define gen_vectors_onedim() gen_vectors_fixed(rand(1, MAX_LIST_LENGTH), 1)
+
+#define gen_vectors(DIM) gen_vectors_fixed(rand(1, MAX_LIST_LENGTH), DIM)
 
 auto round_up_to_next_power_of_two = [](size_t value)
 {
@@ -392,10 +394,12 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
   {
     size_t vector_dim = 1;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
+    // auto data = gen_vectors(vector_dim);
+    // len_t list_length = data.second.size();
+    // vector_el_t *vectors = to_ptr(vector_el_t, data.first);
+    // vector_id_t *vector_ids = to_ptr(vector_id_t, data.second);
     vector_el_t vectors[5] = {6.0, 7.0, 8.0, 9.0, 10.0};
     list_id_t ids[5] = {1, 2, 3, 4, 5};
-    auto gen_vectors = gen_vectors();
-    auto gen_length = gen_vectors.first.size();
     // vector_id_t *ids = to_ptr(vector_id_t, gen_vector_ids_fixed(5));
     vector_el_t vectors2[5] = {11.0, 12.0, 13.0, 14.0, 15.0};
     list_id_t ids2[5] = {6, 7, 8, 9, 10};
