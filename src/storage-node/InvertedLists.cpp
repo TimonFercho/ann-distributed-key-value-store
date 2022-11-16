@@ -542,12 +542,8 @@ namespace ann_dkvs
     vector_id_t cur_id;
     list_id_t cur_list_id;
 
-    while (true)
+    while (vectors_file.read((char *)&cur_vector, sizeof(vector_el_t)))
     {
-      if (!vectors_file.read((char *)&cur_vector, sizeof(vector_el_t)))
-      {
-        break;
-      }
       if (!ids_file.read((char *)&cur_id, sizeof(vector_id_t)))
       {
         throw runtime_error("Error reading ids file");
