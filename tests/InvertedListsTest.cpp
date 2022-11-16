@@ -110,14 +110,15 @@ vector<T> gen_vals(
 
 SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[InvertedLists]")
 {
-  GIVEN("a vector dimension and a filename")
+  GIVEN("a nonzero vector dimension")
   {
-    size_t vector_dim = 1;
-    string filename = "lists.bin";
+    auto vector_dim = gen_val(len_t, vector_dim_v);
+
+    CHECK(vector_dim > 0);
 
     WHEN("an InvertedLists object is created")
     {
-      InvertedLists lists = InvertedLists(vector_dim, filename);
+      InvertedLists lists = get_inverted_lists_object(vector_dim);
 
       THEN("the number of lists is 0")
       {
@@ -131,7 +132,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[Invert
 
       THEN("the filename is correct")
       {
-        REQUIRE(lists.get_filename() == filename);
+        REQUIRE(lists.get_filename() == FILE_NAME);
       }
 
       THEN("the vector size is correct")
@@ -142,6 +143,18 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[Invert
       THEN("the total size is correct")
       {
         REQUIRE(lists.get_total_size() == 0);
+      }
+    }
+  }
+  GIVEN("the vector dimension 0")
+  {
+    len_t vector_dim = 0;
+
+    WHEN("an InvertedLists object is created")
+    {
+      THEN("an exception is thrown")
+      {
+        REQUIRE_THROWS_AS(get_inverted_lists_object(vector_dim), out_of_range);
       }
     }
   }
