@@ -322,8 +322,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   GIVEN("an InvertedLists object storing vectors of dimension 2")
   {
     size_t vector_dim = 2;
-    string filename = "lists.bin";
-    InvertedLists lists = InvertedLists(vector_dim, filename);
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("no lists have been created")
     {
@@ -335,7 +334,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
 
     WHEN("a list is created which has a size = 2^n > 32B")
     {
-      list_id_t list_id = 1;
+      list_id_t list_id = gen_list_id();
       len_t list_length = 4;
       lists.create_list(list_id, list_length);
 
@@ -352,7 +351,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
 
     WHEN("a list is created with size < 32B")
     {
-      list_id_t list_id = 1;
+      list_id_t list_id = gen_list_id();
       len_t list_length = 1;
       lists.create_list(list_id, list_length);
 
