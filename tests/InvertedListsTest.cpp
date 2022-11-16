@@ -44,10 +44,15 @@ auto is_power_of_two = [](size_t value)
   return (value & (value - 1)) == 0;
 };
 
-auto get_list_size = [](InvertedLists lists, len_t n_entries)
+auto get_vector_size = [](len_t vector_dim)
+{
+  return vector_dim * sizeof(vector_el_t);
+};
+
+auto get_list_size = [](len_t vector_dim, len_t n_entries)
 {
   len_t entries_allocated = round_up_to_next_power_of_two(n_entries);
-  size_t list_size = entries_allocated * (lists.get_vector_size() + sizeof(vector_id_t));
+  size_t list_size = entries_allocated * (get_vector_size(vector_dim) + sizeof(vector_id_t));
   return list_size;
 };
 
@@ -170,7 +175,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
       THEN("the total size is correct")
       {
-        size_t used_space = get_list_size(lists, list_lengths[0]);
+        size_t used_space = get_list_size(vector_dim, list_lengths[0]);
         REQUIRE(lists.get_total_size() == get_total_size(used_space));
       }
 
@@ -194,7 +199,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
         THEN("the total size is still correct")
         {
-          size_t used_space = get_list_size(lists, list_lengths[0]);
+          size_t used_space = get_list_size(vector_dim, list_lengths[0]);
           REQUIRE(lists.get_total_size() == get_total_size(used_space));
         }
       }
@@ -220,13 +225,13 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
         THEN("the total size is correct")
         {
-          size_t used_space = get_list_size(lists, list_lengths[0]) + get_list_size(lists, list_lengths[1]);
+          size_t used_space = get_list_size(vector_dim, list_lengths[0]) + get_list_size(vector_dim, list_lengths[1]);
           REQUIRE(lists.get_total_size() == get_total_size(used_space));
         }
 
         THEN("the free space is correct")
         {
-          size_t used_space = get_list_size(lists, list_lengths[0]) + get_list_size(lists, list_lengths[1]);
+          size_t used_space = get_list_size(vector_dim, list_lengths[0]) + get_list_size(vector_dim, list_lengths[1]);
           size_t total_size = get_total_size(used_space);
           REQUIRE(lists.get_free_space() == total_size - used_space);
         }
@@ -265,7 +270,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
       len_t list_length = 1;
       lists.create_list(list_id, list_length);
 
-      size_t list_size = get_list_size(lists, list_length);
+      size_t list_size = get_list_size(vector_dim, list_length);
 
       CHECK(list_size < 32);
 
@@ -293,8 +298,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   GIVEN("an InvertedLists object storing vectors of dimension 1")
   {
     size_t vector_dim = 1;
-    string filename = "lists.bin";
-    InvertedLists lists = InvertedLists(vector_dim, filename);
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list is created which has a size != 2^n > 32B")
     {
@@ -302,13 +306,13 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
       len_t list_length = 3;
       lists.create_list(list_id, list_length);
 
-      size_t list_size = get_list_size(lists, list_length);
+      size_t list_size = get_list_size(vector_dim, list_length);
 
       CHECK(!is_power_of_two(list_size));
 
       THEN("the free space is the difference between the list size and the next power of two")
       {
-        size_t list_size = get_list_size(lists, list_length);
+        size_t list_size = get_list_size(vector_dim, list_length);
         size_t next_power_of_two = round_up_to_next_power_of_two(list_size);
         REQUIRE(lists.get_free_space() == next_power_of_two - list_size);
       }
@@ -335,7 +339,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
       len_t list_length = 4;
       lists.create_list(list_id, list_length);
 
-      size_t list_size = get_list_size(lists, list_length);
+      size_t list_size = get_list_size(vector_dim, list_length);
 
       CHECK(list_size == 64);
       CHECK(is_power_of_two(list_size));
@@ -352,7 +356,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
       len_t list_length = 1;
       lists.create_list(list_id, list_length);
 
-      size_t list_size = get_list_size(lists, list_length);
+      size_t list_size = get_list_size(vector_dim, list_length);
 
       CHECK(list_size < 32);
 
@@ -614,7 +618,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list")
 
           THEN("the total size is updated")
           {
-            size_t list_size_after_append = get_list_size(lists, total_list_length);
+            size_t list_size_after_append = get_list_size(vector_dim, total_list_length);
             size_t total_size_after_append = get_total_size(list_size_after_append);
             REQUIRE(lists.get_total_size() == total_size_after_append);
           }
@@ -704,7 +708,7 @@ SCENARIO("resize_list(): an inverted list can be resized")
 
           THEN("the total size is updated")
           {
-            size_t list_size_after_resize = get_list_size(lists, new_list_length);
+            size_t list_size_after_resize = get_list_size(vector_dim, new_list_length);
             size_t total_size_after_resize = get_total_size(list_size_after_resize);
             REQUIRE(lists.get_total_size() == total_size_after_resize);
           }
@@ -947,7 +951,7 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
             size_t total_size = 0;
             for (auto list : list_vectors_map)
             {
-              total_size += get_list_size(lists, list.second.size());
+              total_size += get_list_size(vector_dim, list.second.size());
             }
             REQUIRE(lists.get_total_size() == get_total_size(total_size));
           }
