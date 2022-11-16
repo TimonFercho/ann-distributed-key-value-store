@@ -163,17 +163,28 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[Invert
 SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 {
 
-  GIVEN("an InvertedLists object")
+  GIVEN("an InvertedLists object storing vectors of some dimension")
   {
-    size_t vector_dim = 1;
-    string filename = "lists.bin";
-    InvertedLists lists = InvertedLists(vector_dim, filename);
+    len_t vector_dim = gen_val(len_t, vector_dim_v);
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
 
-    WHEN("and a list is created")
+    WHEN("a list of length 0 is created")
     {
-      list_id_t list_id = 1;
-      len_t list_length = 5;
-      lists.create_list(list_id, list_length);
+      len_t list_id = gen_val(len_t, list_id_v);
+      len_t list_length = 0;
+      THEN("an exception is thrown")
+      {
+        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
+      }
+    }
+
+    WHEN("a list of nonzero length is created")
+    {
+      auto list_ids = gen_vals<list_id_t>(list_id_v, 2);
+      auto list_lengths = gen_vals<len_t>(list_length_v, 2);
+      CHECK(list_ids[0] != list_ids[1]);
+
+      lists.create_list(list_ids[0], list_lengths[0]);
 
       THEN("the number of lists is 1")
       {
@@ -182,18 +193,22 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
       THEN("the list length is correct")
       {
-        REQUIRE(lists.get_list_length(list_id) == list_length);
+        REQUIRE(lists.get_list_length(list_ids[0]) == list_lengths[0]);
       }
 
       THEN("the total size is correct")
       {
-        size_t used_space = get_list_size(lists, list_length);
+        size_t used_space = get_list_size(lists, list_lengths[0]);
         REQUIRE(lists.get_total_size() == get_total_size(used_space));
       }
 
-      AND_WHEN("another list with the same index is created")
+      AND_WHEN("another list of nonzero length with the same index is created")
       {
-        REQUIRE_THROWS_AS(lists.create_list(1, 5), invalid_argument);
+
+        THEN("an exception is thrown")
+        {
+          REQUIRE_THROWS_AS(lists.create_list(list_ids[0], list_lengths[1]), invalid_argument);
+        }
 
         THEN("the number of lists is still 1")
         {
@@ -202,21 +217,19 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
         THEN("the first list has the correct length")
         {
-          REQUIRE(lists.get_list_length(1) == 5);
+          REQUIRE(lists.get_list_length(list_ids[0]) == list_lengths[0]);
         }
 
         THEN("the total size is still correct")
         {
-          size_t used_space = get_list_size(lists, list_length);
+          size_t used_space = get_list_size(lists, list_lengths[0]);
           REQUIRE(lists.get_total_size() == get_total_size(used_space));
         }
       }
 
-      AND_WHEN("another list with a different index is created")
+      AND_WHEN("another list of nonzero length with a different index is created")
       {
-        list_id_t list_id2 = 2;
-        len_t list_length2 = 5;
-        lists.create_list(list_id2, list_length2);
+        lists.create_list(list_ids[1], list_lengths[1]);
 
         THEN("the number of lists is 2")
         {
@@ -225,23 +238,23 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 
         THEN("the first list has the correct length")
         {
-          REQUIRE(lists.get_list_length(1) == 5);
+          REQUIRE(lists.get_list_length(list_ids[0]) == list_lengths[0]);
         }
 
         THEN("the second list has the correct length")
         {
-          REQUIRE(lists.get_list_length(2) == 5);
+          REQUIRE(lists.get_list_length(list_ids[1]) == list_lengths[1]);
         }
 
         THEN("the total size is correct")
         {
-          size_t used_space = get_list_size(lists, list_length) + get_list_size(lists, list_length2);
+          size_t used_space = get_list_size(lists, list_lengths[0]) + get_list_size(lists, list_lengths[1]);
           REQUIRE(lists.get_total_size() == get_total_size(used_space));
         }
 
         THEN("the free space is correct")
         {
-          size_t used_space = get_list_size(lists, list_length) + get_list_size(lists, list_length2);
+          size_t used_space = get_list_size(lists, list_lengths[0]) + get_list_size(lists, list_lengths[1]);
           size_t total_size = get_total_size(used_space);
           REQUIRE(lists.get_free_space() == total_size - used_space);
         }
@@ -257,6 +270,22 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
         REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
       }
     }
+
+    WHEN("a list of length 0 is created")
+    {
+      list_id_t list_id = 1;
+      len_t list_length = 0;
+
+      THEN("an exception is thrown")
+      {
+        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
+      }
+    }
+  }
+  GIVEN("an InvertedLists object storing vectors of dimension 1")
+  {
+    size_t vector_dim = 1;
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list of size < 32B is created")
     {
@@ -281,17 +310,6 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
       THEN("the list length is correct")
       {
         REQUIRE(lists.get_list_length(list_id) == list_length);
-      }
-    }
-
-    WHEN("a list of length 0 is created")
-    {
-      list_id_t list_id = 1;
-      len_t list_length = 0;
-
-      THEN("an exception is thrown")
-      {
-        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
       }
     }
   }
