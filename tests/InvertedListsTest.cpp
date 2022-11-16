@@ -7,6 +7,16 @@
 using namespace ann_dkvs;
 using Catch::Matchers::Contains;
 
+#define FILE_NAME "test_lists.bin"
+#define MAX_VECTOR_DIM 5
+#define MAX_LIST_ID 1000
+#define MAX_LIST_LENGTH 1000
+#define N_VECTOR_DIMS 10
+#define N_LIST_IDS 10
+#define N_LIST_LENGTHS 10
+
+#define gen_val(T, VAL_TYPE) gen_vals<T>(VAL_TYPE, 1)[0]
+
 auto round_up_to_next_power_of_two = [](size_t value)
 {
   size_t power = 1;
@@ -40,6 +50,62 @@ auto write_to_file = [](string filename, void *data, size_t size)
   FILE *file = fopen(filename.c_str(), "w");
   fwrite(data, size, 1, file);
   fclose(file);
+};
+
+auto get_inverted_lists_object(len_t vector_dim)
+{
+  remove(FILE_NAME);
+  InvertedLists lists(vector_dim, FILE_NAME);
+  return lists;
+};
+
+template <typename T>
+bool is_unique(vector<T> vec)
+{
+  sort(vec.begin(), vec.end());
+  return unique(vec.begin(), vec.end()) == vec.end();
+}
+
+enum val_type
+{
+  vector_dim_v,
+  list_id_v,
+  list_length_v
+};
+
+template <typename T>
+vector<T> gen_vals(
+    val_type val_type,
+    len_t chunk_len = 1)
+{
+  T min_val, max_val;
+  len_t n_chunks;
+  switch (val_type)
+  {
+  case vector_dim_v:
+    min_val = 1;
+    max_val = MAX_VECTOR_DIM;
+    n_chunks = N_VECTOR_DIMS;
+    break;
+  case list_id_v:
+    min_val = 0;
+    max_val = MAX_LIST_ID;
+    n_chunks = N_LIST_IDS;
+    break;
+  case list_length_v:
+    min_val = 1;
+    max_val = MAX_LIST_LENGTH;
+    n_chunks = N_LIST_LENGTHS;
+    break;
+  }
+  return GENERATE_REF(
+      take(n_chunks,
+           filter([&](vector<T> chunk)
+                  { return is_unique<T>(chunk); },
+                  chunk(chunk_len,
+                        map([](int val)
+                            { return (T)val; },
+                            random(min_val, max_val))))));
 };
 
 SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[InvertedLists]")
