@@ -17,8 +17,7 @@ using Catch::Matchers::Contains;
 #define N_VECTOR_DIMS 5
 #define N_LIST_IDS 5
 #define N_LIST_LENGTHS 5
-#define N_VECTOR_IDS 5
-#define N_VECTOR_VALS 5
+#define N_VECTORS 1
 
 #define gen_vals_rand(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET, UNIQUE) (GENERATE(take(N_CHUNKS, filter([](vector<T> chunk) { return UNIQUE ? is_unique<T>(chunk) : true; }, chunk(CHUNK_LEN, map([](int val) { return (T)val; }, filter([&](int val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL))))))))
 
@@ -38,9 +37,9 @@ using Catch::Matchers::Contains;
 
 #define gen_list_length(EXCLUDE_SET) gen_list_lengths(1, EXCLUDE_SET)[0]
 
-#define gen_vector_ids_fixed(CHUNK_LEN) gen_vals_range(vector_id_t, 0, MAX_VECTOR_ID, N_VECTOR_IDS, CHUNK_LEN, {})
+#define gen_vector_ids_fixed(CHUNK_LEN) gen_vals_range(vector_id_t, 0, MAX_VECTOR_ID, N_VECTORS, CHUNK_LEN, {})
 
-#define gen_vector_vals_fixed(CHUNK_LEN) gen_vals_rand(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTOR_VALS, CHUNK_LEN, {}, false)
+#define gen_vector_vals_fixed(CHUNK_LEN) gen_vals_rand(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTORS, CHUNK_LEN, {}, false)
 
 #define gen_vectors_fixed(CHUNK_LEN, DIM) make_pair(gen_vector_vals_fixed((CHUNK_LEN) * (DIM)), gen_vector_ids_fixed(CHUNK_LEN))
 
