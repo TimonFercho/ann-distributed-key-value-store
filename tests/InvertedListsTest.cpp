@@ -660,11 +660,12 @@ SCENARIO("resize_list(): an inverted list can be resized")
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
     size_t vector_dim = 1;
-    string filename = "lists.bin";
-    len_t list_length = 5;
-    InvertedLists lists = InvertedLists(vector_dim, filename);
-    vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
-    list_id_t ids[list_length] = {1, 2, 3, 4, 5};
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
+
+    auto data = gen_vectors(1);
+    len_t list_length = get_vector_length(data, vector_dim);
+    vector_el_t *vectors = to_ptr(vector_el_t, data.first);
+    vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
     WHEN("an inverted list is created")
     {
@@ -676,68 +677,77 @@ SCENARIO("resize_list(): an inverted list can be resized")
         lists.update_entries(list_id, vectors, ids, 0, list_length);
         size_t total_size_before_resizing = lists.get_total_size();
 
-        AND_WHEN("the list is resized to a smaller size")
+        if (list_length >= 2)
         {
-          len_t new_list_length = 3;
-          lists.resize_list(list_id, new_list_length);
+          AND_WHEN("the list is resized to a smaller size")
+          {
+            len_t new_list_length = random_range(1, list_length - 1);
 
-          vector_el_t *list_vectors = lists.get_vectors(list_id);
-          THEN("all vectors of the first list are unchanged")
-          {
-            for (len_t i = 0; i < new_list_length; i++)
-            {
-              REQUIRE(list_vectors[i] == vectors[i]);
-            }
-          }
-          list_id_t *list_ids = lists.get_ids(list_id);
-          THEN("all ids of the first list are unchanged")
-          {
-            for (len_t i = 0; i < new_list_length; i++)
-            {
-              REQUIRE(list_ids[i] == ids[i]);
-            }
-          }
-          THEN("the list length is updated")
-          {
-            REQUIRE(lists.get_list_length(list_id) == new_list_length);
-          }
+            REQUIRE(new_list_length < list_length);
+            lists.resize_list(list_id, new_list_length);
 
-          THEN("the total size is unaffected")
-          {
-            REQUIRE(lists.get_total_size() == total_size_before_resizing);
+            vector_el_t *list_vectors = lists.get_vectors(list_id);
+            THEN("all vectors of the first list are unchanged")
+            {
+              for (len_t i = 0; i < new_list_length; i++)
+              {
+                REQUIRE(list_vectors[i] == vectors[i]);
+              }
+            }
+            list_id_t *list_ids = lists.get_ids(list_id);
+            THEN("all ids of the first list are unchanged")
+            {
+              for (len_t i = 0; i < new_list_length; i++)
+              {
+                REQUIRE(list_ids[i] == ids[i]);
+              }
+            }
+            THEN("the list length is updated")
+            {
+              REQUIRE(lists.get_list_length(list_id) == new_list_length);
+            }
+
+            THEN("the total size is unaffected")
+            {
+              REQUIRE(lists.get_total_size() == total_size_before_resizing);
+            }
           }
         }
-        AND_THEN("the list is resized to a larger size")
+        if (list_length < MAX_LIST_LENGTH)
         {
-          len_t new_list_length = 10;
-          lists.resize_list(list_id, new_list_length);
+          AND_THEN("the list is resized to a larger size")
+          {
+            len_t new_list_length = random_range(list_length + 1, MAX_LIST_LENGTH);
+            REQUIRE(new_list_length > list_length);
+            lists.resize_list(list_id, new_list_length);
 
-          vector_el_t *list_vectors = lists.get_vectors(list_id);
-          THEN("all vectors of the first list are unchanged")
-          {
-            for (len_t i = 0; i < list_length; i++)
+            vector_el_t *list_vectors = lists.get_vectors(list_id);
+            THEN("all vectors of the first list are unchanged")
             {
-              REQUIRE(list_vectors[i] == vectors[i]);
+              for (len_t i = 0; i < list_length; i++)
+              {
+                REQUIRE(list_vectors[i] == vectors[i]);
+              }
             }
-          }
-          list_id_t *list_ids = lists.get_ids(list_id);
-          THEN("all ids of the first list are unchanged")
-          {
-            for (len_t i = 0; i < list_length; i++)
+            list_id_t *list_ids = lists.get_ids(list_id);
+            THEN("all ids of the first list are unchanged")
             {
-              REQUIRE(list_ids[i] == ids[i]);
+              for (len_t i = 0; i < list_length; i++)
+              {
+                REQUIRE(list_ids[i] == ids[i]);
+              }
             }
-          }
-          THEN("the list length is updated")
-          {
-            REQUIRE(lists.get_list_length(list_id) == new_list_length);
-          }
+            THEN("the list length is updated")
+            {
+              REQUIRE(lists.get_list_length(list_id) == new_list_length);
+            }
 
-          THEN("the total size is updated")
-          {
-            size_t list_size_after_resize = get_list_size(vector_dim, new_list_length);
-            size_t total_size_after_resize = get_total_size(list_size_after_resize);
-            REQUIRE(lists.get_total_size() == total_size_after_resize);
+            THEN("the total size is updated")
+            {
+              size_t list_size_after_resize = get_list_size(vector_dim, new_list_length);
+              size_t total_size_after_resize = get_total_size(list_size_after_resize);
+              REQUIRE(lists.get_total_size() == total_size_after_resize);
+            }
           }
         }
         AND_WHEN("the list is resized to the same size")
