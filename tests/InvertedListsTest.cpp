@@ -12,14 +12,14 @@ using Catch::Matchers::Contains;
 #define MAX_VECTOR_DIM 1
 #define MAX_LIST_ID 10000
 #define MAX_VECTOR_ID 10000
-#define MAX_LIST_LENGTH 100
+#define MAX_LIST_LENGTH 25
 #define MIN_VECTOR_VAL -1E10F
 #define MAX_VECTOR_VAL 1E10F
 
-#define N_VECTOR_DIMS 25
-#define N_LIST_IDS 25
-#define N_LIST_LENGTHS 25
-#define N_VECTORS 25
+#define N_VECTOR_DIMS 15
+#define N_LIST_IDS 15
+#define N_LIST_LENGTHS 15
+#define N_VECTORS 5
 
 #define gen_random_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random((int)MIN_VAL, (int)MAX_VAL)))))))
 
@@ -409,22 +409,26 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   }
 }
 
-SCENARIO("update_entries(): multiple entries of a list can be updated", "[.InvertedLists]")
+SCENARIO("update_entries(): multiple entries of a list can be updated", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
-    size_t vector_dim = 1;
+    size_t vector_dim = 64;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
-    auto data = gen_vectors(1);
+    auto data = gen_vectors(64);
     len_t list_length = get_vector_length(data, vector_dim);
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
     vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
-    auto data2 = gen_vectors(1);
+    REQUIRE(list_length == min(data.first.size() / vector_dim, data.second.size()));
+
+    auto data2 = gen_vectors(64);
     len_t list_length2 = get_vector_length(data2, vector_dim);
     vector_el_t *vectors2 = to_ptr(vector_el_t, data2.first);
     vector_id_t *ids2 = to_ptr(vector_id_t, data2.second);
+
+    REQUIRE(list_length2 == min(data2.first.size() / vector_dim, data2.second.size()));
 
     WHEN("an inverted list is created")
     {
@@ -439,7 +443,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
         THEN("all vectors are updated")
         {
           vector_el_t *list_vectors = lists.get_vectors(list_id);
-          for (len_t i = 0; i < list_length; i++)
+          for (len_t i = 0; i < list_length * vector_dim; i++)
           {
             REQUIRE(list_vectors[i] == vectors[i]);
           }
@@ -466,33 +470,29 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
 
         AND_WHEN("only the first few entries are updated with the second list")
         {
-          len_t update_length = min((size_t)10, min(list_length, list_length2));
+          len_t update_length = random_range(1, min(list_length, list_length2));
+
+          REQUIRE(update_length <= list_length);
+          REQUIRE(update_length <= list_length2);
+
           lists.update_entries(list_id, vectors2, ids2, 0, update_length);
 
           THEN("only the first few entries are updated with the vectors from the second list")
           {
             vector_el_t *list_vectors = lists.get_vectors(list_id);
-            for (len_t i = 0; i < update_length; i++)
-            {
-              REQUIRE(list_vectors[i] == vectors2[i]);
-            }
-            for (len_t i = update_length; i < list_length; i++)
-            {
-              REQUIRE(list_vectors[i] == vectors[i]);
-            }
+
+            are_vectors_equal(list_vectors, vectors2, vector_dim, 0, update_length);
+
+            are_vectors_equal(list_vectors, vectors, vector_dim, update_length, list_length);
           }
 
           THEN("only the first few entries are updated with the ids from the second list")
           {
             list_id_t *list_ids = lists.get_ids(list_id);
-            for (len_t i = 0; i < update_length; i++)
-            {
-              REQUIRE(list_ids[i] == ids2[i]);
-            }
-            for (len_t i = update_length; i < list_length; i++)
-            {
-              REQUIRE(list_ids[i] == ids[i]);
-            }
+
+            are_ids_equal(list_ids, ids2, 0, update_length);
+
+            are_ids_equal(list_ids, ids, update_length, list_length);
           }
 
           THEN("the list length is unaffected")
@@ -508,34 +508,30 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
 
         AND_WHEN("only the last few entries are updated with the second list")
         {
-          len_t update_length = min((size_t)10, min(list_length, list_length2));
+          len_t update_length = random_range(1, min(list_length, list_length2));
+
+          REQUIRE(update_length <= list_length);
+          REQUIRE(update_length <= list_length2);
+
           lists.update_entries(list_id, vectors2, ids2, list_length - update_length, update_length);
 
-          THEN("only the last few entries are updated with the vectors from the second list")
-          {
-            vector_el_t *list_vectors = lists.get_vectors(list_id);
-            for (len_t i = 0; i < list_length - update_length; i++)
-            {
-              REQUIRE(list_vectors[i] == vectors[i]);
-            }
-            for (len_t i = list_length - update_length; i < list_length; i++)
-            {
-              REQUIRE(list_vectors[i] == vectors2[i - (list_length - update_length)]);
-            }
-          }
+          // THEN("only the last few entries are updated with the vectors from the second list")
+          // {
+          // vector_el_t *list_vectors = lists.get_vectors(list_id);
 
-          THEN("only the last few entries are updated with the ids from the second list")
-          {
-            list_id_t *list_ids = lists.get_ids(list_id);
-            for (len_t i = 0; i < list_length - update_length; i++)
-            {
-              REQUIRE(list_ids[i] == ids[i]);
-            }
-            for (len_t i = list_length - update_length; i < list_length; i++)
-            {
-              REQUIRE(list_ids[i] == ids2[i - (list_length - update_length)]);
-            }
-          }
+          // are_vectors_equal(list_vectors, vectors, vector_dim, 0, list_length - update_length);
+
+          // are_vectors_equal(list_vectors, vectors2, vector_dim, list_length - update_length, list_length);
+          // }
+
+          // THEN("only the last few entries are updated with the ids from the second list")
+          // {
+          //   list_id_t *list_ids = lists.get_ids(list_id);
+
+          //   are_ids_equal(list_ids, ids, 0, list_length - update_length);
+
+          //   are_ids_equal(list_ids, ids2, list_length - update_length, update_length);
+          // }
 
           THEN("the list length is unaffected")
           {
@@ -548,6 +544,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
           }
         }
       }
+
       AND_WHEN("the list is updated with more entries than it has")
       {
         len_t update_length = list_length + 1;
@@ -557,6 +554,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
           REQUIRE_THROWS_AS(lists.update_entries(list_id, vectors, ids, 0, update_length), out_of_range);
         }
       }
+
       AND_WHEN("a list is updated which does not exist")
       {
         list_id_t list_id2 = list_id + 1;
@@ -942,7 +940,7 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedL
   }
 }
 
-SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[InvertedLists]")
+SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
   {
