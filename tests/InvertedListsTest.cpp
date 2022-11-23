@@ -882,11 +882,12 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLi
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
     size_t vector_dim = 1;
-    string filename = "lists.bin";
-    len_t list_length = 5;
-    InvertedLists lists = InvertedLists(vector_dim, filename);
-    vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
-    list_id_t ids[list_length] = {1, 2, 3, 4, 5};
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
+
+    auto data = gen_vectors(1);
+    len_t list_length = get_vector_length(data, vector_dim);
+    vector_el_t *vectors = to_ptr(vector_el_t, data.first);
+    vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
     WHEN("an inverted list is created")
     {
