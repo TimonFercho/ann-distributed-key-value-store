@@ -109,6 +109,14 @@ bool is_unique(vector<T> vec)
   return unique(vec.begin(), vec.end()) == vec.end();
 }
 
+auto are_vectors_equal = [](vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t from, len_t to)
+{
+  for (len_t i = from * vector_dim; i < to * vector_dim; i++)
+  {
+    REQUIRE(actual[i] == expected[i]);
+  }
+};
+
 SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.InvertedLists]")
 {
   GIVEN("a nonzero vector dimension")
