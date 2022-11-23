@@ -117,6 +117,14 @@ auto are_vectors_equal = [](vector_el_t *actual, vector_el_t *expected, len_t ve
   }
 };
 
+auto are_ids_equal = [](vector_id_t *actual, vector_id_t *expected, len_t from, len_t to)
+{
+  for (len_t i = from; i < to; i++)
+  {
+    REQUIRE(actual[i] == expected[i]);
+  }
+};
+
 SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.InvertedLists]")
 {
   GIVEN("a nonzero vector dimension")
