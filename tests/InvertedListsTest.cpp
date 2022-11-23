@@ -617,7 +617,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list")
           {
             for (len_t i = list1_length; i < total_list_length; i++)
             {
-              REQUIRE(list_vectors[i] == vectors2[i - list2_length]);
+              REQUIRE(list_vectors[i] == vectors2[i - list1_length]);
             }
           }
           list_id_t *list_ids = lists.get_ids(list_id);
@@ -630,7 +630,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list")
           {
             for (len_t i = list1_length; i < total_list_length; i++)
             {
-              REQUIRE(list_ids[i] == ids2[i - list2_length]);
+              REQUIRE(list_ids[i] == ids2[i - list1_length]);
             }
           }
 
