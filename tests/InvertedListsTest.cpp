@@ -9,45 +9,45 @@ using Catch::Matchers::Contains;
 
 #define FILE_NAME "test_lists.bin"
 #define MAX_VECTOR_DIM 3
-#define MAX_LIST_ID 1000
-#define MAX_LIST_LENGTH 1000
-#define MAX_VECTOR_ID 1000
-#define MIN_VECTOR_VAL -512.0
-#define MAX_VECTOR_VAL 512.0
+#define MAX_LIST_ID 10000
+#define MAX_VECTOR_ID 10000
+#define MAX_LIST_LENGTH 10
+#define MIN_VECTOR_VAL -1E10F
+#define MAX_VECTOR_VAL 1E10F
 #define N_VECTOR_DIMS 5
 #define N_LIST_IDS 5
 #define N_LIST_LENGTHS 5
-#define N_VECTORS 1
+#define N_VECTORS 10
 
-#define gen_vals_rand(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET, UNIQUE) (GENERATE(take(N_CHUNKS, filter([](vector<T> chunk) { return UNIQUE ? is_unique<T>(chunk) : true; }, chunk(CHUNK_LEN, map([](int val) { return (T)val; }, filter([&](int val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL))))))))
+#define gen_random_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random((int)MIN_VAL, (int)MAX_VAL)))))))
 
-#define gen_vals_range(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](int val) { return (T)val; }, filter([&](int val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, range(MIN_VAL, MAX_VAL)))))))
+#define gen_ranged_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, range(MIN_VAL, MAX_VAL)))))))
 
-#define gen_val_rand(T, MIN_VAL, MAX_VAL, N_VALS, EXCLUDE_SET) (gen_vals_rand(T, MIN_VAL, MAX_VAL, N_VALS, 1, EXCLUDE_SET, false)[0])
+#define gen_random_value(T, MIN_VAL, MAX_VAL, N_VALS, EXCLUDE_SET) (gen_random_values(T, MIN_VAL, MAX_VAL, N_VALS, 1, EXCLUDE_SET)[0])
 
 #define to_ptr(T, V) ((T *)V.data())
 
-#define gen_vector_dim(EXCLUDE_SET) gen_val_rand(len_t, 0, MAX_VECTOR_DIM, N_VECTOR_DIMS, EXCLUDE_SET)
+#define gen_vector_dim(EXCLUDE_SET) (gen_random_value(len_t, 0, MAX_VECTOR_DIM, N_VECTOR_DIMS, EXCLUDE_SET))
 
-#define gen_list_ids(CHUNK_LEN) gen_vals_range(list_id_t, 0, MAX_LIST_ID, N_LIST_IDS, CHUNK_LEN, {})
+#define gen_list_ids(CHUNK_LEN) gen_ranged_values(list_id_t, 0, MAX_LIST_ID, N_LIST_IDS, CHUNK_LEN, {})
 
 #define gen_list_id() gen_list_ids(1)[0]
 
-#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_vals_rand(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTHS, CHUNK_LEN, EXCLUDE_SET, false)
+#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_values(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTHS, CHUNK_LEN, EXCLUDE_SET)
 
 #define gen_list_length(EXCLUDE_SET) gen_list_lengths(1, EXCLUDE_SET)[0]
 
-#define gen_vector_ids_fixed(CHUNK_LEN) gen_vals_range(vector_id_t, 0, MAX_VECTOR_ID, N_VECTORS, CHUNK_LEN, {})
+#define gen_vector_ids_fixed(CHUNK_LEN) gen_ranged_values(vector_id_t, 0, MAX_VECTOR_ID, N_VECTORS, CHUNK_LEN, {})
 
-#define gen_vector_vals_fixed(CHUNK_LEN) gen_vals_rand(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTORS, CHUNK_LEN, {}, false)
+#define gen_random_vector_values_fixed(CHUNK_LEN) gen_random_values(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTORS, CHUNK_LEN, {})
 
-#define gen_vectors_fixed(CHUNK_LEN, DIM) make_pair(gen_vector_vals_fixed((CHUNK_LEN) * (DIM)), gen_vector_ids_fixed(CHUNK_LEN))
+#define gen_vectors_fixed(CHUNK_LEN, DIM) make_pair(gen_random_vector_values_fixed((CHUNK_LEN) * (DIM)), gen_vector_ids_fixed(CHUNK_LEN))
 
 #define rand(MIN, MAX) (rand() % (MAX - MIN + 1) + MIN)
 
-#define gen_vectors_onedim() gen_vectors_fixed(rand(1, MAX_LIST_LENGTH), 1)
+#define gen_vectors(dim) gen_vectors_fixed(rand(1, MAX_LIST_LENGTH), dim)
 
-#define gen_vectors(DIM) gen_vectors_fixed(rand(1, MAX_LIST_LENGTH), DIM)
+#define get_vector_length(data, dim) (min(data.first.size() / dim, data.second.size()))
 
 auto round_up_to_next_power_of_two = [](size_t value)
 {
@@ -395,12 +395,12 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     auto data = gen_vectors(1);
-    len_t list_length = data.second.size();
+    len_t list_length = get_vector_length(data, vector_dim);
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
     vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
     auto data2 = gen_vectors(1);
-    len_t list_length2 = data2.second.size();
+    len_t list_length2 = get_vector_length(data2, vector_dim);
     vector_el_t *vectors2 = to_ptr(vector_el_t, data2.first);
     vector_id_t *ids2 = to_ptr(vector_id_t, data2.second);
 
