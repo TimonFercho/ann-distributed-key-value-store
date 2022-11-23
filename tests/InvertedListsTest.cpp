@@ -655,7 +655,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Inv
   }
 }
 
-SCENARIO("resize_list(): an inverted list can be resized")
+SCENARIO("resize_list(): an inverted list can be resized", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -804,7 +804,7 @@ SCENARIO("resize_list(): an inverted list can be resized")
   }
 }
 
-SCENARIO("get_list_length(): the length of an inverted list can be retrieved")
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object of 1D vectors")
   {
@@ -834,7 +834,7 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved")
   }
 }
 
-SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved")
+SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -876,7 +876,7 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved")
   }
 }
 
-SCENARIO("get_ids(): the ids of an inverted list can be retrieved")
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -918,7 +918,7 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved")
   }
 }
 
-SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)")
+SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
   {
