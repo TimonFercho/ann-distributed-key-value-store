@@ -8,16 +8,16 @@ using namespace ann_dkvs;
 using Catch::Matchers::Contains;
 
 #define FILE_NAME "test_lists.bin"
-#define MAX_VECTOR_DIM 3
+#define MAX_VECTOR_DIM 1
 #define MAX_LIST_ID 10000
 #define MAX_VECTOR_ID 10000
-#define MAX_LIST_LENGTH 10
+#define MAX_LIST_LENGTH 100
 #define MIN_VECTOR_VAL -1E10F
 #define MAX_VECTOR_VAL 1E10F
-#define N_VECTOR_DIMS 5
-#define N_LIST_IDS 5
-#define N_LIST_LENGTHS 5
-#define N_VECTORS 10
+#define N_VECTOR_DIMS 100
+#define N_LIST_IDS 100
+#define N_LIST_LENGTHS 100
+#define N_VECTORS 100
 
 #define gen_random_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random((int)MIN_VAL, (int)MAX_VAL)))))))
 
@@ -43,9 +43,9 @@ using Catch::Matchers::Contains;
 
 #define gen_vectors_fixed(CHUNK_LEN, DIM) make_pair(gen_random_vector_values_fixed((CHUNK_LEN) * (DIM)), gen_vector_ids_fixed(CHUNK_LEN))
 
-#define rand(MIN, MAX) (rand() % (MAX - MIN + 1) + MIN)
+#define random_range(MIN, MAX) (rand() % (MAX - MIN + 1) + MIN)
 
-#define gen_vectors(dim) gen_vectors_fixed(rand(1, MAX_LIST_LENGTH), dim)
+#define gen_vectors(dim) gen_vectors_fixed(random_range(1, MAX_LIST_LENGTH), dim)
 
 #define get_vector_length(data, dim) (min(data.first.size() / dim, data.second.size()))
 
@@ -103,7 +103,7 @@ bool is_unique(vector<T> vec)
   return unique(vec.begin(), vec.end()) == vec.end();
 }
 
-SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[InvertedLists]")
+SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.InvertedLists]")
 {
   GIVEN("a nonzero vector dimension")
   {
@@ -155,7 +155,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[Invert
   }
 }
 
-SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
+SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
 {
 
   GIVEN("an InvertedLists object storing vectors of some dimension")
@@ -312,7 +312,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
   }
 }
 
-SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[InvertedLists]")
+SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[.InvertedLists]")
 {
 
   GIVEN("an InvertedLists object storing vectors of dimension 1")
@@ -387,7 +387,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   }
 }
 
-SCENARIO("update_entries(): multiple entries of a list can be updated", "[InvertedLists]")
+SCENARIO("update_entries(): multiple entries of a list can be updated", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
@@ -548,7 +548,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
   }
 }
 
-SCENARIO("insert_entries(): entries can be appended to an inverted list")
+SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
@@ -806,15 +806,14 @@ SCENARIO("resize_list(): an inverted list can be resized")
 
 SCENARIO("get_list_length(): the length of an inverted list can be retrieved")
 {
-  GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
+  GIVEN("an InvertedLists object of 1D vectors")
   {
     size_t vector_dim = 1;
-    string filename = "lists.bin";
-    len_t list_length = 5;
-    InvertedLists lists = InvertedLists(vector_dim, filename);
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("an inverted list is created")
     {
+      len_t list_length = gen_list_length();
       list_id_t list_id = 1;
       lists.create_list(list_id, list_length);
 
