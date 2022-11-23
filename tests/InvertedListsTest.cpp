@@ -8,16 +8,18 @@ using namespace ann_dkvs;
 using Catch::Matchers::Contains;
 
 #define FILE_NAME "test_lists.bin"
+
 #define MAX_VECTOR_DIM 1
 #define MAX_LIST_ID 10000
 #define MAX_VECTOR_ID 10000
 #define MAX_LIST_LENGTH 100
 #define MIN_VECTOR_VAL -1E10F
 #define MAX_VECTOR_VAL 1E10F
-#define N_VECTOR_DIMS 100
-#define N_LIST_IDS 100
-#define N_LIST_LENGTHS 100
-#define N_VECTORS 100
+
+#define N_VECTOR_DIMS 25
+#define N_LIST_IDS 25
+#define N_LIST_LENGTHS 25
+#define N_VECTORS 25
 
 #define gen_random_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random((int)MIN_VAL, (int)MAX_VAL)))))))
 
@@ -35,6 +37,8 @@ using Catch::Matchers::Contains;
 
 #define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_values(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTHS, CHUNK_LEN, EXCLUDE_SET)
 
+#define gen_list_lengths_random_length() gen_list_lengths(random_range(1, N_LIST_LENGTHS), {})
+
 #define gen_list_length(EXCLUDE_SET) gen_list_lengths(1, EXCLUDE_SET)[0]
 
 #define gen_vector_ids_fixed(CHUNK_LEN) gen_ranged_values(vector_id_t, 0, MAX_VECTOR_ID, N_VECTORS, CHUNK_LEN, {})
@@ -46,6 +50,8 @@ using Catch::Matchers::Contains;
 #define random_range(MIN, MAX) (rand() % (MAX - MIN + 1) + MIN)
 
 #define gen_vectors(dim) gen_vectors_fixed(random_range(1, MAX_LIST_LENGTH), dim)
+
+#define get_clustered_vectors_length(data, list_ids, dim) (min(get_vector_length(data, dim), list_ids.size()))
 
 #define get_vector_length(data, dim) (min(data.first.size() / dim, data.second.size()))
 
@@ -655,7 +661,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Inv
   }
 }
 
-SCENARIO("resize_list(): an inverted list can be resized", "[InvertedLists]")
+SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -804,7 +810,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[InvertedLists]")
   }
 }
 
-SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object of 1D vectors")
   {
@@ -834,7 +840,7 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "
   }
 }
 
-SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -877,7 +883,7 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[In
   }
 }
 
-SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -925,14 +931,17 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
   GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
   {
     size_t vector_dim = 1;
-    len_t list_length = 5;
-    vector_el_t vectors[list_length] = {6.0, 7.0, 8.0, 9.0, 10.0};
-    list_id_t ids[list_length] = {1, 2, 3, 4, 5};
-    list_id_t list_ids[list_length] = {1, 1, 2, 1, 4, 3};
-    string filename = "bulk_lists.bin";
-    remove(filename.c_str());
-    InvertedLists lists = InvertedLists(vector_dim, filename);
-    unordered_map<list_id_t, vector<vector_el_t>> list_vectors_map;
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
+
+    auto data = gen_vectors(1);
+    auto list_ids_data = gen_list_lengths_random_length();
+    len_t list_length = get_clustered_vectors_length(data, list_ids_data, vector_dim);
+    vector_el_t *vectors = to_ptr(vector_el_t, data.first);
+    vector_id_t *ids = to_ptr(vector_id_t, data.second);
+    list_id_t *list_ids = to_ptr(list_id_t, list_ids_data);
+
+    unordered_map<list_id_t, vector<vector_el_t>>
+        list_vectors_map;
     unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
     for (len_t i = 0; i < list_length; i++)
     {
