@@ -839,30 +839,29 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object of 1D vectors")
   {
-    size_t vector_dim = 1;
+    size_t vector_dim = 128;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("an inverted list is created")
     {
       len_t list_length = gen_list_length();
-      list_id_t list_id = 1;
-      lists.create_list(list_id, list_length);
+      auto list_ids = gen_list_ids(2);
+      lists.create_list(list_ids[0], list_length);
 
       THEN("the list length is correct")
       {
-        REQUIRE(lists.get_list_length(list_id) == list_length);
+        REQUIRE(lists.get_list_length(list_ids[0]) == list_length);
       }
 
       AND_WHEN("the length of a list is retrieved which does not exist")
       {
-        list_id_t list_id2 = 2;
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.get_list_length(list_id2), invalid_argument);
+          REQUIRE_THROWS_AS(lists.get_list_length(list_ids[1]), invalid_argument);
         }
       }
     }
