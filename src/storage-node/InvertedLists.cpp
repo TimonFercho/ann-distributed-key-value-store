@@ -459,7 +459,7 @@ namespace ann_dkvs
     }
     vector_el_t *list_vectors = get_vectors_by_list(list);
     vector_id_t *list_ids = get_ids_by_list(list);
-    memcpy(list_vectors + offset, vectors, get_vectors_size(n_entries));
+    memcpy(list_vectors + offset * vector_dim, vectors, get_vectors_size(n_entries));
     memcpy(list_ids + offset, ids, get_ids_size(n_entries));
   }
 
