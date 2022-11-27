@@ -14,7 +14,7 @@ using namespace std;
 #define MAX_VECTOR_DIM 1
 #define MAX_LIST_ID 10000
 #define MAX_VECTOR_ID 10000
-#define MAX_LIST_LENGTH 25
+#define MAX_LIST_LENGTH 10000
 #define MIN_VECTOR_VAL -1E10F
 #define MAX_VECTOR_VAL 1E10F
 
@@ -426,7 +426,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
 
 SCENARIO("update_entries(): multiple entries of a list can be updated", "[InvertedLists]")
 {
-  GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
+  GIVEN("an InvertedLists object and two lists of multidimensional vectors and corresponding ids")
   {
     size_t vector_dim = 64;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
@@ -496,18 +496,18 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
           {
             vector_el_t *list_vectors = lists.get_vectors(list_id);
 
-            are_vectors_equal(list_vectors, vectors2, vector_dim, 0, update_length);
+            are_vectors_equal(list_vectors, vectors2, vector_dim, update_length);
 
-            are_vectors_equal(list_vectors, vectors, vector_dim, update_length, list_length);
+            are_vectors_equal(list_vectors + update_length * vector_dim, vectors + update_length * vector_dim, vector_dim, list_length - update_length);
           }
 
           THEN("only the first few entries are updated with the ids from the second list")
           {
             list_id_t *list_ids = lists.get_ids(list_id);
 
-            are_ids_equal(list_ids, ids2, 0, update_length);
+            are_ids_equal(list_ids, ids2, update_length);
 
-            are_ids_equal(list_ids, ids, update_length, list_length);
+            are_ids_equal(list_ids + update_length, ids + update_length, list_length - update_length);
           }
 
           THEN("the list length is unaffected")
@@ -530,23 +530,23 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
 
           lists.update_entries(list_id, vectors2, ids2, list_length - update_length, update_length);
 
-          // THEN("only the last few entries are updated with the vectors from the second list")
-          // {
-          // vector_el_t *list_vectors = lists.get_vectors(list_id);
+          THEN("only the last few entries are updated with the vectors from the second list")
+          {
+            vector_el_t *list_vectors = lists.get_vectors(list_id);
 
-          // are_vectors_equal(list_vectors, vectors, vector_dim, 0, list_length - update_length);
+            are_vectors_equal(list_vectors, vectors, vector_dim, list_length - update_length);
 
-          // are_vectors_equal(list_vectors, vectors2, vector_dim, list_length - update_length, list_length);
-          // }
+            are_vectors_equal(list_vectors + (list_length - update_length) * vector_dim, vectors2, vector_dim, update_length);
+          }
 
-          // THEN("only the last few entries are updated with the ids from the second list")
-          // {
-          //   list_id_t *list_ids = lists.get_ids(list_id);
+          THEN("only the last few entries are updated with the ids from the second list")
+          {
+            list_id_t *list_ids = lists.get_ids(list_id);
 
-          //   are_ids_equal(list_ids, ids, 0, list_length - update_length);
+            are_ids_equal(list_ids, ids, list_length - update_length);
 
-          //   are_ids_equal(list_ids, ids2, list_length - update_length, update_length);
-          // }
+            are_ids_equal(list_ids + (list_length - update_length), ids2, update_length);
+          }
 
           THEN("the list length is unaffected")
           {
