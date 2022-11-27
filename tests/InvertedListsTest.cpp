@@ -869,7 +869,7 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "
   }
 }
 
-SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
@@ -911,42 +911,41 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[In
   }
 }
 
-SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLists]")
 {
-  GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
+  GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
-    size_t vector_dim = 1;
+    size_t vector_dim = 128;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
-    auto data = gen_vectors(1);
+    auto data = gen_vectors(128);
     len_t list_length = get_vector_length(data, vector_dim);
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
     vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
     WHEN("an inverted list is created")
     {
-      list_id_t list_id = 1;
-      lists.create_list(list_id, list_length);
+      auto list_ids = gen_list_ids(2);
+      lists.create_list(list_ids[0], list_length);
 
       AND_WHEN("all entries of the list are updated with the vectors and ids of the first list")
       {
-        lists.update_entries(list_id, vectors, ids, 0, list_length);
+        lists.update_entries(list_ids[0], vectors, ids, 0, list_length);
 
-        list_id_t *list_ids = lists.get_ids(list_id);
+        list_id_t *actual_ids = lists.get_ids(list_ids[0]);
         THEN("all ids of the first list are correctly retrieved")
         {
           for (len_t i = 0; i < list_length; i++)
           {
-            REQUIRE(list_ids[i] == ids[i]);
+            REQUIRE(actual_ids[i] == ids[i]);
           }
         }
 
         AND_WHEN("the ids of a list are retrieved which does not exist")
         {
-          list_id_t list_id2 = 2;
           THEN("an exception is thrown")
           {
-            REQUIRE_THROWS_AS(lists.get_ids(list_id2), invalid_argument);
+            REQUIRE_THROWS_AS(lists.get_ids(list_ids[1]), invalid_argument);
           }
         }
       }
