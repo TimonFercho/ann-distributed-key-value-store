@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "../lib/catch.hpp"
 
@@ -6,6 +7,7 @@
 
 using namespace ann_dkvs;
 using Catch::Matchers::Contains;
+using namespace std;
 
 #define FILE_NAME "test_lists.bin"
 
@@ -109,17 +111,30 @@ bool is_unique(vector<T> vec)
   return unique(vec.begin(), vec.end()) == vec.end();
 }
 
-auto are_vectors_equal = [](vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t from, len_t to)
+auto print_vector = [](vector_el_t *vector, len_t vector_dim, len_t list_length)
 {
-  for (len_t i = from * vector_dim; i < to * vector_dim; i++)
+  for (len_t i = 0; i < list_length; i++)
+  {
+    cout << " | ";
+    for (len_t j = 0; j < vector_dim; j++)
+    {
+      cout << vector[i * vector_dim + j] << " ";
+    }
+  }
+  cout << endl;
+};
+
+auto are_vectors_equal = [](vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries)
+{
+  for (len_t i = 0; i < n_entries * vector_dim; i++)
   {
     REQUIRE(actual[i] == expected[i]);
   }
 };
 
-auto are_ids_equal = [](vector_id_t *actual, vector_id_t *expected, len_t from, len_t to)
+auto are_ids_equal = [](vector_id_t *actual, vector_id_t *expected, len_t n_entries)
 {
-  for (len_t i = from; i < to; i++)
+  for (len_t i = 0; i < n_entries; i++)
   {
     REQUIRE(actual[i] == expected[i]);
   }
