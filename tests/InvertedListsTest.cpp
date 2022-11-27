@@ -424,21 +424,21 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   }
 }
 
-SCENARIO("update_entries(): multiple entries of a list can be updated", "[InvertedLists]")
+SCENARIO("update_entries(): multiple entries of a list can be updated", "[.InvertedLists]")
 {
-  GIVEN("an InvertedLists object and two lists of multidimensional vectors and corresponding ids")
+  GIVEN("an InvertedLists object and two lists of 128D vectors and corresponding ids")
   {
-    size_t vector_dim = 64;
+    size_t vector_dim = 128;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
-    auto data = gen_vectors(64);
+    auto data = gen_vectors(128);
     len_t list_length = get_vector_length(data, vector_dim);
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
     vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
     REQUIRE(list_length == min(data.first.size() / vector_dim, data.second.size()));
 
-    auto data2 = gen_vectors(64);
+    auto data2 = gen_vectors(128);
     len_t list_length2 = get_vector_length(data2, vector_dim);
     vector_el_t *vectors2 = to_ptr(vector_el_t, data2.first);
     vector_id_t *ids2 = to_ptr(vector_id_t, data2.second);
