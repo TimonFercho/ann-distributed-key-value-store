@@ -541,13 +541,32 @@ namespace ann_dkvs
     ifstream ids_file = open_filestream(ids_filename);
     ifstream list_ids_file = open_filestream(list_ids_filename);
 
+    vector_el_t *cur_vector = new vector_el_t[vector_dim];
     len_t n_entries_read = 0;
-    vector_el_t cur_vector;
     vector_id_t cur_id;
     list_id_t cur_list_id;
 
-    while (vectors_file.read((char *)&cur_vector, sizeof(vector_el_t)))
+    while (true)
     {
+
+      len_t vector_el_offset = 0;
+      while (vectors_file.read((char *)&cur_vector[vector_el_offset], sizeof(vector_el_t)))
+      {
+        vector_el_offset++;
+        if (vector_el_offset == vector_dim)
+        {
+          break;
+        }
+      }
+      if (vector_el_offset == 0)
+      {
+        break;
+      }
+      if (vector_el_offset != vector_dim)
+      {
+        throw runtime_error("Error reading vectors file");
+      }
+
       if (!ids_file.read((char *)&cur_id, sizeof(vector_id_t)))
       {
         throw runtime_error("Error reading ids file");
@@ -558,7 +577,7 @@ namespace ann_dkvs
       }
       len_t list_length = get_list_length(cur_list_id);
       len_t cur_list_offset = list_length - entries_left[cur_list_id];
-      update_entries(cur_list_id, &cur_vector, &cur_id, cur_list_offset, 1);
+      update_entries(cur_list_id, cur_vector, &cur_id, cur_list_offset, 1);
       entries_left[cur_list_id]--;
       n_entries_read++;
     }
