@@ -583,19 +583,19 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
   }
 }
 
-SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.InvertedLists]")
+SCENARIO("insert_entries(): entries can be appended to an inverted list", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
-    size_t vector_dim = 1;
+    size_t vector_dim = 128;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
-    auto data = gen_vectors(1);
+    auto data = gen_vectors(128);
     len_t list1_length = get_vector_length(data, vector_dim);
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
     vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
-    auto data2 = gen_vectors(1);
+    auto data2 = gen_vectors(128);
     len_t list2_length = get_vector_length(data2, vector_dim);
     vector_el_t *vectors2 = to_ptr(vector_el_t, data2.first);
     vector_id_t *ids2 = to_ptr(vector_id_t, data2.second);
@@ -604,7 +604,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Inv
 
     WHEN("an inverted list is created")
     {
-      list_id_t list_id = 1;
+      list_id_t list_id = gen_list_id();
       lists.create_list(list_id, list1_length);
       size_t total_size_before_update = lists.get_total_size();
 
@@ -615,19 +615,13 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Inv
         THEN("all vectors are updated")
         {
           vector_el_t *list_vectors = lists.get_vectors(list_id);
-          for (len_t i = 0; i < list1_length; i++)
-          {
-            REQUIRE(list_vectors[i] == vectors[i]);
-          }
+          are_vectors_equal(list_vectors, vectors, vector_dim, list1_length);
         }
 
         THEN("all ids are updated")
         {
           list_id_t *list_ids = lists.get_ids(list_id);
-          for (len_t i = 0; i < list1_length; i++)
-          {
-            REQUIRE(list_ids[i] == ids[i]);
-          }
+          are_ids_equal(list_ids, ids, list1_length);
         }
 
         THEN("the list length is unaffected")
@@ -645,32 +639,27 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Inv
           lists.insert_entries(list_id, vectors2, ids2, list2_length);
 
           vector_el_t *list_vectors = lists.get_vectors(list_id);
+
           THEN("all vectors of the first list are still present")
           {
-            for (len_t i = 0; i < list1_length; i++)
-            {
-              REQUIRE(list_vectors[i] == vectors[i]);
-            }
+            are_vectors_equal(list_vectors, vectors, vector_dim, list1_length);
           }
+
           THEN("all vectors of the second list are appended")
           {
-            for (len_t i = list1_length; i < total_list_length; i++)
-            {
-              REQUIRE(list_vectors[i] == vectors2[i - list1_length]);
-            }
+            are_vectors_equal(list_vectors + list1_length * vector_dim, vectors2, vector_dim, list2_length);
           }
+
           list_id_t *list_ids = lists.get_ids(list_id);
+
           THEN("all ids of the first list are still present")
-          for (len_t i = 0; i < list1_length; i++)
           {
-            REQUIRE(list_ids[i] == ids[i]);
+            are_ids_equal(list_ids, ids, list1_length);
           }
+
           THEN("all ids of the second list are correctly appended")
           {
-            for (len_t i = list1_length; i < total_list_length; i++)
-            {
-              REQUIRE(list_ids[i] == ids2[i - list1_length]);
-            }
+            are_ids_equal(list_ids + list1_length, ids2, list2_length);
           }
 
           THEN("the list length is updated")
