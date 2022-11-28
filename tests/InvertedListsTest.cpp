@@ -926,14 +926,14 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLi
   }
 }
 
-SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[.InvertedLists]")
+SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
   {
-    size_t vector_dim = 1;
+    size_t vector_dim = 128;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
-    auto data = gen_vectors(1);
+    auto data = gen_vectors(128);
     auto list_ids_data = gen_list_lengths_random_length();
     len_t list_length = get_clustered_vectors_length(data, list_ids_data, vector_dim);
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
@@ -945,7 +945,10 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
     unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
     for (len_t i = 0; i < list_length; i++)
     {
-      list_vectors_map[list_ids[i]].push_back(vectors[i]);
+      for (len_t j = 0; j < vector_dim; j++)
+      {
+        list_vectors_map[list_ids[i]].push_back(vectors[i * vector_dim + j]);
+      }
       list_ids_map[list_ids[i]].push_back(ids[i]);
     }
 
@@ -969,7 +972,7 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
         {
           for (auto list : list_vectors_map)
           {
-            REQUIRE(lists.get_list_length(list.first) == list.second.size());
+            REQUIRE(lists.get_list_length(list.first) == list.second.size() / vector_dim);
           }
         }
         THEN("the inverted lists have the correct vectors")
@@ -998,7 +1001,7 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
             size_t total_size = 0;
             for (auto list : list_vectors_map)
             {
-              total_size += get_list_size(vector_dim, list.second.size());
+              total_size += get_list_size(vector_dim, list.second.size() / vector_dim);
             }
             REQUIRE(lists.get_total_size() == get_total_size(total_size));
           }
