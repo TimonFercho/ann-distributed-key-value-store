@@ -349,36 +349,12 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[.InvertedLists]")
+SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[InvertedLists]")
 {
 
-  GIVEN("an InvertedLists object storing vectors of dimension 1")
+  GIVEN('an InvertedLists object storing vectors of some dimension')
   {
-    size_t vector_dim = 1;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
-
-    WHEN("a list is created which has a size != 2^n > 32B")
-    {
-      list_id_t list_id = 1;
-      len_t list_length = 3;
-      lists.create_list(list_id, list_length);
-
-      size_t list_size = get_list_size(vector_dim, list_length);
-
-      CHECK(!is_power_of_two(list_size));
-
-      THEN("the free space is the difference between the list size and the next power of two")
-      {
-        size_t list_size = get_list_size(vector_dim, list_length);
-        size_t next_power_of_two = round_up_to_next_power_of_two(list_size);
-        REQUIRE(lists.get_free_space() == next_power_of_two - list_size);
-      }
-    }
-  }
-
-  GIVEN("an InvertedLists object storing vectors of dimension 2")
-  {
-    size_t vector_dim = 2;
+    len_t vector_dim = gen_vector_dim({0});
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("no lists have been created")
@@ -388,23 +364,32 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
         REQUIRE(lists.get_free_space() == 0);
       }
     }
+  }
 
-    WHEN("a list is created which has a size = 2^n > 32B")
+  GIVEN("an InvertedLists object storing vectors of some dimension > 2")
+  {
+    len_t vector_dim = gen_vector_dim(vector<len_t>({0, 1, 2}));
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
+
+    WHEN("a list is created which has a size > 32B")
     {
       list_id_t list_id = gen_list_id();
-      len_t list_length = 4;
+      len_t list_length = gen_list_length();
       lists.create_list(list_id, list_length);
 
-      size_t list_size = get_list_size(vector_dim, list_length);
-
-      CHECK(list_size == 64);
-      CHECK(is_power_of_two(list_size));
-
-      THEN("the free space is 0")
+      THEN("the free space is the difference between the list size and the next power of two")
       {
-        REQUIRE(lists.get_free_space() == 0);
+        len_t list_size = get_list_size(vector_dim, list_length);
+        len_t next_power_of_two = round_up_to_next_power_of_two(list_size);
+        REQUIRE(lists.get_free_space() == next_power_of_two - list_size);
       }
     }
+  }
+
+  GIVEN("an InvertedLists object storing vectors of dimension 2")
+  {
+    len_t vector_dim = 2;
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list is created with size < 32B")
     {
@@ -412,7 +397,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
       len_t list_length = 1;
       lists.create_list(list_id, list_length);
 
-      size_t list_size = get_list_size(vector_dim, list_length);
+      len_t list_size = get_list_size(vector_dim, list_length);
 
       CHECK(list_size < 32);
 
