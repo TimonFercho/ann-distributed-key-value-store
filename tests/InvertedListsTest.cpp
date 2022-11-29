@@ -12,12 +12,14 @@ using namespace std;
 #define FILE_NAME "test_lists.bin"
 
 #define MAX_VECTOR_DIM 128
+#define MIN_LIST_LENGTH 1
+#define MIN_LIST_LENGTH 1
 #define MAX_LIST_LENGTH (len_t)1E4
-
-#define N_VECTOR_DIM_SAMPLES 20
-#define N_LIST_ID_SAMPLES 20
-#define N_LIST_LENGTH_SAMPLES 20
-#define N_VECTOR_SAMPLES 20
+#define N_VECTOR_DIM_SAMPLES 10
+#define N_LIST_ID_SAMPLES 10
+#define N_LIST_LENGTH_SAMPLES 10
+#define N_VECTOR_SAMPLES 10
+#define N_VECTOR_SAMPLES 10
 
 #define MAX_VECTOR_ID numeric_limits<int>::max()
 #define MAX_LIST_ID numeric_limits<int>::max()
@@ -38,7 +40,7 @@ using namespace std;
 
 #define gen_list_id() gen_list_ids(1)[0]
 
-#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_values(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTH_SAMPLES, CHUNK_LEN, EXCLUDE_SET)
+#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_values(len_t, MIN_LIST_LENGTH, MAX_LIST_LENGTH, N_LIST_LENGTH_SAMPLES, CHUNK_LEN, EXCLUDE_SET)
 
 #define gen_list_lengths_random_length() gen_list_lengths(random_range(1, N_LIST_LENGTH_SAMPLES), {})
 
@@ -52,7 +54,7 @@ using namespace std;
 
 #define random_range(MIN, MAX) (rand() % (MAX - MIN + 1) + MIN)
 
-#define gen_vectors(dim) gen_vectors_fixed(random_range(1, MAX_LIST_LENGTH), dim)
+#define gen_vectors(dim) gen_vectors_fixed(random_range(MIN_LIST_LENGTH, MAX_LIST_LENGTH), dim)
 
 #define get_clustered_vectors_length(data, list_ids, dim) (min(get_vector_length(data, dim), list_ids.size()))
 
@@ -375,7 +377,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
     WHEN("a list is created which has a size > 32B")
     {
       list_id_t list_id = gen_list_id();
-      len_t list_length = gen_list_length();
+      len_t list_length = gen_list_length({0});
       lists.create_list(list_id, list_length);
 
       THEN("the free space is the difference between the list size and the next power of two")
