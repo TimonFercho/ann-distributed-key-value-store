@@ -9,7 +9,10 @@
 using namespace ann_dkvs;
 using namespace std;
 
-#define FILE_NAME "test_lists.bin"
+#define LISTS_FILE_NAME "tmp/test_lists.bin"
+#define BULK_VECTORS_FILE_NAME "tmp/bulk_vectors.bin"
+#define BULK_IDS_FILE_NAME "tmp/bulk_vector_ids.bin"
+#define BULK_LIST_IDS_FILE_NAME "tmp/bulk_list_ids.bin"
 
 #define MAX_VECTOR_DIM 128
 #define MIN_LIST_LENGTH 1
@@ -101,8 +104,8 @@ auto write_to_file = [](string filename, void *data, size_t size)
 
 auto get_inverted_lists_object(len_t vector_dim)
 {
-  remove(FILE_NAME);
-  InvertedLists lists(vector_dim, FILE_NAME);
+  remove(LISTS_FILE_NAME);
+  InvertedLists lists(vector_dim, LISTS_FILE_NAME);
   return lists;
 };
 
@@ -166,7 +169,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[Invert
 
       THEN("the filename is correct")
       {
-        REQUIRE(lists.get_filename() == FILE_NAME);
+        REQUIRE(lists.get_filename() == LISTS_FILE_NAME);
       }
 
       THEN("the vector size is correct")
@@ -956,12 +959,13 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
 
     AND_GIVEN("the vectors, ids and list ids are written to files")
     {
-      string vectors_filename = "bulk_vectors.bin";
+      string vectors_filename = BULK_VECTORS_FILE_NAME;
+      string ids_filename = BULK_IDS_FILE_NAME;
+      string list_ids_filename = BULK_LIST_IDS_FILE_NAME;
       size_t vectors_size = list_length * vector_dim * sizeof(vector_el_t);
-      string ids_filename = "bulk_vector_ids.bin";
       size_t ids_size = list_length * sizeof(list_id_t);
-      string list_ids_filename = "bulk_list_ids.bin";
       size_t list_ids_size = list_length * sizeof(list_id_t);
+
       write_to_file(vectors_filename, vectors, vectors_size);
       write_to_file(ids_filename, ids, ids_size);
       write_to_file(list_ids_filename, list_ids, list_ids_size);
