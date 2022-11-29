@@ -29,6 +29,8 @@ LIB		:= lib
 # define test directory
 TEST	:= tests
 
+TMP := tmp
+
 ifeq ($(OS),Windows_NT)
 MAIN	:= main.exe
 SOURCEDIRS	:= $(SRC)
@@ -104,6 +106,7 @@ clean:
 	$(RM) $(call FIXPATH,$(OBJECTS))
 	$(RM) $(OUTPUTTEST)
 	$(RM) $(call FIXPATH,$(TESTOBJECTS_NO_TESTMAIN))
+	$(RM) -r $(TMP)/*
 
 run: all
 	./$(OUTPUTMAIN)
