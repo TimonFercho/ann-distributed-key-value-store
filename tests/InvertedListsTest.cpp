@@ -13,13 +13,12 @@ using namespace std;
 
 #define MAX_VECTOR_DIM 128
 #define MIN_LIST_LENGTH 1
-#define MIN_LIST_LENGTH 1
-#define MAX_LIST_LENGTH (len_t)1E4
-#define N_VECTOR_DIM_SAMPLES 10
-#define N_LIST_ID_SAMPLES 10
-#define N_LIST_LENGTH_SAMPLES 10
-#define N_VECTOR_SAMPLES 10
-#define N_VECTOR_SAMPLES 10
+#define MAX_LIST_LENGTH (len_t)1E3
+
+#define N_VECTOR_DIM_SAMPLES 5
+#define N_LIST_ID_SAMPLES 5
+#define N_LIST_LENGTH_SAMPLES 5
+#define N_VECTOR_SAMPLES 5
 
 #define MAX_VECTOR_ID numeric_limits<int>::max()
 #define MAX_LIST_ID numeric_limits<int>::max()
@@ -143,7 +142,7 @@ auto are_ids_equal = [](vector_id_t *actual, vector_id_t *expected, len_t n_entr
   }
 };
 
-SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.InvertedLists]")
+SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[InvertedLists]")
 {
   GIVEN("a nonzero vector dimension")
   {
@@ -195,7 +194,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.Inver
   }
 }
 
-SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
+SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
 {
 
   GIVEN("an InvertedLists object storing vectors of some dimension")
@@ -352,7 +351,7 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[.InvertedLists]")
+SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[InvertedLists]")
 {
 
   GIVEN('an InvertedLists object storing vectors of some dimension')
@@ -412,7 +411,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   }
 }
 
-SCENARIO("update_entries(): multiple entries of a list can be updated", "[.InvertedLists]")
+SCENARIO("update_entries(): multiple entries of a list can be updated", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 128D vectors and corresponding ids")
   {
@@ -571,7 +570,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
   }
 }
 
-SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.InvertedLists]")
+SCENARIO("insert_entries(): entries can be appended to an inverted list", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
@@ -667,7 +666,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Inv
   }
 }
 
-SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
+SCENARIO("resize_list(): an inverted list can be resized", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -816,7 +815,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object of 1D vectors")
   {
@@ -845,7 +844,7 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "
   }
 }
 
-SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
@@ -887,7 +886,7 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.I
   }
 }
 
-SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
