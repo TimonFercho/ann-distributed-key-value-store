@@ -546,27 +546,12 @@ namespace ann_dkvs
     vector_id_t cur_id;
     list_id_t cur_list_id;
 
-    while (true)
+    while (n_entries_read < n_entries)
     {
-
-      len_t vector_el_offset = 0;
-      while (vectors_file.read((char *)&cur_vector[vector_el_offset], sizeof(vector_el_t)))
-      {
-        vector_el_offset++;
-        if (vector_el_offset == vector_dim)
-        {
-          break;
-        }
-      }
-      if (vector_el_offset == 0)
-      {
-        break;
-      }
-      if (vector_el_offset != vector_dim)
+      if (!vectors_file.read((char *)cur_vector, sizeof(vector_el_t) * vector_dim))
       {
         throw runtime_error("Error reading vectors file");
       }
-
       if (!ids_file.read((char *)&cur_id, sizeof(vector_id_t)))
       {
         throw runtime_error("Error reading ids file");
@@ -582,7 +567,7 @@ namespace ann_dkvs
       n_entries_read++;
     }
 
-    if (vectors_file.bad() || ids_file.bad() || list_ids_file.bad())
+    if (vectors_file.fail() || ids_file.fail() || list_ids_file.fail())
     {
       throw runtime_error("Error reading files");
     }
@@ -590,10 +575,5 @@ namespace ann_dkvs
     vectors_file.close();
     ids_file.close();
     list_ids_file.close();
-
-    if (n_entries_read != n_entries)
-    {
-      throw runtime_error("Number of entries in files does not match n_entries");
-    }
   }
 }
