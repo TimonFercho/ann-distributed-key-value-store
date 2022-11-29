@@ -1,27 +1,28 @@
 #include <cmath>
 #include <iostream>
+#include <limits>
 
 #include "../lib/catch.hpp"
 
 #include "../include/storage-node/InvertedLists.hpp"
 
 using namespace ann_dkvs;
-using Catch::Matchers::Contains;
 using namespace std;
 
 #define FILE_NAME "test_lists.bin"
 
-#define MAX_VECTOR_DIM 1
-#define MAX_LIST_ID 10000
-#define MAX_VECTOR_ID 10000
-#define MAX_LIST_LENGTH 10000
-#define MIN_VECTOR_VAL -1E10F
-#define MAX_VECTOR_VAL 1E10F
+#define MAX_VECTOR_DIM 128
+#define MAX_LIST_LENGTH (len_t)1E4
 
-#define N_VECTOR_DIMS 15
-#define N_LIST_IDS 15
-#define N_LIST_LENGTHS 15
-#define N_VECTORS 5
+#define N_VECTOR_DIM_SAMPLES 20
+#define N_LIST_ID_SAMPLES 20
+#define N_LIST_LENGTH_SAMPLES 20
+#define N_VECTOR_SAMPLES 20
+
+#define MAX_VECTOR_ID numeric_limits<int>::max()
+#define MAX_LIST_ID numeric_limits<int>::max()
+#define MIN_VECTOR_VAL numeric_limits<float>::max()
+#define MAX_VECTOR_VAL -numeric_limits<float>::max()
 
 #define gen_random_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random((int)MIN_VAL, (int)MAX_VAL)))))))
 
@@ -31,21 +32,21 @@ using namespace std;
 
 #define to_ptr(T, V) ((T *)V.data())
 
-#define gen_vector_dim(EXCLUDE_SET) (gen_random_value(len_t, 0, MAX_VECTOR_DIM, N_VECTOR_DIMS, EXCLUDE_SET))
+#define gen_vector_dim(EXCLUDE_SET) (gen_random_value(len_t, 0, MAX_VECTOR_DIM, N_VECTOR_DIM_SAMPLES, EXCLUDE_SET))
 
-#define gen_list_ids(CHUNK_LEN) gen_ranged_values(list_id_t, 0, MAX_LIST_ID, N_LIST_IDS, CHUNK_LEN, {})
+#define gen_list_ids(CHUNK_LEN) gen_ranged_values(list_id_t, 0, MAX_LIST_ID, N_LIST_ID_SAMPLES, CHUNK_LEN, {})
 
 #define gen_list_id() gen_list_ids(1)[0]
 
-#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_values(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTHS, CHUNK_LEN, EXCLUDE_SET)
+#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_values(len_t, 0, MAX_LIST_LENGTH, N_LIST_LENGTH_SAMPLES, CHUNK_LEN, EXCLUDE_SET)
 
-#define gen_list_lengths_random_length() gen_list_lengths(random_range(1, N_LIST_LENGTHS), {})
+#define gen_list_lengths_random_length() gen_list_lengths(random_range(1, N_LIST_LENGTH_SAMPLES), {})
 
 #define gen_list_length(EXCLUDE_SET) gen_list_lengths(1, EXCLUDE_SET)[0]
 
-#define gen_vector_ids_fixed(CHUNK_LEN) gen_ranged_values(vector_id_t, 0, MAX_VECTOR_ID, N_VECTORS, CHUNK_LEN, {})
+#define gen_vector_ids_fixed(CHUNK_LEN) gen_ranged_values(vector_id_t, 0, MAX_VECTOR_ID, N_VECTOR_SAMPLES, CHUNK_LEN, {})
 
-#define gen_random_vector_values_fixed(CHUNK_LEN) gen_random_values(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTORS, CHUNK_LEN, {})
+#define gen_random_vector_values_fixed(CHUNK_LEN) gen_random_values(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTOR_SAMPLES, CHUNK_LEN, {})
 
 #define gen_vectors_fixed(CHUNK_LEN, DIM) make_pair(gen_random_vector_values_fixed((CHUNK_LEN) * (DIM)), gen_vector_ids_fixed(CHUNK_LEN))
 
@@ -349,7 +350,7 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[InvertedLists]")
+SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[.InvertedLists]")
 {
 
   GIVEN('an InvertedLists object storing vectors of some dimension')
@@ -568,7 +569,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
   }
 }
 
-SCENARIO("insert_entries(): entries can be appended to an inverted list", "[InvertedLists]")
+SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
@@ -813,7 +814,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object of 1D vectors")
   {
@@ -884,7 +885,7 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.I
   }
 }
 
-SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
