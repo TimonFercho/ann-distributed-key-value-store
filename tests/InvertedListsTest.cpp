@@ -1,6 +1,7 @@
 #include <cmath>
 #include <iostream>
 #include <limits>
+#include <stdlib.h>
 
 #include "../lib/catch.hpp"
 
@@ -9,10 +10,11 @@
 using namespace ann_dkvs;
 using namespace std;
 
-#define LISTS_FILE_NAME "tmp/test_lists.bin"
-#define BULK_VECTORS_FILE_NAME "tmp/bulk_vectors.bin"
-#define BULK_IDS_FILE_NAME "tmp/bulk_vector_ids.bin"
-#define BULK_LIST_IDS_FILE_NAME "tmp/bulk_list_ids.bin"
+#define TMP_DIR "tests/tmp"
+#define LISTS_FILE_NAME "lists.bin"
+#define VECTORS_FILE_NAME "vectors.bin"
+#define VECTOR_IDS_FILE_NAME "vector_ids.bin"
+#define LIST_IDS_FILE_NAME "list_ids.bin"
 
 #define MAX_VECTOR_DIM 128
 #define MIN_LIST_LENGTH 1
@@ -102,19 +104,25 @@ auto write_to_file = [](string filename, void *data, size_t size)
   fclose(file);
 };
 
-auto get_inverted_lists_object(len_t vector_dim)
+auto read_from_file = [](string filename, void *data, size_t size)
 {
-  remove(LISTS_FILE_NAME);
-  InvertedLists lists(vector_dim, LISTS_FILE_NAME);
-  return lists;
+  FILE *file = fopen(filename.c_str(), "r");
+  fread(data, size, 1, file);
+  fclose(file);
 };
 
-template <typename T>
-bool is_unique(vector<T> vec)
+auto join = [](const string &a, const string &b)
 {
-  sort(vec.begin(), vec.end());
-  return unique(vec.begin(), vec.end()) == vec.end();
-}
+  return a + "/" + b;
+};
+
+auto get_inverted_lists_object(len_t vector_dim)
+{
+  string file = join(TMP_DIR, LISTS_FILE_NAME);
+  remove(file.c_str());
+  InvertedLists lists(vector_dim, file);
+  return lists;
+};
 
 auto print_vector = [](vector_el_t *vector, len_t vector_dim, len_t list_length)
 {
@@ -169,7 +177,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[Invert
 
       THEN("the filename is correct")
       {
-        REQUIRE(lists.get_filename() == LISTS_FILE_NAME);
+        REQUIRE(lists.get_filename() == join(TMP_DIR, LISTS_FILE_NAME));
       }
 
       THEN("the vector size is correct")
@@ -957,11 +965,11 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
       list_ids_map[list_ids[i]].push_back(ids[i]);
     }
 
-    AND_GIVEN("the vectors, ids and list ids are written to files")
+    AND_GIVEN("the vectors, ids and list ids are written to files according to the format required by bulk_insert_entries()")
     {
-      string vectors_filename = BULK_VECTORS_FILE_NAME;
-      string ids_filename = BULK_IDS_FILE_NAME;
-      string list_ids_filename = BULK_LIST_IDS_FILE_NAME;
+      string vectors_filename = join(TMP_DIR, VECTORS_FILE_NAME);
+      string ids_filename = join(TMP_DIR, VECTOR_IDS_FILE_NAME);
+      string list_ids_filename = join(TMP_DIR, LIST_IDS_FILE_NAME);
       size_t vectors_size = list_length * vector_dim * sizeof(vector_el_t);
       size_t ids_size = list_length * sizeof(list_id_t);
       size_t list_ids_size = list_length * sizeof(list_id_t);

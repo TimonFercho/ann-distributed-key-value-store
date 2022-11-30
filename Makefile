@@ -29,7 +29,7 @@ LIB		:= lib
 # define test directory
 TEST	:= tests
 
-TMP := tmp
+TMP := tests/tmp
 
 ifeq ($(OS),Windows_NT)
 MAIN	:= main.exe

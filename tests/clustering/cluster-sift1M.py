@@ -62,9 +62,9 @@ def write_list_ids(vector_id_to_list_id_map, filename):
 
 def pipeline():
     N_LISTS = 1024
-    VECTORS_FILE = "sift_vectors.bin"
-    VECTOR_IDS_FILE = "sift_vector_ids.bin"
-    LIST_IDS_FILE = "sift_list_ids.bin"
+    VECTORS_FILE = "vectors.bin"
+    VECTOR_IDS_FILE = "vector_ids.bin"
+    LIST_IDS_FILE = "list_ids.bin"
     OUTPUT_DIR = join("out", "sift1M")
 
     try :
