@@ -2,6 +2,7 @@
 #include <iostream>
 #include <limits>
 #include <stdlib.h>
+#include <fstream>
 
 #include "../lib/catch.hpp"
 
@@ -11,6 +12,7 @@ using namespace ann_dkvs;
 using namespace std;
 
 #define TMP_DIR "tests/tmp"
+#define SIFT1M_OUTPUT_DIR "tests/clustering/out/sift1M"
 #define LISTS_FILE_NAME "lists.bin"
 #define VECTORS_FILE_NAME "vectors.bin"
 #define VECTOR_IDS_FILE_NAME "vector_ids.bin"
@@ -111,6 +113,17 @@ auto read_from_file = [](string filename, void *data, size_t size)
   fclose(file);
 };
 
+auto file_exists = [](string filename)
+{
+  ifstream f(filename.c_str());
+  if (!f.is_open())
+  {
+    return false;
+  }
+  f.close();
+  return true;
+};
+
 auto join = [](const string &a, const string &b)
 {
   return a + "/" + b;
@@ -153,7 +166,7 @@ auto are_ids_equal = [](vector_id_t *actual, vector_id_t *expected, len_t n_entr
   }
 };
 
-SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[InvertedLists]")
+SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.InvertedLists]")
 {
   GIVEN("a nonzero vector dimension")
   {
@@ -205,7 +218,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[Invert
   }
 }
 
-SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
+SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
 {
 
   GIVEN("an InvertedLists object storing vectors of some dimension")
@@ -362,7 +375,7 @@ SCENARIO("create_list(): inverted lists can be created", "[InvertedLists]")
   }
 }
 
-SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[InvertedLists]")
+SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[.InvertedLists]")
 {
 
   GIVEN('an InvertedLists object storing vectors of some dimension')
@@ -422,7 +435,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   }
 }
 
-SCENARIO("update_entries(): multiple entries of a list can be updated", "[InvertedLists]")
+SCENARIO("update_entries(): multiple entries of a list can be updated", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 128D vectors and corresponding ids")
   {
@@ -581,7 +594,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[Invert
   }
 }
 
-SCENARIO("insert_entries(): entries can be appended to an inverted list", "[InvertedLists]")
+SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
   {
@@ -677,7 +690,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[Inve
   }
 }
 
-SCENARIO("resize_list(): an inverted list can be resized", "[InvertedLists]")
+SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
   {
@@ -826,7 +839,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[InvertedLists]")
   }
 }
 
-SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object of 1D vectors")
   {
@@ -855,7 +868,7 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "
   }
 }
 
-SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
@@ -897,7 +910,7 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[In
   }
 }
 
-SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[InvertedLists]")
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedLists]")
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
@@ -1026,6 +1039,107 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
               REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, list_length), runtime_error);
             }
           }
+        }
+      }
+    }
+  }
+  GIVEN("an InvertedLists object")
+  {
+    size_t vector_dim = 128;
+    InvertedLists lists = get_inverted_lists_object(vector_dim);
+
+    AND_GIVEN("the SIFT1M dataset which has already been clustered and written to files according to the format required by bulk_insert_entries()")
+    {
+      string vectors_filename = join(SIFT1M_OUTPUT_DIR, VECTORS_FILE_NAME);
+      string ids_filename = join(SIFT1M_OUTPUT_DIR, VECTOR_IDS_FILE_NAME);
+      string list_ids_filename = join(SIFT1M_OUTPUT_DIR, LIST_IDS_FILE_NAME);
+
+      THEN("the files for the vectors, ids and list ids have been created using 'make -C tests/clustering'")
+      {
+        REQUIRE(file_exists(vectors_filename));
+        REQUIRE(file_exists(ids_filename));
+        REQUIRE(file_exists(list_ids_filename));
+
+        AND_GIVEN("the files are read into memory")
+        {
+          len_t list_length = (len_t)1E6;
+          size_t vectors_size = list_length * vector_dim * sizeof(vector_el_t);
+          size_t ids_size = list_length * sizeof(list_id_t);
+          size_t list_ids_size = list_length * sizeof(list_id_t);
+
+          vector_el_t *vectors = (vector_el_t *)malloc(vectors_size);
+          vector_id_t *ids = (vector_id_t *)malloc(ids_size);
+          list_id_t *list_ids = (list_id_t *)malloc(list_ids_size);
+
+          read_from_file(vectors_filename, vectors, vectors_size);
+          read_from_file(ids_filename, ids, ids_size);
+          read_from_file(list_ids_filename, list_ids, list_ids_size);
+
+          unordered_map<list_id_t, vector<vector_el_t>>
+              list_vectors_map;
+          unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
+          for (len_t i = 0; i < list_length; i++)
+          {
+            for (len_t j = 0; j < vector_dim; j++)
+            {
+              list_vectors_map[list_ids[i]].push_back(vectors[i * vector_dim + j]);
+            }
+            list_ids_map[list_ids[i]].push_back(ids[i]);
+          }
+
+          WHEN("the entries are bulk inserted")
+          {
+            lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, list_length);
+
+            THEN("the inverted lists exist and have the correct length")
+            {
+              for (auto list : list_vectors_map)
+              {
+                REQUIRE(lists.get_list_length(list.first) == list.second.size() / vector_dim);
+              }
+            }
+            THEN("the inverted lists have the correct vectors")
+            {
+              for (auto list : list_vectors_map)
+              {
+                vector_el_t *actual_vectors = lists.get_vectors(list.first);
+                for (len_t i = 0; i < list.second.size(); i++)
+                {
+                  REQUIRE(actual_vectors[i] == list.second[i]);
+                }
+              }
+            }
+            THEN("the inverted lists have the correct ids")
+            {
+              for (auto list : list_ids_map)
+              {
+                list_id_t *actual_ids = lists.get_ids(list.first);
+                for (len_t i = 0; i < list.second.size(); i++)
+                {
+                  REQUIRE(actual_ids[i] == list.second[i]);
+                }
+              }
+              THEN("the total size is updated")
+              {
+                size_t total_size = 0;
+                for (auto list : list_vectors_map)
+                {
+                  total_size += get_list_size(vector_dim, list.second.size() / vector_dim);
+                }
+                REQUIRE(lists.get_total_size() == get_total_size(total_size));
+              }
+              AND_WHEN("the entries are bulk inserted again")
+              {
+                THEN("an exception is thrown")
+                {
+                  REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, list_length), runtime_error);
+                }
+              }
+            }
+          }
+          free(vectors);
+          free(ids);
+          free(list_ids);
         }
       }
     }
