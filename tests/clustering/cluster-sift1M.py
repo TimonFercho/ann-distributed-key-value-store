@@ -1,37 +1,14 @@
 import faiss
 import numpy as np
 from os.path import join, exists
-from os import makedirs, rename, remove, environ
-import urllib.request
-import tarfile
+from os import makedirs, rename, remove
 
 try:
     from faiss.contrib.datasets_fb import DatasetSIFT1M
 except ImportError:
     from faiss.contrib.datasets import DatasetSIFT1M
 
-
-def download_data():
-    sift1M_link = "ftp://ftp.irisa.fr/local/texmex/corpus/sift.tar.gz"
-    data_dir = "data"
-    sift1M_dir = join(data_dir, "sift1M")
-    sift1M_tar = "sift.tar.gz"
-    if exists(sift1M_dir):
-        print("Directory already exists", sift1M_dir)
-        return
-    if not exists(data_dir):
-        print("Creating data directory", data_dir)
-        makedirs(data_dir)
-    sift1M_tar_path = join(data_dir, sift1M_tar)
-    print("Downloading SIFT1M")
-    urllib.request.urlretrieve(sift1M_link, sift1M_tar_path)
-    print("Extracting SIFT1M")
-    with tarfile.open(sift1M_tar_path, "r:gz") as tar:
-        tar.extractall(path=data_dir)
-    sift_dir = join(data_dir, "sift")
-    rename(sift_dir, sift1M_dir)
-    print("Removing temporary files")
-    remove(sift1M_tar_path)
+sift1M_link = "ftp://ftp.irisa.fr/local/texmex/corpus/sift.tar.gz"
 
 
 def import_data():
@@ -109,12 +86,7 @@ def pipeline():
         _, xb, _, xt = import_data()
         n, d = xb.shape
     except FileNotFoundError:
-        download_data()
-        _, xb, _, xt = import_data()
-        n, d = xb.shape
-
-    if not (environ.get('LD_PRELOAD') and 'libmkl_core.so' in environ.get('LD_PRELOAD') and 'libmkl_sequential.so' in environ.get('LD_PRELOAD')):
-        print('Please run using make to set the environment variables')
+        print("Could not find SIFT1M dataset in data/sift1M, please download it first from", sift1M_link)
         return
 
     print("Clustering SIFT1M using IVFFlat")
