@@ -20,33 +20,35 @@ using namespace std;
 
 #define MAX_VECTOR_DIM 128
 #define MIN_LIST_LENGTH 1
-#define MAX_LIST_LENGTH (len_t)1E3
+#define MAX_LIST_LENGTH (int)1E3
 
 #define N_VECTOR_DIM_SAMPLES 5
 #define N_LIST_ID_SAMPLES 5
 #define N_LIST_LENGTH_SAMPLES 5
-#define N_VECTOR_SAMPLES 5
+#define N_VECTOR_SAMPLES 10
 
 #define MAX_VECTOR_ID numeric_limits<int>::max()
 #define MAX_LIST_ID numeric_limits<int>::max()
-#define MIN_VECTOR_VAL numeric_limits<float>::max()
-#define MAX_VECTOR_VAL -numeric_limits<float>::max()
+#define MIN_VECTOR_VAL -3.40282e+38
+#define MAX_VECTOR_VAL 3.40282e+38
 
-#define gen_random_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random((int)MIN_VAL, (int)MAX_VAL)))))))
+#define gen_random_ints(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
+
+#define gen_random_floats(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
 
 #define gen_ranged_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, range(MIN_VAL, MAX_VAL)))))))
 
-#define gen_random_value(T, MIN_VAL, MAX_VAL, N_VALS, EXCLUDE_SET) (gen_random_values(T, MIN_VAL, MAX_VAL, N_VALS, 1, EXCLUDE_SET)[0])
+#define gen_random_int(T, MIN_VAL, MAX_VAL, N_VALS, EXCLUDE_SET) (gen_random_ints(T, MIN_VAL, MAX_VAL, N_VALS, 1, EXCLUDE_SET)[0])
 
 #define to_ptr(T, V) ((T *)V.data())
 
-#define gen_vector_dim(EXCLUDE_SET) (gen_random_value(len_t, 0, MAX_VECTOR_DIM, N_VECTOR_DIM_SAMPLES, EXCLUDE_SET))
+#define gen_vector_dim(EXCLUDE_SET) (gen_random_int(len_t, 0, MAX_VECTOR_DIM, N_VECTOR_DIM_SAMPLES, EXCLUDE_SET))
 
 #define gen_list_ids(CHUNK_LEN) gen_ranged_values(list_id_t, 0, MAX_LIST_ID, N_LIST_ID_SAMPLES, CHUNK_LEN, {})
 
 #define gen_list_id() gen_list_ids(1)[0]
 
-#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_values(len_t, MIN_LIST_LENGTH, MAX_LIST_LENGTH, N_LIST_LENGTH_SAMPLES, CHUNK_LEN, EXCLUDE_SET)
+#define gen_list_lengths(CHUNK_LEN, EXCLUDE_SET) gen_random_ints(len_t, MIN_LIST_LENGTH, MAX_LIST_LENGTH, N_LIST_LENGTH_SAMPLES, CHUNK_LEN, EXCLUDE_SET)
 
 #define gen_list_lengths_random_length() gen_list_lengths(random_range(1, N_LIST_LENGTH_SAMPLES), {})
 
@@ -54,7 +56,7 @@ using namespace std;
 
 #define gen_vector_ids_fixed(CHUNK_LEN) gen_ranged_values(vector_id_t, 0, MAX_VECTOR_ID, N_VECTOR_SAMPLES, CHUNK_LEN, {})
 
-#define gen_random_vector_values_fixed(CHUNK_LEN) gen_random_values(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTOR_SAMPLES, CHUNK_LEN, {})
+#define gen_random_vector_values_fixed(CHUNK_LEN) gen_random_floats(vector_el_t, MIN_VECTOR_VAL, MAX_VECTOR_VAL, N_VECTOR_SAMPLES, CHUNK_LEN, {})
 
 #define gen_vectors_fixed(CHUNK_LEN, DIM) make_pair(gen_random_vector_values_fixed((CHUNK_LEN) * (DIM)), gen_vector_ids_fixed(CHUNK_LEN))
 
