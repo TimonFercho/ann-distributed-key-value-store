@@ -955,6 +955,79 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedL
   }
 }
 
+auto verify_bulk_insertion =
+    [](
+        InvertedLists lists,
+        len_t n_entries,
+        size_t vector_dim,
+        vector_el_t *vectors,
+        vector_id_t *ids,
+        list_id_t *list_ids,
+        string vectors_filename,
+        string ids_filename,
+        string list_ids_filename)
+{
+  unordered_map<list_id_t, vector<vector_el_t *>>
+      list_vectors_map;
+  unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
+  for (len_t i = 0; i < n_entries; i++)
+  {
+    list_vectors_map[list_ids[i]].push_back(&vectors[i * vector_dim]);
+    list_ids_map[list_ids[i]].push_back(ids[i]);
+  }
+
+  THEN("the inverted lists exist and have the correct length")
+  {
+    for (auto list : list_vectors_map)
+    {
+      REQUIRE(lists.get_list_length(list.first) == list.second.size());
+    }
+  }
+  THEN("the inverted lists have the correct vectors")
+  {
+    for (auto list : list_vectors_map)
+    {
+      len_t list_length = list.second.size();
+      vector_el_t *actual_vectors = lists.get_vectors(list.first);
+      for (len_t i = 0; i < list_length; i++)
+      {
+        for (len_t j = 0; j < vector_dim; j++)
+        {
+          REQUIRE(actual_vectors[i * vector_dim + j] == list.second[i][j]);
+        }
+      }
+    }
+  }
+  THEN("the inverted lists have the correct ids")
+  {
+    for (auto list : list_ids_map)
+    {
+      list_id_t *actual_ids = lists.get_ids(list.first);
+      for (len_t i = 0; i < list.second.size(); i++)
+      {
+        REQUIRE(actual_ids[i] == list.second[i]);
+      }
+    }
+  }
+  THEN("the total size is updated")
+  {
+    size_t total_size = 0;
+    for (auto list : list_vectors_map)
+    {
+      total_size += get_list_size(vector_dim, list.second.size());
+    }
+
+    REQUIRE(lists.get_total_size() == get_total_size(total_size));
+  }
+  AND_WHEN("the entries are bulk inserted again")
+  {
+    THEN("an exception is thrown")
+    {
+      REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries), runtime_error);
+    }
+  }
+};
+
 SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[InvertedLists]")
 {
   GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
@@ -968,15 +1041,6 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
     vector_id_t *ids = to_ptr(vector_id_t, data.second);
     list_id_t *list_ids = to_ptr(list_id_t, list_ids_data);
-
-    unordered_map<list_id_t, vector<vector_el_t *>>
-        list_vectors_map;
-    unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
-    for (len_t i = 0; i < n_entries; i++)
-    {
-      list_vectors_map[list_ids[i]].push_back(&vectors[i * vector_dim]);
-      list_ids_map[list_ids[i]].push_back(ids[i]);
-    }
 
     AND_GIVEN("the vectors, ids and list ids are written to files according to the format required by bulk_insert_entries()")
     {
@@ -995,56 +1059,7 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
       {
         lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
 
-        THEN("the inverted lists exist and have the correct length")
-        {
-          for (auto list : list_vectors_map)
-          {
-            REQUIRE(lists.get_list_length(list.first) == list.second.size());
-          }
-        }
-        THEN("the inverted lists have the correct vectors")
-        {
-          for (auto list : list_vectors_map)
-          {
-            len_t list_length = list.second.size();
-            vector_el_t *actual_vectors = lists.get_vectors(list.first);
-            for (len_t i = 0; i < list_length; i++)
-            {
-              for (len_t j = 0; j < vector_dim; j++)
-              {
-                REQUIRE(actual_vectors[i * vector_dim + j] == list.second[i][j]);
-              }
-            }
-          }
-        }
-        THEN("the inverted lists have the correct ids")
-        {
-          for (auto list : list_ids_map)
-          {
-            list_id_t *actual_ids = lists.get_ids(list.first);
-            for (len_t i = 0; i < list.second.size(); i++)
-            {
-              REQUIRE(actual_ids[i] == list.second[i]);
-            }
-          }
-        }
-        THEN("the total size is updated")
-        {
-          size_t total_size = 0;
-          for (auto list : list_vectors_map)
-          {
-            total_size += get_list_size(vector_dim, list.second.size());
-          }
-
-          REQUIRE(lists.get_total_size() == get_total_size(total_size));
-        }
-        AND_WHEN("the entries are bulk inserted again")
-        {
-          THEN("an exception is thrown")
-          {
-            REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries), runtime_error);
-          }
-        }
+        verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
       }
     }
   }
@@ -1080,67 +1095,11 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
           read_from_file(ids_filename, ids, ids_size);
           read_from_file(list_ids_filename, list_ids, list_ids_size);
 
-          unordered_map<list_id_t, vector<vector_el_t>>
-              list_vectors_map;
-          unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
-          for (len_t i = 0; i < n_entries; i++)
-          {
-            for (len_t j = 0; j < vector_dim; j++)
-            {
-              list_vectors_map[list_ids[i]].push_back(vectors[i * vector_dim + j]);
-            }
-            list_ids_map[list_ids[i]].push_back(ids[i]);
-          }
-
           WHEN("the entries are bulk inserted")
           {
             lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
 
-            THEN("the inverted lists exist and have the correct length")
-            {
-              for (auto list : list_vectors_map)
-              {
-                REQUIRE(lists.get_list_length(list.first) == list.second.size() / vector_dim);
-              }
-            }
-            THEN("the inverted lists have the correct vectors")
-            {
-              for (auto list : list_vectors_map)
-              {
-                vector_el_t *actual_vectors = lists.get_vectors(list.first);
-                for (len_t i = 0; i < list.second.size(); i++)
-                {
-                  REQUIRE(actual_vectors[i] == list.second[i]);
-                }
-              }
-            }
-            THEN("the inverted lists have the correct ids")
-            {
-              for (auto list : list_ids_map)
-              {
-                list_id_t *actual_ids = lists.get_ids(list.first);
-                for (len_t i = 0; i < list.second.size(); i++)
-                {
-                  REQUIRE(actual_ids[i] == list.second[i]);
-                }
-              }
-            }
-            THEN("the total size is updated")
-            {
-              size_t total_size = 0;
-              for (auto list : list_vectors_map)
-              {
-                total_size += get_list_size(vector_dim, list.second.size() / vector_dim);
-              }
-              REQUIRE(lists.get_total_size() == get_total_size(total_size));
-            }
-            AND_WHEN("the entries are bulk inserted again")
-            {
-              THEN("an exception is thrown")
-              {
-                REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries), runtime_error);
-              }
-            }
+            verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
           }
           free(vectors);
           free(ids);
