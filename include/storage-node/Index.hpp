@@ -6,8 +6,6 @@
 
 #include "InvertedLists.hpp"
 
-using namespace std;
-
 namespace ann_dkvs
 {
   typedef float distance_t;

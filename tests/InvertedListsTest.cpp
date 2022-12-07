@@ -9,7 +9,6 @@
 #include "../include/storage-node/InvertedLists.hpp"
 
 using namespace ann_dkvs;
-using namespace std;
 
 #define TMP_DIR "tests/tmp"
 #define SIFT1M_OUTPUT_DIR "tests/clustering/out/sift1M"
@@ -33,11 +32,11 @@ using namespace std;
 #define MIN_VECTOR_VAL -3.40282e+38
 #define MAX_VECTOR_VAL 3.40282e+38
 
-#define gen_random_ints(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
+#define gen_random_ints(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
 
-#define gen_random_floats(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
+#define gen_random_floats(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
 
-#define gen_ranged_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, range(MIN_VAL, MAX_VAL)))))))
+#define gen_ranged_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, range(MIN_VAL, MAX_VAL)))))))
 
 #define gen_random_int(T, MIN_VAL, MAX_VAL, N_VALS, EXCLUDE_SET) (gen_random_ints(T, MIN_VAL, MAX_VAL, N_VALS, 1, EXCLUDE_SET)[0])
 
@@ -1063,10 +1062,9 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
       }
     }
   }
-  GIVEN("an InvertedLists object")
+  GIVEN("a vector dimension of 128")
   {
     size_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     AND_GIVEN("the SIFT1M dataset which has already been clustered and written to files according to the format required by bulk_insert_entries()")
     {
@@ -1097,10 +1095,21 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
 
           WHEN("the entries are bulk inserted")
           {
+            InvertedLists lists = get_inverted_lists_object(vector_dim);
             lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
-
-            verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
+            THEN("the entries are inserted correctly")
+            {
+              verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
+            }
           }
+
+          BENCHMARK_ADVANCED("bulk_insert_entries() benchmark")
+          (Catch::Benchmark::Chronometer meter)
+          {
+            InvertedLists lists = get_inverted_lists_object(vector_dim);
+            meter.measure([&lists, vectors_filename, ids_filename, list_ids_filename, n_entries]
+                          { return lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries); });
+          };
           free(vectors);
           free(ids);
           free(list_ids);
