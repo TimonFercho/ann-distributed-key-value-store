@@ -29,6 +29,9 @@ LIB		:= lib
 # define test directory
 TEST	:= tests
 
+# define benchmark directory
+BENCH := benchmarks
+
 TMP := tests/tmp
 
 ifeq ($(OS),Windows_NT)
@@ -42,8 +45,10 @@ MD	:= mkdir
 else
 MAIN	:= main
 TESTMAIN  := testmain
+BENCHMAIN := benchmain
 SOURCEDIRS	:= $(shell find $(SRC) -type d)
 TESTDIRS	:= $(shell find $(TEST) -type d)
+BENCHDIRS := $(shell find $(BENCH) -type d)
 INCLUDEDIRS	:= $(shell find $(INCLUDE) -type d)
 LIBDIRS		:= $(shell find $(LIB) -type d)
 FIXPATH = $1
@@ -64,11 +69,17 @@ SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, $(SOURCEDIRS)))
 TESTS_NO_SRC		  := $(wildcard $(patsubst %,%/*.cpp, $(TESTDIRS)))
 TESTS             := $(TESTS_NO_SRC) $(SOURCES:$(SRC)/$(MAIN).cpp=)
 
+# define benchmark source files
+BENCHS_NO_SRC			:= $(wildcard $(patsubst %,%/*.cpp, $(BENCHDIRS)))
+BENCHS            := $(BENCHS_NO_SRC) $(SOURCES:$(SRC)/$(MAIN).cpp=)
+
 # define the C object files 
 OBJECTS		:= $(SOURCES:.cpp=.o)
 
 TESTOBJECTS	:= $(TESTS:.cpp=.o)
 TESTOBJECTS_NO_TESTMAIN := $(TESTOBJECTS:$(TEST)/TestMain.o=)
+
+BENCHOBJECTS := $(BENCHS:.cpp=.o)
 
 #
 # The following part of the makefile is generic; it can be used to 
@@ -80,9 +91,13 @@ OUTPUTMAIN	:= $(call FIXPATH,$(OUTPUT)/$(MAIN))
 
 OUTPUTTEST  := $(call FIXPATH,$(OUTPUT)/$(TESTMAIN))
 
+OUTPUTBENCH := $(call FIXPATH,$(OUTPUT)/$(BENCHMAIN))
+
 all: $(OUTPUT) $(MAIN)
 
 test: $(OUTPUT) $(TESTMAIN)
+
+bench: $(OUTPUT) $(BENCHMAIN)
 
 $(OUTPUT):
 	$(MD) $(OUTPUT)
@@ -93,6 +108,9 @@ $(MAIN): $(OBJECTS)
 $(TESTMAIN): $(TESTOBJECTS)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTTEST) $(TESTOBJECTS) $(LFLAGS) $(LIBS)
 	
+$(BENCHMAIN): $(BENCHOBJECTS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTBENCH) $(BENCHOBJECTS) $(LFLAGS) $(LIBS)
+
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
@@ -116,3 +134,6 @@ runtest: test
 
 runtests: test
 	./$(OUTPUTTEST) --success
+
+runbench: bench
+	./$(OUTPUTBENCH)

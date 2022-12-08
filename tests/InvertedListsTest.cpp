@@ -1103,13 +1103,19 @@ SCENARIO("bulk_insert_entries(): load entries belonging to different lists from 
             }
           }
 
-          BENCHMARK_ADVANCED("bulk_insert_entries() benchmark")
-          (Catch::Benchmark::Chronometer meter)
+          BENCHMARK("bulk_insert_entries()")
           {
             InvertedLists lists = get_inverted_lists_object(vector_dim);
-            meter.measure([&lists, vectors_filename, ids_filename, list_ids_filename, n_entries]
-                          { return lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries); });
+            lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
           };
+
+          // BENCHMARK_ADVANCED("bulk_insert_entries() benchmark")
+          // (Catch::Benchmark::Chronometer meter)
+          // {
+          //   InvertedLists lists = get_inverted_lists_object(vector_dim);
+          //   meter.measure([&lists, vectors_filename, ids_filename, list_ids_filename, n_entries]
+          //                 { return lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries); });
+          // };
           free(vectors);
           free(ids);
           free(list_ids);
