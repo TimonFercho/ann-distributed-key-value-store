@@ -125,6 +125,8 @@ clean:
 	$(RM) $(OUTPUTTEST)
 	$(RM) $(call FIXPATH,$(TESTOBJECTS_NO_TESTMAIN))
 	$(RM) -r $(TMP)/*
+	$(RM) $(OUTPUTBENCH)
+	$(RM) $(call FIXPATH,$(BENCHOBJECTS))
 
 run: all
 	./$(OUTPUTMAIN)

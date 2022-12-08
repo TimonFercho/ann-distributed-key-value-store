@@ -96,12 +96,11 @@ void teardown_benchmark(BulkInsertEntriesContext *c)
   remove(c->lists_filename.c_str());
 }
 
-void report_results(vector<double> samples)
+void report_results(vector<double> samples, double total_elapsed_seconds)
 {
   std::cout << "------------------" << std::endl;
   std::cout << "Benchmark results:" << std::endl;
   std::cout << "------------------" << std::endl;
-  std::cout << "#Samples: " << samples.size() << std::endl;
   double sum = std::accumulate(samples.begin(), samples.end(), 0.0);
   double mean = sum / samples.size();
   double min = *std::min_element(samples.begin(), samples.end());
@@ -113,6 +112,8 @@ void report_results(vector<double> samples)
   }
   std = sqrt(std / samples.size());
 
+  std::cout << "Samples: " << samples.size() << std::endl;
+  std::cout << "Elapsed minutes: " << total_elapsed_seconds / 60 << std::endl;
   std::cout << "Min: " << min << std::endl;
   std::cout << "Mean: " << mean << std::endl;
   std::cout << "Max: " << max << std::endl;
@@ -146,6 +147,9 @@ int main()
   vector<double>
       samples(n_samples);
 
+  std::chrono::time_point<std::chrono::system_clock> start, end;
+  start = std::chrono::system_clock::now();
+
   for (size_t i = 0; i < n_samples; i++)
   {
     setup_benchmark(c);
@@ -154,5 +158,8 @@ int main()
     teardown_benchmark(c);
   }
 
-  report_results(samples);
+  end = std::chrono::system_clock::now();
+  std::chrono::duration<double> total_elapsed = end - start;
+
+  report_results(samples, total_elapsed.count());
 }
