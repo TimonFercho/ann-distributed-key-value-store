@@ -4,14 +4,14 @@ from os.path import join, exists
 from os import makedirs, rename, remove
 
 try:
-    from faiss.contrib.datasets_fb import DatasetSIFT1M
+    from faiss.contrib.datasets_fb import DatasetSIFT1M, DatasetBigANN
 except ImportError:
-    from faiss.contrib.datasets import DatasetSIFT1M
+    from faiss.contrib.datasets import DatasetSIFT1M, DatasetBigANN
 
-sift1M_link = "ftp://ftp.irisa.fr/local/texmex/corpus/sift.tar.gz"
+datasets_link = "http://corpus-texmex.irisa.fr/"
 
 
-def import_data():
+def import_data_SITF1M():
     # Assumes that the dataset is in data/sift1M
     # fvecs format:
     # n * [[int] + d * [float32]]
@@ -19,12 +19,30 @@ def import_data():
     # d is the dimension (128),
     # the int is the vector dimension
     # and the float32 is one vector component
-    ds = DatasetSIFT1M()
-    xq = ds.get_queries()
-    xb = ds.get_database()
-    gt = ds.get_groundtruth()
-    xt = ds.get_train()
-    return xq, xb, gt, xt
+
+    return xb, xt
+
+
+def import_data(dataset="sift1M"):
+    # Assumes that the dataset is in data/sift1M
+    # fvecs format:
+    # n * [[int] + d * [float32]]
+    # where n is the number of vectors,
+    # d is the dimension (128),
+    # the int is the vector dimension
+    # and the float32 is one vector component
+    ds, xb, xt = None, None, None
+    if dataset == "bigann":
+        ds = DatasetSIFT1M()
+        xb = ds.get_database()
+        xt = ds.get_train()
+    elif dataset == "sift1M":
+        ds = DatasetBigANN()
+        xb = ds.get_database()
+        xt = ds.get_train()
+    else:
+        raise ValueError("Unknown dataset: {}".format(dataset))
+    return xb, xt
 
 
 def build_IVFFlat(xb, xt, d, npartitions):
@@ -71,11 +89,12 @@ def write_list_ids(vector_id_to_list_id_map, filename):
 
 
 def pipeline():
+    dataset = "sift1M"
     N_LISTS = 1024
     VECTORS_FILE = "vectors.bin"
     VECTOR_IDS_FILE = "vector_ids.bin"
     LIST_IDS_FILE = "list_ids.bin"
-    OUTPUT_DIR = join("out", "sift1M")
+    OUTPUT_DIR = join("out", dataset)
     if exists(OUTPUT_DIR):
         print("Output directory already exists", OUTPUT_DIR)
         return
@@ -83,13 +102,14 @@ def pipeline():
     makedirs(OUTPUT_DIR)
 
     try:
-        _, xb, _, xt = import_data()
+        xb, xt = import_data()
         n, d = xb.shape
     except FileNotFoundError:
-        print("Could not find SIFT1M dataset in data/sift1M, please download it first from", sift1M_link)
+        print(
+            f"Could not find {dataset} dataset in data/{dataset}, please download it first from", datasets_link)
         return
 
-    print("Clustering SIFT1M using IVFFlat")
+    print(f"Clustering {dataset} using IVFFlat")
     index = build_IVFFlat(xb, xt, d, N_LISTS)
     vector_id_to_list_id_map = get_vector_id_to_list_id_map(index)
 
