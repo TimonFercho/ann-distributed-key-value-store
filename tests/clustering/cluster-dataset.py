@@ -31,17 +31,15 @@ def import_data(dataset="sift1M"):
     # d is the dimension (128),
     # the int is the vector dimension
     # and the float32 is one vector component
-    ds, xb, xt = None, None, None
-    if dataset == "bigann":
+    ds = None
+    if dataset == "sift1M":
         ds = DatasetSIFT1M()
-        xb = ds.get_database()
-        xt = ds.get_train()
-    elif dataset == "sift1M":
+    elif dataset == "bigann":
         ds = DatasetBigANN()
-        xb = ds.get_database()
-        xt = ds.get_train()
     else:
         raise ValueError("Unknown dataset: {}".format(dataset))
+    xb = ds.get_database()
+    xt = ds.get_train()
     return xb, xt
 
 
