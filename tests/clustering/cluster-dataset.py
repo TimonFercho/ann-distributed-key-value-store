@@ -24,7 +24,7 @@ def import_data_SITF1M():
 
 
 def import_data(dataset="sift1M"):
-    # Assumes that the dataset is in data/sift1M
+    # Assumes that the dataset is in data/{dataset}
     # fvecs format:
     # n * [[int] + d * [float32]]
     # where n is the number of vectors,
@@ -89,7 +89,7 @@ def write_list_ids(vector_id_to_list_id_map, filename):
 
 
 def pipeline():
-    dataset = "sift1M"
+    dataset = "bigann"
     N_LISTS = 1024
     VECTORS_FILE = "vectors.bin"
     VECTOR_IDS_FILE = "vector_ids.bin"
@@ -102,7 +102,7 @@ def pipeline():
     makedirs(OUTPUT_DIR)
 
     try:
-        xb, xt = import_data()
+        xb, xt = import_data(dataset)
         n, d = xb.shape
     except FileNotFoundError:
         print(
