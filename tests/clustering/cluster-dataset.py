@@ -102,7 +102,8 @@ def pipeline():
 
     try:
         xb, xt = import_data(dataset)
-        n, d = xb.shape
+        d = xt.shape[1]
+        n = 10**9 if dataset == "bigann" else xb.shape[0]
     except FileNotFoundError:
         print(
             f"Could not find {dataset} dataset in data/{dataset}, please download it first from", datasets_link)
