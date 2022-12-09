@@ -48,7 +48,11 @@ def build_IVFFlat(xb, xt, d, npartitions):
     quantizer = faiss.IndexFlatL2(d)
     index = faiss.IndexIVFFlat(quantizer, d, npartitions)
     index.train(xt)
-    index.add(xb)
+    if isinstance(xb, np.ndarray):
+        index.add(xb)
+    else:
+        for x in xb:
+            index.add(x)
     return index
 
 
