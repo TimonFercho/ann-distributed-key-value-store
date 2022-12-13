@@ -11,18 +11,6 @@ except ImportError:
 datasets_link = "http://corpus-texmex.irisa.fr/"
 
 
-def import_data_SITF1M():
-    # Assumes that the dataset is in data/sift1M
-    # fvecs format:
-    # n * [[int] + d * [float32]]
-    # where n is the number of vectors,
-    # d is the dimension (128),
-    # the int is the vector dimension
-    # and the float32 is one vector component
-
-    return xb, xt
-
-
 def import_data(dataset="sift1M"):
     # Assumes that the dataset is in data/{dataset}
     # fvecs format:
@@ -38,8 +26,8 @@ def import_data(dataset="sift1M"):
             xb = ds.get_database()
         elif dataset == "bigann":
             ds = DatasetBigANN()
-            # first 10 batches of 1M vectors each => 10M out of 1B
-            xb = ds.database_iterator(bs=10**6, split=(10**2, 0)) 
+            # first 100M vectors out of 1B, in 10 batches of 10M
+            xb = ds.database_iterator(bs=10**7, split=(10**1, 0)) 
         else:
             raise ValueError("Unknown dataset: {}".format(dataset))
     except FileNotFoundError:
@@ -59,12 +47,10 @@ def build_IVFFlat_and_write_vectors(xb, xt, d, npartitions, filename):
             index.add(xb)
             xb.tofile(f)
         else:
-            i = 0
-            for x in xb:
+            for i, x in enumerate(xb):
                 print(f"Adding {i}'th batch")
                 index.add(x)
                 x.tofile(f)
-                i += 1
     return index
 
 
