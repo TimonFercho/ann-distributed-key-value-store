@@ -869,100 +869,126 @@ auto verify_bulk_insertion =
   }
 };
 
-SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[InvertedLists]")
+auto test_bulk_insertion_of_dataset =
+    [](
+        len_t n_entries,
+        size_t vector_dim,
+        string vectors_filename,
+        string ids_filename,
+        string list_ids_filename)
 {
-  GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
+  THEN("the files for the vectors, ids and list ids have been created using 'make -C tests/clustering'")
   {
-    size_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    REQUIRE(file_exists(vectors_filename));
+    REQUIRE(file_exists(ids_filename));
+    REQUIRE(file_exists(list_ids_filename));
 
-    auto data = gen_vectors(128);
-    auto list_ids_data = gen_list_lengths_random_length();
-    len_t n_entries = get_clustered_vectors_length(data, list_ids_data, vector_dim);
-    vector_el_t *vectors = to_ptr(vector_el_t, data.first);
-    vector_id_t *ids = to_ptr(vector_id_t, data.second);
-    list_id_t *list_ids = to_ptr(list_id_t, list_ids_data);
-
-    AND_GIVEN("the vectors, ids and list ids are written to files according to the format required by bulk_insert_entries()")
+    AND_GIVEN("the files are read into memory")
     {
-      string vectors_filename = join(TMP_DIR, VECTORS_FILE_NAME);
-      string ids_filename = join(TMP_DIR, VECTOR_IDS_FILE_NAME);
-      string list_ids_filename = join(TMP_DIR, LIST_IDS_FILE_NAME);
       size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
       size_t ids_size = n_entries * sizeof(list_id_t);
       size_t list_ids_size = n_entries * sizeof(list_id_t);
 
-      write_to_file(vectors_filename, vectors, vectors_size);
-      write_to_file(ids_filename, ids, ids_size);
-      write_to_file(list_ids_filename, list_ids, list_ids_size);
+      vector_el_t *vectors = (vector_el_t *)malloc(vectors_size);
+      vector_id_t *ids = (vector_id_t *)malloc(ids_size);
+      list_id_t *list_ids = (list_id_t *)malloc(list_ids_size);
 
-      WHEN("the entries are bulk inserted")
+      read_from_file(vectors_filename, vectors, vectors_size);
+      read_from_file(ids_filename, ids, ids_size);
+      read_from_file(list_ids_filename, list_ids, list_ids_size);
+
+      // WHEN("the entries are bulk inserted")
+      // {
+      //   InvertedLists lists = get_inverted_lists_object(vector_dim);
+      //   lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
+      //   THEN("the entries are inserted correctly")
+      //   {
+      //     verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
+      //   }
+      // }
+
+      time_t start = time(0);
+      tm *ltm = localtime(&start);
+      cout << "preparation for bulk insertion completed at " << ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << endl;
+
+
+      BENCHMARK_ADVANCED("bulk_insert_entries() benchmark")
+      (Catch::Benchmark::Chronometer meter)
       {
-        lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
+        InvertedLists lists = get_inverted_lists_object(vector_dim);
+        meter.measure([&lists, vectors_filename, ids_filename, list_ids_filename, n_entries]
+                      { return lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries); });
+      };
 
-        verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
-      }
+      time_t end = time(0);
+      ltm = localtime(&end);
+      cout << "bulk insertion completed at " << ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << endl;
+
+      cout << "bulk insertion took " << (end - start) / 60 << " minutes" << endl;
+
+      free(vectors);
+      free(ids);
+      free(list_ids);
     }
   }
-  GIVEN("a vector dimension of 128")
+};
+
+SCENARIO("bulk_insert_entries(): load entries belonging to different lists from files (vectors, vector_ids, list_ids)", "[InvertedLists]")
+{
+  // GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
+  // {
+  //   size_t vector_dim = 128;
+  //   InvertedLists lists = get_inverted_lists_object(vector_dim);
+
+  //   auto data = gen_vectors(128);
+  //   auto list_ids_data = gen_list_lengths_random_length();
+  //   len_t n_entries = get_clustered_vectors_length(data, list_ids_data, vector_dim);
+  //   vector_el_t *vectors = to_ptr(vector_el_t, data.first);
+  //   vector_id_t *ids = to_ptr(vector_id_t, data.second);
+  //   list_id_t *list_ids = to_ptr(list_id_t, list_ids_data);
+
+  //   AND_GIVEN("the vectors, ids and list ids are written to files according to the format required by bulk_insert_entries()")
+  //   {
+  //     string vectors_filename = join(TMP_DIR, VECTORS_FILE_NAME);
+  //     string ids_filename = join(TMP_DIR, VECTOR_IDS_FILE_NAME);
+  //     string list_ids_filename = join(TMP_DIR, LIST_IDS_FILE_NAME);
+  //     size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
+  //     size_t ids_size = n_entries * sizeof(list_id_t);
+  //     size_t list_ids_size = n_entries * sizeof(list_id_t);
+
+  //     write_to_file(vectors_filename, vectors, vectors_size);
+  //     write_to_file(ids_filename, ids, ids_size);
+  //     write_to_file(list_ids_filename, list_ids, list_ids_size);
+
+  //     WHEN("the entries are bulk inserted")
+  //     {
+  //       lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
+
+  //       verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
+  //     }
+  //   }
+  // }
+  // GIVEN("the SIFT1M dataset which has already been clustered and written to files according to the format required by bulk_insert_entries()")
+  // {
+  //   size_t vector_dim = 128;
+  //   string vectors_filename = join(SIFT1M_OUTPUT_DIR, VECTORS_FILE_NAME);
+  //   string ids_filename = join(SIFT1M_OUTPUT_DIR, VECTOR_IDS_FILE_NAME);
+  //   string list_ids_filename = join(SIFT1M_OUTPUT_DIR, LIST_IDS_FILE_NAME);
+
+  //   len_t n_entries = (len_t)1E6;
+
+  //   test_bulk_insertion_of_dataset(n_entries, vector_dim, vectors_filename, ids_filename, list_ids_filename);
+  // }
+  GIVEN("the SIFT1B dataset which has already been clustered and written to files according to the format required by bulk_insert_entries()")
   {
     size_t vector_dim = 128;
+    string vectors_filename = join(SIFT1B_OUTPUT_DIR, VECTORS_FILE_NAME);
+    string ids_filename = join(SIFT1B_OUTPUT_DIR, VECTOR_IDS_FILE_NAME);
+    string list_ids_filename = join(SIFT1B_OUTPUT_DIR, LIST_IDS_FILE_NAME);
 
-    AND_GIVEN("the SIFT1M dataset which has already been clustered and written to files according to the format required by bulk_insert_entries()")
-    {
-      string vectors_filename = join(SIFT1M_OUTPUT_DIR, VECTORS_FILE_NAME);
-      string ids_filename = join(SIFT1M_OUTPUT_DIR, VECTOR_IDS_FILE_NAME);
-      string list_ids_filename = join(SIFT1M_OUTPUT_DIR, LIST_IDS_FILE_NAME);
+    // only the first 100M vectors are used
+    len_t n_entries = (len_t)1E8;
 
-      THEN("the files for the vectors, ids and list ids have been created using 'make -C tests/clustering'")
-      {
-        REQUIRE(file_exists(vectors_filename));
-        REQUIRE(file_exists(ids_filename));
-        REQUIRE(file_exists(list_ids_filename));
-
-        AND_GIVEN("the files are read into memory")
-        {
-          len_t n_entries = (len_t)1E6;
-          size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
-          size_t ids_size = n_entries * sizeof(list_id_t);
-          size_t list_ids_size = n_entries * sizeof(list_id_t);
-
-          vector_el_t *vectors = (vector_el_t *)malloc(vectors_size);
-          vector_id_t *ids = (vector_id_t *)malloc(ids_size);
-          list_id_t *list_ids = (list_id_t *)malloc(list_ids_size);
-
-          read_from_file(vectors_filename, vectors, vectors_size);
-          read_from_file(ids_filename, ids, ids_size);
-          read_from_file(list_ids_filename, list_ids, list_ids_size);
-
-          WHEN("the entries are bulk inserted")
-          {
-            InvertedLists lists = get_inverted_lists_object(vector_dim);
-            lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
-            THEN("the entries are inserted correctly")
-            {
-              verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
-            }
-          }
-
-          BENCHMARK("bulk_insert_entries()")
-          {
-            InvertedLists lists = get_inverted_lists_object(vector_dim);
-            lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
-          };
-
-          // BENCHMARK_ADVANCED("bulk_insert_entries() benchmark")
-          // (Catch::Benchmark::Chronometer meter)
-          // {
-          //   InvertedLists lists = get_inverted_lists_object(vector_dim);
-          //   meter.measure([&lists, vectors_filename, ids_filename, list_ids_filename, n_entries]
-          //                 { return lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries); });
-          // };
-          free(vectors);
-          free(ids);
-          free(list_ids);
-        }
-      }
-    }
+    test_bulk_insertion_of_dataset(n_entries, vector_dim, vectors_filename, ids_filename, list_ids_filename);
   }
 }
