@@ -39,32 +39,31 @@ namespace ann_dkvs
       list_id_t list_id,
       vector_el_t *query,
       size_t k,
-      heap_t candidates)
+      heap_t *candidates)
   {
-    vector_el_t *vectors = lists.get_vectors(list_id);
-    vector_id_t *ids = lists.get_ids(list_id);
-    size_t list_size = lists.get_list_length(list_id);
-    size_t vector_dim = lists.get_vector_dim();
-    size_t vector_size = lists.get_vector_size();
+    vector_el_t *vectors = lists->get_vectors(list_id);
+    vector_id_t *ids = lists->get_ids(list_id);
+    size_t list_size = lists->get_list_length(list_id);
+    size_t vector_dim = lists->get_vector_dim();
     for (size_t j = 0; j < list_size; j++)
     {
-      vector_el_t *vector = vectors + j * vector_size;
+      vector_el_t *vector = &vectors[j * vector_dim];
       float distance = L2Sqr(vector, query, &vector_dim);
       vector_id_t id = ids[j];
       result_t result = {distance, id};
-      if (candidates.size() < k)
+      if (candidates->size() < k)
       {
-        candidates.push(result);
+        candidates->push(result);
       }
-      else if (distance < candidates.top().first)
+      else if (distance < candidates->top().first)
       {
-        candidates.pop();
-        candidates.push(result);
+        candidates->pop();
+        candidates->push(result);
       }
     }
   }
 
-  Index::Index(InvertedLists lists)
+  Index::Index(InvertedLists *lists)
       : lists(lists) {}
 
   vector<result_t> Index::search_preassigned(
@@ -76,8 +75,8 @@ namespace ann_dkvs
     heap_t knn;
     for (size_t i = 0; i < nlist; i++)
     {
-      search_preassigned_list(list_ids[i], query, k, knn);
+      search_preassigned_list(list_ids[i], query, k, &knn);
     }
-    return extract_results(knn);
+    return extract_results(&knn);
   }
 }

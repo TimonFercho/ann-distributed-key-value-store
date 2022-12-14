@@ -15,16 +15,16 @@ namespace ann_dkvs
   class Index
   {
   private:
-    InvertedLists lists;
-    vector<result_t> extract_results(heap_t candidates);
+    InvertedLists *lists;
+    vector<result_t> extract_results(heap_t *candidates);
     void search_preassigned_list(
         list_id_t list_id,
         vector_el_t *query,
         size_t k,
-        heap_t candidates);
+        heap_t *candidates);
 
   public:
-    Index(InvertedLists lists);
+    Index(InvertedLists *lists);
     vector<result_t> search_preassigned(
         list_id_t *list_ids,
         size_t n_lists,
