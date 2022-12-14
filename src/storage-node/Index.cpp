@@ -24,13 +24,14 @@ namespace ann_dkvs
     return (res);
   }
 
-  vector<result_t> Index::extract_results(heap_t candidates)
+  vector<result_t> Index::extract_results(heap_t *candidates)
   {
-    vector<result_t> results;
-    while (!candidates.empty())
+    len_t k = candidates->size();
+    vector<result_t> results(k);
+    for (size_t i = 0; i < k; i++)
     {
-      results.push_back(candidates.top());
-      candidates.pop();
+      results[k - i - 1] = candidates->top();
+      candidates->pop();
     }
     return results;
   }
