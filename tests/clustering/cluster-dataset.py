@@ -35,7 +35,7 @@ def import_data(dataset="sift1M"):
             f"Could not find {dataset} dataset in data/{dataset}, please download it first from", datasets_link)
         exit(1)
     xt = ds.get_train()
-    return xb, xt, ds.d, ds.nb
+    return xb, xt, ds.d
 
 
 def build_IVFFlat_and_write_vectors(xb, xt, d, npartitions, filename):
@@ -76,8 +76,8 @@ def write_vectors(vectors, filename):
         with open(filename, "wb") as f:
             vectors.tofile(f)
 
-def write_vector_ids(n, filename):
-    ids = np.arange(n, dtype=np.int64)
+def write_vector_ids(vector_id_to_list_id_map, filename):
+    ids = np.arange(len(vector_id_to_list_id_map), dtype=np.int64)
     with open(filename, "wb") as f:
         ids.tofile(f)
 
@@ -102,7 +102,7 @@ def pipeline():
         return
 
     print("Importing data")
-    xb, xt, d, n = import_data(dataset)
+    xb, xt, d = import_data(dataset)
 
     print("Creating output directory", OUTPUT_DIR)
     makedirs(OUTPUT_DIR)
@@ -114,8 +114,14 @@ def pipeline():
     vector_id_to_list_id_map = get_vector_id_to_list_id_map(index)
 
     print("Writing vector ids and list ids to file")
-    write_vector_ids(n, join(OUTPUT_DIR, VECTOR_IDS_FILE))
-    write_list_ids(vector_id_to_list_id_map, join(OUTPUT_DIR, LIST_IDS_FILE))
+    write_vector_ids(
+        vector_id_to_list_id_map,
+        join(OUTPUT_DIR, VECTOR_IDS_FILE)
+    )
+    write_list_ids(
+        vector_id_to_list_id_map,
+        join(OUTPUT_DIR, LIST_IDS_FILE)
+    )
 
 
 if __name__ == "__main__":
