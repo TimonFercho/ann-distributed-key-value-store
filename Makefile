@@ -139,3 +139,6 @@ runtests: test
 
 runbench: bench
 	./$(OUTPUTBENCH)
+
+clusters:
+	cd tests/clustering && python cluster-dataset.py
