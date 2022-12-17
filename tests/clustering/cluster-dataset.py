@@ -17,26 +17,8 @@ DATASET_LINK = "http://corpus-texmex.irisa.fr/"
 #################################################################
 
 def load_dataset(cfg):
-    # Assumes that the dataset is in data/{dataset}
-    # fvecs format:
-    # n * [[int] + d * [float32]]
-    # where n is the number of vectors,
-    # d is the dimension (128),
-    # the int is the vector dimension
-    # and the float32 is one vector component
-    try:
-        ds = DatasetBigANN()
-    except FileNotFoundError:
-        print(
-            f"Could not find bigann dataset in data/bigann, please download it first from", DATASET_LINK)
-        exit(1)
-    total_dataset_size = ds.nb
-    dataset_size = cfg.dataset_size_millions * 10**6
-    cfg.batch_size = min(cfg.batch_size, dataset_size)
-    n_splits = total_dataset_size // dataset_size 
-    cfg.n_batches = dataset_size // cfg.batch_size
-    xb = ds.database_iterator(bs=cfg.batch_size, split=(n_splits, 0)) 
-    cfg.dimension = ds.d
+    n_splits = cfg.total_dataset_size // cfg.dataset_size 
+    xb = cfg.dataset.database_iterator(bs=cfg.batch_size, split=(n_splits, 0)) 
     return xb
 
 
@@ -50,13 +32,7 @@ def get_trained_index(cfg):
         index = faiss.read_index(cfg.trained_index_file)
     else:
         print("\tTraining index")
-        try:
-            ds = DatasetBigANN()
-        except FileNotFoundError:
-            print(
-                f"\tCould not find bigann dataset in data/bigann, please download it first from", DATASET_LINK)
-            exit(1)
-        xt = ds.get_train()
+        xt = self.dataset.get_train()
         quantizer = faiss.IndexFlatL2(cfg.dimension)
         index = faiss.IndexIVFFlat(quantizer, cfg.dimension, cfg.n_lists)
         index.train(xt)
@@ -171,13 +147,6 @@ def pipeline():
     )
     assert cfg.dataset_size_millions in [1, 10, 100, 1000], "Only SIFT1M, SIFT10M, SIFT100M, SIFT1B are supported"
 
-    if exists(cfg.vector_ids_file) or exists(cfg.list_ids_file):
-        print(f"Some output files already exist in {cfg.output_dir}, override? [y/n]")
-        if input() != "y":
-            exit(1)
-        for f in [cfg.vector_ids_file, cfg.list_ids_file]:
-            if exists(f):
-                remove(f)
     makedirs(cfg.output_dir, exist_ok=True)
     makedirs(cfg.indices_dir, exist_ok=True)
     if not exists(cfg.vectors_file):
@@ -205,13 +174,33 @@ class Config:
         self.output_dir = join(output_dir, f"SIFT{dataset_size_millions}M")
         self.indices_base = join(self.indices_dir, f"SIFT{dataset_size_millions}M")
         self.dataset_size_millions=dataset_size_millions
+        self.dataset_size = dataset_size_millions * 10**6
         self.n_lists=n_lists
         self.trained_index_file=join(temp_dir, "SIFT1000M_trained.index")
         self.merged_index_file=f"{self.indices_base}_merged.index"
         self.vectors_file=join(self.output_dir, vectors_file)
         self.vector_ids_file=join(self.output_dir, vector_ids_file)
         self.list_ids_file=join(self.output_dir, list_ids_file)
-        self.batch_size=batch_size
+        self.batch_size = min(batch_size, self.dataset_size)
+        self.n_batches = self.dataset_size // self.batch_size
+        self.prepare_dataset()
+
+    def prepare_dataset(self):
+        try:
+            # Assumes that the dataset is in data/{dataset}
+            # fvecs format:
+            # n * [[int] + d * [float32]]
+            # where n is the number of vectors,
+            # d is the dimension (128),
+            # the int is the vector dimension
+            # and the float32 is one vector component
+            self.dataset = DatasetBigANN()
+        except FileNotFoundError:
+            print(
+                f"Could not find bigann dataset in data/bigann, please download it first from", DATASET_LINK)
+            exit(1)
+        self.dimension = self.dataset.d
+        self.total_dataset_size = self.dataset.nb
 
     def get_batch_index_file(self, batch_no):
         return f"{self.indices_base}_{batch_no + 1}_of_{self.n_batches}.index"
