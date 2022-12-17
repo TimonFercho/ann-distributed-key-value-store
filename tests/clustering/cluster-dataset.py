@@ -49,7 +49,7 @@ def populate_and_write_index(cfg, batch, batch_no):
     if getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(batch_no):
         print(f"\tVectors file {cfg.vectors_file} is already populated, skipping")
     else:
-        assert cfg.get_vectors_file_size() == cfg.get_expected_partial_vectors_file_size(batch_no - 1), f"Vectors file does not have the expected size"
+        assert getsize(cfg.vectors_file) == cfg.get_expected_partial_vectors_file_size(batch_no - 1), f"Vectors file does not have the expected size"
         with open(cfg.vectors_file, "wb") as f:
             print(f"\tWriting vectors to {cfg.vectors_file}")
             batch.tofile(f)
@@ -134,40 +134,6 @@ def write_list_ids(cfg, vector_id_to_list_id_map):
 # Main
 #################################################################
 
-def pipeline():
-    cfg = Config(
-        dataset_size_millions=1,
-        n_lists=1024,
-        vectors_file="vectors.bin",
-        vector_ids_file="vector_ids.bin",
-        list_ids_file= "list_ids.bin",
-        output_dir="./out",
-        temp_dir="./tmp", 
-        batch_size=10**8
-    )
-    assert cfg.dataset_size_millions in [1, 10, 100, 1000], "Only SIFT1M, SIFT10M, SIFT100M, SIFT1B are supported"
-
-    makedirs(cfg.output_dir, exist_ok=True)
-    makedirs(cfg.indices_dir, exist_ok=True)
-    if not exists(cfg.vectors_file):
-        open(cfg.vectors_file, "w").close()
-
-    index_files = build_batch_indices(cfg)
-
-    if len(index_files) > 1:
-        print(f"Merging indices")
-        index = get_merged_index(cfg)
-    else:
-        print(f"Only one index file, skipping merge")
-        index = faiss.read_index(index_files[0])
-
-    print("Constructing vector-id-to-list-ids map")
-    vector_id_to_list_id_map = get_vector_id_to_list_id_map(index)
-    print(f"Writing vector ids to {cfg.vector_ids_file}")
-    write_vector_ids(cfg, vector_id_to_list_id_map)
-    print(f"Writing list ids to {cfg.list_ids_file}")
-    write_list_ids(cfg, vector_id_to_list_id_map)
-
 class Config:
     def __init__(self, dataset_size_millions, batch_size, n_lists,  vectors_file, vector_ids_file, list_ids_file, temp_dir, output_dir):
         self.indices_dir = join(temp_dir, f"SIFT{dataset_size_millions}M")
@@ -218,6 +184,41 @@ class Config:
 
     def get_expected_list_ids_file_size(self):
         return self.dataset_size * 8
+
+def pipeline():
+    cfg = Config(
+        dataset_size_millions=10,
+        n_lists=1024,
+        vectors_file="vectors.bin",
+        vector_ids_file="vector_ids.bin",
+        list_ids_file= "list_ids.bin",
+        output_dir="./out",
+        temp_dir="./tmp", 
+        batch_size=10**7
+    )
+    assert cfg.dataset_size_millions in [1, 10, 100, 1000], "Only SIFT1M, SIFT10M, SIFT100M, SIFT1B are supported"
+
+    makedirs(cfg.output_dir, exist_ok=True)
+    makedirs(cfg.indices_dir, exist_ok=True)
+    if not exists(cfg.vectors_file):
+        open(cfg.vectors_file, "w").close()
+    assert exists(cfg.vectors_file), "Vectors file does not exist"
+
+    index_files = build_batch_indices(cfg)
+
+    if len(index_files) > 1:
+        print(f"Merging indices")
+        index = get_merged_index(cfg)
+    else:
+        print(f"Only one index file, skipping merge and loading last index")
+        index = faiss.read_index(index_files[0])
+
+    print("Constructing vector-id-to-list-ids map")
+    vector_id_to_list_id_map = get_vector_id_to_list_id_map(index)
+    print(f"Writing vector ids to {cfg.vector_ids_file}")
+    write_vector_ids(cfg, vector_id_to_list_id_map)
+    print(f"Writing list ids to {cfg.list_ids_file}")
+    write_list_ids(cfg, vector_id_to_list_id_map)
 
 if __name__ == "__main__":
     pipeline()
