@@ -45,40 +45,38 @@ def get_trained_index(cfg):
 # Building the index
 #################################################################
 
-def populate_and_write_index(cfg, batch, batch_no):
-    if getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(batch_no):
-        print(f"\tVectors file {cfg.vectors_file} is already populated, skipping")
-    else:
-        assert getsize(cfg.vectors_file) == cfg.get_expected_partial_vectors_file_size(batch_no - 1), f"Vectors file does not have the expected size"
-        with open(cfg.vectors_file, "wb") as f:
-            print(f"\tWriting vectors to {cfg.vectors_file}")
-            batch.tofile(f)
+def write_batch_index(cfg, batch, batch_no):
+    index = None
     if exists(cfg.get_batch_index_file(batch_no)):
-        print(f"\tIndex file {cfg.get_batch_index_file(batch_no)} already exists, skipping")
+        print(f"\tIndex file {cfg.get_batch_index_file(batch_no)} already populated, skipping")
     else:
         index = get_trained_index(cfg)
         print(f"\tAdding vectors to index")
         index.add(batch)
         print(f"\tWriting index to {cfg.get_batch_index_file(batch_no)}")
         faiss.write_index(index, cfg.get_batch_index_file(batch_no))
+    return index
 
-def build_batch_indices(cfg):
+def write_batch_indices(cfg):
     xb = load_dataset(cfg)
     index_files = []
     for batch_no, batch in enumerate(xb):
         print(f"Building index for batch {batch_no + 1} of {cfg.n_batches}")
         index_files.append(cfg.get_batch_index_file(batch_no))
-        populate_and_write_index(cfg, batch, batch_no)
+        write_vectors(cfg, batch, batch_no)
+        index = write_batch_index(cfg, batch, batch_no)
+        write_list_ids(cfg, index, batch_no)
     assert getsize(cfg.vectors_file) == cfg.get_expected_vectors_file_size(), "Vectors file does not have the expected size"
     return index_files
 
-def get_merged_index(cfg):
+def get_merged_index(cfg, index_files):
     if exists(cfg.merged_index_file):
         print(f"Loading merged index from {cfg.merged_index_file}")
         return faiss.read_index(cfg.merged_index_file)
     else:
         print("Merging indices")
         merged_index = get_trained_index(cfg)
+        print("\t", end="")
         merge_ondisk(merged_index, index_files, cfg.merged_index_file)
         faiss.write_index(merged_index, cfg.merged_index_file)
         return merged_index
@@ -89,45 +87,69 @@ def get_merged_index(cfg):
 #################################################################
 
 def get_vector_ids(index, list_id):
-    invlists = index.invlists
-    list_len = invlists.list_size(list_id)
-    list_ids = invlists.get_ids(list_id)
-    list_vec_ids = faiss.rev_swig_ptr(list_ids, list_len)
-    return list_vec_ids
+
+    list_length = index.invlists.list_size(list_id)
+    vector_ids_ptr = index.invlists.get_ids(list_id)
+    vector_ids = faiss.rev_swig_ptr(vector_ids_ptr, list_length)
+    return vector_ids
 
 
-def get_vector_id_to_list_id_map(index):
-    vector_id_to_list_id_map = {}
-    for list_id in range(index.nlist):
+def get_ids_map(cfg, index, batch_no):
+    ids_map = {}
+    start_id = batch_no * cfg.batch_size
+    for list_id in range(cfg.n_lists):
         vector_ids = get_vector_ids(index, list_id)
         for vector_id in vector_ids:
-            vector_id_to_list_id_map[vector_id] = list_id
-    return vector_id_to_list_id_map
+            ids_map[start_id + vector_id] = list_id
+    return ids_map
 
 
 #################################################################
 # Writing test files to disk
 #################################################################
 
-def write_vector_ids(cfg, vector_id_to_list_id_map):
+def write_vectors(cfg, batch, batch_no):
+    if getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(batch_no):
+        print(f"\tVectors file {cfg.vectors_file} is already populated, skipping")
+    else:
+        expected_size = cfg.get_expected_partial_vectors_file_size(batch_no - 1)
+        with open(cfg.vectors_file, "ab") as f:
+            if getsize(cfg.vectors_file) > expected_size:
+                f.truncate(expected_size)
+            print(f"\tWriting vectors to {cfg.vectors_file}")
+            batch.tofile(f)
+    assert getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(batch_no), "Vectors file does not have the expected size"
+
+def write_vector_ids(cfg):
     if exists(cfg.vector_ids_file) and getsize(cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size():
             print(f"\tVector ids file already exists, skipping")
             return
-    ids = np.arange(len(vector_id_to_list_id_map), dtype=np.int64)
+    ids = np.arange(cfg.dataset_size, dtype=np.int64)
     with open(cfg.vector_ids_file, "wb") as f:
         ids.tofile(f)
-    assert getsize(cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size(), "Vector ids file does not have the expected size"
+    assert getsize(cfg.vector_ids_file) >= cfg.get_expected_vector_ids_file_size(), "Vector ids file does not have the expected size"
 
-def write_list_ids(cfg, vector_id_to_list_id_map):
-    if exists(cfg.list_ids_file) and getsize(cfg.list_ids_file) == cfg.get_expected_list_ids_file_size():
-            print(f"\tList ids file already exists, skipping")
-            return
-    ids = np.arange(len(vector_id_to_list_id_map), dtype=np.int64)
-    map_all_to_list_ids = np.vectorize(lambda i: vector_id_to_list_id_map[i])
-    list_ids = map_all_to_list_ids(ids)
-    with open(cfg.list_ids_file, "wb") as f:
-        list_ids.tofile(f)
-    assert getsize(cfg.list_ids_file) == cfg.get_expected_list_ids_file_size(), "List ids file does not have the expected size"
+def write_list_ids(cfg, index, batch_no):
+    if getsize(cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(batch_no):
+            print(f"\tList ids file {cfg.list_ids_file} already populated, skipping")
+    else:
+        if not index:
+            print(f"\tLoading index from {cfg.get_batch_index_file(batch_no)}")
+            index = faiss.read_index(cfg.get_batch_index_file(batch_no))
+        expected_size = cfg.get_expected_partial_list_ids_file_size(batch_no - 1)
+        with open(cfg.list_ids_file, "ab") as f:
+            if getsize(cfg.list_ids_file) > expected_size:
+                f.truncate(expected_size)
+            start_id = batch_no * cfg.batch_size
+            end_id = start_id + cfg.batch_size
+            print(f"\Populating ids map for vector ids {start_id} to {end_id}")
+            ids_map = get_ids_map(cfg, index, batch_no)
+            map_all_to_list_ids = np.vectorize(lambda i: ids_map[i])
+            ids = np.arange(start=start_id, stop=end_id, dtype=np.int64)
+            list_ids = map_all_to_list_ids(ids)
+            print(f"\tWriting list ids to file")
+            list_ids.tofile(f)
+    assert getsize(cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(batch_no), "List ids file does not have the expected size"
 
 
 #################################################################
@@ -177,17 +199,20 @@ class Config:
         return no_vectors * vector_size
 
     def get_expected_vectors_file_size(self):
-        return self.dataset_size * self.dimension * 4
+        return self.get_expected_partial_vectors_file_size(self.n_batches - 1)
+
+    def get_expected_partial_list_ids_file_size(self, batch_no):
+        return (batch_no + 1) * self.batch_size * 8
+
+    def get_expected_list_ids_file_size(self):
+        return self.get_expected_partial_list_ids_file_size(self.n_batches - 1)
 
     def get_expected_vector_ids_file_size(self):
         return self.dataset_size * 8
 
-    def get_expected_list_ids_file_size(self):
-        return self.dataset_size * 8
-
 def pipeline():
     cfg = Config(
-        dataset_size_millions=10,
+        dataset_size_millions=100,
         n_lists=1024,
         vectors_file="vectors.bin",
         vector_ids_file="vector_ids.bin",
@@ -203,22 +228,20 @@ def pipeline():
     if not exists(cfg.vectors_file):
         open(cfg.vectors_file, "w").close()
     assert exists(cfg.vectors_file), "Vectors file does not exist"
+    if not exists(cfg.list_ids_file):
+        open(cfg.list_ids_file, "w").close()
+    assert exists(cfg.list_ids_file), "List ids file does not exist"
 
-    index_files = build_batch_indices(cfg)
+    index_files = write_batch_indices(cfg)
 
     if len(index_files) > 1:
-        print(f"Merging indices")
-        index = get_merged_index(cfg)
+        index = get_merged_index(cfg, index_files)
     else:
         print(f"Only one index file, skipping merge and loading last index")
         index = faiss.read_index(index_files[0])
 
-    print("Constructing vector-id-to-list-ids map")
-    vector_id_to_list_id_map = get_vector_id_to_list_id_map(index)
     print(f"Writing vector ids to {cfg.vector_ids_file}")
-    write_vector_ids(cfg, vector_id_to_list_id_map)
-    print(f"Writing list ids to {cfg.list_ids_file}")
-    write_list_ids(cfg, vector_id_to_list_id_map)
+    write_vector_ids(cfg)
 
 if __name__ == "__main__":
     pipeline()
