@@ -47,7 +47,10 @@ using namespace ann_dkvs;
 
 #define get_vector_length(data, dim) (min(data.first.size() / dim, data.second.size()))
 
-namespace ann_dkvs {
+#define UNUSED(x) (void)(x)
+
+namespace ann_dkvs
+{
   size_t round_up_to_next_power_of_two(size_t value);
   size_t is_power_of_two(size_t value);
   size_t get_vector_size(len_t vector_dim);
@@ -55,6 +58,7 @@ namespace ann_dkvs {
   size_t get_total_size(size_t used_space);
   void write_to_file(string filename, void *data, size_t size);
   void read_from_file(string filename, void *data, size_t size);
+  void *mmap_file(string filename, size_t size);
   bool file_exists(string filename);
   string join(const string &a, const string &b);
   InvertedLists get_inverted_lists_object(len_t vector_dim);

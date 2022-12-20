@@ -1,4 +1,5 @@
 #include "../include/tests/InvertedListsTestUtils.hpp"
+#include <sys/mman.h>
 
 namespace ann_dkvs
 {
@@ -48,6 +49,14 @@ namespace ann_dkvs
     FILE *file = fopen(filename.c_str(), "r");
     fread(data, size, 1, file);
     fclose(file);
+  }
+
+  void *mmap_file(string filename, size_t size)
+  {
+    FILE *file = fopen(filename.c_str(), "r");
+    void *data = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fileno(file), 0);
+    fclose(file);
+    return data;
   }
 
   bool file_exists(string filename)

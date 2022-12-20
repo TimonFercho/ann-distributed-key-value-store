@@ -3,13 +3,11 @@
 #include <limits>
 #include <stdlib.h>
 #include <fstream>
+#include <sys/mman.h>
 
 #include "../lib/catch.hpp"
 
 #include "../include/tests/InvertedListsTestUtils.hpp"
-
-using namespace ann_dkvs;
-
 SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.InvertedLists]")
 {
   GIVEN("a nonzero vector dimension")
@@ -796,11 +794,39 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedL
   }
 }
 
-auto verify_bulk_insertion =
+auto setup_run_teardown_bulk_insert_entries_dataset =
     [](
-        InvertedLists lists,
         len_t n_entries,
-        size_t vector_dim,
+        len_t vector_dim,
+        string vectors_filename,
+        string ids_filename,
+        string list_ids_filename,
+        function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, string, string, string)> run_bulk_insert_entries)
+{
+  THEN("the vector, vector id and list id files are already present")
+  {
+    REQUIRE(file_exists(vectors_filename));
+    REQUIRE(file_exists(ids_filename));
+    REQUIRE(file_exists(list_ids_filename));
+
+    AND_GIVEN("the files are mapped to memory")
+    {
+      size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
+      size_t ids_size = n_entries * sizeof(list_id_t);
+      size_t list_ids_size = n_entries * sizeof(list_id_t);
+
+      vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filename, vectors_size);
+      vector_id_t *ids = (vector_id_t *)mmap_file(ids_filename, ids_size);
+      list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filename, list_ids_size);
+
+      run_bulk_insert_entries(n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
+
+      munmap(vectors, vectors_size);
+      munmap(ids, ids_size);
+      munmap(list_ids, list_ids_size);
+    }
+  }
+};
         vector_el_t *vectors,
         vector_id_t *ids,
         list_id_t *list_ids,
