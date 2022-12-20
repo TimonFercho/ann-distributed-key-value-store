@@ -2,8 +2,7 @@
 #define TEST_CONFIG_HPP
 
 #define TMP_DIR "tests/tmp"
-#define SIFT1M_OUTPUT_DIR "tests/clustering/out/sift1M"
-#define SIFT1B_OUTPUT_DIR "tests/clustering/out/bigann"
+#define SIFT_OUTPUT_DIR "tests/clustering/out/"
 #define LISTS_FILE_NAME "lists.bin"
 #define VECTORS_FILE_NAME "vectors.bin"
 #define VECTOR_IDS_FILE_NAME "vector_ids.bin"
