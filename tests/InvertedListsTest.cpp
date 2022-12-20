@@ -1020,39 +1020,58 @@ SCENARIO("bulk_insert_entries(): randomized testing", "[InvertedLists][bulk_inse
   }
 }
 
-  //     write_to_file(vectors_filename, vectors, vectors_size);
-  //     write_to_file(ids_filename, ids, ids_size);
-  //     write_to_file(list_ids_filename, list_ids, list_ids_size);
+SCENARIO("test bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_insert_entries][test][SIFT1M]")
+{
+  len_t n_entries = (len_t)1E6;
+  len_t vector_dim = 128;
+  test_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim);
+}
 
-  //     WHEN("the entries are bulk inserted")
-  //     {
-  //       lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
+SCENARIO("benchmark bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1M]")
+{
+  len_t n_entries = (len_t)1E6;
+  len_t vector_dim = 128;
+  benchmark_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim);
+}
 
-  //       verify_bulk_insertion(lists, n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
-  //     }
-  //   }
-  // }
-  // GIVEN("the SIFT1M dataset which has already been clustered and written to files according to the format required by bulk_insert_entries()")
-  // {
-  //   size_t vector_dim = 128;
-  //   string vectors_filename = join(SIFT1M_OUTPUT_DIR, VECTORS_FILE_NAME);
-  //   string ids_filename = join(SIFT1M_OUTPUT_DIR, VECTOR_IDS_FILE_NAME);
-  //   string list_ids_filename = join(SIFT1M_OUTPUT_DIR, LIST_IDS_FILE_NAME);
+SCENARIO("test bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_insert_entries][.test][SIFT10M]")
+{
+  len_t n_entries = (len_t)1E7;
+  len_t vector_dim = 128;
+  test_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim);
+}
 
-  //   len_t n_entries = (len_t)1E6;
+SCENARIO("benchmark bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT10M]")
+{
+  len_t n_entries = (len_t)1E7;
+  len_t vector_dim = 128;
+  benchmark_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim);
+}
 
-  //   test_bulk_insertion_of_dataset(n_entries, vector_dim, vectors_filename, ids_filename, list_ids_filename);
-  // }
-  GIVEN("the SIFT1B dataset which has already been clustered and written to files according to the format required by bulk_insert_entries()")
-  {
-    size_t vector_dim = 128;
-    string vectors_filename = join(SIFT1B_OUTPUT_DIR, VECTORS_FILE_NAME);
-    string ids_filename = join(SIFT1B_OUTPUT_DIR, VECTOR_IDS_FILE_NAME);
-    string list_ids_filename = join(SIFT1B_OUTPUT_DIR, LIST_IDS_FILE_NAME);
+SCENARIO("test bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_insert_entries][.test][SIFT100M]")
+{
+  len_t n_entries = (len_t)1E8;
+  len_t vector_dim = 128;
+  test_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim);
+}
 
-    // only the first 100M vectors are used
-    len_t n_entries = (len_t)1E8;
+SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT100M]")
+{
+  len_t n_entries = (len_t)1E8;
+  len_t vector_dim = 128;
+  benchmark_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim);
+}
 
-    test_bulk_insertion_of_dataset(n_entries, vector_dim, vectors_filename, ids_filename, list_ids_filename);
-  }
+SCENARIO("test bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.test][SIFT1B]")
+{
+  len_t n_entries = (len_t)1E9;
+  len_t vector_dim = 128;
+  test_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim);
+}
+
+SCENARIO("benchmark bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1B]")
+{
+  len_t n_entries = (len_t)1E9;
+  len_t vector_dim = 128;
+  benchmark_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim);
 }
