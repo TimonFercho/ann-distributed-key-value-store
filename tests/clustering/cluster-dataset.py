@@ -1,8 +1,9 @@
 import faiss
 import numpy as np
 from os.path import join, exists, getsize
-from os import makedirs, rename, remove
+from os import makedirs, rename, remove, chdir, getcwd
 from faiss.contrib.ondisk import merge_ondisk
+import argparse 
 
 try:
     from faiss.contrib.datasets_fb import DatasetSIFT1M, DatasetBigANN
@@ -142,12 +143,12 @@ def write_list_ids(cfg, index, batch_no):
                 f.truncate(expected_size)
             start_id = batch_no * cfg.batch_size
             end_id = start_id + cfg.batch_size
-            print(f"\Populating ids map for vector ids {start_id} to {end_id}")
+            print(f"\tPopulating ids map for vector ids {start_id} to {end_id}")
             ids_map = get_ids_map(cfg, index, batch_no)
             map_all_to_list_ids = np.vectorize(lambda i: ids_map[i])
             ids = np.arange(start=start_id, stop=end_id, dtype=np.int64)
             list_ids = map_all_to_list_ids(ids)
-            print(f"\tWriting list ids to file")
+            print(f"\tWriting list ids to {cfg.list_ids_file}")
             list_ids.tofile(f)
     assert getsize(cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(batch_no), "List ids file does not have the expected size"
 
@@ -158,6 +159,7 @@ def write_list_ids(cfg, index, batch_no):
 
 class Config:
     def __init__(self, dataset_size_millions, batch_size, n_lists,  vectors_file, vector_ids_file, list_ids_file, temp_dir, output_dir):
+        assert cfg.dataset_size_millions in [1, 10, 100, 1000], "Only SIFT1M, SIFT10M, SIFT100M, SIFT1B are supported"
         self.indices_dir = join(temp_dir, f"SIFT{dataset_size_millions}M")
         self.output_dir = join(output_dir, f"SIFT{dataset_size_millions}M")
         self.indices_base = join(self.indices_dir, f"SIFT{dataset_size_millions}M")
@@ -210,18 +212,9 @@ class Config:
     def get_expected_vector_ids_file_size(self):
         return self.dataset_size * 8
 
-def pipeline():
-    cfg = Config(
-        dataset_size_millions=100,
-        n_lists=1024,
-        vectors_file="vectors.bin",
-        vector_ids_file="vector_ids.bin",
-        list_ids_file= "list_ids.bin",
-        output_dir="./out",
-        temp_dir="./tmp", 
-        batch_size=10**7
-    )
-    assert cfg.dataset_size_millions in [1, 10, 100, 1000], "Only SIFT1M, SIFT10M, SIFT100M, SIFT1B are supported"
+def cluster_dataset(cfg):
+    print(f"Clustering dataset SIFT{cfg.dataset_size_millions}M into {cfg.n_lists} lists")
+    print(f"Processing data in {cfg.n_batches} batch{'es' if cfg.n_batches > 1 else ''} of {cfg.batch_size} vectors each")
 
     makedirs(cfg.output_dir, exist_ok=True)
     makedirs(cfg.indices_dir, exist_ok=True)
@@ -237,11 +230,35 @@ def pipeline():
     if len(index_files) > 1:
         index = get_merged_index(cfg, index_files)
     else:
-        print(f"Only one index file, skipping merge and loading last index")
+        print("Only one index file, skipping merge and loading last index")
         index = faiss.read_index(index_files[0])
 
-    print(f"Writing vector ids to {cfg.vector_ids_file}")
+    print("Writing vector ids to {cfg.vector_ids_file}")
     write_vector_ids(cfg)
 
 if __name__ == "__main__":
-    pipeline()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset", type=str, default="SIFT100M", help="Dataset to cluster, one of SIFT1M, SIFT10M, SIFT100M, SIFT1000M/1B")
+    parser.add_argument("--batch_size", type=int, default=10**7, help="Batch size")
+    parser.add_argument("--n_lists", type=int, default=2**10, help="Number of clusters")
+    parser.add_argument("--output_dir", type=str, default="./out", help="Directory to store output files in")
+    parser.add_argument("--temp_dir", type=str, default="./tmp", help="Directory to store temporary indices in")
+    parser.add_argument("--vectors_file", type=str, default="vectors.bin", help="File to output vectors to")
+    parser.add_argument("--vector_ids_file", type=str, default="vector_ids.bin", help="File to output vector ids to")
+    parser.add_argument("--list_ids_file", type=str, default="list_ids.bin", help="File to output list ids to")
+    args = parser.parse_args()
+
+    cfg = Config(
+        dataset_size_millions=1000 if args.dataset.lower().endswith("1b") else int(args.dataset[4:-1]) ,
+        n_lists=args.n_lists,
+        vectors_file=args.vectors_file,
+        vector_ids_file=args.vector_ids_file,
+        list_ids_file= args.list_ids_file,
+        output_dir=args.output_dir,
+        temp_dir=args.temp_dir, 
+        batch_size=args.batch_size
+    )
+    # make sure working directory is tests/clustering
+    if not getcwd().endswith("tests/clustering"):
+        chdir("tests/clustering")
+    cluster_dataset(cfg)
