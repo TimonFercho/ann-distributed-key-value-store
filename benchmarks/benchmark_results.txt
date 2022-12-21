@@ -172,15 +172,26 @@ Mean: 45.1663
 Max: 47.088
 Std: 1.09784
 
-
-===============================================
-= BENCHMARKING RESULTS: bulk_insert_entries() =
-=          USING SIFT1B DATASET               =
-===============================================
-
 ===================================
 = USING TESTING FRAMEWORK CATCH 2 =
 ===================================
+
+===============================================================================
+= With files read into memory                                                
+===============================================================================
+
+=======================
+= cluster mnt/scratch =
+= ( 1M entries )      =
+=======================
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+bulk_insert_entries()                          100             1     105.877 m 
+                                         1.01849 m     1.01174 m     1.02541 m 
+                                          2.0942 s      1.8135 s     2.44417 s 
 
 =======================
 = cluster mnt/scratch =
@@ -215,3 +226,52 @@ bulk_insert_entries() benchmark                  1             1     134.149 m
                                                  1             1     122.006 m 
                                          105.869 m     105.869 m     105.869 m 
                                               0 ns          0 ns          0 ns 
+
+
+
+===============================================================================
+= With memory mapped files                                                   
+===============================================================================
+
+memory used: 4 GB
+
+=======================
+= cluster mnt/scratch =
+= ( 1M entries )      =
+=======================
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+bulk_insert_entries() benchmark                100             1     152.616 m
+                                         1.49576 m      1.4691 m     1.51952 m
+                                         7.71382 s     6.68459 s     8.86206 s
+
+=======================
+= cluster mnt/scratch =
+= ( 10M entries )     =
+=======================
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+bulk_insert_entries() benchmark                 10             1     135.871 m 
+                                         13.3068 m     13.2014 m     13.4911 m
+                                         13.2965 s     7.60861 s     19.5831 s 
+
+
+=======================
+= cluster mnt/scratch =
+= ( 100M entries )    =
+=======================
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+bulk_insert_entries() benchmark                  3             1     455.493 m
+                                         144.007 m     123.452 m     155.303 m
+                                         14.7468 m          0 ns     15.9746 m 
+
