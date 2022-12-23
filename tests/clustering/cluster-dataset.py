@@ -173,7 +173,22 @@ class Config:
         self.centroids_file=join(self.output_dir, args.centroids_file)
         self.batch_size = min(args.batch_size, self.dataset_size)
         self.n_batches = self.dataset_size // self.batch_size
+        self.user_confirmation()
         self.prepare_dataset()
+
+    def user_confirmation(self):
+        print(f"Clustering with the following config:")
+        print(f"\tDataset: SIFT{self.dataset_size_millions}M")
+        print(f"\tNumber of clusters: {self.n_lists}")
+        print(f"\tBatch size: {self.batch_size}")
+        print(f"\tNumber of batches: {self.n_batches}")
+        print(f"\tReconstruct centroids from index: {self.reconstruct_centroids}")
+        print(f"\tTemporary directory: {self.indices_dir}")
+        print(f"\tOutput directory: {self.output_dir}")
+        if not input("Continue? [Y/N] ").lower().startswith("y"):
+            print("Aborting")
+            exit(1)
+
 
     def prepare_dataset(self):
         try:
@@ -213,9 +228,6 @@ class Config:
         return self.dataset_size * 8
 
 def cluster_dataset(cfg):
-    print(f"Clustering dataset SIFT{cfg.dataset_size_millions}M into {cfg.n_lists} lists")
-    print(f"Processing data in {cfg.n_batches} batch{'es' if cfg.n_batches > 1 else ''} of {cfg.batch_size} vectors each")
-
     makedirs(cfg.output_dir, exist_ok=True)
     makedirs(cfg.indices_dir, exist_ok=True)
     if not exists(cfg.vectors_file):
