@@ -158,20 +158,20 @@ def write_list_ids(cfg, index, batch_no):
 #################################################################
 
 class Config:
-    def __init__(self, dataset_size_millions, batch_size, n_lists,  vectors_file, vector_ids_file, list_ids_file, temp_dir, output_dir):
-        assert cfg.dataset_size_millions in [1, 10, 100, 1000], "Only SIFT1M, SIFT10M, SIFT100M, SIFT1B are supported"
-        self.indices_dir = join(temp_dir, f"SIFT{dataset_size_millions}M")
-        self.output_dir = join(output_dir, f"SIFT{dataset_size_millions}M")
-        self.indices_base = join(self.indices_dir, f"SIFT{dataset_size_millions}M")
-        self.dataset_size_millions=dataset_size_millions
-        self.dataset_size = dataset_size_millions * 10**6
-        self.n_lists=n_lists
-        self.trained_index_file=join(temp_dir, "SIFT1000M_trained.index")
+    def __init__(self, args):
+        self.dataset_size_millions = 1000 if args.dataset.lower().endswith("1b") else int(args.dataset[4:-1])
+        self.indices_dir = join(args.temp_dir, f"SIFT{self.dataset_size_millions}M")
+        self.output_dir = join(args.output_dir, f"SIFT{self.dataset_size_millions}M")
+        self.indices_base = join(self.indices_dir, f"SIFT{self.dataset_size_millions}M")
+        self.dataset_size = self.dataset_size_millions * 10**6
+        self.n_lists=args.n_lists
+        self.trained_index_file=join(args.temp_dir, "SIFT1000M_trained.index")
         self.merged_index_file=f"{self.indices_base}_merged.index"
-        self.vectors_file=join(self.output_dir, vectors_file)
-        self.vector_ids_file=join(self.output_dir, vector_ids_file)
-        self.list_ids_file=join(self.output_dir, list_ids_file)
-        self.batch_size = min(batch_size, self.dataset_size)
+        self.vectors_file=join(self.output_dir, args.vectors_file)
+        self.vector_ids_file=join(self.output_dir, args.vector_ids_file)
+        self.list_ids_file=join(self.output_dir, args.list_ids_file)
+        self.centroids_file=join(self.output_dir, args.centroids_file)
+        self.batch_size = min(args.batch_size, self.dataset_size)
         self.n_batches = self.dataset_size // self.batch_size
         self.prepare_dataset()
 
@@ -237,8 +237,8 @@ def cluster_dataset(cfg):
     write_vector_ids(cfg)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", type=str, default="SIFT100M", help="Dataset to cluster, one of SIFT1M, SIFT10M, SIFT100M, SIFT1000M/1B")
+    parser = argparse.ArgumentParser(prog="SIFT Dataset Clustering", description="Cluster subsets of SIFT dataset and output as lists of vectors, vector ids and list ids")
+    parser.add_argument("--dataset", type=str, default="SIFT100M", help="Dataset to cluster, one of SIFT1M, SIFT10M, SIFT100M, SIFT1000M/1B", choices=["SIFT1M", "SIFT10M", "SIFT100M", "SIFT1000M", "SIFT1B"])
     parser.add_argument("--batch_size", type=int, default=10**7, help="Batch size")
     parser.add_argument("--n_lists", type=int, default=2**10, help="Number of clusters")
     parser.add_argument("--output_dir", type=str, default="./out", help="Directory to store output files in")
@@ -248,16 +248,7 @@ if __name__ == "__main__":
     parser.add_argument("--list_ids_file", type=str, default="list_ids.bin", help="File to output list ids to")
     args = parser.parse_args()
 
-    cfg = Config(
-        dataset_size_millions=1000 if args.dataset.lower().endswith("1b") else int(args.dataset[4:-1]) ,
-        n_lists=args.n_lists,
-        vectors_file=args.vectors_file,
-        vector_ids_file=args.vector_ids_file,
-        list_ids_file= args.list_ids_file,
-        output_dir=args.output_dir,
-        temp_dir=args.temp_dir, 
-        batch_size=args.batch_size
-    )
+    cfg = Config(args)
     # make sure working directory is tests/clustering
     if not getcwd().endswith("tests/clustering"):
         chdir("tests/clustering")
