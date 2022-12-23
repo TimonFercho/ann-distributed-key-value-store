@@ -1,9 +1,10 @@
+#!/usr/bin/env python
 import faiss
 import numpy as np
 from os.path import join, exists, getsize
 from os import makedirs, rename, remove, chdir, getcwd
 from faiss.contrib.ondisk import merge_ondisk
-import argparse 
+import argparse
 
 try:
     from faiss.contrib.datasets_fb import DatasetSIFT1M, DatasetBigANN
@@ -88,7 +89,6 @@ def get_merged_index(cfg, index_files):
 #################################################################
 
 def get_vector_ids(index, list_id):
-
     list_length = index.invlists.list_size(list_id)
     vector_ids_ptr = index.invlists.get_ids(list_id)
     vector_ids = faiss.rev_swig_ptr(vector_ids_ptr, list_length)
@@ -104,6 +104,8 @@ def get_ids_map(cfg, index, batch_no):
             ids_map[start_id + vector_id] = list_id
     return ids_map
 
+def get_centroids(index):
+    return index.quantizer.reconstruct_n(0, index.nlist)
 
 #################################################################
 # Writing test files to disk
@@ -152,6 +154,14 @@ def write_list_ids(cfg, index, batch_no):
             list_ids.tofile(f)
     assert getsize(cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(batch_no), "List ids file does not have the expected size"
 
+def write_centroids(cfg, index):
+    if exists(cfg.centroids_file):
+        print(f"\tCentroids file already exists, skipping")
+    else:
+        print(f"\tWriting centroids to {cfg.centroids_file}")
+        centroids = get_centroids(index)
+        with open(cfg.centroids_file, "wb") as f:
+            centroids.tofile(f)
 
 #################################################################
 # Main
@@ -173,6 +183,7 @@ class Config:
         self.centroids_file=join(self.output_dir, args.centroids_file)
         self.batch_size = min(args.batch_size, self.dataset_size)
         self.n_batches = self.dataset_size // self.batch_size
+        self.reconstruct_centroids = args.reconstruct_centroids
         self.user_confirmation()
         self.prepare_dataset()
 
@@ -239,13 +250,15 @@ def cluster_dataset(cfg):
 
     index_files = write_batch_indices(cfg)
 
-    if len(index_files) > 1:
-        index = get_merged_index(cfg, index_files)
-    else:
-        print("Only one index file, skipping merge and loading last index")
-        index = faiss.read_index(index_files[0])
+    if cfg.reconstruct_centroids:
+        if len(index_files) > 1:
+            index = get_merged_index(cfg, index_files)
+        else:
+            print("Only one index file, skipping merge and loading last index")
+            index = faiss.read_index(index_files[0])
+        write_centroids(cfg, index)
 
-    print("Writing vector ids to {cfg.vector_ids_file}")
+    print(f"Writing vector ids to {cfg.vector_ids_file}")
     write_vector_ids(cfg)
 
 if __name__ == "__main__":
@@ -258,10 +271,14 @@ if __name__ == "__main__":
     parser.add_argument("--vectors_file", type=str, default="vectors.bin", help="File to output vectors to")
     parser.add_argument("--vector_ids_file", type=str, default="vector_ids.bin", help="File to output vector ids to")
     parser.add_argument("--list_ids_file", type=str, default="list_ids.bin", help="File to output list ids to")
+    parser.add_argument("--centroids_file", type=str, default="centroids.bin", help="File to output centroids to")
+    parser.add_argument("--reconstruct_centroids", action="store_true", help="Construct centroids from built index")
+
     args = parser.parse_args()
 
     cfg = Config(args)
     # make sure working directory is tests/clustering
     if not getcwd().endswith("tests/clustering"):
         chdir("tests/clustering")
+    
     cluster_dataset(cfg)
