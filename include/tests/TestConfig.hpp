@@ -3,10 +3,7 @@
 
 #define TMP_DIR "tests/tmp"
 #define SIFT_OUTPUT_DIR "tests/clustering/out/"
-#define LISTS_FILE_NAME "lists.bin"
-#define VECTORS_FILE_NAME "vectors.bin"
-#define VECTOR_IDS_FILE_NAME "vector_ids.bin"
-#define LIST_IDS_FILE_NAME "list_ids.bin"
+#define LISTS_FILENAME "lists.bin"
 
 #define MAX_VECTOR_DIM 128
 #define MIN_LIST_LENGTH 1

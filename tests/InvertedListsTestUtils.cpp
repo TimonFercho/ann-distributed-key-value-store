@@ -77,7 +77,7 @@ namespace ann_dkvs
 
   InvertedLists get_inverted_lists_object(len_t vector_dim)
   {
-    string file = join(TMP_DIR, LISTS_FILE_NAME);
+    string file = join(TMP_DIR, LISTS_FILENAME);
     remove(file.c_str());
     InvertedLists lists(vector_dim, file);
     return lists;
