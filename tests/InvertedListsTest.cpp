@@ -927,7 +927,7 @@ auto benchmark_bulk_insert_entries =
   tm *ltm = localtime(&start);
   cout << "preparation for bulk insertion completed at " << ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << endl;
 
-  BENCHMARK_ADVANCED("bulk_insert_entries() benchmark")
+  BENCHMARK_ADVANCED("bulk_insert_entries()")
   (Catch::Benchmark::Chronometer meter)
   {
     InvertedLists lists = get_inverted_lists_object(vector_dim);
@@ -1062,14 +1062,14 @@ SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_in
   benchmark_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim);
 }
 
-SCENARIO("test bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.test][SIFT1B]")
+SCENARIO("test bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.test][SIFT1B][SIFT1000M]")
 {
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = 128;
   test_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim);
 }
 
-SCENARIO("benchmark bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1B]")
+SCENARIO("benchmark bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1B][SIFT1000M]")
 {
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = 128;
