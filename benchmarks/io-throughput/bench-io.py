@@ -30,7 +30,7 @@ def measure_thougput(args):
     src_filepath = os.path.join(args.src_dir, args.src_file)
     dst_filepath = os.path.join(args.dst_dir, args.dst_file)
     execution_times = np.zeros(args.num_runs)
-    print(f'Benchmarking copying a file from {src_filepath} to {dst_filepath}')
+    print(f'Benchmarking copying data from {src_filepath} to {dst_filepath}')
     print(f'Creating temporary file of size {args.file_size_mb} MB')
     create_file_of_size(filepath=src_filepath, file_size_bytes=args.file_size_mb * 2 ** 20)
     for i in range(args.num_runs):
