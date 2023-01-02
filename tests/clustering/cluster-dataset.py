@@ -124,13 +124,14 @@ def write_vectors(cfg, batch, batch_no):
     assert getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(batch_no), "Vectors file does not have the expected size"
 
 def write_vector_ids(cfg):
+    print(f"Writing vector ids to {cfg.vector_ids_file}")
     if exists(cfg.vector_ids_file) and getsize(cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size():
             print(f"\tVector ids file already exists, skipping")
             return
     ids = np.arange(cfg.dataset_size, dtype=np.int64)
     with open(cfg.vector_ids_file, "wb") as f:
         ids.tofile(f)
-    assert getsize(cfg.vector_ids_file) >= cfg.get_expected_vector_ids_file_size(), "Vector ids file does not have the expected size"
+    assert getsize(cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size(), "Vector ids file does not have the expected size"
 
 def write_list_ids(cfg, index, batch_no):
     if getsize(cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(batch_no):
@@ -162,6 +163,7 @@ def write_centroids(cfg, index):
         centroids = get_centroids(index)
         with open(cfg.centroids_file, "wb") as f:
             centroids.tofile(f)
+    assert getsize(cfg.centroids_file) == cfg.get_expected_centroids_file_size(), "Centroids file does not have the expected size"
 
 #################################################################
 # Main
@@ -238,6 +240,9 @@ class Config:
     def get_expected_vector_ids_file_size(self):
         return self.dataset_size * 8
 
+    def get_expected_centroids_file_size(self):
+        return self.n_lists * self.dimension * 4
+
 def cluster_dataset(cfg):
     makedirs(cfg.output_dir, exist_ok=True)
     makedirs(cfg.indices_dir, exist_ok=True)
@@ -247,9 +252,7 @@ def cluster_dataset(cfg):
     if not exists(cfg.list_ids_file):
         open(cfg.list_ids_file, "w").close()
     assert exists(cfg.list_ids_file), "List ids file does not exist"
-
     index_files = write_batch_indices(cfg)
-
     if cfg.reconstruct_centroids:
         if len(index_files) > 1:
             index = get_merged_index(cfg, index_files)
@@ -257,8 +260,6 @@ def cluster_dataset(cfg):
             print("Only one index file, skipping merge and loading last index")
             index = faiss.read_index(index_files[0])
         write_centroids(cfg, index)
-
-    print(f"Writing vector ids to {cfg.vector_ids_file}")
     write_vector_ids(cfg)
 
 if __name__ == "__main__":
