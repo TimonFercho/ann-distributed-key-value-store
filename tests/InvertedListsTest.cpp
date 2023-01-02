@@ -32,7 +32,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.Inver
 
       THEN("the filename is correct")
       {
-        REQUIRE(lists.get_filename() == join(TMP_DIR, LISTS_FILE_NAME));
+        REQUIRE(lists.get_filename() == join(TMP_DIR, LISTS_FILENAME));
       }
 
       THEN("the vector size is correct")
@@ -947,9 +947,9 @@ auto benchmark_bulk_insert_entries_dataset = [](string dataset, len_t n_entries,
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
     string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
-    string vectors_filename = join(dataset_dir, VECTORS_FILE_NAME);
-    string ids_filename = join(dataset_dir, VECTOR_IDS_FILE_NAME);
-    string list_ids_filename = join(dataset_dir, LIST_IDS_FILE_NAME);
+    string vectors_filename = join(dataset_dir, VECTORS_FILENAME);
+    string ids_filename = join(dataset_dir, VECTOR_IDS_FILENAME);
+    string list_ids_filename = join(dataset_dir, LIST_IDS_FILENAME);
 
     setup_run_teardown_bulk_insert_entries_dataset(
         n_entries,
@@ -966,9 +966,9 @@ auto test_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len_
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
     string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
-    string vectors_filename = join(dataset_dir, VECTORS_FILE_NAME);
-    string ids_filename = join(dataset_dir, VECTOR_IDS_FILE_NAME);
-    string list_ids_filename = join(dataset_dir, LIST_IDS_FILE_NAME);
+    string vectors_filename = join(dataset_dir, VECTORS_FILENAME);
+    string ids_filename = join(dataset_dir, VECTOR_IDS_FILENAME);
+    string list_ids_filename = join(dataset_dir, LIST_IDS_FILENAME);
 
     setup_run_teardown_bulk_insert_entries_dataset(
         n_entries,
@@ -996,9 +996,9 @@ SCENARIO("bulk_insert_entries(): randomized testing", "[InvertedLists][bulk_inse
 
     AND_GIVEN("the vectors, ids and list ids are written to files according to the format required by bulk_insert_entries()")
     {
-      string vectors_filename = join(TMP_DIR, VECTORS_FILE_NAME);
-      string ids_filename = join(TMP_DIR, VECTOR_IDS_FILE_NAME);
-      string list_ids_filename = join(TMP_DIR, LIST_IDS_FILE_NAME);
+      string vectors_filename = join(TMP_DIR, VECTORS_FILENAME);
+      string ids_filename = join(TMP_DIR, VECTOR_IDS_FILENAME);
+      string list_ids_filename = join(TMP_DIR, LIST_IDS_FILENAME);
       size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
       size_t ids_size = n_entries * sizeof(list_id_t);
       size_t list_ids_size = n_entries * sizeof(list_id_t);
