@@ -9,14 +9,14 @@
 namespace ann_dkvs
 {
   typedef float distance_t;
-  typedef pair<distance_t, vector_id_t> result_t;
-  typedef priority_queue<result_t> heap_t;
+  typedef pair<distance_t, vector_id_t> vector_distance_id_t;
+  typedef priority_queue<vector_distance_id_t> heap_t;
 
   class Index
   {
   private:
     InvertedLists *lists;
-    vector<result_t> extract_results(heap_t *candidates);
+    vector<vector_distance_id_t> extract_results(heap_t *candidates);
     void search_preassigned_list(
         list_id_t list_id,
         vector_el_t *query,
@@ -25,7 +25,7 @@ namespace ann_dkvs
 
   public:
     Index(InvertedLists *lists);
-    vector<result_t> search_preassigned(
+    vector<vector_distance_id_t> search_preassigned(
         list_id_t *list_ids,
         size_t n_lists,
         vector_el_t *query,

@@ -24,10 +24,10 @@ namespace ann_dkvs
     return (res);
   }
 
-  vector<result_t> Index::extract_results(heap_t *candidates)
+  vector<vector_distance_id_t> Index::extract_results(heap_t *candidates)
   {
     len_t k = candidates->size();
-    vector<result_t> results(k);
+    vector<vector_distance_id_t> results(k);
     for (size_t i = 0; i < k; i++)
     {
       results[k - i - 1] = candidates->top();
@@ -51,7 +51,7 @@ namespace ann_dkvs
       vector_el_t *vector = &vectors[j * vector_dim];
       float distance = L2Sqr(vector, query, &vector_dim);
       vector_id_t id = ids[j];
-      result_t result = {distance, id};
+      vector_distance_id_t result = {distance, id};
       if (candidates->size() < k)
       {
         candidates->push(result);
@@ -67,7 +67,7 @@ namespace ann_dkvs
   Index::Index(InvertedLists *lists)
       : lists(lists) {}
 
-  vector<result_t> Index::search_preassigned(
+  vector<vector_distance_id_t> Index::search_preassigned(
       list_id_t *list_ids,
       size_t nlist,
       vector_el_t *query,
