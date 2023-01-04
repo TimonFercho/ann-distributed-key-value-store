@@ -65,6 +65,10 @@ namespace ann_dkvs
   void print_vector(vector_el_t *vector, len_t vector_dim, len_t n_entries);
   void are_vectors_equal(vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries);
   void are_ids_equal(vector_id_t *actual, vector_id_t *expected, len_t n_entries);
+  string get_lists_filename();
+  string get_vectors_filename();
+  string get_vector_ids_filename();
+  string get_list_ids_filename(len_t n_lists);
 }
 
 #endif // INVERTED_LISTS_TEST_UTILS_HPP

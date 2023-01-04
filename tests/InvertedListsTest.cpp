@@ -32,7 +32,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.Inver
 
       THEN("the filename is correct")
       {
-        REQUIRE(lists.get_filename() == join(TMP_DIR, LISTS_FILENAME));
+        REQUIRE(lists.get_filename() == join(TMP_DIR, get_lists_filename()));
       }
 
       THEN("the vector size is correct")
@@ -798,16 +798,16 @@ auto setup_run_teardown_bulk_insert_entries_dataset =
     [](
         len_t n_entries,
         len_t vector_dim,
-        string vectors_filename,
-        string ids_filename,
-        string list_ids_filename,
+        string vectors_filepath,
+        string vector_ids_filepath,
+        string list_ids_filepath,
         function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, string, string, string)> run_bulk_insert_entries)
 {
   THEN("the vector, vector id and list id files are already present")
   {
-    REQUIRE(file_exists(vectors_filename));
-    REQUIRE(file_exists(ids_filename));
-    REQUIRE(file_exists(list_ids_filename));
+    REQUIRE(file_exists(vectors_filepath));
+    REQUIRE(file_exists(vector_ids_filepath));
+    REQUIRE(file_exists(list_ids_filepath));
 
     AND_GIVEN("the files are mapped to memory")
     {
@@ -815,11 +815,11 @@ auto setup_run_teardown_bulk_insert_entries_dataset =
       size_t ids_size = n_entries * sizeof(list_id_t);
       size_t list_ids_size = n_entries * sizeof(list_id_t);
 
-      vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filename, vectors_size);
-      vector_id_t *ids = (vector_id_t *)mmap_file(ids_filename, ids_size);
-      list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filename, list_ids_size);
+      vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
+      vector_id_t *ids = (vector_id_t *)mmap_file(vector_ids_filepath, ids_size);
+      list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
 
-      run_bulk_insert_entries(n_entries, vector_dim, vectors, ids, list_ids, vectors_filename, ids_filename, list_ids_filename);
+      run_bulk_insert_entries(n_entries, vector_dim, vectors, ids, list_ids, vectors_filepath, vector_ids_filepath, list_ids_filepath);
 
       munmap(vectors, vectors_size);
       munmap(ids, ids_size);
@@ -835,16 +835,16 @@ auto test_bulk_insert_entries =
         vector_el_t *vectors,
         vector_id_t *ids,
         list_id_t *list_ids,
-        string vectors_filename,
-        string ids_filename,
-        string list_ids_filename)
+        string vectors_filepath,
+        string vector_ids_filepath,
+        string list_ids_filepath)
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
     InvertedLists lists = get_inverted_lists_object(vector_dim);
     WHEN("the entries are bulk inserted")
     {
-      lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries);
+      lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries);
 
       unordered_map<list_id_t, vector<vector_el_t *>>
           list_vectors_map;
@@ -902,7 +902,7 @@ auto test_bulk_insert_entries =
       {
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries), runtime_error);
+          REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries), runtime_error);
         }
       }
     }
@@ -916,9 +916,9 @@ auto benchmark_bulk_insert_entries =
         vector_el_t *vectors,
         vector_id_t *ids,
         list_id_t *list_ids,
-        string vectors_filename,
-        string ids_filename,
-        string list_ids_filename)
+        string vectors_filepath,
+        string vector_ids_filepath,
+        string list_ids_filepath)
 {
   UNUSED(vectors);
   UNUSED(ids);
@@ -931,8 +931,8 @@ auto benchmark_bulk_insert_entries =
   (Catch::Benchmark::Chronometer meter)
   {
     InvertedLists lists = get_inverted_lists_object(vector_dim);
-    meter.measure([&lists, vectors_filename, ids_filename, list_ids_filename, n_entries]
-                  { return lists.bulk_insert_entries(vectors_filename, ids_filename, list_ids_filename, n_entries); });
+    meter.measure([&lists, vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries]
+                  { return lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries); });
   };
 
   time_t end = time(0);
@@ -942,40 +942,40 @@ auto benchmark_bulk_insert_entries =
   cout << "bulk insertion took " << (end - start) / 60 << " minutes" << endl;
 };
 
-auto benchmark_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len_t vector_dim)
+auto bench_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len_t vector_dim, len_t n_lists)
 {
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
     string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
-    string vectors_filename = join(dataset_dir, VECTORS_FILENAME);
-    string ids_filename = join(dataset_dir, VECTOR_IDS_FILENAME);
-    string list_ids_filename = join(dataset_dir, LIST_IDS_FILENAME);
+    string vectors_filepath = join(dataset_dir, get_vectors_filename());
+    string vector_ids_filepath = join(dataset_dir, get_vector_ids_filename());
+    string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
 
     setup_run_teardown_bulk_insert_entries_dataset(
         n_entries,
         vector_dim,
-        vectors_filename,
-        ids_filename,
-        list_ids_filename,
+        vectors_filepath,
+        vector_ids_filepath,
+        list_ids_filepath,
         benchmark_bulk_insert_entries);
   }
 };
 
-auto test_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len_t vector_dim)
+auto test_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len_t vector_dim, len_t n_lists)
 {
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
     string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
-    string vectors_filename = join(dataset_dir, VECTORS_FILENAME);
-    string ids_filename = join(dataset_dir, VECTOR_IDS_FILENAME);
-    string list_ids_filename = join(dataset_dir, LIST_IDS_FILENAME);
+    string vectors_filepath = join(dataset_dir, get_vectors_filename());
+    string vector_ids_filepath = join(dataset_dir, get_vector_ids_filename());
+    string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
 
     setup_run_teardown_bulk_insert_entries_dataset(
         n_entries,
         vector_dim,
-        vectors_filename,
-        ids_filename,
-        list_ids_filename,
+        vectors_filepath,
+        vector_ids_filepath,
+        list_ids_filepath,
         test_bulk_insert_entries);
   }
 };
@@ -996,16 +996,16 @@ SCENARIO("bulk_insert_entries(): randomized testing", "[InvertedLists][bulk_inse
 
     AND_GIVEN("the vectors, ids and list ids are written to files according to the format required by bulk_insert_entries()")
     {
-      string vectors_filename = join(TMP_DIR, VECTORS_FILENAME);
-      string ids_filename = join(TMP_DIR, VECTOR_IDS_FILENAME);
-      string list_ids_filename = join(TMP_DIR, LIST_IDS_FILENAME);
+      string vectors_filepath = join(TMP_DIR, get_vectors_filename());
+      string vector_ids_filepath = join(TMP_DIR, VECTOR_IDS_FILENAME);
+      string list_ids_filepath = join(TMP_DIR, get_list_ids_filename(0));
       size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
       size_t ids_size = n_entries * sizeof(list_id_t);
       size_t list_ids_size = n_entries * sizeof(list_id_t);
 
-      write_to_file(vectors_filename, vectors, vectors_size);
-      write_to_file(ids_filename, ids, ids_size);
-      write_to_file(list_ids_filename, list_ids, list_ids_size);
+      write_to_file(vectors_filepath, vectors, vectors_size);
+      write_to_file(vector_ids_filepath, ids, ids_size);
+      write_to_file(list_ids_filepath, list_ids, list_ids_size);
 
       test_bulk_insert_entries(
           n_entries,
@@ -1013,9 +1013,9 @@ SCENARIO("bulk_insert_entries(): randomized testing", "[InvertedLists][bulk_inse
           vectors,
           ids,
           list_ids,
-          vectors_filename,
-          ids_filename,
-          list_ids_filename);
+          vectors_filepath,
+          vector_ids_filepath,
+          list_ids_filepath);
     }
   }
 }
@@ -1024,54 +1024,62 @@ SCENARIO("test bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_insert_en
 {
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = 128;
-  test_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  test_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists);
 }
 
 SCENARIO("benchmark bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1M]")
 {
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = 128;
-  benchmark_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  bench_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists);
 }
 
 SCENARIO("test bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_insert_entries][.test][SIFT10M]")
 {
   len_t n_entries = (len_t)1E7;
   len_t vector_dim = 128;
-  test_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  test_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim, n_lists);
 }
 
 SCENARIO("benchmark bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT10M]")
 {
   len_t n_entries = (len_t)1E7;
   len_t vector_dim = 128;
-  benchmark_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  bench_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim, n_lists);
 }
 
 SCENARIO("test bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_insert_entries][.test][SIFT100M]")
 {
   len_t n_entries = (len_t)1E8;
   len_t vector_dim = 128;
-  test_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  test_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists);
 }
 
 SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT100M]")
 {
   len_t n_entries = (len_t)1E8;
   len_t vector_dim = 128;
-  benchmark_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  bench_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists);
 }
 
 SCENARIO("test bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.test][SIFT1B][SIFT1000M]")
 {
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = 128;
-  test_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  test_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim, n_lists);
 }
 
 SCENARIO("benchmark bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1B][SIFT1000M]")
 {
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = 128;
-  benchmark_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim);
+  len_t n_lists = 1024;
+  bench_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim, n_lists);
 }

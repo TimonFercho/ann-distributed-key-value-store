@@ -178,11 +178,11 @@ class Config:
         self.dataset_size = self.dataset_size_millions * 10**6
         self.n_lists=args.n_lists
         self.trained_index_file=join(args.temp_dir, "SIFT1000M_trained.index")
-        self.merged_index_file=f"{self.indices_base}_merged.index"
-        self.vectors_file=join(self.output_dir, args.vectors_file)
-        self.vector_ids_file=join(self.output_dir, args.vector_ids_file)
-        self.list_ids_file=join(self.output_dir, args.list_ids_file)
-        self.centroids_file=join(self.output_dir, args.centroids_file)
+        self.merged_index_file=f"{self.indices_base}_{args.n_lists}_merged.index"
+        self.vectors_file=join(self.output_dir, f"{args.vectors_file}.bin")
+        self.vector_ids_file=join(self.output_dir, f"{args.vector_ids_file}.bin")
+        self.list_ids_file=join(self.output_dir, f"{args.list_ids_file}_{args.n_lists}.bin")
+        self.centroids_file=join(self.output_dir, f"{args.centroids_file}_{args.n_lists}.bin")
         self.batch_size = min(args.batch_size, self.dataset_size)
         self.n_batches = self.dataset_size // self.batch_size
         self.reconstruct_centroids = args.reconstruct_centroids
@@ -269,17 +269,17 @@ if __name__ == "__main__":
     parser.add_argument("--n_lists", type=int, default=2**10, help="Number of clusters")
     parser.add_argument("--output_dir", type=str, default="./out", help="Directory to store output files in")
     parser.add_argument("--temp_dir", type=str, default="./tmp", help="Directory to store temporary indices in")
-    parser.add_argument("--vectors_file", type=str, default="vectors.bin", help="File to output vectors to")
-    parser.add_argument("--vector_ids_file", type=str, default="vector_ids.bin", help="File to output vector ids to")
-    parser.add_argument("--list_ids_file", type=str, default="list_ids.bin", help="File to output list ids to")
-    parser.add_argument("--centroids_file", type=str, default="centroids.bin", help="File to output centroids to")
+    parser.add_argument("--vectors_file", type=str, default="vectors", help="File to output vectors to")
+    parser.add_argument("--vector_ids_file", type=str, default="vector_ids", help="File to output vector ids to")
+    parser.add_argument("--list_ids_file", type=str, default="list_ids", help="File to output list ids to")
+    parser.add_argument("--centroids_file", type=str, default="centroids", help="File to output centroids to")
     parser.add_argument("--reconstruct_centroids", action="store_true", help="Construct centroids from built index")
 
     args = parser.parse_args()
 
     cfg = Config(args)
-    # make sure working directory is tests/clustering
-    if not getcwd().endswith("tests/clustering"):
-        chdir("tests/clustering")
+    # make sure working directory is clustering
+    if not getcwd().endswith("clustering"):
+        chdir("clustering")
     
     cluster_dataset(cfg)

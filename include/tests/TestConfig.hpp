@@ -5,6 +5,12 @@
 #define SIFT_OUTPUT_DIR "cluster/out"
 #define SIFT_GROUNDTRUTH_DIR "cluster/data/bigann/gnd"
 #define SIFT_QUERY_VECTORS_FILEPATH "cluster/data/bigann/bigann_query.bvecs"
+#define LISTS_FILENAME "lists"
+#define VECTORS_FILENAME "vectors"
+#define VECTOR_IDS_FILENAME "vector_ids"
+#define LIST_IDS_FILENAME "list_ids"
+#define CENTROIDS_FILENAME "centroids"
+#define FILE_EXT ".bin"
 
 #define MAX_VECTOR_DIM 128
 #define MIN_LIST_LENGTH 1
