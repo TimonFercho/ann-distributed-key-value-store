@@ -86,7 +86,7 @@ Scenario: bulk_insert_entries(): load entries belonging to different lists from
   And given: the SIFT1M dataset which has already been clustered and written to
              files according to the format required by bulk_insert_entries()
        Then: the files for the vectors, ids and list ids have been created
-             using 'make -C tests/clustering'
+             using 'make -C cluster'
   And given: the files are read into memory
 ```
 
@@ -257,4 +257,4 @@ bulk_insert_entries() benchmark                  1             1           ? m
 - Compared to loading the input files in-memory, mapping the files to memory increases the execution time by about 33%.
 
 
-![bulk_insertion_results](bulk_insertion_execution_time.jpg)
+![bulk_insertion_results](bulk-insertion-execution-time.jpg)

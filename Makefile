@@ -141,4 +141,4 @@ runbench: bench
 	./$(OUTPUTBENCH)
 
 clusters:
-	cd tests/clustering && python cluster-dataset.py
+	cd cluster && python cluster-dataset.py

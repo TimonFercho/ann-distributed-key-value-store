@@ -2,11 +2,9 @@
 #define TEST_CONFIG_HPP
 
 #define TMP_DIR "tests/tmp"
-#define SIFT_OUTPUT_DIR "tests/clustering/out/"
-#define LISTS_FILENAME "lists.bin"
-#define VECTORS_FILENAME "vectors.bin"
-#define VECTOR_IDS_FILENAME "vector_ids.bin"
-#define LIST_IDS_FILENAME "list_ids.bin"
+#define SIFT_OUTPUT_DIR "cluster/out"
+#define SIFT_GROUNDTRUTH_DIR "cluster/data/bigann/gnd"
+#define SIFT_QUERY_VECTORS_FILEPATH "cluster/data/bigann/bigann_query.bvecs"
 
 #define MAX_VECTOR_DIM 128
 #define MIN_LIST_LENGTH 1

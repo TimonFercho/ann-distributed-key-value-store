@@ -9,7 +9,7 @@
 #include <cmath>
 
 #define TMP_DIR "benchmarks/tmp"
-#define SIFT1M_OUTPUT_DIR "tests/clustering/out/sift1M"
+#define SIFT1M_OUTPUT_DIR "cluster/out/sift1M"
 #define LISTS_FILE_NAME "lists.bin"
 #define VECTORS_FILE_NAME "vectors.bin"
 #define VECTOR_IDS_FILE_NAME "vector_ids.bin"
