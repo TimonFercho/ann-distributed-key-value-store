@@ -1,4 +1,6 @@
-# I/O Throughput Benchmarks
+# Benchmarking I/O Throughput of Bulk Insertion
+
+## Measuring the maximum I/O bandwidth of `/mnt/scratch/`
 
 | Configuration      | Value     |
 |--------------|-----------|
@@ -7,7 +9,7 @@
 | #Samples    | 10      |
 
 
-## 1. Copying file from /mnt/scratch/ to /mnt/scratch/
+### Copying a file from /mnt/scratch/ to /mnt/scratch/
 
 
 ```
@@ -23,11 +25,10 @@ Run 7 of 10
 Run 8 of 10
 Run 9 of 10
 Run 10 of 10
-Mean throughput: 205.19 MB/s
-Std throughput: 34.9 MB/s
+Throughput: 205.19 +/- 34.9 MB/s
 ```
 
-## 2. Copying file from /home/tfercho/ to /home/tfercho/
+### Copying a file from /home/tfercho/ to /home/tfercho/
 
 ```
 Benchmarking copying data from /home/tfercho/tmp/ to /home/tfercho/tmp/
@@ -42,6 +43,30 @@ Run 7 of 10
 Run 8 of 10
 Run 9 of 10
 Run 10 of 10
-Mean throughput: 223.31 MB/s
-Std throughput: 60.11 MB/s
+Throughput: 223.31 +/- 60.11 MB/s
 ```
+
+## Measuring the maximum I/O bandwidth of `/mnt/scratch/` (2)
+
+| Configuration      | Value     |
+|--------------|-----------|
+| Script      | `ann-dkvs/benchmarks/bench_io2.py` |
+| File size   | 16000 MB |
+| #Samples    | 10      |
+
+### Copying a file from /mnt/scratch/ to /mnt/scratch/
+```
+Throughput: 213.1 +/- 7.86 MB/s
+```
+
+## Results of benchmarking the I/O throughput
+- Assuming the measurements are accurate, the I/O utilization is only around 6 MB/s out of 213 MB/s = 3% of the total bandwidth of the network attached drive at /mnt/scratch/.
+- This seems very low, and it is not clear why this is the case.
+- We should investigate this further to find potential reason for this low utilization or uncover a potential measurement errors, e.g. by:
+  - Checking the I/O utilization of the network attached drive at /mnt/scratch/ when running the benchmark.
+  - Logging and analysing the I/O access pattern of the `bulk_insert_entries` method.
+  - Using some tool to profile the bulk insertion to measure time spent in I/O and other function calls.
+  - Manually profiling program by interrupting it while it is running in debug and inspecting the stack trace.
+
+
+![bulk-insertion-io-througput-results](bulk-insertion-io-throughput.jpg)

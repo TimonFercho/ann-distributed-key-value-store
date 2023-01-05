@@ -57,5 +57,4 @@ if __name__ == '__main__':
     parser.add_argument('--dst_file', type=str, help='destination file name', default='dst')
     args = parser.parse_args()
     mean_throughput, std_throughput = measure_thougput(args)
-    print(f"Mean throughput: {round(mean_throughput, 2)} MB/s")
-    print(f"Std throughput: {round(std_throughput, 2)} MB/s")
+    print(f"Throughput: {round(mean_throughput, 2)} +/- {round(std_throughput, 2)} MB/s")
