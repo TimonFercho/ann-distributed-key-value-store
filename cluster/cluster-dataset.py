@@ -34,7 +34,7 @@ def get_trained_index(cfg):
         index = faiss.read_index(cfg.trained_index_file)
     else:
         print("\tTraining index")
-        xt = self.dataset.get_train()
+        xt = cfg.dataset.get_train()
         quantizer = faiss.IndexFlatL2(cfg.dimension)
         index = faiss.IndexIVFFlat(quantizer, cfg.dimension, cfg.n_lists)
         index.train(xt)
