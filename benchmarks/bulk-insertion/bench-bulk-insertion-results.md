@@ -1,5 +1,5 @@
 
-# Benchmarking results of Bulk Insertion using SIFT1M Dataset
+# Benchmarking Bulk Insertion using SIFT1M Dataset
 
 ## Using manually written benmark
 - Input files: in-memory
@@ -248,12 +248,12 @@ bulk_insert_entries() benchmark                  1             1           ? m
                                               0 ns          0 ns          0 ns 
 ```
 
-# Results
+## Results
 
 - The execution time of the bulk insertion is linear with the number of entries to be inserted.
 - Similarly, while benchmarking, we use memory mapped files to avoid running out of memory.
 - While clustering the SIFT1B dataset, we need build the index in batches and merge them as memory mapped inverted lists since the uncompressed index is stored in memory.
-- Inserting the SIFT1B dataset into the index takes around 1700 minutes (28 hours) on the cluster. The is equals a rate of 1.5 million entries per minute.
+- Inserting the SIFT1B dataset into the index takes around 1700 minutes (28 hours) on the cluster. The is equals a rate of around 600k entries per minute.
 - Compared to loading the input files in-memory, mapping the files to memory increases the execution time by about 33%.
 
 
