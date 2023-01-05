@@ -144,105 +144,105 @@ SCENARIO("search_preassigned_list(): test recall with SIFT1M", "[Index][search_p
     len_t R = 1;
     len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
     len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096);
-    // if (n_probe <= n_lists)
-    // {
-    string dataset_dir = join(SIFT_OUTPUT_DIR, "SIFT1M");
-    // groundtruth format: sizeof(uint32_t) + [groundtruth_k * sizeof(uint32_t)]
-    string groundtruth_filepath = join(SIFT_GROUNDTRUTH_DIR, "idx_1M.ivecs");
-    // vectors format: n_entries * 128 * sizeof(float)
-    string vectors_filepath = join(dataset_dir, get_vectors_filename());
-    // vector ids format: n_entries * sizeof(int64_t)
-    string vectors_ids_filepath = join(dataset_dir, get_vector_ids_filename());
-    // list_ids format: n_entries * sizeof(int64_t)
-    string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
-    // centroids format: n_lists * 128 * sizeof(float)
-    string centroids_filepath = join(dataset_dir, get_centroids_filename(n_lists));
-    // query_vectors format: n_query_vectors * [sizeof(uint32_t) + 128 * sizeof(uint8_t)]
-    string query_vectors_filepath = SIFT_QUERY_VECTORS_FILEPATH;
-
-    THEN("all required files are present")
+    if (n_probe <= n_lists)
     {
-      REQUIRE(file_exists(vectors_filepath));
-      REQUIRE(file_exists(vectors_ids_filepath));
-      REQUIRE(file_exists(list_ids_filepath));
-      REQUIRE(file_exists(centroids_filepath));
-      REQUIRE(file_exists(query_vectors_filepath));
-      REQUIRE(file_exists(groundtruth_filepath));
-    }
+      string dataset_dir = join(SIFT_OUTPUT_DIR, "SIFT1M");
+      // groundtruth format: sizeof(uint32_t) + [groundtruth_k * sizeof(uint32_t)]
+      string groundtruth_filepath = join(SIFT_GROUNDTRUTH_DIR, "idx_1M.ivecs");
+      // vectors format: n_entries * 128 * sizeof(float)
+      string vectors_filepath = join(dataset_dir, get_vectors_filename());
+      // vector ids format: n_entries * sizeof(int64_t)
+      string vectors_ids_filepath = join(dataset_dir, get_vector_ids_filename());
+      // list_ids format: n_entries * sizeof(int64_t)
+      string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
+      // centroids format: n_lists * 128 * sizeof(float)
+      string centroids_filepath = join(dataset_dir, get_centroids_filename(n_lists));
+      // query_vectors format: n_query_vectors * [sizeof(uint32_t) + 128 * sizeof(uint8_t)]
+      string query_vectors_filepath = SIFT_QUERY_VECTORS_FILEPATH;
 
-    WHEN("the files are mapped to memory")
-    {
-      len_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
-      len_t ids_size = n_entries * sizeof(list_id_t);
-      len_t list_ids_size = n_entries * sizeof(list_id_t);
-      len_t centroids_size = n_lists * vector_dim * sizeof(vector_el_t);
-      len_t query_vectors_size = n_query_vectors * vector_dim * sizeof(vector_el_t);
-      len_t groundtruth_size = n_query_vectors * groundtruth_k * sizeof(vector_id_t);
-
-      vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
-      vector_id_t *vector_ids = (vector_id_t *)mmap_file(vectors_ids_filepath, ids_size);
-      list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
-      vector_el_t *centroids = (vector_el_t *)mmap_file(centroids_filepath, centroids_size);
-      uint8_t *query_vectors = (uint8_t *)mmap_file(query_vectors_filepath, query_vectors_size);
-      uint32_t *groundtruth = (uint32_t *)mmap_file(groundtruth_filepath, groundtruth_size);
-
-      THEN("the files are mapped correctly")
+      THEN("all required files are present")
       {
-        REQUIRE(vectors != nullptr);
-        REQUIRE(vector_ids != nullptr);
-        REQUIRE(list_ids != nullptr);
-        REQUIRE(centroids != nullptr);
-        REQUIRE(query_vectors != nullptr);
-        REQUIRE(groundtruth != nullptr);
+        REQUIRE(file_exists(vectors_filepath));
+        REQUIRE(file_exists(vectors_ids_filepath));
+        REQUIRE(file_exists(list_ids_filepath));
+        REQUIRE(file_exists(centroids_filepath));
+        REQUIRE(file_exists(query_vectors_filepath));
+        REQUIRE(file_exists(groundtruth_filepath));
       }
 
-      WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+      WHEN("the files are mapped to memory")
       {
+        len_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
+        len_t ids_size = n_entries * sizeof(list_id_t);
+        len_t list_ids_size = n_entries * sizeof(list_id_t);
+        len_t centroids_size = n_lists * vector_dim * sizeof(vector_el_t);
+        len_t query_vectors_size = n_query_vectors * vector_dim * sizeof(vector_el_t);
+        len_t groundtruth_size = n_query_vectors * groundtruth_k * sizeof(vector_id_t);
 
-        InvertedLists lists = get_inverted_lists_object(vector_dim);
-        lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
-        Index index(&lists);
+        vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
+        vector_id_t *vector_ids = (vector_id_t *)mmap_file(vectors_ids_filepath, ids_size);
+        list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
+        vector_el_t *centroids = (vector_el_t *)mmap_file(centroids_filepath, centroids_size);
+        uint8_t *query_vectors = (uint8_t *)mmap_file(query_vectors_filepath, query_vectors_size);
+        uint32_t *groundtruth = (uint32_t *)mmap_file(groundtruth_filepath, groundtruth_size);
 
-        WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
+        THEN("the files are mapped correctly")
         {
-          len_t n_correct = 0;
-          for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
+          REQUIRE(vectors != nullptr);
+          REQUIRE(vector_ids != nullptr);
+          REQUIRE(list_ids != nullptr);
+          REQUIRE(centroids != nullptr);
+          REQUIRE(query_vectors != nullptr);
+          REQUIRE(groundtruth != nullptr);
+        }
+
+        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+        {
+
+          InvertedLists lists = get_inverted_lists_object(vector_dim);
+          lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
+          Index index(&lists);
+
+          WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
           {
-            uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-            vector_el_t *query = alloc_query_as_vector_el(query_bytes, vector_dim);
-            vector<list_id_t> list_ids_to_search = find_nearest_centroids(centroids, n_lists, query, vector_dim, n_probe);
-            vector<vector_distance_id_t> nearest_neighbors = index.search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
-            vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (groundtruth_k + 1) + 1];
-            for (len_t i = 0; i < nearest_neighbors.size(); i++)
+            len_t n_correct = 0;
+            for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
             {
-              if (nearest_neighbors[i].second == groundtruth_first_nearest_neighbor)
+              uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
+              vector_el_t *query = alloc_query_as_vector_el(query_bytes, vector_dim);
+              vector<list_id_t> list_ids_to_search = find_nearest_centroids(centroids, n_lists, query, vector_dim, n_probe);
+              vector<vector_distance_id_t> nearest_neighbors = index.search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
+              vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (groundtruth_k + 1) + 1];
+              for (len_t i = 0; i < nearest_neighbors.size(); i++)
               {
-                n_correct++;
-                break;
+                if (nearest_neighbors[i].second == groundtruth_first_nearest_neighbor)
+                {
+                  n_correct++;
+                  break;
+                }
               }
+              free(query);
             }
-            free(query);
-          }
-          cout << "n_lists: " << n_lists << endl;
-          cout << "n_probe: " << n_probe << endl;
-          float recall = (float)n_correct / n_query_vectors;
-          cout << "Recall@1: " << recall << endl;
-          THEN("the Recall@1 is 100% if we search all lists")
-          {
-            if (n_probe == n_lists)
+            cout << "n_lists: " << n_lists << endl;
+            cout << "n_probe: " << n_probe << endl;
+            float recall = (float)n_correct / n_query_vectors;
+            cout << "Recall@1: " << recall << endl;
+            THEN("the Recall@1 is 100% if we search all lists")
             {
-              REQUIRE(recall == 1.0);
+              if (n_probe == n_lists)
+              {
+                REQUIRE(recall == 1.0);
+              }
             }
           }
         }
+        munmap(vectors, vectors_size);
+        munmap(vector_ids, ids_size);
+        munmap(list_ids, list_ids_size);
+        munmap(centroids, centroids_size);
+        munmap(query_vectors, query_vectors_size);
+        munmap(groundtruth, groundtruth_size);
       }
-      munmap(vectors, vectors_size);
-      munmap(vector_ids, ids_size);
-      munmap(list_ids, list_ids_size);
-      munmap(centroids, centroids_size);
-      munmap(query_vectors, query_vectors_size);
-      munmap(groundtruth, groundtruth_size);
     }
-    // }
   }
 }
