@@ -10,7 +10,23 @@ namespace ann_dkvs
 {
   typedef float distance_t;
   typedef pair<distance_t, vector_id_t> vector_distance_id_t;
-  typedef priority_queue<vector_distance_id_t> heap_t;
+  class VectorDistanceIdMaxHeapCompare
+  {
+  public:
+    bool operator()(vector_distance_id_t below, vector_distance_id_t above)
+    {
+      if (below.first > above.first)
+      {
+        return true;
+      }
+      else if (below.first == above.first && below.second < above.second)
+      {
+        return true;
+      }
+      return false;
+    }
+  };
+  typedef priority_queue<vector_distance_id_t, vector<vector_distance_id_t>, VectorDistanceIdMaxHeapCompare> heap_t;
 
   class Index
   {

@@ -56,7 +56,7 @@ namespace ann_dkvs
       {
         candidates->push(result);
       }
-      else if (distance < candidates->top().first)
+      else if (distance < candidates->top().first || (distance == candidates->top().first && id < candidates->top().second))
       {
         candidates->pop();
         candidates->push(result);
