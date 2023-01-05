@@ -278,8 +278,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     cfg = Config(args)
-    # make sure working directory is clustering
-    if not getcwd().endswith("clustering"):
-        chdir("clustering")
+    # make sure working directory is correct
+    if not getcwd().endswith("cluster"):
+        chdir("cluster")
     
     cluster_dataset(cfg)
