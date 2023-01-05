@@ -177,7 +177,7 @@ class Config:
         self.indices_base = join(self.indices_dir, f"SIFT{self.dataset_size_millions}M")
         self.dataset_size = self.dataset_size_millions * 10**6
         self.n_lists=args.n_lists
-        self.trained_index_file=join(args.temp_dir, "SIFT1000M_trained.index")
+        self.trained_index_file=join(args.temp_dir, f"SIFT1000M_{args.n_lists}_trained.index")
         self.merged_index_file=f"{self.indices_base}_{args.n_lists}_merged.index"
         self.vectors_file=join(self.output_dir, f"{args.vectors_file}.bin")
         self.vector_ids_file=join(self.output_dir, f"{args.vector_ids_file}.bin")
@@ -221,7 +221,7 @@ class Config:
         self.total_dataset_size = self.dataset.nb
 
     def get_batch_index_file(self, batch_no):
-        return f"{self.indices_base}_{batch_no + 1}_of_{self.n_batches}.index"
+        return f"{self.indices_base}_{self.n_lists}_{batch_no + 1}_of_{self.n_batches}.index"
 
     def get_expected_partial_vectors_file_size(self, batch_no):
         vector_size = self.dimension * 4
