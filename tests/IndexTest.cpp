@@ -48,7 +48,7 @@ auto find_nearest_centroids = [](vector_el_t *centroids, len_t n_centroids, vect
 {
   list_id_heap_t nearest_centroids;
 
-  for (list_id_t i = 0; i < (list_id_t) n_centroids; i++)
+  for (list_id_t i = 0; i < (list_id_t)n_centroids; i++)
   {
     vector_el_t *centroid = &centroids[i * vector_dim];
     float distance = L2Sqr(centroid, query_vector, &vector_dim);
@@ -135,15 +135,17 @@ SCENARIO("search_preassigned_list(): use index to find top k ANN of a query vect
 }
 SCENARIO("search_preassigned_list(): test recall with SIFT1M", "[Index][search_preassigned_list][test][SIFT1M]")
 {
-  GIVEN("the SIFT1M dataset, n_probe as large as the number of clusters")
+  GIVEN("the SIFT1M dataset")
   {
     len_t vector_dim = 128;
     len_t n_entries = (len_t)1E6;
-    len_t n_lists = 1024;
     len_t n_query_vectors = (len_t)1E4;
     len_t groundtruth_k = 1000;
-    len_t n_probe = n_lists;
     len_t R = 1;
+    len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
+    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096);
+    // if (n_probe <= n_lists)
+    // {
     string dataset_dir = join(SIFT_OUTPUT_DIR, "SIFT1M");
     // groundtruth format: sizeof(uint32_t) + [groundtruth_k * sizeof(uint32_t)]
     string groundtruth_filepath = join(SIFT_GROUNDTRUTH_DIR, "idx_1M.ivecs");
@@ -211,25 +213,26 @@ SCENARIO("search_preassigned_list(): test recall with SIFT1M", "[Index][search_p
             vector<list_id_t> list_ids_to_search = find_nearest_centroids(centroids, n_lists, query, vector_dim, n_probe);
             vector<vector_distance_id_t> nearest_neighbors = index.search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
             vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (groundtruth_k + 1) + 1];
-            bool is_correct = false;
             for (len_t i = 0; i < nearest_neighbors.size(); i++)
             {
               if (nearest_neighbors[i].second == groundtruth_first_nearest_neighbor)
               {
                 n_correct++;
-                is_correct = true;
                 break;
               }
             }
-            if (!is_correct)
-            {
-              cout << "True nearest neighbor " << groundtruth_first_nearest_neighbor << " of query " << query_id << " not found among results" << endl;
-            }
             free(query);
           }
-          THEN("the Recall@1 is 100%")
+          cout << "n_lists: " << n_lists << endl;
+          cout << "n_probe: " << n_probe << endl;
+          float recall = (float)n_correct / n_query_vectors;
+          cout << "Recall@1: " << recall << endl;
+          THEN("the Recall@1 is 100% if we search all lists")
           {
-            REQUIRE(n_correct == n_query_vectors);
+            if (n_probe == n_lists)
+            {
+              REQUIRE(recall == 1.0);
+            }
           }
         }
       }
@@ -240,5 +243,6 @@ SCENARIO("search_preassigned_list(): test recall with SIFT1M", "[Index][search_p
       munmap(query_vectors, query_vectors_size);
       munmap(groundtruth, groundtruth_size);
     }
+    // }
   }
 }
