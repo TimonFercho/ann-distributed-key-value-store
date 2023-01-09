@@ -12,7 +12,7 @@ namespace ann_dkvs
 
   public:
     StorageNode(Index index);
-    vector<result_t> receive_knn_request(
+    vector<vector_distance_id_t> receive_knn_request(
         list_id_t *list_ids,
         size_t nlist,
         vector_el_t *query,
