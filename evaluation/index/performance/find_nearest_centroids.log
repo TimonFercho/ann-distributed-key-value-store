@@ -1,0 +1,929 @@
+Filters: [Index][find_nearest_centroids][benchmark]
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.78588 s
+find_nearest_centroids() with n_lists=256 and n_probe=1
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+testmain is a Catch v2.13.10 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     4.11204 s 
+                                         1.37063 s     1.36927 s     1.37182 s 
+                                        1.57255 ms          0 ns    1.67867 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.77376 s
+find_nearest_centroids() with n_lists=256 and n_probe=2
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     4.16961 s 
+                                         1.39372 s     1.39284 s     1.39458 s 
+                                        1.18894 ms          0 ns     1.2083 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.84484 s
+find_nearest_centroids() with n_lists=256 and n_probe=4
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     4.31788 s 
+                                         1.44373 s     1.44151 s     1.44491 s 
+                                        1.58062 ms          0 ns    1.66235 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.93814 s
+find_nearest_centroids() with n_lists=256 and n_probe=8
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1      4.5959 s 
+                                         1.53257 s     1.53173 s       1.533 s 
+                                        594.274 us          0 ns    603.566 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.78248 s
+find_nearest_centroids() with n_lists=256 and n_probe=16
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     5.07467 s 
+                                         1.69308 s     1.69251 s     1.69348 s 
+                                        494.667 us          0 ns    568.888 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.79783 s
+find_nearest_centroids() with n_lists=256 and n_probe=32
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     5.96794 s 
+                                         1.99354 s      1.9925 s     1.99409 s 
+                                        739.591 us          0 ns     777.84 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.84595 s
+find_nearest_centroids() with n_lists=256 and n_probe=64
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     7.27954 s 
+                                         2.42773 s     2.42495 s     2.42945 s 
+                                        2.12524 ms          0 ns    2.43301 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.84778 s
+find_nearest_centroids() with n_lists=256 and n_probe=128
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     9.04293 s 
+                                         3.01272 s     3.01029 s     3.01395 s 
+                                         1.7234 ms          0 ns    1.73471 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 2.10714 s
+find_nearest_centroids() with n_lists=512 and n_probe=1
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     8.15207 s 
+                                         2.72694 s     2.72268 s     2.72916 s 
+                                         3.0185 ms          0 ns    3.15136 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 2.03305 s
+find_nearest_centroids() with n_lists=512 and n_probe=2
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     8.23591 s 
+                                         2.75285 s     2.75061 s     2.75421 s 
+                                        1.69474 ms          0 ns    1.93194 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 2.01405 s
+find_nearest_centroids() with n_lists=512 and n_probe=4
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     8.39113 s 
+                                         2.80671 s     2.80396 s     2.80821 s 
+                                        1.96793 ms          0 ns     2.1146 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 1.99553 s
+find_nearest_centroids() with n_lists=512 and n_probe=8
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     8.71208 s 
+                                         2.90856 s     2.90613 s     2.91016 s 
+                                         1.9659 ms          0 ns    2.26977 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 2.02219 s
+find_nearest_centroids() with n_lists=512 and n_probe=16
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     9.31417 s 
+                                         3.11268 s     3.11014 s     3.11445 s 
+                                        2.18656 ms          0 ns    2.51561 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 2.02834 s
+find_nearest_centroids() with n_lists=512 and n_probe=32
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     10.4707 s 
+                                         3.49613 s     3.49451 s     3.49756 s 
+                                        1.90393 ms          0 ns    2.02243 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 2.05549 s
+find_nearest_centroids() with n_lists=512 and n_probe=64
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     12.3265 s 
+                                         4.11506 s     4.11071 s     4.11739 s 
+                                         3.0987 ms          0 ns    3.29736 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 2.02702 s
+find_nearest_centroids() with n_lists=512 and n_probe=128
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     15.2514 s 
+                                         5.08772 s      5.0855 s     5.08886 s 
+                                        1.57255 ms          0 ns    1.62291 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 54.237 s
+find_nearest_centroids() with n_lists=1024 and n_probe=1
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     16.3101 s 
+                                         5.39461 s     5.39422 s      5.3948 s 
+                                        272.074 us          0 ns    276.717 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 58.5833 s
+find_nearest_centroids() with n_lists=1024 and n_probe=2
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     16.2657 s 
+                                           5.421 s     5.41996 s     5.42174 s 
+                                        902.101 us          0 ns    1.03799 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 58.7223 s
+find_nearest_centroids() with n_lists=1024 and n_probe=4
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     16.4494 s 
+                                         5.48498 s     5.48445 s     5.48547 s 
+                                         665.88 us          0 ns    690.487 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 58.6041 s
+find_nearest_centroids() with n_lists=1024 and n_probe=8
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     16.7765 s 
+                                         5.59804 s     5.59558 s      5.6003 s 
+                                        3.08718 ms          0 ns    3.20804 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 56.2909 s
+find_nearest_centroids() with n_lists=1024 and n_probe=16
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     17.4942 s 
+                                         5.82795 s       5.825 s     5.83015 s 
+                                        2.74838 ms          0 ns    3.11789 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 58.4229 s
+find_nearest_centroids() with n_lists=1024 and n_probe=32
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     18.8834 s 
+                                         6.28491 s     6.28338 s     6.28604 s 
+                                        1.39621 ms          0 ns    1.59265 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 61.968 s
+find_nearest_centroids() with n_lists=1024 and n_probe=64
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     21.1777 s 
+                                         7.07877 s     7.06392 s     7.09327 s 
+                                        20.2536 ms          0 ns    20.5017 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 57.1432 s
+find_nearest_centroids() with n_lists=1024 and n_probe=128
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     25.3228 s 
+                                         8.43253 s     8.43045 s     8.43369 s 
+                                        1.50149 ms          0 ns    1.64085 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 86.0336 s
+find_nearest_centroids() with n_lists=2048 and n_probe=1
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     32.2588 s 
+                                         10.7703 s     10.7696 s     10.7707 s 
+                                        499.592 us    252.977 us    575.481 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 104.209 s
+find_nearest_centroids() with n_lists=2048 and n_probe=2
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     32.5004 s 
+                                         10.8073 s     10.8036 s      10.811 s 
+                                        5.18047 ms          0 ns     5.2173 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 97.6912 s
+find_nearest_centroids() with n_lists=2048 and n_probe=4
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     32.5538 s 
+                                         10.8707 s     10.8703 s     10.8709 s 
+                                         268.13 us          0 ns    268.866 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 99.2883 s
+find_nearest_centroids() with n_lists=2048 and n_probe=8
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1      32.989 s 
+                                         11.0085 s     11.0078 s     11.0089 s 
+                                        492.715 us          0 ns     537.04 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 86.2741 s
+find_nearest_centroids() with n_lists=2048 and n_probe=16
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     33.8643 s 
+                                          11.269 s     11.2664 s     11.2704 s 
+                                        1.87257 ms          0 ns    2.03721 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 74.1092 s
+find_nearest_centroids() with n_lists=2048 and n_probe=32
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     35.4641 s 
+                                         11.8238 s     11.8143 s      11.832 s 
+                                        10.8291 ms          0 ns    11.6031 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 70.1154 s
+find_nearest_centroids() with n_lists=2048 and n_probe=64
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     38.4394 s 
+                                         12.7665 s     12.7662 s     12.7668 s 
+                                        349.957 us          0 ns    394.334 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 101.027 s
+find_nearest_centroids() with n_lists=2048 and n_probe=128
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     43.7141 s 
+                                         14.5343 s     14.5335 s     14.5348 s 
+                                        579.947 us          0 ns    585.957 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 78.5308 s
+find_nearest_centroids() with n_lists=4096 and n_probe=1
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     1.07402 m 
+                                         21.5058 s     21.5053 s     21.5061 s 
+                                        371.521 us          0 ns    425.436 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 91.2673 s
+find_nearest_centroids() with n_lists=4096 and n_probe=2
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     1.07672 m 
+                                         21.5522 s     21.5516 s     21.5526 s 
+                                        462.003 us          0 ns    525.516 us 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 79.2364 s
+find_nearest_centroids() with n_lists=4096 and n_probe=4
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1      1.0808 m 
+                                         21.6191 s     21.6136 s     21.6223 s 
+                                        4.02138 ms          0 ns    4.48752 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 102.255 s
+find_nearest_centroids() with n_lists=4096 and n_probe=8
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     1.08831 m 
+                                         21.7698 s     21.7685 s     21.7707 s 
+                                        1.16205 ms          0 ns    1.31593 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 111.712 s
+find_nearest_centroids() with n_lists=4096 and n_probe=16
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     1.10446 m 
+                                         22.0827 s     22.0782 s      22.085 s 
+                                        3.19815 ms          0 ns    3.23041 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 117.358 s
+find_nearest_centroids() with n_lists=4096 and n_probe=32
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1      1.1369 m 
+                                         22.7095 s     22.7078 s      22.711 s 
+                                        2.11476 ms          0 ns    2.19418 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 109.721 s
+find_nearest_centroids() with n_lists=4096 and n_probe=64
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     1.18978 m 
+                                         23.7852 s     23.7842 s     23.7862 s 
+                                        1.31471 ms          0 ns    1.36008 ms 
+                                                                               
+
+Inserted 1000000 entries of 1000000 (100%)
+bulk_insert_entries: took 125.594 s
+find_nearest_centroids() with n_lists=4096 and n_probe=128
+-------------------------------------------------------------------------------
+Scenario: find_nearest_centroids()
+      Given: the SIFT1M dataset
+       When: the files are mapped to memory
+       When: the InvertedLists object is populated with the vectors, ids and
+             list ids and used to initialize an Index object
+       When: for each query vector, the closest centroids are determined
+-------------------------------------------------------------------------------
+tests/IndexTest.cpp:406
+...............................................................................
+
+benchmark name                       samples       iterations    estimated
+                                     mean          low mean      high mean
+                                     std dev       low std dev   high std dev
+-------------------------------------------------------------------------------
+find_nearest_centroids(): no search              3             1     1.29879 m 
+                                         25.9411 s     25.9387 s     25.9423 s 
+                                        1.72594 ms          0 ns    1.73067 ms 
+                                                                               
+
+===============================================================================
+All tests passed (400 assertions in 1 test case)
+
