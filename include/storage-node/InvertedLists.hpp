@@ -90,7 +90,6 @@ namespace ann_dkvs
     void create_list(
         list_id_t list_id,
         len_t n_entries);
-    void delete_list(list_id_t list_id);
     void bulk_insert_entries(string vectors_filename, string vector_ids_filename, string list_ids_filename, len_t n_entries);
   };
 }

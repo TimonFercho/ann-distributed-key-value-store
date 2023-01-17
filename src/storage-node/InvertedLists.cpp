@@ -435,11 +435,6 @@ namespace ann_dkvs
     id_to_list_map[list_id] = list;
   }
 
-  void InvertedLists::delete_list(list_id_t list_id)
-  {
-    throw "delete_list() not implemented";
-  }
-
   void InvertedLists::update_entries(
       list_id_t list_id,
       vector_el_t *vectors,
