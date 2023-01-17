@@ -133,7 +133,8 @@ SCENARIO("search_preassigned_list(): use index to find top k ANN of a query vect
     }
   }
 }
-SCENARIO("search_preassigned_list(): test recall with SIFT1M", "[Index][search_preassigned_list][test][SIFT1M]")
+
+SCENARIO("search_preassigned(): test recall with SIFT1M", "[Index][search_preassigned][test][SIFT1M]")
 {
   GIVEN("the SIFT1M dataset")
   {
@@ -242,6 +243,190 @@ SCENARIO("search_preassigned_list(): test recall with SIFT1M", "[Index][search_p
         munmap(centroids, centroids_size);
         munmap(query_vectors, query_vectors_size);
         munmap(groundtruth, groundtruth_size);
+      }
+    }
+  }
+}
+
+SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search_preassigned][benchmark][SIFT1M]")
+{
+  GIVEN("the SIFT1M dataset")
+  {
+    len_t vector_dim = 128;
+    len_t n_entries = (len_t)1E6;
+    len_t n_query_vectors = (len_t)1E4;
+    len_t R = 1;
+    len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
+    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
+    if (n_probe <= n_lists)
+    {
+      string dataset_dir = join(SIFT_OUTPUT_DIR, "SIFT1M");
+      // vectors format: n_entries * 128 * sizeof(float)
+      string vectors_filepath = join(dataset_dir, get_vectors_filename());
+      // vector ids format: n_entries * sizeof(int64_t)
+      string vectors_ids_filepath = join(dataset_dir, get_vector_ids_filename());
+      // list_ids format: n_entries * sizeof(int64_t)
+      string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
+      // centroids format: n_lists * 128 * sizeof(float)
+      string centroids_filepath = join(dataset_dir, get_centroids_filename(n_lists));
+      // query_vectors format: n_query_vectors * [sizeof(uint32_t) + 128 * sizeof(uint8_t)]
+      string query_vectors_filepath = SIFT_QUERY_VECTORS_FILEPATH;
+
+      THEN("all required files are present")
+      {
+        REQUIRE(file_exists(vectors_filepath));
+        REQUIRE(file_exists(vectors_ids_filepath));
+        REQUIRE(file_exists(list_ids_filepath));
+        REQUIRE(file_exists(centroids_filepath));
+        REQUIRE(file_exists(query_vectors_filepath));
+      }
+
+      WHEN("the files are mapped to memory")
+      {
+        len_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
+        len_t ids_size = n_entries * sizeof(list_id_t);
+        len_t list_ids_size = n_entries * sizeof(list_id_t);
+        len_t centroids_size = n_lists * vector_dim * sizeof(vector_el_t);
+        len_t query_vectors_size = n_query_vectors * vector_dim * sizeof(vector_el_t);
+
+        vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
+        vector_id_t *vector_ids = (vector_id_t *)mmap_file(vectors_ids_filepath, ids_size);
+        list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
+        vector_el_t *centroids = (vector_el_t *)mmap_file(centroids_filepath, centroids_size);
+        uint8_t *query_vectors = (uint8_t *)mmap_file(query_vectors_filepath, query_vectors_size);
+
+        THEN("the files are mapped correctly")
+        {
+          REQUIRE(vectors != nullptr);
+          REQUIRE(vector_ids != nullptr);
+          REQUIRE(list_ids != nullptr);
+          REQUIRE(centroids != nullptr);
+          REQUIRE(query_vectors != nullptr);
+        }
+
+        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+        {
+
+          InvertedLists lists = get_inverted_lists_object(vector_dim);
+          lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
+          Index index(&lists);
+
+          WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
+          {
+            string benchmark_name = "search_preassigned() with n_lists=" + to_string(n_lists) + " and n_probe=" + to_string(n_probe);
+            cout << benchmark_name << endl;
+            BENCHMARK_ADVANCED("search_preassigned(): includes finding the nearest centroids")
+            (Catch::Benchmark::Chronometer meter)
+            {
+              meter.measure([&]
+                            {
+                for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
+                {
+                  uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
+                  vector_el_t *query = alloc_query_as_vector_el(query_bytes, vector_dim);
+                  vector<list_id_t> list_ids_to_search = find_nearest_centroids(centroids, n_lists, query, vector_dim, n_probe);
+                  index.search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
+                  free(query);
+                } });
+            };
+          }
+        }
+        munmap(vectors, vectors_size);
+        munmap(vector_ids, ids_size);
+        munmap(list_ids, list_ids_size);
+        munmap(centroids, centroids_size);
+        munmap(query_vectors, query_vectors_size);
+      }
+    }
+  }
+}
+
+SCENARIO("find_nearest_centroids()", "[Index][find_nearest_centroids][benchmark][SIFT1M]")
+{
+  GIVEN("the SIFT1M dataset")
+  {
+    len_t vector_dim = 128;
+    len_t n_entries = (len_t)1E6;
+    len_t n_query_vectors = (len_t)1E4;
+    len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
+    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
+    if (n_probe <= n_lists)
+    {
+      string dataset_dir = join(SIFT_OUTPUT_DIR, "SIFT1M");
+      // vectors format: n_entries * 128 * sizeof(float)
+      string vectors_filepath = join(dataset_dir, get_vectors_filename());
+      // vector ids format: n_entries * sizeof(int64_t)
+      string vectors_ids_filepath = join(dataset_dir, get_vector_ids_filename());
+      // list_ids format: n_entries * sizeof(int64_t)
+      string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
+      // centroids format: n_lists * 128 * sizeof(float)
+      string centroids_filepath = join(dataset_dir, get_centroids_filename(n_lists));
+      // query_vectors format: n_query_vectors * [sizeof(uint32_t) + 128 * sizeof(uint8_t)]
+      string query_vectors_filepath = SIFT_QUERY_VECTORS_FILEPATH;
+
+      THEN("all required files are present")
+      {
+        REQUIRE(file_exists(vectors_filepath));
+        REQUIRE(file_exists(vectors_ids_filepath));
+        REQUIRE(file_exists(list_ids_filepath));
+        REQUIRE(file_exists(centroids_filepath));
+        REQUIRE(file_exists(query_vectors_filepath));
+      }
+
+      WHEN("the files are mapped to memory")
+      {
+        len_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
+        len_t ids_size = n_entries * sizeof(list_id_t);
+        len_t list_ids_size = n_entries * sizeof(list_id_t);
+        len_t centroids_size = n_lists * vector_dim * sizeof(vector_el_t);
+        len_t query_vectors_size = n_query_vectors * vector_dim * sizeof(vector_el_t);
+
+        vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
+        vector_id_t *vector_ids = (vector_id_t *)mmap_file(vectors_ids_filepath, ids_size);
+        list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
+        vector_el_t *centroids = (vector_el_t *)mmap_file(centroids_filepath, centroids_size);
+        uint8_t *query_vectors = (uint8_t *)mmap_file(query_vectors_filepath, query_vectors_size);
+
+        THEN("the files are mapped correctly")
+        {
+          REQUIRE(vectors != nullptr);
+          REQUIRE(vector_ids != nullptr);
+          REQUIRE(list_ids != nullptr);
+          REQUIRE(centroids != nullptr);
+          REQUIRE(query_vectors != nullptr);
+        }
+
+        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+        {
+
+          InvertedLists lists = get_inverted_lists_object(vector_dim);
+          lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
+          Index index(&lists);
+
+          WHEN("for each query vector, the closest centroids are determined")
+          {
+            WARN("n_lists := " << n_lists);
+            WARN("n_probe := " << n_probe);
+            BENCHMARK_ADVANCED("find_nearest_centroids(): no search")
+            (Catch::Benchmark::Chronometer meter)
+            {
+              meter.measure([&]
+                            {
+                for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
+                {
+                  uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
+                  vector_el_t *query = alloc_query_as_vector_el(query_bytes, vector_dim);
+                  vector<list_id_t> list_ids_to_search = find_nearest_centroids(centroids, n_lists, query, vector_dim, n_probe);
+                  free(query);
+                } });
+            };
+          }
+        }
+        munmap(vectors, vectors_size);
+        munmap(vector_ids, ids_size);
+        munmap(list_ids, list_ids_size);
+        munmap(centroids, centroids_size);
+        munmap(query_vectors, query_vectors_size);
       }
     }
   }

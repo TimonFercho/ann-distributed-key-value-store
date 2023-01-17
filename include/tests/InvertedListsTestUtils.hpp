@@ -69,6 +69,13 @@ namespace ann_dkvs
   string get_vectors_filename();
   string get_vector_ids_filename();
   string get_list_ids_filename(len_t n_lists);
+  void setup_run_teardown_bulk_insert_entries_dataset(
+      len_t n_entries,
+      len_t vector_dim,
+      string vectors_filepath,
+      string vector_ids_filepath,
+      string list_ids_filepath,
+      function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, string, string, string)> run_bulk_insert_entries);
 }
 
 #endif // INVERTED_LISTS_TEST_UTILS_HPP

@@ -140,4 +140,37 @@ namespace ann_dkvs
     string file_ext = FILE_EXT;
     return filename + separator + to_string(n_lists) + file_ext;
   }
+
+  void setup_run_teardown_bulk_insert_entries_dataset(
+      len_t n_entries,
+      len_t vector_dim,
+      string vectors_filepath,
+      string vector_ids_filepath,
+      string list_ids_filepath,
+      function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, string, string, string)> run_bulk_insert_entries)
+  {
+    THEN("the vector, vector id and list id files are already present")
+    {
+      REQUIRE(file_exists(vectors_filepath));
+      REQUIRE(file_exists(vector_ids_filepath));
+      REQUIRE(file_exists(list_ids_filepath));
+
+      AND_GIVEN("the files are mapped to memory")
+      {
+        size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
+        size_t ids_size = n_entries * sizeof(list_id_t);
+        size_t list_ids_size = n_entries * sizeof(list_id_t);
+
+        vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
+        vector_id_t *ids = (vector_id_t *)mmap_file(vector_ids_filepath, ids_size);
+        list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
+
+        run_bulk_insert_entries(n_entries, vector_dim, vectors, ids, list_ids, vectors_filepath, vector_ids_filepath, list_ids_filepath);
+
+        munmap(vectors, vectors_size);
+        munmap(ids, ids_size);
+        munmap(list_ids, list_ids_size);
+      }
+    }
+  }
 }
