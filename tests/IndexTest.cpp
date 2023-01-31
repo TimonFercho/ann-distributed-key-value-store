@@ -1,36 +1,16 @@
+#include <sys/mman.h>
+#include <unordered_set>
+
 #include "../lib/catch.hpp"
 
 #include "../include/tests/InvertedListsTestUtils.hpp"
 #include "../include/storage-node/Index.hpp"
-
-#include <sys/mman.h>
-#include <unordered_set>
+#include "../include/L2Space.hpp"
 
 using namespace ann_dkvs;
 
-typedef float distance_t;
 typedef pair<distance_t, list_id_t> centroid_distance_id_t;
 typedef priority_queue<centroid_distance_id_t> list_id_heap_t;
-
-auto L2Sqr = [](
-                 const void *pVect1v,
-                 const void *pVect2v,
-                 const void *qty_ptr)
-{
-  float *pVect1 = (float *)pVect1v;
-  float *pVect2 = (float *)pVect2v;
-  size_t qty = *((size_t *)qty_ptr);
-
-  float res = 0;
-  for (size_t i = 0; i < qty; i++)
-  {
-    float t = *pVect1 - *pVect2;
-    pVect1++;
-    pVect2++;
-    res += t * t;
-  }
-  return (res);
-};
 
 auto extract_list_ids = [](list_id_heap_t *candidates)
 {
@@ -47,11 +27,12 @@ auto extract_list_ids = [](list_id_heap_t *candidates)
 auto find_nearest_centroids = [](vector_el_t *centroids, len_t n_centroids, vector_el_t *query_vector, len_t vector_dim, len_t number_of_nearest_centroids)
 {
   list_id_heap_t nearest_centroids;
+  distance_func_t distance_func = L2Space(vector_dim).get_distance_func();
 
   for (list_id_t i = 0; i < (list_id_t)n_centroids; i++)
   {
     vector_el_t *centroid = &centroids[i * vector_dim];
-    float distance = L2Sqr(centroid, query_vector, &vector_dim);
+    float distance = distance_func(centroid, query_vector, &vector_dim);
     centroid_distance_id_t result = {distance, i};
     if (nearest_centroids.size() < number_of_nearest_centroids)
     {
@@ -313,8 +294,8 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search
 
           WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
           {
-            string benchmark_name = "search_preassigned() with n_lists=" + to_string(n_lists) + " and n_probe=" + to_string(n_probe);
-            cout << benchmark_name << endl;
+            WARN("n_lists := " << n_lists);
+            WARN("n_probe := " << n_probe);
             BENCHMARK_ADVANCED("search_preassigned(): includes finding the nearest centroids")
             (Catch::Benchmark::Chronometer meter)
             {
