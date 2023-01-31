@@ -5,10 +5,10 @@
 #include <queue>
 
 #include "InvertedLists.hpp"
+#include "L2Space.hpp"
 
 namespace ann_dkvs
 {
-  typedef float distance_t;
   typedef pair<distance_t, vector_id_t> vector_distance_id_t;
   class VectorDistanceIdMaxHeapCompare
   {
@@ -32,6 +32,7 @@ namespace ann_dkvs
   {
   private:
     InvertedLists *lists;
+    distance_func_t distance_func;
     vector<vector_distance_id_t> extract_results(heap_t *candidates);
     void search_preassigned_list(
         list_id_t list_id,

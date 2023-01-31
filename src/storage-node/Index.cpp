@@ -1,28 +1,8 @@
 #include "Index.hpp"
-
-using namespace std;
+#include "L2Space.hpp"
 
 namespace ann_dkvs
 {
-  static float L2Sqr(
-      const void *pVect1v,
-      const void *pVect2v,
-      const void *qty_ptr)
-  {
-    float *pVect1 = (float *)pVect1v;
-    float *pVect2 = (float *)pVect2v;
-    size_t qty = *((size_t *)qty_ptr);
-
-    float res = 0;
-    for (size_t i = 0; i < qty; i++)
-    {
-      float t = *pVect1 - *pVect2;
-      pVect1++;
-      pVect2++;
-      res += t * t;
-    }
-    return (res);
-  }
 
   vector<vector_distance_id_t> Index::extract_results(heap_t *candidates)
   {
@@ -49,7 +29,7 @@ namespace ann_dkvs
     for (size_t j = 0; j < list_size; j++)
     {
       vector_el_t *vector = &vectors[j * vector_dim];
-      float distance = L2Sqr(vector, query, &vector_dim);
+      float distance = distance_func(vector, query, &vector_dim);
       vector_id_t id = ids[j];
       vector_distance_id_t result = {distance, id};
       if (candidates->size() < k)
@@ -65,13 +45,12 @@ namespace ann_dkvs
   }
 
   Index::Index(InvertedLists *lists)
-      : lists(lists) {}
+      : lists(lists)
+  {
+    distance_func = L2Space(lists->get_vector_dim()).get_distance_func();
+  }
 
-  vector<vector_distance_id_t> Index::search_preassigned(
-      list_id_t *list_ids,
-      size_t nlist,
-      vector_el_t *query,
-      size_t k)
+  vector<vector_distance_id_t> Index::search_preassigned(list_id_t *list_ids, size_t nlist, vector_el_t *query, size_t k)
   {
     heap_t knn;
     for (size_t i = 0; i < nlist; i++)
