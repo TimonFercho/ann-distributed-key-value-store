@@ -1,0 +1,1572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[Index][search_preassigned][SIFT1M][benchmark]">
+  <Group name="testmain">
+    <TestCase name="Scenario: search_preassigned(): benchmark querying with SIFT1M" tags="[Index][SIFT1M][benchmark][search_preassigned]" filename="tests/IndexTest.cpp" line="236">
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 1
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="2.51363e+09">
+                <!--All values in nano seconds-->
+                <mean value="8.17553e+08" lowerBound="8.01112e+08" upperBound="8.30674e+08" ci="0.95"/>
+                <standardDeviation value="1.67101e+07" lowerBound="0" upperBound="1.85555e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 2
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="4.62814e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.56765e+09" lowerBound="1.50221e+09" upperBound="1.62819e+09" ci="0.95"/>
+                <standardDeviation value="8.23755e+07" lowerBound="0" upperBound="8.56216e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 4
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="9.61281e+09">
+                <!--All values in nano seconds-->
+                <mean value="3.06447e+09" lowerBound="2.94764e+09" upperBound="3.14455e+09" ci="0.95"/>
+                <standardDeviation value="9.81895e+07" lowerBound="0" upperBound="1.13251e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.82841e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.98655e+09" lowerBound="5.86872e+09" upperBound="6.06183e+09" ci="0.95"/>
+                <standardDeviation value="9.24615e+07" lowerBound="0" upperBound="1.06465e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 16
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="3.5364e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.14989e+10" lowerBound="1.07322e+10" upperBound="1.19294e+10" ci="0.95"/>
+                <standardDeviation value="5.54325e+08" lowerBound="0" upperBound="6.08867e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 32
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="6.89843e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.10416e+10" lowerBound="2.05676e+10" upperBound="2.15002e+10" ci="0.95"/>
+                <standardDeviation value="6.38114e+08" lowerBound="0" upperBound="6.48633e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 64
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.26066e+11">
+                <!--All values in nano seconds-->
+                <mean value="4.0149e+10" lowerBound="3.99364e+10" upperBound="4.03268e+10" ci="0.95"/>
+                <standardDeviation value="2.30789e+08" lowerBound="0" upperBound="2.51425e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probe := 128
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="2.48335e+11">
+                <!--All values in nano seconds-->
+                <mean value="7.9996e+10" lowerBound="7.94613e+10" upperBound="8.03655e+10" ci="0.95"/>
+                <standardDeviation value="4.53386e+08" lowerBound="0" upperBound="5.22555e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 1
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.34294e+09">
+                <!--All values in nano seconds-->
+                <mean value="4.5973e+08" lowerBound="4.4134e+08" upperBound="4.69287e+08" ci="0.95"/>
+                <standardDeviation value="1.30338e+07" lowerBound="0" upperBound="1.3515e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 2
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="2.67873e+09">
+                <!--All values in nano seconds-->
+                <mean value="8.51093e+08" lowerBound="8.13494e+08" upperBound="8.75168e+08" ci="0.95"/>
+                <standardDeviation value="2.95603e+07" lowerBound="0" upperBound="3.40469e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 4
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="4.75204e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.61053e+09" lowerBound="1.57941e+09" upperBound="1.62644e+09" ci="0.95"/>
+                <standardDeviation value="2.20184e+07" lowerBound="0" upperBound="2.24947e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="9.59689e+09">
+                <!--All values in nano seconds-->
+                <mean value="3.0541e+09" lowerBound="2.97118e+09" upperBound="3.13637e+09" ci="0.95"/>
+                <standardDeviation value="1.15886e+08" lowerBound="0" upperBound="1.16346e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 16
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.9043e+10">
+                <!--All values in nano seconds-->
+                <mean value="6.13244e+09" lowerBound="6.11143e+09" upperBound="6.14476e+09" ci="0.95"/>
+                <standardDeviation value="1.55092e+07" lowerBound="0" upperBound="1.74254e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 32
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="3.63494e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.15561e+10" lowerBound="1.10579e+10" upperBound="1.18081e+10" ci="0.95"/>
+                <standardDeviation value="3.52308e+08" lowerBound="0" upperBound="3.56403e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 64
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="6.89582e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.12112e+10" lowerBound="2.05274e+10" upperBound="2.17862e+10" ci="0.95"/>
+                <standardDeviation value="7.483e+08" lowerBound="0" upperBound="8.13241e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probe := 128
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.27574e+11">
+                <!--All values in nano seconds-->
+                <mean value="4.04768e+10" lowerBound="4.0279e+10" upperBound="4.05927e+10" ci="0.95"/>
+                <standardDeviation value="1.45915e+08" lowerBound="0" upperBound="1.63857e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 1
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="9.07064e+08">
+                <!--All values in nano seconds-->
+                <mean value="2.97415e+08" lowerBound="2.90506e+08" upperBound="3.01238e+08" ci="0.95"/>
+                <standardDeviation value="4.96829e+06" lowerBound="0" upperBound="5.40714e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 2
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.50737e+09">
+                <!--All values in nano seconds-->
+                <mean value="4.49031e+08" lowerBound="4.41347e+08" upperBound="4.54509e+08" ci="0.95"/>
+                <standardDeviation value="6.75248e+06" lowerBound="0" upperBound="7.74805e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 4
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="2.67482e+09">
+                <!--All values in nano seconds-->
+                <mean value="8.60585e+08" lowerBound="8.50058e+08" upperBound="8.68916e+08" ci="0.95"/>
+                <standardDeviation value="1.05786e+07" lowerBound="0" upperBound="1.17831e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="4.81405e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.48915e+09" lowerBound="1.41994e+09" upperBound="1.52856e+09" ci="0.95"/>
+                <standardDeviation value="5.03355e+07" lowerBound="0" upperBound="5.57369e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 16
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="9.65643e+09">
+                <!--All values in nano seconds-->
+                <mean value="2.76856e+09" lowerBound="2.7497e+09" upperBound="2.78637e+09" ci="0.95"/>
+                <standardDeviation value="2.44685e+07" lowerBound="0" upperBound="2.51831e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 32
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.7859e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.37904e+09" lowerBound="5.35265e+09" upperBound="5.39258e+09" ci="0.95"/>
+                <standardDeviation value="1.86794e+07" lowerBound="0" upperBound="1.91526e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 64
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="3.34489e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.04965e+10" lowerBound="1.03874e+10" upperBound="1.05602e+10" ci="0.95"/>
+                <standardDeviation value="8.03481e+07" lowerBound="0" upperBound="9.01212e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probe := 128
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="6.52278e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.06133e+10" lowerBound="2.06016e+10" upperBound="2.06244e+10" ci="0.95"/>
+                <standardDeviation value="1.52617e+07" lowerBound="913315" upperBound="1.56978e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 1
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="9.63561e+08">
+                <!--All values in nano seconds-->
+                <mean value="3.30006e+08" lowerBound="3.20931e+08" upperBound="3.36391e+08" ci="0.95"/>
+                <standardDeviation value="7.85267e+06" lowerBound="3.80391e+06" upperBound="9.03022e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 2
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.25933e+09">
+                <!--All values in nano seconds-->
+                <mean value="4.01717e+08" lowerBound="3.98594e+08" upperBound="4.03882e+08" ci="0.95"/>
+                <standardDeviation value="2.65665e+06" lowerBound="0" upperBound="3.061e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 4
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.80683e+09">
+                <!--All values in nano seconds-->
+                <mean value="5.70308e+08" lowerBound="5.66347e+08" upperBound="5.73374e+08" ci="0.95"/>
+                <standardDeviation value="3.86125e+06" lowerBound="1.26648e+06" upperBound="4.33544e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="3.08804e+09">
+                <!--All values in nano seconds-->
+                <mean value="9.3425e+08" lowerBound="9.13597e+08" upperBound="9.4983e+08" ci="0.95"/>
+                <standardDeviation value="1.94647e+07" lowerBound="0" upperBound="2.20338e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 16
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="5.31819e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.75088e+09" lowerBound="1.6939e+09" upperBound="1.78654e+09" ci="0.95"/>
+                <standardDeviation value="4.39588e+07" lowerBound="0" upperBound="5.04398e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 32
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="9.40984e+09">
+                <!--All values in nano seconds-->
+                <mean value="2.8435e+09" lowerBound="2.8284e+09" upperBound="2.85732e+09" ci="0.95"/>
+                <standardDeviation value="1.86983e+07" lowerBound="0" upperBound="1.95425e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 64
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.9315e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.67648e+09" lowerBound="5.50105e+09" upperBound="5.81431e+09" ci="0.95"/>
+                <standardDeviation value="1.74507e+08" lowerBound="0" upperBound="1.94912e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probe := 128
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="3.38399e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.07382e+10" lowerBound="1.07087e+10" upperBound="1.07573e+10" ci="0.95"/>
+                <standardDeviation value="2.33953e+07" lowerBound="0" upperBound="2.6968e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 1
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.57288e+09">
+                <!--All values in nano seconds-->
+                <mean value="5.55342e+08" lowerBound="5.3688e+08" upperBound="5.72813e+08" ci="0.95"/>
+                <standardDeviation value="2.40387e+07" lowerBound="1.40102e+06" upperBound="2.47085e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 2
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.71723e+09">
+                <!--All values in nano seconds-->
+                <mean value="5.60771e+08" lowerBound="5.53895e+08" upperBound="5.6472e+08" ci="0.95"/>
+                <standardDeviation value="5.02015e+06" lowerBound="1.44361e+06" upperBound="5.58379e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 4
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.94158e+09">
+                <!--All values in nano seconds-->
+                <mean value="6.44363e+08" lowerBound="6.31417e+08" upperBound="6.54424e+08" ci="0.95"/>
+                <standardDeviation value="1.26901e+07" lowerBound="0" upperBound="1.42283e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="2.31416e+09">
+                <!--All values in nano seconds-->
+                <mean value="7.89896e+08" lowerBound="7.75526e+08" upperBound="8.01288e+08" ci="0.95"/>
+                <standardDeviation value="1.44717e+07" lowerBound="0" upperBound="1.61104e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 16
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="3.55694e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.22314e+09" lowerBound="1.20142e+09" upperBound="1.24249e+09" ci="0.95"/>
+                <standardDeviation value="2.58735e+07" lowerBound="0" upperBound="2.73775e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 32
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="6.08843e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.98868e+09" lowerBound="1.90608e+09" upperBound="2.0353e+09" ci="0.95"/>
+                <standardDeviation value="5.9841e+07" lowerBound="0" upperBound="6.59246e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 64
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.08627e+10">
+                <!--All values in nano seconds-->
+                <mean value="3.02824e+09" lowerBound="2.9775e+09" upperBound="3.06244e+09" ci="0.95"/>
+                <standardDeviation value="4.1895e+07" lowerBound="0" upperBound="4.83676e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="260">
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="283">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="5" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="238">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="269">
+          <Section name="When: the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object" filename="tests/IndexTest.cpp" line="292">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors" filename="tests/IndexTest.cpp" line="299">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probe := 128
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): includes finding the nearest centroids" samples="3" resamples="100000" iterations="1" clockResolution="87.9239" estimatedDuration="1.90502e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.77476e+09" lowerBound="5.71244e+09" upperBound="5.81083e+09" ci="0.95"/>
+                <standardDeviation value="4.56778e+07" lowerBound="0" upperBound="5.10083e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="0" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <OverallResults successes="400" failures="0" expectedFailures="0"/>
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+  </Group>
+  <OverallResults successes="400" failures="0" expectedFailures="0"/>
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+</Catch>
