@@ -1,6 +1,10 @@
 #include <sys/mman.h>
 #include <unordered_set>
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 #include "../lib/catch.hpp"
 
 #include "../include/tests/InvertedListsTestUtils.hpp"
@@ -300,7 +304,8 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search
             (Catch::Benchmark::Chronometer meter)
             {
               meter.measure([&]
-                            {
+              {
+                #pragma omp parallel for
                 for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
                 {
                   uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
@@ -308,7 +313,8 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search
                   vector<list_id_t> list_ids_to_search = find_nearest_centroids(centroids, n_lists, query, vector_dim, n_probe);
                   index.search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
                   free(query);
-                } });
+                } 
+              });
             };
           }
         }
@@ -393,6 +399,7 @@ SCENARIO("find_nearest_centroids()", "[Index][find_nearest_centroids][benchmark]
             {
               meter.measure([&]
                             {
+                #pragma omp parallel for
                 for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
                 {
                   uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
