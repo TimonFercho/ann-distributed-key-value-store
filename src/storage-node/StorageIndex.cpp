@@ -1,10 +1,10 @@
-#include "Index.hpp"
+#include "StorageIndex.hpp"
 #include "L2Space.hpp"
 
 namespace ann_dkvs
 {
 
-  vector<vector_distance_id_t> Index::extract_results(heap_t *candidates)
+  vector<vector_distance_id_t> StorageIndex::extract_results(heap_t *candidates)
   {
     len_t k = candidates->size();
     vector<vector_distance_id_t> results(k);
@@ -16,7 +16,7 @@ namespace ann_dkvs
     return results;
   }
 
-  void Index::search_preassigned_list(
+  void StorageIndex::search_preassigned_list(
       list_id_t list_id,
       vector_el_t *query,
       size_t k,
@@ -44,13 +44,13 @@ namespace ann_dkvs
     }
   }
 
-  Index::Index(InvertedLists *lists)
+  StorageIndex::StorageIndex(InvertedLists *lists)
       : lists(lists)
   {
     distance_func = L2Space(lists->get_vector_dim()).get_distance_func();
   }
 
-  vector<vector_distance_id_t> Index::search_preassigned(list_id_t *list_ids, size_t nlist, vector_el_t *query, size_t k)
+  vector<vector_distance_id_t> StorageIndex::search_preassigned(list_id_t *list_ids, size_t nlist, vector_el_t *query, size_t k)
   {
     heap_t knn;
     for (size_t i = 0; i < nlist; i++)

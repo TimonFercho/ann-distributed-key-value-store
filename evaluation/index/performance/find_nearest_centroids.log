@@ -1,4 +1,4 @@
-Filters: [Index][find_nearest_centroids][benchmark]
+Filters: [StorageIndex][find_nearest_centroids][benchmark]
 Inserted 1000000 entries of 1000000 (100%)
 bulk_insert_entries: took 1.78588 s
 find_nearest_centroids() with n_lists=256 and n_probe=1
@@ -12,7 +12,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -35,7 +35,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -58,7 +58,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -81,7 +81,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -104,7 +104,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -127,7 +127,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -150,7 +150,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -173,7 +173,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -196,7 +196,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -219,7 +219,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -242,7 +242,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -265,7 +265,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -288,7 +288,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -311,7 +311,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -334,7 +334,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -357,7 +357,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -380,7 +380,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -403,7 +403,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -426,7 +426,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -449,7 +449,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -472,7 +472,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -495,7 +495,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -518,7 +518,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -541,7 +541,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -564,7 +564,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -587,7 +587,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -610,7 +610,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -633,7 +633,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -656,7 +656,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -679,7 +679,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -702,7 +702,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -725,7 +725,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -748,7 +748,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -771,7 +771,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -794,7 +794,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -817,7 +817,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -840,7 +840,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -863,7 +863,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -886,7 +886,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406
@@ -909,7 +909,7 @@ Scenario: find_nearest_centroids()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:406

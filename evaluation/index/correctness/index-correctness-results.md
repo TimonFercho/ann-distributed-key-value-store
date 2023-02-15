@@ -7,7 +7,7 @@
 ## 1st NN for query `5759` does not match groundtruth
 
 ```
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 [...]
 Inserted 1000000 entries of 1000000 (100%)
 True nearest neighbor 151761 of query 5759 not found among results
@@ -16,7 +16,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset, n_probe as large as the number of clusters
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -39,7 +39,7 @@ assertions: 13 | 12 passed | 1 failed
   - The groundtruth has a different ordering of the two nearest neighbors than the one returned by the search.
   - The priority queue used to find the NN has size 1 and we only compare against the first element of minimum distance to the query.
 ```
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 query_id: 5759
 adding candidate 7446 with distance 170163
@@ -57,7 +57,7 @@ True nearest neighbor 151761 of query 5759 not found among results
 ## Results of updated implementation matches the groundtruth
 - The updated implementation ensures that the nearest neighbors are returned in the same order as the groundtruth.
 ```
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 [...]
 Inserted 1000000 entries of 1000000 (100%)
 query_id: 5759
@@ -74,7 +74,7 @@ replacing candidate 580949 with distance 46530 with candidate 151761 with distan
 [...]
 ```
 ```
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 ===============================================================================
 All tests passed (13 assertions in 1 test case)

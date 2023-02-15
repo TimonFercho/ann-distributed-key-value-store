@@ -1,4 +1,4 @@
-Filters: [Index]
+Filters: [StorageIndex]
 Inserted 1000000 entries of 1000000 (100%)
 Query 0
 Query 0 groundtruth 0
@@ -1138,7 +1138,7 @@ Scenario: search_preassigned_list(): given query vector, use index to find top
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: the index is searched for the nearest neighbors of the query
        Then: the nearest neighbor matches the groundtruth
 -------------------------------------------------------------------------------
@@ -1413,7 +1413,7 @@ Scenario: search_preassigned_list(): given query vector, use index to find top
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:199
 ...............................................................................
@@ -1426,7 +1426,7 @@ due to a fatal error condition:
 test cases:   1 |   0 passed | 1 failed
 assertions: 481 | 479 passed | 2 failed
 
-Filters: [Index]
+Filters: [StorageIndex]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -1439,8 +1439,8 @@ Scenario: search_preassigned_list(): given query vector, use index to find top
              vector ids and list ids
   And given: A query vector, the list ids to search and a value of k
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
-       When: the Index is queried with a query vector
+             list ids and used to initialize an StorageIndex object
+       When: the StorageIndex is queried with a query vector
        Then: the results are correct
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:126
@@ -11567,7 +11567,7 @@ Scenario: search_preassigned_list(): given query vector, use index to find top
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -21585,7 +21585,7 @@ Query 9999
 test cases:  1 |  0 passed | 1 failed
 assertions: 20 | 19 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -21673,7 +21673,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:202
 ...............................................................................
@@ -21686,7 +21686,7 @@ due to a fatal error condition:
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -21776,7 +21776,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -21795,7 +21795,7 @@ True nearest neighbor 151761 of query 5759 not found among results
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -21893,7 +21893,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -21920,7 +21920,7 @@ True nearest neighbor 151761 of query 5759 not found among results
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -22008,7 +22008,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:202
 ...............................................................................
@@ -22021,7 +22021,7 @@ due to a fatal error condition:
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 query_id: 5759
 adding candidate 7446 with distance 170163
@@ -22043,7 +22043,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -22071,7 +22071,7 @@ True nearest neighbor 151761 of query 5759 not found among results
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -22082,7 +22082,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
 -------------------------------------------------------------------------------
 tests/IndexTest.cpp:202
 ...............................................................................
@@ -22095,7 +22095,7 @@ due to a fatal error condition:
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 query_id: 5759
 adding candidate 7446 with distance 170163
@@ -22118,7 +22118,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -22147,7 +22147,7 @@ True nearest neighbor 151761 of query 5759 not found among results
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -22182,7 +22182,7 @@ due to a fatal error condition:
 test cases: 1 | 1 failed
 assertions: 4 | 2 passed | 2 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -22217,7 +22217,7 @@ due to a fatal error condition:
 test cases: 1 | 1 failed
 assertions: 4 | 2 passed | 2 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 testmain is a Catch v2.13.10 host application.
@@ -22252,7 +22252,7 @@ due to a fatal error condition:
 test cases: 1 | 1 failed
 assertions: 4 | 2 passed | 2 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 query_id: 5759
 adding candidate 7446 with distance 170163
@@ -22275,7 +22275,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -22304,18 +22304,18 @@ replacing candidate 580949 with distance 46530 with candidate 151761 with distan
 test cases:  1 |  0 passed | 1 failed
 assertions: 13 | 12 passed | 1 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 ===============================================================================
 All tests passed (13 assertions in 1 test case)
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 ===============================================================================
 All tests passed (13 assertions in 1 test case)
 
-Filters: [Index][SIFT1M]
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 True nearest neighbor 552515 of query 2 not found among results
 True nearest neighbor 482427 of query 4 not found among results
@@ -27051,7 +27051,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset, n_probe as large as the number of clusters
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -27434,7 +27434,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset, n_probe as large as the number of clusters
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
 -------------------------------------------------------------------------------
@@ -27449,7 +27449,7 @@ due to a fatal error condition:
 test cases:  1 |  0 passed | 1 failed
 assertions: 14 | 12 passed | 2 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 n_lists: 256
 n_probe: 1
@@ -27464,7 +27464,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset, n_probe as large as the number of clusters
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
        Then: the Recall@1 is 100%
@@ -27484,7 +27484,7 @@ Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset, n_probe as large as the number of clusters
        When: the files are mapped to memory
        When: the InvertedLists object is populated with the vectors, ids and
-             list ids and used to initialize an Index object
+             list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
 -------------------------------------------------------------------------------
@@ -27499,7 +27499,7 @@ due to a fatal error condition:
 test cases:  1 |  0 passed | 1 failed
 assertions: 26 | 24 passed | 2 failed
 
-Filters: [Index][SIFT1M]
+Filters: [StorageIndex][SIFT1M]
 Inserted 1000000 entries of 1000000 (100%)
 n_lists: 256
 n_probe: 1

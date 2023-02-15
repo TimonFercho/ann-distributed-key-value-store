@@ -28,7 +28,7 @@ namespace ann_dkvs
   };
   typedef priority_queue<vector_distance_id_t, vector<vector_distance_id_t>, VectorDistanceIdMaxHeapCompare> heap_t;
 
-  class Index
+  class StorageIndex
   {
   private:
     InvertedLists *lists;
@@ -41,7 +41,7 @@ namespace ann_dkvs
         heap_t *candidates);
 
   public:
-    Index(InvertedLists *lists);
+    StorageIndex(InvertedLists *lists);
     vector<vector_distance_id_t> search_preassigned(
         list_id_t *list_ids,
         size_t n_lists,

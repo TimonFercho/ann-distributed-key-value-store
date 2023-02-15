@@ -2,7 +2,7 @@
 
 namespace ann_dkvs
 {
-  StorageNode::StorageNode(Index index) : index(index) {}
+  StorageNode::StorageNode(StorageIndex index) : index(index) {}
 
   vector<vector_distance_id_t> StorageNode::receive_knn_request(
       list_id_t *list_ids,

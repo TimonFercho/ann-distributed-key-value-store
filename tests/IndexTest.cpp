@@ -8,7 +8,7 @@
 #include "../lib/catch.hpp"
 
 #include "../include/tests/InvertedListsTestUtils.hpp"
-#include "../include/storage-node/Index.hpp"
+#include "../include/storage-node/StorageIndex.hpp"
 #include "../include/L2Space.hpp"
 
 using namespace ann_dkvs;
@@ -26,29 +26,6 @@ auto extract_list_ids = [](list_id_heap_t *candidates)
     candidates->pop();
   }
   return results;
-};
-
-auto find_nearest_centroids = [](vector_el_t *centroids, len_t n_centroids, vector_el_t *query_vector, len_t vector_dim, len_t number_of_nearest_centroids)
-{
-  list_id_heap_t nearest_centroids;
-  distance_func_t distance_func = L2Space(vector_dim).get_distance_func();
-
-  for (list_id_t i = 0; i < (list_id_t)n_centroids; i++)
-  {
-    vector_el_t *centroid = &centroids[i * vector_dim];
-    float distance = distance_func(centroid, query_vector, &vector_dim);
-    centroid_distance_id_t result = {distance, i};
-    if (nearest_centroids.size() < number_of_nearest_centroids)
-    {
-      nearest_centroids.push(result);
-    }
-    else if (distance < nearest_centroids.top().first || (distance == nearest_centroids.top().first && i < nearest_centroids.top().second))
-    {
-      nearest_centroids.pop();
-      nearest_centroids.push(result);
-    }
-  }
-  return extract_list_ids(&nearest_centroids);
 };
 
 auto alloc_query_as_vector_el = [](uint8_t *query_vector, len_t vector_dim)
@@ -69,7 +46,7 @@ string get_centroids_filename(len_t n_lists)
   return filename + seperator + to_string(n_lists) + file_ext;
 }
 
-SCENARIO("search_preassigned_list(): use index to find top k ANN of a query vector", "[Index][search_preassigned_list][test][hard-coded]")
+SCENARIO("search_preassigned_list(): use index to find top k ANN of a query vector", "[StorageIndex][search_preassigned_list][test][hard-coded]")
 {
   GIVEN("an InvertedLists object and a list of 1D vectors, corresponding vector ids and list ids")
   {
@@ -92,14 +69,14 @@ SCENARIO("search_preassigned_list(): use index to find top k ANN of a query vect
       list_id_t list_ids_to_search[] = {1, 2};
       len_t n_lists_to_search = 2;
 
-      WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+      WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
         lists.insert_entries(list_ids[0], vectors_list1, ids_list1, list1_length);
         lists.insert_entries(list_ids[1], vectors_list2, ids_list2, list2_length);
 
-        Index index(&lists);
+        StorageIndex index(&lists);
 
-        WHEN("the Index is queried with a query vector")
+        WHEN("the StorageIndex is queried with a query vector")
         {
           vector<vector_distance_id_t> results = index.search_preassigned(list_ids_to_search, n_lists_to_search, query, k);
 
@@ -119,7 +96,7 @@ SCENARIO("search_preassigned_list(): use index to find top k ANN of a query vect
   }
 }
 
-SCENARIO("search_preassigned(): test recall with SIFT1M", "[Index][search_preassigned][test][SIFT1M]")
+SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][SIFT1M]")
 {
   GIVEN("the SIFT1M dataset")
   {
@@ -182,12 +159,12 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[Index][search_preass
           REQUIRE(groundtruth != nullptr);
         }
 
-        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
         {
 
           InvertedLists lists = get_inverted_lists_object(vector_dim);
           lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
-          Index index(&lists);
+          StorageIndex index(&lists);
 
           WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
           {
@@ -233,7 +210,7 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[Index][search_preass
   }
 }
 
-SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search_preassigned][benchmark][SIFT1M]")
+SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][SIFT1M]")
 {
   GIVEN("the SIFT1M dataset")
   {
@@ -289,12 +266,12 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search
           REQUIRE(query_vectors != nullptr);
         }
 
-        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
         {
 
           InvertedLists lists = get_inverted_lists_object(vector_dim);
           lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
-          Index index(&lists);
+          StorageIndex index(&lists);
 
           WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
           {
@@ -304,8 +281,8 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search
             (Catch::Benchmark::Chronometer meter)
             {
               meter.measure([&]
-              {
-                #pragma omp parallel for
+                            {
+#pragma omp parallel for
                 for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
                 {
                   uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
@@ -313,8 +290,7 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search
                   vector<list_id_t> list_ids_to_search = find_nearest_centroids(centroids, n_lists, query, vector_dim, n_probe);
                   index.search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
                   free(query);
-                } 
-              });
+                } });
             };
           }
         }
@@ -328,7 +304,7 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[Index][search
   }
 }
 
-SCENARIO("find_nearest_centroids()", "[Index][find_nearest_centroids][benchmark][SIFT1M]")
+SCENARIO("find_nearest_centroids()", "[StorageIndex][find_nearest_centroids][benchmark][SIFT1M]")
 {
   GIVEN("the SIFT1M dataset")
   {
@@ -383,12 +359,12 @@ SCENARIO("find_nearest_centroids()", "[Index][find_nearest_centroids][benchmark]
           REQUIRE(query_vectors != nullptr);
         }
 
-        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an Index object")
+        WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
         {
 
           InvertedLists lists = get_inverted_lists_object(vector_dim);
           lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
-          Index index(&lists);
+          StorageIndex index(&lists);
 
           WHEN("for each query vector, the closest centroids are determined")
           {
@@ -399,7 +375,7 @@ SCENARIO("find_nearest_centroids()", "[Index][find_nearest_centroids][benchmark]
             {
               meter.measure([&]
                             {
-                #pragma omp parallel for
+#pragma omp parallel for
                 for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
                 {
                   uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
