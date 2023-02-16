@@ -13,17 +13,11 @@ namespace ann_dkvs
   class VectorDistanceIdMaxHeapCompare
   {
   public:
-    bool operator()(vector_distance_id_t below, vector_distance_id_t above)
+    bool operator()(vector_distance_id_t parent, vector_distance_id_t child)
     {
-      if (below.first > above.first)
-      {
-        return true;
-      }
-      else if (below.first == above.first && below.second < above.second)
-      {
-        return true;
-      }
-      return false;
+      bool swapParentWithChild = (parent.first < child.first ||
+                                  (parent.first == child.first && parent.second < child.second));
+      return swapParentWithChild;
     }
   };
   typedef std::priority_queue<vector_distance_id_t, std::vector<vector_distance_id_t>, VectorDistanceIdMaxHeapCompare> heap_t;
