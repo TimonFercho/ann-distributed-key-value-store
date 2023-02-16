@@ -11,7 +11,7 @@
 
 namespace ann_dkvs
 {
-  static float L2Sqr(
+  static inline float L2Sqr(
       const void *pVect1v,
       const void *pVect2v,
       const void *qty_ptr)
@@ -32,7 +32,7 @@ namespace ann_dkvs
   }
 
 #ifdef __AVX__
-  static float L2SqrSIMD16ExtAVX(const void *pVect1v, const void *pVect2v, const void *qty_ptr)
+  static inline float L2SqrSIMD16ExtAVX(const void *pVect1v, const void *pVect2v, const void *qty_ptr)
   {
     float *pVect1 = (float *)pVect1v;
     float *pVect2 = (float *)pVect2v;
@@ -66,7 +66,7 @@ namespace ann_dkvs
     return TmpRes[0] + TmpRes[1] + TmpRes[2] + TmpRes[3] + TmpRes[4] + TmpRes[5] + TmpRes[6] + TmpRes[7];
   }
 
-  static float L2SqrSIMD16ExtResiduals(const void *pVect1v, const void *pVect2v, const void *qty_ptr)
+  static inline float L2SqrSIMD16ExtResiduals(const void *pVect1v, const void *pVect2v, const void *qty_ptr)
   {
     size_t qty = *((size_t *)qty_ptr);
     size_t qty16 = qty >> 4 << 4;
