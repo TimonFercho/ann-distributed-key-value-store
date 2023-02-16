@@ -11,11 +11,11 @@
 
 using namespace ann_dkvs;
 
-#define gen_random_ints(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
+#define gen_random_ints(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {std::vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
 
-#define gen_random_floats(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
+#define gen_random_floats(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {std::vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, random(MIN_VAL, MAX_VAL)))))))
 
-#define gen_ranged_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, range(MIN_VAL, MAX_VAL)))))))
+#define gen_ranged_values(T, MIN_VAL, MAX_VAL, N_CHUNKS, CHUNK_LEN, EXCLUDE_SET) (GENERATE(take(N_CHUNKS, chunk(CHUNK_LEN, Catch::Generators::map([](T val) { return (T)val; }, filter([&](T val) {std::vector<T> exclude{EXCLUDE_SET};return find(exclude.begin(), exclude.end(), val) == exclude.end(); }, range(MIN_VAL, MAX_VAL)))))))
 
 #define gen_random_int(T, MIN_VAL, MAX_VAL, N_VALS, EXCLUDE_SET) (gen_random_ints(T, MIN_VAL, MAX_VAL, N_VALS, 1, EXCLUDE_SET)[0])
 
@@ -43,9 +43,9 @@ using namespace ann_dkvs;
 
 #define gen_vectors(dim) gen_vectors_fixed(random_range(MIN_LIST_LENGTH, MAX_LIST_LENGTH), dim)
 
-#define get_clustered_vectors_length(data, list_ids, dim) (min(get_vector_length(data, dim), list_ids.size()))
+#define get_clustered_vectors_length(data, list_ids, dim) (std::min(get_vector_length(data, dim), list_ids.size()))
 
-#define get_vector_length(data, dim) (min(data.first.size() / dim, data.second.size()))
+#define get_vector_length(data, dim) (std::min(data.first.size() / dim, data.second.size()))
 
 #define UNUSED(x) (void)(x)
 
@@ -56,26 +56,26 @@ namespace ann_dkvs
   size_t get_vector_size(len_t vector_dim);
   size_t get_list_size(len_t vector_dim, len_t n_entries);
   size_t get_total_size(size_t used_space);
-  void write_to_file(string filename, void *data, size_t size);
-  void read_from_file(string filename, void *data, size_t size);
-  void *mmap_file(string filename, size_t size);
-  bool file_exists(string filename);
-  string join(const string &a, const string &b);
+  void write_to_file(std::string filename, void *data, size_t size);
+  void read_from_file(std::string filename, void *data, size_t size);
+  void *mmap_file(std::string filename, size_t size);
+  bool file_exists(std::string filename);
+  std::string join(const std::string &a, const std::string &b);
   InvertedLists get_inverted_lists_object(len_t vector_dim);
   void print_vector(vector_el_t *vector, len_t vector_dim, len_t n_entries);
   void are_vectors_equal(vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries);
   void are_ids_equal(vector_id_t *actual, vector_id_t *expected, len_t n_entries);
-  string get_lists_filename();
-  string get_vectors_filename();
-  string get_vector_ids_filename();
-  string get_list_ids_filename(len_t n_lists);
+  std::string get_lists_filename();
+  std::string get_vectors_filename();
+  std::string get_vector_ids_filename();
+  std::string get_list_ids_filename(len_t n_lists);
   void setup_run_teardown_bulk_insert_entries_dataset(
       len_t n_entries,
       len_t vector_dim,
-      string vectors_filepath,
-      string vector_ids_filepath,
-      string list_ids_filepath,
-      function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, string, string, string)> run_bulk_insert_entries);
+      std::string vectors_filepath,
+      std::string vector_ids_filepath,
+      std::string list_ids_filepath,
+      std::function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, std::string, std::string, std::string)> run_bulk_insert_entries);
 }
 
 #endif // INVERTED_LISTS_TEST_UTILS_HPP

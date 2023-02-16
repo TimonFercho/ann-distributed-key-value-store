@@ -4,10 +4,10 @@
 namespace ann_dkvs
 {
 
-  vector<vector_distance_id_t> StorageIndex::extract_results(heap_t *candidates)
+  std::vector<vector_distance_id_t> StorageIndex::extract_results(heap_t *candidates)
   {
     len_t k = candidates->size();
-    vector<vector_distance_id_t> results(k);
+    std::vector<vector_distance_id_t> results(k);
     for (size_t i = 0; i < k; i++)
     {
       results[k - i - 1] = candidates->top();
@@ -50,7 +50,7 @@ namespace ann_dkvs
     distance_func = L2Space(lists->get_vector_dim()).get_distance_func();
   }
 
-  vector<vector_distance_id_t> StorageIndex::search_preassigned(list_id_t *list_ids, size_t nlist, vector_el_t *query, size_t k)
+  std::vector<vector_distance_id_t> StorageIndex::search_preassigned(list_id_t *list_ids, size_t nlist, vector_el_t *query, size_t k)
   {
     heap_t knn;
     for (size_t i = 0; i < nlist; i++)

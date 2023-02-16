@@ -7,8 +7,6 @@
 
 #include "InvertedLists.hpp"
 
-using namespace std;
-
 namespace ann_dkvs
 {
   void InvertedLists::mmap_region()
@@ -16,7 +14,7 @@ namespace ann_dkvs
     FILE *f = fopen(filename.c_str(), "r+");
     if (f == nullptr)
     {
-      throw runtime_error("Could not open file " + filename);
+      throw std::runtime_error("Could not open file " + filename);
     }
     base_ptr = (uint8_t *)mmap(
         nullptr,
@@ -27,7 +25,7 @@ namespace ann_dkvs
         0);
     if (base_ptr == MAP_FAILED)
     {
-      throw runtime_error("Could not mmap file " + filename);
+      throw std::runtime_error("Could not mmap file " + filename);
     }
     fclose(f);
   }
@@ -83,11 +81,11 @@ namespace ann_dkvs
     return max_free_space;
   }
 
-  InvertedLists::InvertedLists(len_t vector_dim, string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
+  InvertedLists::InvertedLists(len_t vector_dim, std::string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
   {
     if (vector_dim == 0)
     {
-      throw out_of_range("Vector dimension must be greater than 0");
+      throw std::out_of_range("Vector dimension must be greater than 0");
     }
   }
 
@@ -119,7 +117,7 @@ namespace ann_dkvs
     return vector_dim;
   }
 
-  string InvertedLists::get_filename() const
+  std::string InvertedLists::get_filename() const
   {
     return filename;
   }
@@ -142,7 +140,7 @@ namespace ann_dkvs
         f = fopen(filename.c_str(), "w+");
         if (f == nullptr)
         {
-          throw runtime_error("Could not create file " + filename);
+          throw std::runtime_error("Could not create file " + filename);
         }
       }
       fclose(f);
@@ -158,11 +156,11 @@ namespace ann_dkvs
     FILE *f = fopen(filename.c_str(), "r+");
     if (f == nullptr)
     {
-      throw runtime_error("Could not open file " + filename);
+      throw std::runtime_error("Could not open file " + filename);
     }
     if (ftruncate(fileno(f), size) == -1)
     {
-      throw runtime_error("Could not resize file " + filename);
+      throw std::runtime_error("Could not resize file " + filename);
     }
     fclose(f);
   }
@@ -171,7 +169,7 @@ namespace ann_dkvs
   {
     if (new_size < total_size)
     {
-      throw runtime_error("Cannot shrink region");
+      throw std::runtime_error("Cannot shrink region");
     }
     if (new_size == total_size)
     {
@@ -202,7 +200,7 @@ namespace ann_dkvs
 
   void InvertedLists::copy_shared_data(InvertedList *dst, InvertedList *src)
   {
-    len_t n_entries_to_copy = min(dst->used_entries, src->used_entries);
+    len_t n_entries_to_copy = std::min(dst->used_entries, src->used_entries);
     if (n_entries_to_copy == 0)
     {
       return;
@@ -224,11 +222,11 @@ namespace ann_dkvs
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
-      throw invalid_argument("List " + to_string(list_id) + " does not exist");
+      throw std::invalid_argument("List " + std::to_string(list_id) + " does not exist");
     }
     if (n_entries == 0)
     {
-      throw out_of_range("Cannot resize list to 0 entries");
+      throw std::out_of_range("Cannot resize list to 0 entries");
     }
     InvertedList *list = &list_it->second;
     if (!does_list_need_reallocation(list, n_entries))
@@ -384,7 +382,7 @@ namespace ann_dkvs
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
-      throw invalid_argument("List not found");
+      throw std::invalid_argument("List not found");
     }
     return get_vectors_by_list(&list_it->second);
   }
@@ -394,7 +392,7 @@ namespace ann_dkvs
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
-      throw invalid_argument("List not found");
+      throw std::invalid_argument("List not found");
     }
     return get_ids_by_list(&list_it->second);
   }
@@ -404,7 +402,7 @@ namespace ann_dkvs
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
-      throw invalid_argument("List not found");
+      throw std::invalid_argument("List not found");
     }
     return list_it->second.used_entries;
   }
@@ -425,11 +423,11 @@ namespace ann_dkvs
   {
     if (id_to_list_map.find(list_id) != id_to_list_map.end())
     {
-      throw invalid_argument("List already exists");
+      throw std::invalid_argument("List already exists");
     }
     if (n_entries == 0)
     {
-      throw out_of_range("List must have at least one entry");
+      throw std::out_of_range("List must have at least one entry");
     }
     InvertedList list = alloc_list(n_entries);
     id_to_list_map[list_id] = list;
@@ -445,12 +443,12 @@ namespace ann_dkvs
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
-      throw invalid_argument("List not found");
+      throw std::invalid_argument("List not found");
     }
     InvertedList *list = &list_it->second;
     if (offset + n_entries > list->used_entries)
     {
-      throw out_of_range("updating more entries than list has");
+      throw std::out_of_range("updating more entries than list has");
     }
     vector_el_t *list_vectors = get_vectors_by_list(list);
     vector_id_t *list_ids = get_ids_by_list(list);
@@ -473,28 +471,28 @@ namespace ann_dkvs
   {
     if (n_entries == 0)
     {
-      throw runtime_error("Cannot reserve 0 entries");
+      throw std::runtime_error("Cannot reserve 0 entries");
     }
     size_t size_to_reserve = get_vectors_size(n_entries) + get_ids_size(n_entries);
     grow_region_until_enough_space(size_to_reserve);
   }
 
-  ifstream InvertedLists::open_filestream(string filename)
+  std::ifstream InvertedLists::open_filestream(std::string filename)
   {
-    ifstream filestream(filename, ios::in | ios::binary);
+    std::ifstream filestream(filename, std::ios::in | std::ios::binary);
     if (!filestream.is_open())
     {
-      throw runtime_error("Could not open file " + filename);
+      throw std::runtime_error("Could not open file " + filename);
     }
     return filestream;
   }
 
   InvertedLists::list_id_counts_map_t InvertedLists::bulk_create_lists(
-      string list_ids_filename,
+      std::string list_ids_filename,
       len_t n_entries)
   {
     list_id_counts_map_t lists_counts;
-    ifstream list_ids_file = open_filestream(list_ids_filename);
+    std::ifstream list_ids_file = open_filestream(list_ids_filename);
     list_id_t list_id;
     len_t n_entries_read = 0;
     while (list_ids_file.read((char *)&list_id, sizeof(list_id_t)))
@@ -505,11 +503,11 @@ namespace ann_dkvs
     list_ids_file.close();
     if (list_ids_file.bad())
     {
-      throw runtime_error("Error reading list ids file");
+      throw std::runtime_error("Error reading list ids file");
     }
     if (n_entries_read != n_entries)
     {
-      throw runtime_error("Number of entries in list ids file does not match n_entries");
+      throw std::runtime_error("Number of entries in list ids file does not match n_entries");
     }
 
     for (auto list_it : lists_counts)
@@ -520,21 +518,21 @@ namespace ann_dkvs
   }
 
   void InvertedLists::bulk_insert_entries(
-      string vectors_filename,
-      string ids_filename,
-      string list_ids_filename,
+      std::string vectors_filename,
+      std::string ids_filename,
+      std::string list_ids_filename,
       len_t n_entries)
   {
     if (total_size != 0)
     {
-      throw runtime_error("bulk_insert_entries() can only be called on an empty inverted lists");
+      throw std::runtime_error("bulk_insert_entries() can only be called on an empty inverted lists");
     }
     reserve_space(n_entries);
     list_id_counts_map_t entries_left = bulk_create_lists(list_ids_filename, n_entries);
 
-    ifstream vectors_file = open_filestream(vectors_filename);
-    ifstream ids_file = open_filestream(ids_filename);
-    ifstream list_ids_file = open_filestream(list_ids_filename);
+    std::ifstream vectors_file = open_filestream(vectors_filename);
+    std::ifstream ids_file = open_filestream(ids_filename);
+    std::ifstream list_ids_file = open_filestream(list_ids_filename);
 
     vector_el_t *cur_vector = new vector_el_t[vector_dim];
     len_t n_entries_read = 0;
@@ -545,15 +543,15 @@ namespace ann_dkvs
     {
       if (!vectors_file.read((char *)cur_vector, sizeof(vector_el_t) * vector_dim))
       {
-        throw runtime_error("Error reading vectors file");
+        throw std::runtime_error("Error reading vectors file");
       }
       if (!ids_file.read((char *)&cur_id, sizeof(vector_id_t)))
       {
-        throw runtime_error("Error reading ids file");
+        throw std::runtime_error("Error reading ids file");
       }
       if (!list_ids_file.read((char *)&cur_list_id, sizeof(list_id_t)))
       {
-        throw runtime_error("Error reading list ids file");
+        throw std::runtime_error("Error reading list ids file");
       }
       len_t list_length = get_list_length(cur_list_id);
       len_t cur_list_offset = list_length - entries_left[cur_list_id];
@@ -564,7 +562,7 @@ namespace ann_dkvs
 
     if (vectors_file.fail() || ids_file.fail() || list_ids_file.fail())
     {
-      throw runtime_error("Error reading files");
+      throw std::runtime_error("Error reading files");
     }
 
     vectors_file.close();

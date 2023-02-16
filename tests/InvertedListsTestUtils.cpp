@@ -33,25 +33,25 @@ namespace ann_dkvs
 
   size_t get_total_size(size_t used_space)
   {
-    size_t total_size = max((size_t)32, round_up_to_next_power_of_two(used_space));
+    size_t total_size = std::max((size_t)32, round_up_to_next_power_of_two(used_space));
     return total_size;
   }
 
-  void write_to_file(string filename, void *data, size_t size)
+  void write_to_file(std::string filename, void *data, size_t size)
   {
     FILE *file = fopen(filename.c_str(), "w");
     fwrite(data, size, 1, file);
     fclose(file);
   }
 
-  void read_from_file(string filename, void *data, size_t size)
+  void read_from_file(std::string filename, void *data, size_t size)
   {
     FILE *file = fopen(filename.c_str(), "r");
     fread(data, size, 1, file);
     fclose(file);
   }
 
-  void *mmap_file(string filename, size_t size)
+  void *mmap_file(std::string filename, size_t size)
   {
     FILE *file = fopen(filename.c_str(), "r");
     void *data = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fileno(file), 0);
@@ -59,9 +59,9 @@ namespace ann_dkvs
     return data;
   }
 
-  bool file_exists(string filename)
+  bool file_exists(std::string filename)
   {
-    ifstream f(filename.c_str());
+    std::ifstream f(filename.c_str());
     if (!f.is_open())
     {
       return false;
@@ -70,14 +70,14 @@ namespace ann_dkvs
     return true;
   }
 
-  string join(const string &a, const string &b)
+  std::string join(const std::string &a, const std::string &b)
   {
     return a + "/" + b;
   }
 
   InvertedLists get_inverted_lists_object(len_t vector_dim)
   {
-    string file = join(TMP_DIR, get_lists_filename());
+    std::string file = join(TMP_DIR, get_lists_filename());
     remove(file.c_str());
     InvertedLists lists(vector_dim, file);
     return lists;
@@ -93,7 +93,7 @@ namespace ann_dkvs
         std::cout << vector[i * vector_dim + j] << " ";
       }
     }
-    std::cout << endl;
+    std::cout << std::endl;
   }
 
   void are_vectors_equal(vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries)
@@ -112,42 +112,42 @@ namespace ann_dkvs
     }
   }
 
-  string get_lists_filename()
+  std::string get_lists_filename()
   {
-    string filename = LISTS_FILENAME;
-    string file_ext = FILE_EXT;
+    std::string filename = LISTS_FILENAME;
+    std::string file_ext = FILE_EXT;
     return filename + file_ext;
   }
 
-  string get_vectors_filename()
+  std::string get_vectors_filename()
   {
-    string filename = VECTORS_FILENAME;
-    string file_ext = FILE_EXT;
+    std::string filename = VECTORS_FILENAME;
+    std::string file_ext = FILE_EXT;
     return filename + file_ext;
   }
 
-  string get_vector_ids_filename()
+  std::string get_vector_ids_filename()
   {
-    string filename = VECTOR_IDS_FILENAME;
-    string file_ext = FILE_EXT;
+    std::string filename = VECTOR_IDS_FILENAME;
+    std::string file_ext = FILE_EXT;
     return filename + file_ext;
   }
 
-  string get_list_ids_filename(len_t n_lists)
+  std::string get_list_ids_filename(len_t n_lists)
   {
-    string filename = LIST_IDS_FILENAME;
-    string separator = "_";
-    string file_ext = FILE_EXT;
-    return filename + separator + to_string(n_lists) + file_ext;
+    std::string filename = LIST_IDS_FILENAME;
+    std::string separator = "_";
+    std::string file_ext = FILE_EXT;
+    return filename + separator + std::to_string(n_lists) + file_ext;
   }
 
   void setup_run_teardown_bulk_insert_entries_dataset(
       len_t n_entries,
       len_t vector_dim,
-      string vectors_filepath,
-      string vector_ids_filepath,
-      string list_ids_filepath,
-      function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, string, string, string)> run_bulk_insert_entries)
+      std::string vectors_filepath,
+      std::string vector_ids_filepath,
+      std::string list_ids_filepath,
+      std::function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, std::string, std::string, std::string)> run_bulk_insert_entries)
   {
     THEN("the vector, vector id and list id files are already present")
     {

@@ -12,8 +12,6 @@
 #define FLAG_READ "r"
 #define FLAG_READ_WRITE "r+"
 
-using namespace std;
-
 namespace ann_dkvs
 {
   class InvertedLists
@@ -31,18 +29,18 @@ namespace ann_dkvs
       len_t used_entries;
     };
 
-    typedef unordered_map<list_id_t, InvertedList> list_id_list_map_t;
-    typedef unordered_map<list_id_t, len_t> list_id_counts_map_t;
-    typedef vector<InvertedLists::Slot>::iterator slot_it_t;
+    typedef std::unordered_map<list_id_t, InvertedList> list_id_list_map_t;
+    typedef std::unordered_map<list_id_t, len_t> list_id_counts_map_t;
+    typedef std::vector<InvertedLists::Slot>::iterator slot_it_t;
     const size_t min_total_size = 32;
-    const string filename;
+    const std::string filename;
     const size_t vector_dim;
     const size_t vector_size;
 
     size_t total_size;
     uint8_t *base_ptr;
     list_id_list_map_t id_to_list_map;
-    vector<Slot> free_slots;
+    std::vector<Slot> free_slots;
 
     void mmap_region();
     vector_el_t *get_vectors_by_list(InvertedList *list) const;
@@ -68,11 +66,11 @@ namespace ann_dkvs
     bool are_slots_adjacent(Slot *slot_left, Slot *slot_right);
     Slot *to_slot(slot_it_t it);
     void reserve_space(len_t n_entries);
-    list_id_counts_map_t bulk_create_lists(string list_ids_filename, len_t n_entries);
-    ifstream open_filestream(string filename);
+    list_id_counts_map_t bulk_create_lists(std::string list_ids_filename, len_t n_entries);
+    std::ifstream open_filestream(std::string filename);
 
   public:
-    InvertedLists(len_t vector_dim, string filename);
+    InvertedLists(len_t vector_dim, std::string filename);
     ~InvertedLists();
     len_t get_length() const;
     size_t get_total_size() const;
@@ -80,7 +78,7 @@ namespace ann_dkvs
     size_t get_largest_continuous_free_space() const;
     size_t get_vector_size() const;
     len_t get_vector_dim() const;
-    string get_filename() const;
+    std::string get_filename() const;
     vector_el_t *get_vectors(list_id_t list_id);
     vector_id_t *get_ids(list_id_t list_id);
     len_t get_list_length(list_id_t list_id);
@@ -90,7 +88,7 @@ namespace ann_dkvs
     void create_list(
         list_id_t list_id,
         len_t n_entries);
-    void bulk_insert_entries(string vectors_filename, string vector_ids_filename, string list_ids_filename, len_t n_entries);
+    void bulk_insert_entries(std::string vectors_filename, std::string vector_ids_filename, std::string list_ids_filename, len_t n_entries);
   };
 }
 

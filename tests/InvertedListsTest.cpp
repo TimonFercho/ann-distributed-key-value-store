@@ -54,7 +54,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.Inver
     {
       THEN("an exception is thrown")
       {
-        REQUIRE_THROWS_AS(get_inverted_lists_object(vector_dim), out_of_range);
+        REQUIRE_THROWS_AS(get_inverted_lists_object(vector_dim), std::out_of_range);
       }
     }
   }
@@ -74,7 +74,7 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
       len_t list_length = 0;
       THEN("an exception is thrown")
       {
-        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
+        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), std::out_of_range);
       }
     }
 
@@ -109,7 +109,7 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
 
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.create_list(list_ids[0], list_lengths[1]), invalid_argument);
+          REQUIRE_THROWS_AS(lists.create_list(list_ids[0], list_lengths[1]), std::invalid_argument);
         }
 
         THEN("the number of lists is still 1")
@@ -169,7 +169,7 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
 
       THEN("an exception is thrown")
       {
-        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
+        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), std::out_of_range);
       }
     }
 
@@ -180,7 +180,7 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
 
       THEN("an exception is thrown")
       {
-        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), out_of_range);
+        REQUIRE_THROWS_AS(lists.create_list(list_id, list_length), std::out_of_range);
       }
     }
   }
@@ -236,7 +236,7 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
 
   GIVEN("an InvertedLists object storing vectors of some dimension > 2")
   {
-    len_t vector_dim = gen_vector_dim(vector<len_t>({0, 1, 2}));
+    len_t vector_dim = gen_vector_dim(std::vector<len_t>({0, 1, 2}));
     InvertedLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list is created which has a size > 32B")
@@ -289,14 +289,14 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
     vector_el_t *vectors = to_ptr(vector_el_t, data.first);
     vector_id_t *ids = to_ptr(vector_id_t, data.second);
 
-    REQUIRE(list_length == min(data.first.size() / vector_dim, data.second.size()));
+    REQUIRE(list_length == std::min(data.first.size() / vector_dim, data.second.size()));
 
     auto data2 = gen_vectors(128);
     len_t list_length2 = get_vector_length(data2, vector_dim);
     vector_el_t *vectors2 = to_ptr(vector_el_t, data2.first);
     vector_id_t *ids2 = to_ptr(vector_id_t, data2.second);
 
-    REQUIRE(list_length2 == min(data2.first.size() / vector_dim, data2.second.size()));
+    REQUIRE(list_length2 == std::min(data2.first.size() / vector_dim, data2.second.size()));
 
     WHEN("an inverted list is created")
     {
@@ -338,7 +338,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
 
         AND_WHEN("only the first few entries are updated with the second list")
         {
-          len_t update_length = random_range(1, min(list_length, list_length2));
+          len_t update_length = random_range(1, std::min(list_length, list_length2));
 
           REQUIRE(update_length <= list_length);
           REQUIRE(update_length <= list_length2);
@@ -376,7 +376,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
 
         AND_WHEN("only the last few entries are updated with the second list")
         {
-          len_t update_length = random_range(1, min(list_length, list_length2));
+          len_t update_length = random_range(1, std::min(list_length, list_length2));
 
           REQUIRE(update_length <= list_length);
           REQUIRE(update_length <= list_length2);
@@ -419,7 +419,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
 
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.update_entries(list_id, vectors, ids, 0, update_length), out_of_range);
+          REQUIRE_THROWS_AS(lists.update_entries(list_id, vectors, ids, 0, update_length), std::out_of_range);
         }
       }
 
@@ -429,7 +429,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
         len_t update_length = 5;
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.update_entries(list_id2, vectors, ids, 0, update_length), invalid_argument);
+          REQUIRE_THROWS_AS(lists.update_entries(list_id2, vectors, ids, 0, update_length), std::invalid_argument);
         }
       }
     }
@@ -664,7 +664,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
 
           THEN("an expected exception is thrown")
           {
-            REQUIRE_THROWS_AS(lists.resize_list(list_id, new_list_length), out_of_range);
+            REQUIRE_THROWS_AS(lists.resize_list(list_id, new_list_length), std::out_of_range);
           }
         }
       }
@@ -674,7 +674,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
         list_id_t non_existing_list_id = 2;
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.resize_list(non_existing_list_id, new_list_length), invalid_argument);
+          REQUIRE_THROWS_AS(lists.resize_list(non_existing_list_id, new_list_length), std::invalid_argument);
         }
       }
     }
@@ -703,7 +703,7 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "
       {
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.get_list_length(list_ids[1]), invalid_argument);
+          REQUIRE_THROWS_AS(lists.get_list_length(list_ids[1]), std::invalid_argument);
         }
       }
     }
@@ -744,7 +744,7 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.I
         {
           THEN("an exception is thrown")
           {
-            REQUIRE_THROWS_AS(lists.get_vectors(list_ids[1]), invalid_argument);
+            REQUIRE_THROWS_AS(lists.get_vectors(list_ids[1]), std::invalid_argument);
           }
         }
       }
@@ -786,7 +786,7 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedL
         {
           THEN("an exception is thrown")
           {
-            REQUIRE_THROWS_AS(lists.get_ids(list_ids[1]), invalid_argument);
+            REQUIRE_THROWS_AS(lists.get_ids(list_ids[1]), std::invalid_argument);
           }
         }
       }
@@ -801,9 +801,9 @@ auto test_bulk_insert_entries =
         vector_el_t *vectors,
         vector_id_t *ids,
         list_id_t *list_ids,
-        string vectors_filepath,
-        string vector_ids_filepath,
-        string list_ids_filepath)
+        std::string vectors_filepath,
+        std::string vector_ids_filepath,
+        std::string list_ids_filepath)
 {
   GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
   {
@@ -812,9 +812,9 @@ auto test_bulk_insert_entries =
     {
       lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries);
 
-      unordered_map<list_id_t, vector<vector_el_t *>>
+      std::unordered_map<list_id_t, std::vector<vector_el_t *>>
           list_vectors_map;
-      unordered_map<list_id_t, vector<list_id_t>> list_ids_map;
+      std::unordered_map<list_id_t, std::vector<list_id_t>> list_ids_map;
       for (len_t i = 0; i < n_entries; i++)
       {
         list_vectors_map[list_ids[i]].push_back(&vectors[i * vector_dim]);
@@ -868,7 +868,7 @@ auto test_bulk_insert_entries =
       {
         THEN("an exception is thrown")
         {
-          REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries), runtime_error);
+          REQUIRE_THROWS_AS(lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries), std::runtime_error);
         }
       }
     }
@@ -882,16 +882,16 @@ auto benchmark_bulk_insert_entries =
         vector_el_t *vectors,
         vector_id_t *ids,
         list_id_t *list_ids,
-        string vectors_filepath,
-        string vector_ids_filepath,
-        string list_ids_filepath)
+        std::string vectors_filepath,
+        std::string vector_ids_filepath,
+        std::string list_ids_filepath)
 {
   UNUSED(vectors);
   UNUSED(ids);
   UNUSED(list_ids);
   time_t start = time(0);
   tm *ltm = localtime(&start);
-  cout << "preparation for bulk insertion completed at " << ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << endl;
+  std::cout << "preparation for bulk insertion completed at " << ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << std::endl;
 
   BENCHMARK_ADVANCED("bulk_insert_entries()")
   (Catch::Benchmark::Chronometer meter)
@@ -903,19 +903,19 @@ auto benchmark_bulk_insert_entries =
 
   time_t end = time(0);
   ltm = localtime(&end);
-  cout << "bulk insertion completed at " << ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << endl;
+  std::cout << "bulk insertion completed at " << ltm->tm_hour << ":" << ltm->tm_min << ":" << ltm->tm_sec << std::endl;
 
-  cout << "bulk insertion took " << (end - start) / 60 << " minutes" << endl;
+  std::cout << "bulk insertion took " << (end - start) / 60 << " minutes" << std::endl;
 };
 
-auto bench_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len_t vector_dim, len_t n_lists)
+auto bench_bulk_insert_entries_dataset = [](std::string dataset, len_t n_entries, len_t vector_dim, len_t n_lists)
 {
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
-    string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
-    string vectors_filepath = join(dataset_dir, get_vectors_filename());
-    string vector_ids_filepath = join(dataset_dir, get_vector_ids_filename());
-    string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
+    std::string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
+    std::string vectors_filepath = join(dataset_dir, get_vectors_filename());
+    std::string vector_ids_filepath = join(dataset_dir, get_vector_ids_filename());
+    std::string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
 
     setup_run_teardown_bulk_insert_entries_dataset(
         n_entries,
@@ -927,14 +927,14 @@ auto bench_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len
   }
 };
 
-auto test_bulk_insert_entries_dataset = [](string dataset, len_t n_entries, len_t vector_dim, len_t n_lists)
+auto test_bulk_insert_entries_dataset = [](std::string dataset, len_t n_entries, len_t vector_dim, len_t n_lists)
 {
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
-    string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
-    string vectors_filepath = join(dataset_dir, get_vectors_filename());
-    string vector_ids_filepath = join(dataset_dir, get_vector_ids_filename());
-    string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
+    std::string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
+    std::string vectors_filepath = join(dataset_dir, get_vectors_filename());
+    std::string vector_ids_filepath = join(dataset_dir, get_vector_ids_filename());
+    std::string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
 
     setup_run_teardown_bulk_insert_entries_dataset(
         n_entries,
@@ -962,9 +962,9 @@ SCENARIO("bulk_insert_entries(): randomized testing", "[InvertedLists][bulk_inse
 
     AND_GIVEN("the vectors, ids and list ids are written to files according to the format required by bulk_insert_entries()")
     {
-      string vectors_filepath = join(TMP_DIR, get_vectors_filename());
-      string vector_ids_filepath = join(TMP_DIR, VECTOR_IDS_FILENAME);
-      string list_ids_filepath = join(TMP_DIR, get_list_ids_filename(0));
+      std::string vectors_filepath = join(TMP_DIR, get_vectors_filename());
+      std::string vector_ids_filepath = join(TMP_DIR, VECTOR_IDS_FILENAME);
+      std::string list_ids_filepath = join(TMP_DIR, get_list_ids_filename(0));
       size_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
       size_t ids_size = n_entries * sizeof(list_id_t);
       size_t list_ids_size = n_entries * sizeof(list_id_t);

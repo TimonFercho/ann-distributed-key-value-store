@@ -9,7 +9,7 @@
 
 namespace ann_dkvs
 {
-  typedef pair<distance_t, vector_id_t> vector_distance_id_t;
+  typedef std::pair<distance_t, vector_id_t> vector_distance_id_t;
   class VectorDistanceIdMaxHeapCompare
   {
   public:
@@ -26,14 +26,14 @@ namespace ann_dkvs
       return false;
     }
   };
-  typedef priority_queue<vector_distance_id_t, vector<vector_distance_id_t>, VectorDistanceIdMaxHeapCompare> heap_t;
+  typedef std::priority_queue<vector_distance_id_t, std::vector<vector_distance_id_t>, VectorDistanceIdMaxHeapCompare> heap_t;
 
   class StorageIndex
   {
   private:
     InvertedLists *lists;
     distance_func_t distance_func;
-    vector<vector_distance_id_t> extract_results(heap_t *candidates);
+    std::vector<vector_distance_id_t> extract_results(heap_t *candidates);
     void search_preassigned_list(
         list_id_t list_id,
         vector_el_t *query,
@@ -42,7 +42,7 @@ namespace ann_dkvs
 
   public:
     StorageIndex(InvertedLists *lists);
-    vector<vector_distance_id_t> search_preassigned(
+    std::vector<vector_distance_id_t> search_preassigned(
         list_id_t *list_ids,
         size_t n_lists,
         vector_el_t *query,
