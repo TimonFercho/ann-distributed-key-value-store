@@ -1,5 +1,5 @@
-#ifndef STORAGE_NODE_H_
-#define STORAGE_NODE_H_
+#ifndef STORAGE_NODE_HPP_
+#define STORAGE_NODE_HPP_
 
 #include "StorageIndex.hpp"
 
@@ -20,4 +20,4 @@ namespace ann_dkvs
   };
 }
 
-#endif // STORAGE_NODE_H_
+#endif // STORAGE_NODE_HPP_

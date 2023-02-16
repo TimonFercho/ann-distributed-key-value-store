@@ -1,5 +1,5 @@
-#ifndef INVERTED_LISTS_H_
-#define INVERTED_LISTS_H_
+#ifndef INVERTED_LISTS_HPP_
+#define INVERTED_LISTS_HPP_
 
 #include <unordered_map>
 #include <vector>
@@ -92,4 +92,4 @@ namespace ann_dkvs
   };
 }
 
-#endif // INVERTED_LISTS_H_
+#endif // INVERTED_LISTS_HPP_

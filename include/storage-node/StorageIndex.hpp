@@ -1,5 +1,5 @@
-#ifndef INDEX_H_
-#define INDEX_H_
+#ifndef INDEX_HPP_
+#define INDEX_HPP_
 
 #include <string>
 #include <queue>
@@ -49,4 +49,4 @@ namespace ann_dkvs
         size_t k);
   };
 }
-#endif // INDEX_H_
+#endif // INDEX_HPP_

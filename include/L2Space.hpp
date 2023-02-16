@@ -1,5 +1,5 @@
-#ifndef L2Space_H_
-#define L2Space_H_
+#ifndef L2Space_HPP_
+#define L2Space_HPP_
 
 #ifdef __AVX__
 #include <immintrin.h>
@@ -97,4 +97,4 @@ namespace ann_dkvs
 
 } // namespace ann_dkvs
 
-#endif // L2Space_H_
+#endif // L2Space_HPP_

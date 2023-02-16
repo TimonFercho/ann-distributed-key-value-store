@@ -1,5 +1,5 @@
-#ifndef TYPES_H_
-#define TYPES_H_
+#ifndef TYPES_HPP_
+#define TYPES_HPP_
 
 namespace ann_dkvs
 {
@@ -15,4 +15,4 @@ namespace ann_dkvs
   typedef int64_t vector_id_t;
 }
 
-#endif // TYPES_H_
+#endif // TYPES_HPP_
