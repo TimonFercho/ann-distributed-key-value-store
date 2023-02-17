@@ -11,6 +11,7 @@
 #include "../include/storage-node/StorageIndex.hpp"
 #include "../include/L2Space.hpp"
 #include "../include/root-node/RootIndex.hpp"
+#include "../include/Query.hpp"
 
 #define UNUSED(x) (void)(x)
 #define N_RESULTS_GROUNDTRUTH 1000

@@ -6,6 +6,7 @@
 
 #include "InvertedLists.hpp"
 #include "L2Space.hpp"
+#include "Query.hpp"
 
 namespace ann_dkvs
 {
@@ -28,13 +29,13 @@ namespace ann_dkvs
     distance_func_t distance_func;
     QueryResults extract_results(heap_t *candidates);
     void search_preassigned_list(
-        Query* query,
+        Query *query,
         list_id_t list_id,
         heap_t *candidates);
 
   public:
     StorageIndex(InvertedLists *lists);
-    QueryResults search_preassigned(Query* query);
+    QueryResults search_preassigned(Query *query);
   };
 }
 #endif // INDEX_HPP_

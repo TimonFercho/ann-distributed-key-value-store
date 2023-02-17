@@ -5,6 +5,7 @@
 #include <queue>
 
 #include "types.hpp"
+#include "Query.hpp"
 
 namespace ann_dkvs
 {
