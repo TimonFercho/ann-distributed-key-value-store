@@ -28,10 +28,10 @@ namespace ann_dkvs
     for (size_t j = 0; j < list_size; j++)
     {
       vector_el_t *vector = &vectors[j * vector_dim];
-      float distance = distance_func(vector, query->query_vector, &vector_dim);
+      float distance = distance_func(vector, query->get_query_vector(), &vector_dim);
       vector_id_t vector_id = ids[j];
       QueryResult result = {distance, vector_id};
-      if (candidates->size() < query->n_results)
+      if (candidates->size() < query->get_n_results())
       {
         candidates->push(result);
       }
@@ -52,9 +52,9 @@ namespace ann_dkvs
   QueryResults StorageIndex::search_preassigned(Query *query)
   {
     heap_t knn;
-    for (size_t i = 0; i < query->n_probe; i++)
+    for (list_id_t list_id : query->get_list_ids())
     {
-      search_preassigned_list(query, query->list_ids[i], &knn);
+      search_preassigned_list(query, list_id, &knn);
     }
     return extract_results(&knn);
   }

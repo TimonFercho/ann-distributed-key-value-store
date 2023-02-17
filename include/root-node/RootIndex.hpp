@@ -30,11 +30,11 @@ namespace ann_dkvs
     len_t vector_dim;
     vector_el_t *centroids;
     len_t n_centroids;
-    list_ids_t extract_list_ids(centroids_heap_t *nearest_centroids);
+    void allocate_list_ids(Query *query, centroids_heap_t *nearest_centroids);
 
   public:
     RootIndex(len_t vector_dim, vector_el_t *centroids, len_t n_centroids);
-    list_ids_t preassign_query(Query *query);
+    void preassign_query(Query *query);
   };
 } // namespace ann_dkvs
 #endif // ROOT_INDEX_HPP_

@@ -37,7 +37,7 @@ std::string get_centroids_filename(len_t n_lists)
 
 SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", "[StorageIndex][search_preassigned][test][hard-coded]")
 {
-  GIVEN("an InvertedLists object and a list of 1D vectors, corresponding std::vector ids and list ids")
+  GIVEN("an InvertedLists object and a list of 1D vectors, corresponding vector ids and list ids")
   {
     len_t vector_dim = 1;
     InvertedLists lists = get_inverted_lists_object(vector_dim);
@@ -55,8 +55,8 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
     {
       vector_el_t query_vector[] = {0};
       len_t n_results = 3;
-      Query query = {.query_vector = query_vector, .n_results = n_results};
-      list_ids_t list_ids_to_search = {1, 2};
+      list_ids_t list_ids_to_probe = {1, 2};
+      Query query = Query(query_vector, n_results, list_ids_to_probe);
 
       WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
@@ -102,7 +102,7 @@ auto setup_indices_and_run = [](len_t n_probe,
     std::string groundtruth_filepath = join(SIFT_GROUNDTRUTH_DIR, groundtruth_filename);
     // vectors format: n_entries * 128 * sizeof(float)
     std::string vectors_filepath = join(dataset_dir, get_vectors_filename());
-    // std::vector ids format: n_entries * sizeof(int64_t)
+    // vector ids format: n_entries * sizeof(int64_t)
     std::string vectors_ids_filepath = join(dataset_dir, get_vector_ids_filename());
     // list_ids format: n_entries * sizeof(int64_t)
     std::string list_ids_filepath = join(dataset_dir, get_list_ids_filename(n_lists));
@@ -198,9 +198,8 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
         {
           uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
           vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-          Query query = {.query_vector = query_vector, .n_probe = n_probe, .n_results = n_results};
-          list_ids_t list_ids = root_index->preassign_query(&query);
-
+          Query query = Query(query_vector, n_results, n_probe);
+          root_index->preassign_query(&query);
           QueryResults neighbors = storage_index->search_preassigned(&query);
           vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (n_results_groundtruth + 1) + 1];
           for (len_t i = 0; i < neighbors.size(); i++)
@@ -258,8 +257,8 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
                 {
                   uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
                   vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-                  Query query = {.query_vector = query_vector, .n_probe = n_probe, .n_results = n_results};
-                  list_ids_t list_ids = root_index->preassign_query(&query);
+                  Query query = Query(query_vector, n_results, n_probe);
+                  root_index->preassign_query(&query);
                   storage_index->search_preassigned(&query);
                   free(query_vector);
                 } });
@@ -278,6 +277,7 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
   len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
   len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+  len_t n_results = 1;
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -297,8 +297,8 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
                   {
                     uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
                     vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-                    Query query = {.query_vector = query_vector, .n_probe = n_probe};
-                    list_ids_t list_ids = root_index->preassign_query(&query);
+                    Query query = Query(query_vector, n_results, n_probe); 
+                    root_index->preassign_query(&query);
                     free(query_vector);
                   } });
       };
