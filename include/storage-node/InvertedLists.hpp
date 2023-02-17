@@ -7,7 +7,7 @@
 
 #include "types.hpp"
 
-#define PPROT_READ 0x1
+#define PROT_READ 0x1
 #define PROT_WRITE 0x2
 #define FLAG_READ "r"
 #define FLAG_READ_WRITE "r+"
