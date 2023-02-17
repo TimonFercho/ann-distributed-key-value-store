@@ -13,6 +13,7 @@
 #include "../include/root-node/RootIndex.hpp"
 
 #define UNUSED(x) (void)(x)
+#define N_RESULTS_GROUNDTRUTH 1000
 
 using namespace ann_dkvs;
 
@@ -52,10 +53,10 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
 
     AND_GIVEN("A query vector, the list ids to search and a value of k")
     {
-      vector_el_t query[] = {0};
-      size_t k = 3;
-      list_id_t list_ids_to_search[] = {1, 2};
-      len_t n_lists_to_search = 2;
+      vector_el_t query_vector[] = {0};
+      len_t n_results = 3;
+      Query query = {.query_vector = query_vector, .n_results = n_results};
+      list_ids_t list_ids_to_search = {1, 2};
 
       WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
@@ -66,17 +67,16 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
 
         WHEN("the StorageIndex is queried with a query vector")
         {
-          std::vector<vector_distance_id_t> results = index.search_preassigned(list_ids_to_search, n_lists_to_search, query, k);
+          QueryResults results = index.search_preassigned(&query);
 
           THEN("the results are correct")
           {
-            CHECK(results.size() == k);
-            CHECK(results[0].first == 1 * 1);
-            CHECK(results[0].second == 3);
-            CHECK(results[1].first == 2 * 2);
-            CHECK(results[1].second == 1);
-            CHECK(results[2].first == 3 * 3);
-            CHECK(results[2].second == 4);
+            CHECK(results[0].distance == 1 * 1);
+            CHECK(results[0].vector_id == 3);
+            CHECK(results[1].distance == 2 * 2);
+            CHECK(results[1].vector_id == 1);
+            CHECK(results[2].distance == 3 * 3);
+            CHECK(results[2].vector_id == 4);
           }
         }
       }
@@ -88,7 +88,7 @@ auto setup_indices_and_run = [](len_t n_probe,
                                 len_t n_lists,
                                 len_t n_entries,
                                 len_t n_query_vectors,
-                                len_t groundtruth_k,
+                                len_t n_results_groundtruth,
                                 len_t vector_dim,
                                 bool mmap_groundtruth,
                                 std::string dataset,
@@ -98,7 +98,7 @@ auto setup_indices_and_run = [](len_t n_probe,
   if (n_probe <= n_lists)
   {
     std::string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
-    // groundtruth format: sizeof(uint32_t) + [groundtruth_k * sizeof(uint32_t)]
+    // groundtruth format: sizeof(uint32_t) + [n_results_groundtruth * sizeof(uint32_t)]
     std::string groundtruth_filepath = join(SIFT_GROUNDTRUTH_DIR, groundtruth_filename);
     // vectors format: n_entries * 128 * sizeof(float)
     std::string vectors_filepath = join(dataset_dir, get_vectors_filename());
@@ -128,7 +128,7 @@ auto setup_indices_and_run = [](len_t n_probe,
       len_t list_ids_size = n_entries * sizeof(list_id_t);
       len_t centroids_size = n_lists * vector_dim * sizeof(vector_el_t);
       len_t query_vectors_size = n_query_vectors * vector_dim * sizeof(vector_el_t);
-      len_t groundtruth_size = n_query_vectors * groundtruth_k * sizeof(vector_id_t);
+      len_t groundtruth_size = n_query_vectors * n_results_groundtruth * sizeof(vector_id_t);
 
       vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
       vector_id_t *vector_ids = (vector_id_t *)mmap_file(vectors_ids_filepath, ids_size);
@@ -160,7 +160,7 @@ auto setup_indices_and_run = [](len_t n_probe,
         InvertedLists lists = get_inverted_lists_object(vector_dim);
         lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
         StorageIndex storage_index(&lists);
-        RootIndex root_index(centroids, n_lists);
+        RootIndex root_index(vector_dim, centroids, n_lists);
 
         run(query_vectors, groundtruth, &storage_index, &root_index);
       }
@@ -184,33 +184,34 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
     len_t vector_dim = 128;
     len_t n_entries = (len_t)1E6;
     len_t n_query_vectors = (len_t)1E4;
-    len_t groundtruth_k = 1000;
-    len_t R = 2;
+    len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+    len_t n_results = 2;
     len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
     len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096);
 
     auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
     {
-      WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
+      WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
       {
         len_t n_correct = 0;
         for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
         {
           uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-          vector_el_t *query = alloc_query_as_vector_el(query_bytes, vector_dim);
-          std::vector<list_id_t> list_ids_to_search = root_index->find_nearest_centroids(query, vector_dim, n_probe);
+          vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
+          Query query = {.query_vector = query_vector, .n_probe = n_probe, .n_results = n_results};
+          list_ids_t list_ids = root_index->preassign_query(&query);
 
-          std::vector<vector_distance_id_t> nearest_neighbors = storage_index->search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
-          vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (groundtruth_k + 1) + 1];
-          for (len_t i = 0; i < nearest_neighbors.size(); i++)
+          QueryResults neighbors = storage_index->search_preassigned(&query);
+          vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (n_results_groundtruth + 1) + 1];
+          for (len_t i = 0; i < neighbors.size(); i++)
           {
-            if (nearest_neighbors[i].second == groundtruth_first_nearest_neighbor)
+            if (neighbors[i].vector_id == groundtruth_first_nearest_neighbor)
             {
               n_correct++;
               break;
             }
           }
-          free(query);
+          free(query_vector);
         }
         WARN("n_lists := " << n_lists);
         WARN("n_probe := " << n_probe);
@@ -226,7 +227,7 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
       }
     };
 
-    setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, groundtruth_k, vector_dim, true, "SIFT1M", "idx_1M.ivecs", run);
+    setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, true, "SIFT1M", "idx_1M.ivecs", run);
   }
 }
 
@@ -235,15 +236,15 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
   len_t vector_dim = 128;
   len_t n_entries = (len_t)1E6;
   len_t n_query_vectors = (len_t)1E4;
-  len_t R = 1;
-  len_t groundtruth_k = 1000;
+  len_t n_results = 1;
+  len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
   len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
   len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
     UNUSED(groundtruth);
-    WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest R neighbors")
+    WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
     {
       WARN("n_lists := " << n_lists);
       WARN("n_probe := " << n_probe);
@@ -256,26 +257,27 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
                 for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
                 {
                   uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-                  vector_el_t *query = alloc_query_as_vector_el(query_bytes, vector_dim);
-                  std::vector<list_id_t> list_ids_to_search = root_index->find_nearest_centroids(query, vector_dim, n_probe);
-                  storage_index->search_preassigned(list_ids_to_search.data(), list_ids_to_search.size(), query, R);
-                  free(query);
+                  vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
+                  Query query = {.query_vector = query_vector, .n_probe = n_probe, .n_results = n_results};
+                  list_ids_t list_ids = root_index->preassign_query(&query);
+                  storage_index->search_preassigned(&query);
+                  free(query_vector);
                 } });
       };
     }
   };
 
-  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, groundtruth_k, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }
 
-SCENARIO("find_nearest_centroids()", "[StorageIndex][find_nearest_centroids][benchmark][SIFT1M]")
+SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M]")
 {
   len_t vector_dim = 128;
   len_t n_entries = (len_t)1E6;
   len_t n_query_vectors = (len_t)1E4;
   len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
   len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
-  len_t groundtruth_k = 1000;
+  len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -285,7 +287,7 @@ SCENARIO("find_nearest_centroids()", "[StorageIndex][find_nearest_centroids][ben
     {
       WARN("n_lists := " << n_lists);
       WARN("n_probe := " << n_probe);
-      BENCHMARK_ADVANCED("find_nearest_centroids(): no search")
+      BENCHMARK_ADVANCED("preassign_query(): no search")
       (Catch::Benchmark::Chronometer meter)
       {
         meter.measure([&]
@@ -294,13 +296,13 @@ SCENARIO("find_nearest_centroids()", "[StorageIndex][find_nearest_centroids][ben
                   for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
                   {
                     uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-                    vector_el_t *query = alloc_query_as_vector_el(query_bytes, vector_dim);
-                    std::vector<list_id_t> list_ids_to_search = root_index->find_nearest_centroids(query, vector_dim, n_probe);
-                    free(query);
+                    vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
+                    Query query = {.query_vector = query_vector, .n_probe = n_probe};
+                    list_ids_t list_ids = root_index->preassign_query(&query);
+                    free(query_vector);
                   } });
       };
     }
   };
-
-  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, groundtruth_k, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }

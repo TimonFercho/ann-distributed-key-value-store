@@ -12,11 +12,6 @@ namespace ann_dkvs
 
   public:
     StorageNode(StorageIndex index);
-    std::vector<vector_distance_id_t> receive_knn_request(
-        list_id_t *list_ids,
-        size_t nlist,
-        vector_el_t *query,
-        size_t k);
   };
 }
 

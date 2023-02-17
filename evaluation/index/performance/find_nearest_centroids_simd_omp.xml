@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Catch name="testmain" filters="[StorageIndex][find_nearest_centroids][SIFT1M][benchmark]">
+<Catch name="testmain" filters="[StorageIndex][preassign_query][SIFT1M][benchmark]">
   <Group name="testmain">
-    <TestCase name="Scenario: find_nearest_centroids()"
-      tags="[StorageIndex][SIFT1M][benchmark][find_nearest_centroids]"
+    <TestCase name="Scenario: preassign_query()"
+      tags="[StorageIndex][SIFT1M][benchmark][preassign_query]"
       filename="tests/IndexTest.cpp" line="331">
       <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="333">
         <Section name="Then: all required files are present" filename="tests/IndexTest.cpp"
@@ -36,7 +36,7 @@
               <Warning>
                 n_probe := 1
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.04833e+08">
                 <!--All
@@ -87,7 +87,7 @@
               <Warning>
                 n_probe := 2
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.11076e+08">
                 <!--All
@@ -138,7 +138,7 @@
               <Warning>
                 n_probe := 4
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.32207e+08">
                 <!--All
@@ -189,7 +189,7 @@
               <Warning>
                 n_probe := 8
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.5278e+08">
                 <!--All
@@ -240,7 +240,7 @@
               <Warning>
                 n_probe := 16
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.67491e+08">
                 <!--All
@@ -291,7 +291,7 @@
               <Warning>
                 n_probe := 32
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="2.30743e+08">
                 <!--All
@@ -342,7 +342,7 @@
               <Warning>
                 n_probe := 64
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="2.77279e+08">
                 <!--All
@@ -393,7 +393,7 @@
               <Warning>
                 n_probe := 128
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="3.78365e+08">
                 <!--All
@@ -444,7 +444,7 @@
               <Warning>
                 n_probe := 1
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="2.22519e+08">
                 <!--All
@@ -495,7 +495,7 @@
               <Warning>
                 n_probe := 2
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.97989e+08">
                 <!--All
@@ -546,7 +546,7 @@
               <Warning>
                 n_probe := 4
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="2.21367e+08">
                 <!--All
@@ -596,7 +596,7 @@
               <Warning>
                 n_probe := 8
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="2.45015e+08">
                 <!--All
@@ -647,7 +647,7 @@
               <Warning>
                 n_probe := 16
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="2.79856e+08">
                 <!--All
@@ -698,7 +698,7 @@
               <Warning>
                 n_probe := 32
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="3.28677e+08">
                 <!--All
@@ -748,7 +748,7 @@
               <Warning>
                 n_probe := 64
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="4.13577e+08">
                 <!--All
@@ -799,7 +799,7 @@
               <Warning>
                 n_probe := 128
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="5.53713e+08">
                 <!--All
@@ -850,7 +850,7 @@
               <Warning>
                 n_probe := 1
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="3.90238e+08">
                 <!--All
@@ -901,7 +901,7 @@
               <Warning>
                 n_probe := 2
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="4.29328e+08">
                 <!--All
@@ -952,7 +952,7 @@
               <Warning>
                 n_probe := 4
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="3.96955e+08">
                 <!--All
@@ -1003,7 +1003,7 @@
               <Warning>
                 n_probe := 8
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="4.18926e+08">
                 <!--All
@@ -1054,7 +1054,7 @@
               <Warning>
                 n_probe := 16
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="4.62699e+08">
                 <!--All
@@ -1104,7 +1104,7 @@
               <Warning>
                 n_probe := 32
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="5.11407e+08">
                 <!--All
@@ -1155,7 +1155,7 @@
               <Warning>
                 n_probe := 64
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="6.55307e+08">
                 <!--All
@@ -1206,7 +1206,7 @@
               <Warning>
                 n_probe := 128
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="8.75938e+08">
                 <!--All
@@ -1257,7 +1257,7 @@
               <Warning>
                 n_probe := 1
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="7.9701e+08">
                 <!--All
@@ -1308,7 +1308,7 @@
               <Warning>
                 n_probe := 2
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="7.61817e+08">
                 <!--All
@@ -1358,7 +1358,7 @@
               <Warning>
                 n_probe := 4
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="7.68721e+08">
                 <!--All
@@ -1409,7 +1409,7 @@
               <Warning>
                 n_probe := 8
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="7.84456e+08">
                 <!--All
@@ -1460,7 +1460,7 @@
               <Warning>
                 n_probe := 16
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="8.58991e+08">
                 <!--All
@@ -1510,7 +1510,7 @@
               <Warning>
                 n_probe := 32
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="9.2493e+08">
                 <!--All
@@ -1560,7 +1560,7 @@
               <Warning>
                 n_probe := 64
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.06453e+09">
                 <!--All
@@ -1611,7 +1611,7 @@
               <Warning>
                 n_probe := 128
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.33875e+09">
                 <!--All
@@ -1662,7 +1662,7 @@
               <Warning>
                 n_probe := 1
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.54367e+09">
                 <!--All
@@ -1713,7 +1713,7 @@
               <Warning>
                 n_probe := 2
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.55043e+09">
                 <!--All
@@ -1764,7 +1764,7 @@
               <Warning>
                 n_probe := 4
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.51204e+09">
                 <!--All
@@ -1815,7 +1815,7 @@
               <Warning>
                 n_probe := 8
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.56558e+09">
                 <!--All
@@ -1866,7 +1866,7 @@
               <Warning>
                 n_probe := 16
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.58087e+09">
                 <!--All
@@ -1917,7 +1917,7 @@
               <Warning>
                 n_probe := 32
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.70942e+09">
                 <!--All
@@ -1968,7 +1968,7 @@
               <Warning>
                 n_probe := 64
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="1.79932e+09">
                 <!--All
@@ -2018,7 +2018,7 @@
               <Warning>
                 n_probe := 128
               </Warning>
-              <BenchmarkResults name="find_nearest_centroids(): no search" samples="3"
+              <BenchmarkResults name="preassign_query(): no search" samples="3"
                 resamples="100000" iterations="1" clockResolution="89.7341"
                 estimatedDuration="2.19847e+09">
                 <!--All

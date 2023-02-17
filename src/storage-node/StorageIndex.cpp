@@ -4,22 +4,21 @@
 namespace ann_dkvs
 {
 
-  std::vector<vector_distance_id_t> StorageIndex::extract_results(heap_t *candidates)
+  QueryResults StorageIndex::extract_results(heap_t *candidates)
   {
-    len_t k = candidates->size();
-    std::vector<vector_distance_id_t> results(k);
-    for (size_t i = 0; i < k; i++)
+    len_t n_results = candidates->size();
+    QueryResults results(n_results);
+    for (size_t i = 0; i < n_results; i++)
     {
-      results[k - i - 1] = candidates->top();
+      results[n_results - i - 1] = candidates->top();
       candidates->pop();
     }
     return results;
   }
 
   void StorageIndex::search_preassigned_list(
+      Query *query,
       list_id_t list_id,
-      vector_el_t *query,
-      size_t k,
       heap_t *candidates)
   {
     vector_el_t *vectors = lists->get_vectors(list_id);
@@ -29,14 +28,14 @@ namespace ann_dkvs
     for (size_t j = 0; j < list_size; j++)
     {
       vector_el_t *vector = &vectors[j * vector_dim];
-      float distance = distance_func(vector, query, &vector_dim);
-      vector_id_t id = ids[j];
-      vector_distance_id_t result = {distance, id};
-      if (candidates->size() < k)
+      float distance = distance_func(vector, query->query_vector, &vector_dim);
+      vector_id_t vector_id = ids[j];
+      QueryResult result = {distance, vector_id};
+      if (candidates->size() < query->n_results)
       {
         candidates->push(result);
       }
-      else if (distance < candidates->top().first || (distance == candidates->top().first && id < candidates->top().second))
+      else if (distance < candidates->top().distance || (distance == candidates->top().distance && vector_id < candidates->top().vector_id))
       {
         candidates->pop();
         candidates->push(result);
@@ -50,12 +49,12 @@ namespace ann_dkvs
     distance_func = L2Space(lists->get_vector_dim()).get_distance_func();
   }
 
-  std::vector<vector_distance_id_t> StorageIndex::search_preassigned(list_id_t *list_ids, size_t nlist, vector_el_t *query, size_t k)
+  QueryResults StorageIndex::search_preassigned(Query *query)
   {
     heap_t knn;
-    for (size_t i = 0; i < nlist; i++)
+    for (size_t i = 0; i < query->n_probe; i++)
     {
-      search_preassigned_list(list_ids[i], query, k, &knn);
+      search_preassigned_list(query, query->list_ids[i], &knn);
     }
     return extract_results(&knn);
   }

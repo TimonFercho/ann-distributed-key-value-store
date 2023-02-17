@@ -86,7 +86,7 @@ All tests passed (13 assertions in 1 test case)
   vector_el_t *vector = &vectors[j * vector_dim];
   float distance = L2Sqr(vector, query, &vector_dim);
   vector_id_t id = ids[j];
-  vector_distance_id_t result = {distance, id};
+  QueryResult result = {distance, id};
   if (candidates->size() < k)
   {
     candidates->push(result);
@@ -101,11 +101,11 @@ All tests passed (13 assertions in 1 test case)
 
 ```c++
   typedef float distance_t;
-  typedef pair<distance_t, vector_id_t> vector_distance_id_t;
+  typedef pair<distance_t, vector_id_t> QueryResult;
   class VectorDistanceIdMaxHeapCompare
   {
     public:
-      bool operator()(vector_distance_id_t below, vector_distance_id_t above)
+      bool operator()(QueryResult below, QueryResult above)
       {
         if (below.first > above.first)
         {
@@ -118,7 +118,7 @@ All tests passed (13 assertions in 1 test case)
         return false;
       }
   };
-  typedef priority_queue<vector_distance_id_t, vector<vector_distance_id_t>, VectorDistanceIdMaxHeapCompare> heap_t;
+  typedef priority_queue<QueryResult, vector<QueryResult>, VectorDistanceIdMaxHeapCompare> heap_t;
 ```
 
 # `search_preassigned_list`: Recall@1 for SIFT1M

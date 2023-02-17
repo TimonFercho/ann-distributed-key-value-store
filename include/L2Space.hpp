@@ -81,7 +81,6 @@ namespace ann_dkvs
 
 #endif
 
-  typedef float distance_t;
   using distance_func_t = distance_t (*)(const void *, const void *, const void *);
   class L2Space
   {

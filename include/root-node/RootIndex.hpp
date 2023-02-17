@@ -4,20 +4,37 @@
 #include <vector>
 #include <queue>
 
+#include "types.hpp"
+
 namespace ann_dkvs
 {
-  typedef std::pair<distance_t, list_id_t> centroid_distance_id_t;
-  typedef std::priority_queue<centroid_distance_id_t> list_id_heap_t;
+  typedef struct
+  {
+    distance_t distance;
+    list_id_t list_id;
+  } CentroidsResult;
+  class CentroidsDistanceIdMaxHeapCompare
+  {
+  public:
+    bool operator()(CentroidsResult parent, CentroidsResult child)
+    {
+      bool swapParentWithChild = (parent.distance > child.distance ||
+                                  (parent.distance == child.distance && parent.list_id < child.list_id));
+      return swapParentWithChild;
+    }
+  };
+  typedef std::priority_queue<CentroidsResult, std::vector<CentroidsResult>, CentroidsDistanceIdMaxHeapCompare> centroids_heap_t;
   class RootIndex
   {
   private:
+    len_t vector_dim;
     vector_el_t *centroids;
     len_t n_centroids;
-    std::vector<list_id_t> extract_list_ids(list_id_heap_t *nearest_centroids);
+    list_ids_t extract_list_ids(centroids_heap_t *nearest_centroids);
 
   public:
-    RootIndex(vector_el_t *centroids, len_t n_centroids);
-    std::vector<list_id_t> find_nearest_centroids(vector_el_t *query_vector, len_t vector_dim, len_t number_of_nearest_centroids);
+    RootIndex(len_t vector_dim, vector_el_t *centroids, len_t n_centroids);
+    list_ids_t preassign_query(Query *query);
   };
 } // namespace ann_dkvs
 #endif // ROOT_INDEX_HPP_
