@@ -1,4 +1,4 @@
-#include "../include/storage-node/InvertedLists.hpp"
+#include "../include/storage-node/StorageLists.hpp"
 
 #include <cassert>
 #include <fstream>
@@ -42,7 +42,7 @@ auto join = [](const string &a, const string &b)
 
 struct BulkInsertEntriesContext
 {
-  InvertedLists *lists;
+  StorageLists *lists;
   vector_el_t *vectors;
   vector_id_t *ids;
   list_id_t *list_ids;
@@ -72,7 +72,7 @@ void setup_benchmark(BulkInsertEntriesContext *c)
   read_from_file(c->ids_filename, ids, ids_size);
   read_from_file(c->list_ids_filename, list_ids, list_ids_size);
 
-  c->lists = new InvertedLists(c->vector_dim, c->lists_filename);
+  c->lists = new StorageLists(c->vector_dim, c->lists_filename);
 }
 
 std::chrono::duration<double> run_benchmark(std::function<void()> const &func)

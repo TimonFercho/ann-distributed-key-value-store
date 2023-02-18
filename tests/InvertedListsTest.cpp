@@ -8,7 +8,7 @@
 #include "../lib/catch.hpp"
 
 #include "../include/tests/InvertedListsTestUtils.hpp"
-SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.InvertedLists]")
+SCENARIO("StorageLists(): an StorageLists object can be constructed", "[.StorageLists]")
 {
   GIVEN("a nonzero vector dimension")
   {
@@ -16,9 +16,9 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.Inver
 
     CHECK(vector_dim > 0);
 
-    WHEN("an InvertedLists object is created")
+    WHEN("an StorageLists object is created")
     {
-      InvertedLists lists = get_inverted_lists_object(vector_dim);
+      StorageLists lists = get_inverted_lists_object(vector_dim);
 
       THEN("the number of lists is 0")
       {
@@ -50,7 +50,7 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.Inver
   {
     len_t vector_dim = 0;
 
-    WHEN("an InvertedLists object is created")
+    WHEN("an StorageLists object is created")
     {
       THEN("an exception is thrown")
       {
@@ -60,13 +60,13 @@ SCENARIO("InvertedLists(): an InvertedLists object can be constructed", "[.Inver
   }
 }
 
-SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
+SCENARIO("create_list(): inverted lists can be created", "[.StorageLists]")
 {
 
-  GIVEN("an InvertedLists object storing vectors of some dimension")
+  GIVEN("an StorageLists object storing vectors of some dimension")
   {
     len_t vector_dim = gen_vector_dim({0});
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list of length 0 is created")
     {
@@ -184,10 +184,10 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
       }
     }
   }
-  GIVEN("an InvertedLists object storing vectors of dimension 1")
+  GIVEN("an StorageLists object storing vectors of dimension 1")
   {
     len_t vector_dim = 1;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list of size < 32B is created")
     {
@@ -217,13 +217,13 @@ SCENARIO("create_list(): inverted lists can be created", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_free_space(): the free space of an InvertedLists object is as expected", "[.InvertedLists]")
+SCENARIO("get_free_space(): the free space of an StorageLists object is as expected", "[.StorageLists]")
 {
 
-  GIVEN('an InvertedLists object storing vectors of some dimension')
+  GIVEN('an StorageLists object storing vectors of some dimension')
   {
     len_t vector_dim = gen_vector_dim({0});
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("no lists have been created")
     {
@@ -234,10 +234,10 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
     }
   }
 
-  GIVEN("an InvertedLists object storing vectors of some dimension > 2")
+  GIVEN("an StorageLists object storing vectors of some dimension > 2")
   {
     len_t vector_dim = gen_vector_dim(std::vector<len_t>({0, 1, 2}));
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list is created which has a size > 32B")
     {
@@ -254,10 +254,10 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
     }
   }
 
-  GIVEN("an InvertedLists object storing vectors of dimension 2")
+  GIVEN("an StorageLists object storing vectors of dimension 2")
   {
     len_t vector_dim = 2;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("a list is created with size < 32B")
     {
@@ -277,12 +277,12 @@ SCENARIO("get_free_space(): the free space of an InvertedLists object is as expe
   }
 }
 
-SCENARIO("update_entries(): multiple entries of a list can be updated", "[.InvertedLists]")
+SCENARIO("update_entries(): multiple entries of a list can be updated", "[.StorageLists]")
 {
-  GIVEN("an InvertedLists object and two lists of 128D vectors and corresponding ids")
+  GIVEN("an StorageLists object and two lists of 128D vectors and corresponding ids")
   {
     len_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     auto data = gen_vectors(128);
     len_t list_length = get_vector_length(data, vector_dim);
@@ -436,12 +436,12 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Inver
   }
 }
 
-SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.InvertedLists]")
+SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.StorageLists]")
 {
-  GIVEN("an InvertedLists object and two lists of 1D vectors and corresponding ids")
+  GIVEN("an StorageLists object and two lists of 1D vectors and corresponding ids")
   {
     len_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     auto data = gen_vectors(128);
     len_t list1_length = get_vector_length(data, vector_dim);
@@ -532,12 +532,12 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Inv
   }
 }
 
-SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
+SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
 {
-  GIVEN("an InvertedLists object and a list of 1D vectors and corresponding ids")
+  GIVEN("an StorageLists object and a list of 1D vectors and corresponding ids")
   {
     len_t vector_dim = 1;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     auto data = gen_vectors(1);
     len_t list_length = get_vector_length(data, vector_dim);
@@ -681,12 +681,12 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.InvertedLists]")
   }
 }
 
-SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.StorageLists]")
 {
-  GIVEN("an InvertedLists object of 1D vectors")
+  GIVEN("an StorageLists object of 1D vectors")
   {
     len_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     WHEN("an inverted list is created")
     {
@@ -710,12 +710,12 @@ SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "
   }
 }
 
-SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.StorageLists]")
 {
-  GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
+  GIVEN("an StorageLists object and a list of 128D vectors and corresponding ids")
   {
     len_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     auto data = gen_vectors(128);
     len_t list_length = get_vector_length(data, vector_dim);
@@ -752,12 +752,12 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.I
   }
 }
 
-SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.InvertedLists]")
+SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.StorageLists]")
 {
-  GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
+  GIVEN("an StorageLists object and a list of 128D vectors and corresponding ids")
   {
     len_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     auto data = gen_vectors(128);
     len_t list_length = get_vector_length(data, vector_dim);
@@ -805,9 +805,9 @@ auto test_bulk_insert_entries =
         std::string vector_ids_filepath,
         std::string list_ids_filepath)
 {
-  GIVEN("an InvertedLists object and a list of 128D vectors and corresponding ids")
+  GIVEN("an StorageLists object and a list of 128D vectors and corresponding ids")
   {
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
     WHEN("the entries are bulk inserted")
     {
       lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries);
@@ -896,7 +896,7 @@ auto benchmark_bulk_insert_entries =
   BENCHMARK_ADVANCED("bulk_insert_entries()")
   (Catch::Benchmark::Chronometer meter)
   {
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
     meter.measure([&lists, vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries]
                   { return lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries); });
   };
@@ -946,12 +946,12 @@ auto test_bulk_insert_entries_dataset = [](std::string dataset, len_t n_entries,
   }
 };
 
-SCENARIO("bulk_insert_entries(): randomized testing", "[InvertedLists][bulk_insert_entries][test][random]")
+SCENARIO("bulk_insert_entries(): randomized testing", "[StorageLists][bulk_insert_entries][test][random]")
 {
-  GIVEN("an InvertedLists object, a list of vectors, ids and list ids")
+  GIVEN("an StorageLists object, a list of vectors, ids and list ids")
   {
     len_t vector_dim = 128;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
 
     auto data = gen_vectors(128);
     auto list_ids_data = gen_list_lengths_random_length();
@@ -986,7 +986,7 @@ SCENARIO("bulk_insert_entries(): randomized testing", "[InvertedLists][bulk_inse
   }
 }
 
-SCENARIO("test bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_insert_entries][test][SIFT1M]")
+SCENARIO("test bulk_insert_entries with SIFT1M", "[StorageLists][bulk_insert_entries][test][SIFT1M]")
 {
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = 128;
@@ -994,7 +994,7 @@ SCENARIO("test bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_insert_en
   test_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists);
 }
 
-SCENARIO("benchmark bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1M]")
+SCENARIO("benchmark bulk_insert_entries with SIFT1M", "[StorageLists][bulk_insert_entries][.benchmark][SIFT1M]")
 {
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = 128;
@@ -1002,7 +1002,7 @@ SCENARIO("benchmark bulk_insert_entries with SIFT1M", "[InvertedLists][bulk_inse
   bench_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists);
 }
 
-SCENARIO("test bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_insert_entries][.test][SIFT10M]")
+SCENARIO("test bulk_insert_entries with SIFT10M", "[StorageLists][bulk_insert_entries][.test][SIFT10M]")
 {
   len_t n_entries = (len_t)1E7;
   len_t vector_dim = 128;
@@ -1010,7 +1010,7 @@ SCENARIO("test bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_insert_e
   test_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim, n_lists);
 }
 
-SCENARIO("benchmark bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT10M]")
+SCENARIO("benchmark bulk_insert_entries with SIFT10M", "[StorageLists][bulk_insert_entries][.benchmark][SIFT10M]")
 {
   len_t n_entries = (len_t)1E7;
   len_t vector_dim = 128;
@@ -1018,7 +1018,7 @@ SCENARIO("benchmark bulk_insert_entries with SIFT10M", "[InvertedLists][bulk_ins
   bench_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim, n_lists);
 }
 
-SCENARIO("test bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_insert_entries][.test][SIFT100M]")
+SCENARIO("test bulk_insert_entries with SIFT100M", "[StorageLists][bulk_insert_entries][.test][SIFT100M]")
 {
   len_t n_entries = (len_t)1E8;
   len_t vector_dim = 128;
@@ -1026,7 +1026,7 @@ SCENARIO("test bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_insert_
   test_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists);
 }
 
-SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT100M]")
+SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[StorageLists][bulk_insert_entries][.benchmark][SIFT100M]")
 {
   len_t n_entries = (len_t)1E8;
   len_t vector_dim = 128;
@@ -1034,7 +1034,7 @@ SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[InvertedLists][bulk_in
   bench_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists);
 }
 
-SCENARIO("test bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.test][SIFT1B][SIFT1000M]")
+SCENARIO("test bulk_insert_entries with SIFT1B", "[StorageLists][bulk_insert_entries][.test][SIFT1B][SIFT1000M]")
 {
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = 128;
@@ -1042,7 +1042,7 @@ SCENARIO("test bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_en
   test_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim, n_lists);
 }
 
-SCENARIO("benchmark bulk_insert_entries with SIFT1B", "[InvertedLists][bulk_insert_entries][.benchmark][SIFT1B][SIFT1000M]")
+SCENARIO("benchmark bulk_insert_entries with SIFT1B", "[StorageLists][bulk_insert_entries][.benchmark][SIFT1B][SIFT1000M]")
 {
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = 128;

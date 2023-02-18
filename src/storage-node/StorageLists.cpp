@@ -5,11 +5,11 @@
 #include <unistd.h>
 #include <fstream>
 
-#include "InvertedLists.hpp"
+#include "StorageLists.hpp"
 
 namespace ann_dkvs
 {
-  void InvertedLists::mmap_region()
+  void StorageLists::mmap_region()
   {
     FILE *f = fopen(filename.c_str(), "r+");
     if (f == nullptr)
@@ -30,35 +30,35 @@ namespace ann_dkvs
     fclose(f);
   }
 
-  vector_el_t *InvertedLists::get_vectors_by_list(InvertedList *list) const
+  vector_el_t *StorageLists::get_vectors_by_list(InvertedList *list) const
   {
     return (vector_el_t *)(base_ptr + list->offset);
   }
 
-  vector_id_t *InvertedLists::get_ids_by_list(InvertedList *list) const
+  vector_id_t *StorageLists::get_ids_by_list(InvertedList *list) const
   {
     vector_el_t *vector_ptr = get_vectors_by_list(list);
     vector_id_t *id_ptr = (vector_id_t *)((size_t)vector_ptr + vector_size * list->allocated_entries);
     return id_ptr;
   }
 
-  size_t InvertedLists::get_vectors_size(len_t n_entries) const
+  size_t StorageLists::get_vectors_size(len_t n_entries) const
   {
     return n_entries * vector_size;
   }
 
-  size_t InvertedLists::get_ids_size(len_t n_entries) const
+  size_t StorageLists::get_ids_size(len_t n_entries) const
   {
     return n_entries * sizeof(vector_id_t);
   }
 
-  size_t InvertedLists::get_total_list_size(InvertedList *list) const
+  size_t StorageLists::get_total_list_size(InvertedList *list) const
   {
     len_t n_entries = list->allocated_entries;
     return get_vectors_size(n_entries) + get_ids_size(n_entries);
   }
 
-  size_t InvertedLists::get_free_space() const
+  size_t StorageLists::get_free_space() const
   {
     size_t free_space = 0;
     for (auto slot : free_slots)
@@ -68,7 +68,7 @@ namespace ann_dkvs
     return free_space;
   }
 
-  size_t InvertedLists::get_largest_continuous_free_space() const
+  size_t StorageLists::get_largest_continuous_free_space() const
   {
     size_t max_free_space = 0;
     for (auto slot : free_slots)
@@ -81,7 +81,7 @@ namespace ann_dkvs
     return max_free_space;
   }
 
-  InvertedLists::InvertedLists(len_t vector_dim, std::string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
+  StorageLists::StorageLists(len_t vector_dim, std::string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
   {
     if (vector_dim == 0)
     {
@@ -89,7 +89,7 @@ namespace ann_dkvs
     }
   }
 
-  InvertedLists::~InvertedLists()
+  StorageLists::~StorageLists()
   {
     if (base_ptr != nullptr)
     {
@@ -97,32 +97,32 @@ namespace ann_dkvs
     }
   }
 
-  len_t InvertedLists::get_length() const
+  len_t StorageLists::get_length() const
   {
     return id_to_list_map.size();
   }
 
-  size_t InvertedLists::get_total_size() const
+  size_t StorageLists::get_total_size() const
   {
     return total_size;
   }
 
-  size_t InvertedLists::get_vector_size() const
+  size_t StorageLists::get_vector_size() const
   {
     return vector_size;
   }
 
-  len_t InvertedLists::get_vector_dim() const
+  len_t StorageLists::get_vector_dim() const
   {
     return vector_dim;
   }
 
-  std::string InvertedLists::get_filename() const
+  std::string StorageLists::get_filename() const
   {
     return filename;
   }
 
-  bool InvertedLists::has_free_slot_at_end()
+  bool StorageLists::has_free_slot_at_end()
   {
     if (free_slots.size() == 0)
       return false;
@@ -130,7 +130,7 @@ namespace ann_dkvs
     return last_slot.offset + last_slot.size == total_size;
   }
 
-  void InvertedLists::ensure_file_created_and_region_unmapped()
+  void StorageLists::ensure_file_created_and_region_unmapped()
   {
     if (total_size == 0)
     {
@@ -151,7 +151,7 @@ namespace ann_dkvs
     }
   }
 
-  void InvertedLists::resize_file(size_t size)
+  void StorageLists::resize_file(size_t size)
   {
     FILE *f = fopen(filename.c_str(), "r+");
     if (f == nullptr)
@@ -165,7 +165,7 @@ namespace ann_dkvs
     fclose(f);
   }
 
-  void InvertedLists::resize_region(size_t new_size)
+  void StorageLists::resize_region(size_t new_size)
   {
     if (new_size < total_size)
     {
@@ -193,12 +193,12 @@ namespace ann_dkvs
     mmap_region();
   }
 
-  bool InvertedLists::does_list_need_reallocation(InvertedList *list, len_t n_entries)
+  bool StorageLists::does_list_need_reallocation(InvertedList *list, len_t n_entries)
   {
     return n_entries <= list->allocated_entries / 2 || n_entries > list->allocated_entries;
   }
 
-  void InvertedLists::copy_shared_data(InvertedList *dst, InvertedList *src)
+  void StorageLists::copy_shared_data(InvertedList *dst, InvertedList *src)
   {
     len_t n_entries_to_copy = std::min(dst->used_entries, src->used_entries);
     if (n_entries_to_copy == 0)
@@ -209,7 +209,7 @@ namespace ann_dkvs
     memcpy(get_ids_by_list(dst), get_ids_by_list(src), get_ids_size(n_entries_to_copy));
   }
 
-  InvertedLists::Slot InvertedLists::list_to_slot(InvertedList *list)
+  StorageLists::Slot StorageLists::list_to_slot(InvertedList *list)
   {
     Slot slot;
     slot.offset = list->offset;
@@ -217,7 +217,7 @@ namespace ann_dkvs
     return slot;
   }
 
-  void InvertedLists::resize_list(list_id_t list_id, len_t n_entries)
+  void StorageLists::resize_list(list_id_t list_id, len_t n_entries)
   {
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
@@ -249,7 +249,7 @@ namespace ann_dkvs
     id_to_list_map[list_id] = new_list;
   }
 
-  InvertedLists::InvertedList InvertedLists::alloc_list(len_t n_entries)
+  StorageLists::InvertedList StorageLists::alloc_list(len_t n_entries)
   {
     InvertedList list;
     list.used_entries = n_entries;
@@ -260,7 +260,7 @@ namespace ann_dkvs
     return list;
   }
 
-  InvertedLists::slot_it_t InvertedLists::find_large_enough_slot_index(size_t size)
+  StorageLists::slot_it_t StorageLists::find_large_enough_slot_index(size_t size)
   {
     for (auto it = free_slots.begin(); it != free_slots.end(); it++)
     {
@@ -272,7 +272,7 @@ namespace ann_dkvs
     return free_slots.end();
   }
 
-  void InvertedLists::grow_region_until_enough_space(size_t size)
+  void StorageLists::grow_region_until_enough_space(size_t size)
   {
     size_t new_size = total_size == 0 ? min_total_size : total_size;
     if (has_free_slot_at_end())
@@ -286,7 +286,7 @@ namespace ann_dkvs
     resize_region(new_size);
   }
 
-  size_t InvertedLists::alloc_slot(size_t size)
+  size_t StorageLists::alloc_slot(size_t size)
   {
     auto slot_it = find_large_enough_slot_index(size);
     if (slot_it == free_slots.end())
@@ -308,7 +308,7 @@ namespace ann_dkvs
     return offset;
   }
 
-  InvertedLists::slot_it_t InvertedLists::find_next_slot_to_right(Slot *slot)
+  StorageLists::slot_it_t StorageLists::find_next_slot_to_right(Slot *slot)
   {
     for (auto it = free_slots.begin(); it != free_slots.end(); it++)
     {
@@ -320,7 +320,7 @@ namespace ann_dkvs
     return free_slots.end();
   }
 
-  InvertedLists::slot_it_t InvertedLists::find_next_slot_to_left(
+  StorageLists::slot_it_t StorageLists::find_next_slot_to_left(
       slot_it_t next_slot_right)
   {
     if (next_slot_right == free_slots.begin())
@@ -330,7 +330,7 @@ namespace ann_dkvs
     return prev(next_slot_right);
   }
 
-  bool InvertedLists::are_slots_adjacent(
+  bool StorageLists::are_slots_adjacent(
       Slot *slot_left, Slot *slot_right)
   {
     if (slot_left == nullptr || slot_right == nullptr)
@@ -340,7 +340,7 @@ namespace ann_dkvs
     return slot_left->offset + slot_left->size == slot_right->offset;
   }
 
-  InvertedLists::Slot *InvertedLists::to_slot(slot_it_t it)
+  StorageLists::Slot *StorageLists::to_slot(slot_it_t it)
   {
     if (it == free_slots.end())
     {
@@ -349,7 +349,7 @@ namespace ann_dkvs
     return &(*it);
   }
 
-  void InvertedLists::free_slot(Slot *slot)
+  void StorageLists::free_slot(Slot *slot)
   {
     slot_it_t slot_right_it = find_next_slot_to_right(slot);
     slot_it_t slot_left_it = find_next_slot_to_left(slot_right_it);
@@ -377,7 +377,7 @@ namespace ann_dkvs
     }
   }
 
-  vector_el_t *InvertedLists::get_vectors(list_id_t list_id)
+  vector_el_t *StorageLists::get_vectors(list_id_t list_id)
   {
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
@@ -387,7 +387,7 @@ namespace ann_dkvs
     return get_vectors_by_list(&list_it->second);
   }
 
-  vector_id_t *InvertedLists::get_ids(list_id_t list_id)
+  vector_id_t *StorageLists::get_ids(list_id_t list_id)
   {
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
@@ -397,7 +397,7 @@ namespace ann_dkvs
     return get_ids_by_list(&list_it->second);
   }
 
-  len_t InvertedLists::get_list_length(list_id_t list_id)
+  len_t StorageLists::get_list_length(list_id_t list_id)
   {
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
@@ -407,7 +407,7 @@ namespace ann_dkvs
     return list_it->second.used_entries;
   }
 
-  size_t InvertedLists::round_up_to_next_power_of_two(size_t n)
+  size_t StorageLists::round_up_to_next_power_of_two(size_t n)
   {
     size_t power = 1;
     while (power < n)
@@ -417,7 +417,7 @@ namespace ann_dkvs
     return power;
   }
 
-  void InvertedLists::create_list(
+  void StorageLists::create_list(
       list_id_t list_id,
       len_t n_entries)
   {
@@ -433,7 +433,7 @@ namespace ann_dkvs
     id_to_list_map[list_id] = list;
   }
 
-  void InvertedLists::update_entries(
+  void StorageLists::update_entries(
       list_id_t list_id,
       vector_el_t *vectors,
       vector_id_t *ids,
@@ -456,7 +456,7 @@ namespace ann_dkvs
     memcpy(list_ids + offset, ids, get_ids_size(n_entries));
   }
 
-  void InvertedLists::insert_entries(
+  void StorageLists::insert_entries(
       list_id_t list_id,
       vector_el_t *vectors,
       vector_id_t *ids,
@@ -467,7 +467,7 @@ namespace ann_dkvs
     update_entries(list_id, vectors, ids, list->used_entries - n_entries, n_entries);
   }
 
-  void InvertedLists::reserve_space(len_t n_entries)
+  void StorageLists::reserve_space(len_t n_entries)
   {
     if (n_entries == 0)
     {
@@ -477,7 +477,7 @@ namespace ann_dkvs
     grow_region_until_enough_space(size_to_reserve);
   }
 
-  std::ifstream InvertedLists::open_filestream(std::string filename)
+  std::ifstream StorageLists::open_filestream(std::string filename)
   {
     std::ifstream filestream(filename, std::ios::in | std::ios::binary);
     if (!filestream.is_open())
@@ -487,7 +487,7 @@ namespace ann_dkvs
     return filestream;
   }
 
-  InvertedLists::list_id_counts_map_t InvertedLists::bulk_create_lists(
+  StorageLists::list_id_counts_map_t StorageLists::bulk_create_lists(
       std::string list_ids_filename,
       len_t n_entries)
   {
@@ -517,7 +517,7 @@ namespace ann_dkvs
     return lists_counts;
   }
 
-  void InvertedLists::bulk_insert_entries(
+  void StorageLists::bulk_insert_entries(
       std::string vectors_filename,
       std::string ids_filename,
       std::string list_ids_filename,

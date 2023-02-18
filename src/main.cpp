@@ -5,7 +5,7 @@
 #include <omp.h>
 #endif
 
-#include "InvertedLists.hpp"
+#include "StorageLists.hpp"
 
 using namespace ann_dkvs;
 

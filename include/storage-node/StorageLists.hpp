@@ -14,7 +14,7 @@
 
 namespace ann_dkvs
 {
-  class InvertedLists
+  class StorageLists
   {
   private:
     struct Slot
@@ -31,7 +31,7 @@ namespace ann_dkvs
 
     typedef std::unordered_map<list_id_t, InvertedList> list_id_list_map_t;
     typedef std::unordered_map<list_id_t, len_t> list_id_counts_map_t;
-    typedef std::vector<InvertedLists::Slot>::iterator slot_it_t;
+    typedef std::vector<StorageLists::Slot>::iterator slot_it_t;
     const size_t min_total_size = 32;
     const std::string filename;
     const size_t vector_dim;
@@ -70,8 +70,8 @@ namespace ann_dkvs
     std::ifstream open_filestream(std::string filename);
 
   public:
-    InvertedLists(len_t vector_dim, std::string filename);
-    ~InvertedLists();
+    StorageLists(len_t vector_dim, std::string filename);
+    ~StorageLists();
     len_t get_length() const;
     size_t get_total_size() const;
     size_t get_free_space() const;

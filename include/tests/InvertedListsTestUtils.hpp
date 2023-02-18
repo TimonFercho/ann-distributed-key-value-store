@@ -7,7 +7,7 @@
 #include "../../lib/catch.hpp"
 
 #include "TestConfig.hpp"
-#include "../../include/storage-node/InvertedLists.hpp"
+#include "../../include/storage-node/StorageLists.hpp"
 
 using namespace ann_dkvs;
 
@@ -61,7 +61,7 @@ namespace ann_dkvs
   void *mmap_file(std::string filename, size_t size);
   bool file_exists(std::string filename);
   std::string join(const std::string &a, const std::string &b);
-  InvertedLists get_inverted_lists_object(len_t vector_dim);
+  StorageLists get_inverted_lists_object(len_t vector_dim);
   void print_vector(vector_el_t *vector, len_t vector_dim, len_t n_entries);
   void are_vectors_equal(vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries);
   void are_ids_equal(vector_id_t *actual, vector_id_t *expected, len_t n_entries);

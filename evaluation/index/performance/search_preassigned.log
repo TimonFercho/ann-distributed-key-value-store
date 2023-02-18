@@ -12,7 +12,7 @@ Run with -? for options
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -37,7 +37,7 @@ search_preassigned() with n_lists=256 and n_probe=2
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -62,7 +62,7 @@ search_preassigned() with n_lists=256 and n_probe=4
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -87,7 +87,7 @@ search_preassigned() with n_lists=256 and n_probe=8
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -112,7 +112,7 @@ search_preassigned() with n_lists=256 and n_probe=16
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -137,7 +137,7 @@ search_preassigned() with n_lists=256 and n_probe=32
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -162,7 +162,7 @@ search_preassigned() with n_lists=256 and n_probe=64
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -187,7 +187,7 @@ search_preassigned() with n_lists=256 and n_probe=128
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -222,7 +222,7 @@ Run with -? for options
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -247,7 +247,7 @@ search_preassigned() with n_lists=512 and n_probe=2
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -272,7 +272,7 @@ search_preassigned() with n_lists=512 and n_probe=4
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -297,7 +297,7 @@ search_preassigned() with n_lists=512 and n_probe=8
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -322,7 +322,7 @@ search_preassigned() with n_lists=512 and n_probe=16
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -347,7 +347,7 @@ search_preassigned() with n_lists=512 and n_probe=32
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -372,7 +372,7 @@ search_preassigned() with n_lists=512 and n_probe=64
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -397,7 +397,7 @@ search_preassigned() with n_lists=512 and n_probe=128
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -422,7 +422,7 @@ search_preassigned() with n_lists=1024 and n_probe=1
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -447,7 +447,7 @@ search_preassigned() with n_lists=1024 and n_probe=2
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -472,7 +472,7 @@ search_preassigned() with n_lists=1024 and n_probe=4
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -497,7 +497,7 @@ search_preassigned() with n_lists=1024 and n_probe=8
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -522,7 +522,7 @@ search_preassigned() with n_lists=1024 and n_probe=16
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -547,7 +547,7 @@ search_preassigned() with n_lists=1024 and n_probe=32
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -572,7 +572,7 @@ search_preassigned() with n_lists=1024 and n_probe=64
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -597,7 +597,7 @@ search_preassigned() with n_lists=1024 and n_probe=128
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -622,7 +622,7 @@ search_preassigned() with n_lists=2048 and n_probe=1
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -647,7 +647,7 @@ search_preassigned() with n_lists=2048 and n_probe=2
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -672,7 +672,7 @@ search_preassigned() with n_lists=2048 and n_probe=4
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -697,7 +697,7 @@ search_preassigned() with n_lists=2048 and n_probe=8
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -722,7 +722,7 @@ search_preassigned() with n_lists=2048 and n_probe=16
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -747,7 +747,7 @@ search_preassigned() with n_lists=2048 and n_probe=32
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -772,7 +772,7 @@ search_preassigned() with n_lists=2048 and n_probe=64
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -797,7 +797,7 @@ search_preassigned() with n_lists=2048 and n_probe=128
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -822,7 +822,7 @@ search_preassigned() with n_lists=4096 and n_probe=1
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -847,7 +847,7 @@ search_preassigned() with n_lists=4096 and n_probe=2
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -872,7 +872,7 @@ search_preassigned() with n_lists=4096 and n_probe=4
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -897,7 +897,7 @@ search_preassigned() with n_lists=4096 and n_probe=8
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -922,7 +922,7 @@ search_preassigned() with n_lists=4096 and n_probe=16
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -947,7 +947,7 @@ search_preassigned() with n_lists=4096 and n_probe=32
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -972,7 +972,7 @@ search_preassigned() with n_lists=4096 and n_probe=64
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors
@@ -997,7 +997,7 @@ search_preassigned() with n_lists=4096 and n_probe=128
 Scenario: search_preassigned(): benchmark querying with SIFT1M
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors

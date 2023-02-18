@@ -30,7 +30,7 @@ LIB		:= lib
 TEST	:= tests
 
 # define benchmark directory
-BENCH := evaluation/inverted-lists/bulk-insertion
+BENCH := evaluation/storage-lists/bulk-insertion
 
 TMP := tests/tmp
 

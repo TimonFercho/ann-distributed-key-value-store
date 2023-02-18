@@ -11,7 +11,7 @@ Run with -? for options
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ preassign_query() with n_lists=256 and n_probe=2
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ preassign_query() with n_lists=256 and n_probe=4
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ preassign_query() with n_lists=256 and n_probe=8
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ preassign_query() with n_lists=256 and n_probe=16
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ preassign_query() with n_lists=256 and n_probe=32
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ preassign_query() with n_lists=256 and n_probe=64
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ preassign_query() with n_lists=256 and n_probe=128
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ preassign_query() with n_lists=512 and n_probe=1
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -218,7 +218,7 @@ preassign_query() with n_lists=512 and n_probe=2
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -241,7 +241,7 @@ preassign_query() with n_lists=512 and n_probe=4
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -264,7 +264,7 @@ preassign_query() with n_lists=512 and n_probe=8
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -287,7 +287,7 @@ preassign_query() with n_lists=512 and n_probe=16
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -310,7 +310,7 @@ preassign_query() with n_lists=512 and n_probe=32
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -333,7 +333,7 @@ preassign_query() with n_lists=512 and n_probe=64
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -356,7 +356,7 @@ preassign_query() with n_lists=512 and n_probe=128
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -379,7 +379,7 @@ preassign_query() with n_lists=1024 and n_probe=1
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -402,7 +402,7 @@ preassign_query() with n_lists=1024 and n_probe=2
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -425,7 +425,7 @@ preassign_query() with n_lists=1024 and n_probe=4
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -448,7 +448,7 @@ preassign_query() with n_lists=1024 and n_probe=8
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -471,7 +471,7 @@ preassign_query() with n_lists=1024 and n_probe=16
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -494,7 +494,7 @@ preassign_query() with n_lists=1024 and n_probe=32
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -517,7 +517,7 @@ preassign_query() with n_lists=1024 and n_probe=64
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -540,7 +540,7 @@ preassign_query() with n_lists=1024 and n_probe=128
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -563,7 +563,7 @@ preassign_query() with n_lists=2048 and n_probe=1
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -586,7 +586,7 @@ preassign_query() with n_lists=2048 and n_probe=2
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -609,7 +609,7 @@ preassign_query() with n_lists=2048 and n_probe=4
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -632,7 +632,7 @@ preassign_query() with n_lists=2048 and n_probe=8
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -655,7 +655,7 @@ preassign_query() with n_lists=2048 and n_probe=16
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -678,7 +678,7 @@ preassign_query() with n_lists=2048 and n_probe=32
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -701,7 +701,7 @@ preassign_query() with n_lists=2048 and n_probe=64
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -724,7 +724,7 @@ preassign_query() with n_lists=2048 and n_probe=128
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -747,7 +747,7 @@ preassign_query() with n_lists=4096 and n_probe=1
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -770,7 +770,7 @@ preassign_query() with n_lists=4096 and n_probe=2
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -793,7 +793,7 @@ preassign_query() with n_lists=4096 and n_probe=4
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -816,7 +816,7 @@ preassign_query() with n_lists=4096 and n_probe=8
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -839,7 +839,7 @@ preassign_query() with n_lists=4096 and n_probe=16
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -862,7 +862,7 @@ preassign_query() with n_lists=4096 and n_probe=32
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -885,7 +885,7 @@ preassign_query() with n_lists=4096 and n_probe=64
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------
@@ -908,7 +908,7 @@ preassign_query() with n_lists=4096 and n_probe=128
 Scenario: preassign_query()
       Given: the SIFT1M dataset
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined
 -------------------------------------------------------------------------------

@@ -38,10 +38,10 @@ std::string get_centroids_filename(len_t n_lists)
 
 SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", "[StorageIndex][search_preassigned][test][hard-coded]")
 {
-  GIVEN("an InvertedLists object and a list of 1D vectors, corresponding vector ids and list ids")
+  GIVEN("an StorageLists object and a list of 1D vectors, corresponding vector ids and list ids")
   {
     len_t vector_dim = 1;
-    InvertedLists lists = get_inverted_lists_object(vector_dim);
+    StorageLists lists = get_inverted_lists_object(vector_dim);
     len_t list1_length = 2;
     vector_el_t vectors_list1[] = {2, 4};
     vector_id_t ids_list1[] = {1, 2};
@@ -60,7 +60,7 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
       len_t n_probe = 2;
       Query query = Query(query_vector, list_ids_to_probe, n_results, n_probe);
 
-      WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
+      WHEN("the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
         lists.insert_entries(list_ids[0], vectors_list1, ids_list1, list1_length);
         lists.insert_entries(list_ids[1], vectors_list2, ids_list2, list2_length);
@@ -156,10 +156,10 @@ auto setup_indices_and_run = [](len_t n_probe,
         }
       }
 
-      WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
+      WHEN("the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
 
-        InvertedLists lists = get_inverted_lists_object(vector_dim);
+        StorageLists lists = get_inverted_lists_object(vector_dim);
         lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
         StorageIndex storage_index(&lists);
         RootIndex root_index(vector_dim, centroids, n_lists);
@@ -249,6 +249,7 @@ auto free_queries = [](QueryBatch queries)
 {
   for (len_t query_id = 0; query_id < queries.size(); query_id++)
   {
+    free(queries[query_id]->get_query_vector());
     delete queries[query_id];
   }
 };

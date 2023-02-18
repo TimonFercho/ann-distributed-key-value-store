@@ -4,7 +4,7 @@
 #include <string>
 #include <queue>
 
-#include "InvertedLists.hpp"
+#include "StorageLists.hpp"
 #include "L2Space.hpp"
 #include "Query.hpp"
 
@@ -25,7 +25,7 @@ namespace ann_dkvs
   class StorageIndex
   {
   private:
-    InvertedLists *lists;
+    StorageLists *lists;
     distance_func_t distance_func;
     QueryResults extract_results(heap_t *candidates);
     void search_preassigned_list(
@@ -34,7 +34,7 @@ namespace ann_dkvs
         heap_t *candidates);
 
   public:
-    StorageIndex(InvertedLists *lists);
+    StorageIndex(StorageLists *lists);
     QueryResults search_preassigned(Query *query);
     QueryResultsBatch batch_search_preassigned(QueryBatch queries);
   };

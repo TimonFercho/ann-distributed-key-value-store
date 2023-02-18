@@ -43,7 +43,7 @@ namespace ann_dkvs
     }
   }
 
-  StorageIndex::StorageIndex(InvertedLists *lists)
+  StorageIndex::StorageIndex(StorageLists *lists)
       : lists(lists)
   {
     distance_func = L2Space(lists->get_vector_dim()).get_distance_func();

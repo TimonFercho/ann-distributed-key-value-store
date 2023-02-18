@@ -15,7 +15,7 @@ True nearest neighbor 151761 of query 5759 not found among results
 Scenario: search_preassigned_list(): test recall with SIFT1M
       Given: the SIFT1M dataset, n_probe as large as the number of clusters
        When: the files are mapped to memory
-       When: the InvertedLists object is populated with the vectors, ids and
+       When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
        When: for each query vector, the closest centroids are determined, their
              lists are searched for the nearest R neighbors

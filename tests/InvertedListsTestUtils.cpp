@@ -75,11 +75,11 @@ namespace ann_dkvs
     return a + "/" + b;
   }
 
-  InvertedLists get_inverted_lists_object(len_t vector_dim)
+  StorageLists get_inverted_lists_object(len_t vector_dim)
   {
     std::string file = join(TMP_DIR, get_lists_filename());
     remove(file.c_str());
-    InvertedLists lists(vector_dim, file);
+    StorageLists lists(vector_dim, file);
     return lists;
   }
 
