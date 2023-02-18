@@ -44,7 +44,7 @@ namespace ann_dkvs
     allocate_list_ids(query, &nearest_centroids);
   }
 
-  void RootIndex::batch_preassign_queries(std::vector<Query *> queries)
+  void RootIndex::batch_preassign_queries(QueryBatch queries)
   {
 #pragma omp parallel for
     for (len_t query_id = 0; query_id < queries.size(); query_id++)

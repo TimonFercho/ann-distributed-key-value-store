@@ -273,7 +273,7 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
 
 auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probe)
 {
-  std::vector<Query *> queries;
+  QueryBatch queries;
   for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
   {
     uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
@@ -284,7 +284,7 @@ auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t v
   return queries;
 };
 
-auto free_queries = [](std::vector<Query *> queries)
+auto free_queries = [](QueryBatch queries)
 {
   for (len_t query_id = 0; query_id < queries.size(); query_id++)
   {
@@ -314,7 +314,7 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
       BENCHMARK_ADVANCED("preassign_query(): no search")
       (Catch::Benchmark::Chronometer meter)
       {
-        std::vector<Query *> queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
         meter.measure([&]
                       { root_index->batch_preassign_queries(queries); });
         free_queries(queries);

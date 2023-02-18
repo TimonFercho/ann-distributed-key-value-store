@@ -36,7 +36,7 @@ namespace ann_dkvs
   public:
     RootIndex(len_t vector_dim, vector_el_t *centroids, len_t n_centroids);
     void preassign_query(Query *query);
-    void batch_preassign_queries(std::vector<Query *> queries);
+    void batch_preassign_queries(QueryBatch queries);
   };
 } // namespace ann_dkvs
 #endif // ROOT_INDEX_HPP_

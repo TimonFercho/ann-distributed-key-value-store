@@ -43,6 +43,8 @@ namespace ann_dkvs
     vector_id_t vector_id;
   } QueryResult;
 
+  typedef std::vector<Query *> QueryBatch;
   typedef std::vector<QueryResult> QueryResults;
+  typedef std::vector<QueryResults> QueryResultsBatch;
 } // namespace ann_dkvs
 #endif // QUERY_HPP_
