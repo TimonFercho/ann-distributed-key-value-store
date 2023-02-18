@@ -16,10 +16,23 @@ namespace ann_dkvs
     return results;
   }
 
+  void StorageIndex::add_candidate(const Query *query, const QueryResult &result, heap_t &candidates)
+  {
+    if (candidates.size() < query->get_n_results())
+    {
+      candidates.push(result);
+    }
+    else if (result < candidates.top())
+    {
+      candidates.pop();
+      candidates.push(result);
+    }
+  }
+
   void StorageIndex::search_preassigned_list(
-      Query *query,
+      const Query *query,
       list_id_t list_id,
-      heap_t *candidates)
+      heap_t &candidates)
   {
     vector_el_t *vectors = lists->get_vectors(list_id);
     vector_id_t *ids = lists->get_ids(list_id);
@@ -31,15 +44,7 @@ namespace ann_dkvs
       float distance = distance_func(vector, query->get_query_vector(), &vector_dim);
       vector_id_t vector_id = ids[j];
       QueryResult result = {distance, vector_id};
-      if (candidates->size() < query->get_n_results())
-      {
-        candidates->push(result);
-      }
-      else if (distance < candidates->top().distance || (distance == candidates->top().distance && vector_id < candidates->top().vector_id))
-      {
-        candidates->pop();
-        candidates->push(result);
-      }
+      add_candidate(query, result, candidates);
     }
   }
 
@@ -51,16 +56,28 @@ namespace ann_dkvs
 
   QueryResults StorageIndex::search_preassigned(Query *query)
   {
-    heap_t knn;
+    heap_t candidates;
     for (len_t i = 0; i < query->get_n_probe(); i++)
     {
       list_id_t list_id = query->get_list_to_probe(i);
-      search_preassigned_list(query, list_id, &knn);
+      search_preassigned_list(query, list_id, candidates);
     }
-    return extract_results(&knn);
+    return extract_results(&candidates);
   }
 
-  QueryResultsBatch StorageIndex::batch_search_preassigned(QueryBatch queries)
+  QueryListPairs StorageIndex::get_work_items(QueryBatch queries)
+  {
+    QueryListPairs work_items;
+    for (len_t i = 0; i < queries.size(); i++)
+    {
+      for (len_t j = 0; j < queries[i]->get_n_probe(); j++)
+      {
+        list_id_t list_id = queries[i]->get_list_to_probe(j);
+        work_items.push_back({i, list_id});
+      }
+    }
+    return work_items;
+  }
   {
     QueryResultsBatch results(queries.size());
 

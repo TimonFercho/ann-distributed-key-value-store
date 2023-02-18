@@ -9,18 +9,23 @@
 
 namespace ann_dkvs
 {
-  typedef struct
+  struct CentroidsResult
   {
     distance_t distance;
     list_id_t list_id;
-  } CentroidsResult;
+    friend bool operator<(const CentroidsResult &a, const CentroidsResult &b)
+    {
+      bool closer = a.distance < b.distance ||
+                    (a.distance == b.distance && a.list_id < b.list_id);
+      return closer;
+    }
+  };
   class CentroidsDistanceIdMaxHeapCompare
   {
   public:
-    bool operator()(CentroidsResult parent, CentroidsResult child)
+    bool operator()(const CentroidsResult &parent, const CentroidsResult &child)
     {
-      bool swapParentWithChild = (parent.distance > child.distance ||
-                                  (parent.distance == child.distance && parent.list_id < child.list_id));
+      bool swapParentWithChild = parent < child;
       return swapParentWithChild;
     }
   };
@@ -32,6 +37,7 @@ namespace ann_dkvs
     vector_el_t *centroids;
     len_t n_centroids;
     void allocate_list_ids(Query *query, centroids_heap_t *nearest_centroids);
+    void add_candidate(const Query *query, const CentroidsResult &candidate, centroids_heap_t &candidates);
 
   public:
     RootIndex(len_t vector_dim, vector_el_t *centroids, len_t n_centroids);
