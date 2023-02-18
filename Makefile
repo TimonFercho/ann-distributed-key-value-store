@@ -7,7 +7,19 @@
 CXX = g++
 
 # define any compile-time flags
-CXXFLAGS	:= -std=c++17 -Wall -Wextra -g -mavx -fopenmp
+CXXFLAGS	:= -std=c++17 -Wall -Wextra -g
+
+ifeq ($(DISABLE_SIMD),TRUE)
+    $(info SIMD disabled)
+else
+		CXXFLAGS += -mavx
+endif
+
+ifeq ($(DISABLE_OMP),TRUE)
+    $(info OpenMP disabled)
+else
+		CXXFLAGS += -fopenmp
+endif
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify

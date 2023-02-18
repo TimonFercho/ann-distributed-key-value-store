@@ -1,10 +1,6 @@
 #include <sys/mman.h>
 #include <unordered_set>
 
-#ifdef _OPENMP
-#include <omp.h>
-#endif
-
 #include "../lib/catch.hpp"
 
 #include "../include/tests/InvertedListsTestUtils.hpp"
