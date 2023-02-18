@@ -52,7 +52,7 @@ namespace ann_dkvs
   QueryResults StorageIndex::search_preassigned(Query *query)
   {
     heap_t knn;
-    for (list_id_t list_id : query->get_list_ids())
+    for (list_id_t list_id : *query->get_list_ids())
     {
       search_preassigned_list(query, list_id, &knn);
     }

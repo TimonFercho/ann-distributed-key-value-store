@@ -1,5 +1,6 @@
 #include <vector>
 #include <cassert>
+#include <iostream>
 
 #include "../include/L2Space.hpp"
 #include "../include/root-node/RootIndex.hpp"
@@ -11,11 +12,11 @@ namespace ann_dkvs
 
   void RootIndex::allocate_list_ids(Query *query, centroids_heap_t *nearest_centroids)
   {
-    list_ids_t list_ids = list_ids_t(query->get_n_probe());
+    list_ids_t *list_ids = new list_ids_t(query->get_n_probe());
     for (size_t query_id = 0; query_id < query->get_n_probe(); query_id++)
     {
       size_t insertion_index = query->get_n_probe() - query_id - 1;
-      list_ids[insertion_index] = nearest_centroids->top().list_id;
+      (*list_ids)[insertion_index] = nearest_centroids->top().list_id;
       nearest_centroids->pop();
     }
     query->preassign(list_ids);
@@ -23,7 +24,6 @@ namespace ann_dkvs
 
   void RootIndex::preassign_query(Query *query)
   {
-    assert(!query->is_preassigned());
     centroids_heap_t nearest_centroids;
     distance_func_t distance_func = L2Space(vector_dim).get_distance_func();
 
@@ -43,5 +43,14 @@ namespace ann_dkvs
       }
     }
     allocate_list_ids(query, &nearest_centroids);
+  }
+
+  void RootIndex::batch_preassign_queries(std::vector<Query *> queries)
+  {
+#pragma omp parallel for
+    for (len_t query_id = 0; query_id < queries.size(); query_id++)
+    {
+      preassign_query(queries[query_id]);
+    }
   }
 }

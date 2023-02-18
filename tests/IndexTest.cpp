@@ -57,7 +57,7 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
       vector_el_t query_vector[] = {0};
       len_t n_results = 3;
       list_ids_t list_ids_to_probe = {1, 2};
-      Query query = Query(query_vector, n_results, list_ids_to_probe);
+      Query query = Query(query_vector, n_results, &list_ids_to_probe);
 
       WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
@@ -270,6 +270,29 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
   setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }
 
+auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probe)
+{
+  std::vector<Query *> queries;
+  for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
+  {
+    uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
+    vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
+    Query *query = new Query(query_vector, n_results, n_probe);
+    queries.push_back(query);
+  }
+  return queries;
+};
+
+auto free_queries = [](std::vector<Query *> queries)
+{
+  for (len_t query_id = 0; query_id < queries.size(); query_id++)
+  {
+    free(queries[query_id]->get_query_vector());
+    delete queries[query_id]->get_list_ids();
+    delete queries[query_id];
+  }
+};
+
 SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M]")
 {
   len_t vector_dim = 128;
@@ -288,20 +311,14 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
     {
       WARN("n_lists := " << n_lists);
       WARN("n_probe := " << n_probe);
+
       BENCHMARK_ADVANCED("preassign_query(): no search")
       (Catch::Benchmark::Chronometer meter)
       {
+        std::vector<Query *> queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
         meter.measure([&]
-                      {
-#pragma omp parallel for
-                  for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
-                  {
-                    uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-                    vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-                    Query query = Query(query_vector, n_results, n_probe); 
-                    root_index->preassign_query(&query);
-                    free(query_vector);
-                  } });
+                      { root_index->batch_preassign_queries(queries); });
+        free_queries(queries);
       };
     }
   };
