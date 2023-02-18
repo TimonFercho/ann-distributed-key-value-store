@@ -37,6 +37,8 @@ namespace ann_dkvs
     }
   };
 
+  typedef std::vector<Query *> QueryBatch;
+
   struct QueryResult
   {
     distance_t distance;
@@ -49,7 +51,6 @@ namespace ann_dkvs
     }
   };
 
-  typedef std::vector<Query *> QueryBatch;
   typedef std::vector<QueryResult> QueryResults;
   typedef std::vector<QueryResults> QueryResultsBatch;
 } // namespace ann_dkvs

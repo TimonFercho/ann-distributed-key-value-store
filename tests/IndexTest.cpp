@@ -175,59 +175,6 @@ auto setup_indices_and_run = [](len_t n_probe,
   }
 };
 
-SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][SIFT1M]")
-{
-  GIVEN("the SIFT1M dataset")
-  {
-    len_t vector_dim = 128;
-    len_t n_entries = (len_t)1E6;
-    len_t n_query_vectors = (len_t)1E4;
-    len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-    len_t n_results = 1;
-    len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
-    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096);
-
-    auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
-    {
-      WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
-      {
-        len_t n_correct = 0;
-        for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
-        {
-          uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-          vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-          Query query = Query(query_vector, n_results, n_probe);
-          root_index->preassign_query(&query);
-          QueryResults neighbors = storage_index->search_preassigned(&query);
-          vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (n_results_groundtruth + 1) + 1];
-          for (len_t i = 0; i < neighbors.size(); i++)
-          {
-            if (neighbors[i].vector_id == groundtruth_first_nearest_neighbor)
-            {
-              n_correct++;
-              break;
-            }
-          }
-          free(query_vector);
-        }
-        WARN("n_lists := " << n_lists);
-        WARN("n_probe := " << n_probe);
-        float recall = (float)n_correct / n_query_vectors;
-        WARN("Recall@1 := " << recall);
-        THEN("the Recall@1 is 100% if we search all lists")
-        {
-          if (n_probe == n_lists)
-          {
-            REQUIRE(recall == 1.0);
-          }
-        }
-      }
-    };
-
-    setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, true, "SIFT1M", "idx_1M.ivecs", run);
-  }
-}
-
 auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probe)
 {
   QueryBatch queries;
@@ -249,6 +196,69 @@ auto free_queries = [](QueryBatch queries)
     delete queries[query_id];
   }
 };
+
+auto get_recall = [](const QueryResultsBatch &result_batch, const uint32_t *groundtruth, len_t n_query_vectors, len_t n_results_groundtruth, len_t n_results)
+{
+  len_t n_correct = 0;
+  for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
+  {
+    const QueryResults results = result_batch[query_id];
+    vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (n_results_groundtruth + 1) + 1];
+    for (len_t result_id = 0; result_id < n_results; result_id++)
+    {
+      const vector_id_t id = results[result_id].vector_id;
+      if (id == groundtruth_first_nearest_neighbor)
+      {
+        n_correct++;
+        break;
+      }
+    }
+  }
+  return (float)n_correct / (n_query_vectors * n_results);
+};
+
+SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][SIFT1M]")
+{
+  GIVEN("the SIFT1M dataset")
+  {
+    len_t vector_dim = 128;
+    len_t n_entries = (len_t)1E6;
+    len_t n_query_vectors = (len_t)1E4;
+    len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+    len_t n_results = 1;
+    len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
+    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096);
+
+    auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
+    {
+      WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
+      {
+        WARN("n_lists := " << n_lists);
+        WARN("n_probe := " << n_probe);
+
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+
+        root_index->batch_preassign_queries(queries);
+        QueryResultsBatch results = storage_index->batch_search_preassigned(queries);
+
+        float recall = get_recall(results, groundtruth, n_query_vectors, n_results_groundtruth, n_results);
+
+        WARN("Recall@1 := " << recall);
+        THEN("the Recall@1 is 100% if we search all lists")
+        {
+          if (n_probe == n_lists)
+          {
+            REQUIRE(recall == 1.0);
+          }
+        }
+
+        free_queries(queries);
+      }
+    };
+
+    setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, true, "SIFT1M", "idx_1M.ivecs", run);
+  }
+}
 
 SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][SIFT1M]")
 {
@@ -272,7 +282,8 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
       {
         QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
         root_index->batch_preassign_queries(queries);
-        meter.measure([&storage_index, &queries] {storage_index->batch_search_preassigned(queries);} );
+        meter.measure([&storage_index, &queries]
+                      { storage_index->batch_search_preassigned(queries); });
         free_queries(queries);
       };
     }
@@ -280,8 +291,6 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
 
   setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }
-
-
 
 SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M]")
 {
@@ -306,7 +315,8 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
       (Catch::Benchmark::Chronometer meter)
       {
         QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
-        meter.measure([&root_index, &queries] { root_index->batch_preassign_queries(queries); });
+        meter.measure([&root_index, &queries]
+                      { root_index->batch_preassign_queries(queries); });
         free_queries(queries);
       };
     }
