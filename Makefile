@@ -27,6 +27,7 @@ endif
 
 # defines the parallel mode
 # (0: sequential mode, 1: parallelize over queries, 2: parallelize over queries and lists)
+PMODE := 2
 ifneq ($(PMODE),0)
 ifneq ($(PMODE),1)
 ifneq ($(PMODE),2)
@@ -35,11 +36,8 @@ endif
 endif
 ifeq ($(USE_OMP),FALSE)
 override PMODE := 0
-else
-PMODE := 1
 endif
 endif
-$(info PMODE is $(PMODE))
 CXXFLAGS += -D PMODE=$(PMODE)
 
 
