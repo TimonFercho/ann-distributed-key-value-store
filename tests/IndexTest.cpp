@@ -56,8 +56,9 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
     {
       vector_el_t query_vector[] = {0};
       len_t n_results = 3;
-      list_ids_t list_ids_to_probe = {1, 2};
-      Query query = Query(query_vector, n_results, &list_ids_to_probe);
+      list_id_t list_ids_to_probe[] = {1, 2};
+      len_t n_probe = 2;
+      Query query = Query(query_vector, list_ids_to_probe, n_results, n_probe);
 
       WHEN("the InvertedLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
@@ -287,8 +288,6 @@ auto free_queries = [](std::vector<Query *> queries)
 {
   for (len_t query_id = 0; query_id < queries.size(); query_id++)
   {
-    free(queries[query_id]->get_query_vector());
-    delete queries[query_id]->get_list_ids();
     delete queries[query_id];
   }
 };

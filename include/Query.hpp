@@ -3,29 +3,37 @@
 
 namespace ann_dkvs
 {
-  class Query
+  struct Query
   {
   private:
     vector_el_t *query_vector;
-    list_ids_t *list_ids;
+    list_id_t *list_to_probe;
     len_t n_results;
     len_t n_probe;
+    bool free_list_to_probe = false;
 
   public:
-    Query(vector_el_t *query_vector, len_t n_results, len_t n_probe) : query_vector(query_vector), n_results(n_results), n_probe(n_probe) {}
-    Query(vector_el_t *query_vector, len_t n_results, list_ids_t *list_ids) : query_vector(query_vector), list_ids(list_ids), n_results(n_results), n_probe(list_ids->size())
+    Query(vector_el_t *query_vector, len_t n_results, len_t n_probe) : query_vector(query_vector), list_to_probe(nullptr), n_results(n_results), n_probe(n_probe)
     {
-      assert(list_ids->size() > 0);
+      list_to_probe = new list_id_t[n_probe];
+      free_list_to_probe = true;
     }
-    vector_el_t* get_query_vector() { return query_vector; }
-    list_ids_t* get_list_ids() { return list_ids; }
+    Query(vector_el_t *query_vector, list_id_t *list_to_probe, len_t n_results, len_t n_probe) : query_vector(query_vector), list_to_probe(list_to_probe), n_results(n_results), n_probe(n_probe) {}
+    vector_el_t *get_query_vector() { return query_vector; }
+    list_id_t get_list_to_probe(len_t i) { return list_to_probe[i]; }
     len_t get_n_results() { return n_results; }
     len_t get_n_probe() { return n_probe; }
-    void preassign(list_ids_t *list_ids)
+    void set_list_to_probe(len_t offset, list_id_t list_id)
     {
-      assert(list_ids->size() > 0);
-      this->list_ids = list_ids;
-      this->n_probe = list_ids->size();
+      assert(offset < n_probe);
+      list_to_probe[offset] = list_id;
+    }
+    ~Query()
+    {
+      if (free_list_to_probe)
+      {
+        delete[] list_to_probe;
+      }
     }
   };
 

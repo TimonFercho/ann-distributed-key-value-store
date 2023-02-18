@@ -17,7 +17,5 @@ namespace ann_dkvs
   typedef signed long int64_t;
   typedef int64_t list_id_t;
   typedef int64_t vector_id_t;
-
-  typedef std::vector<list_id_t> list_ids_t;
 }
 #endif // TYPES_HPP_

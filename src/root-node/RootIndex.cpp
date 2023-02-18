@@ -12,14 +12,13 @@ namespace ann_dkvs
 
   void RootIndex::allocate_list_ids(Query *query, centroids_heap_t *nearest_centroids)
   {
-    list_ids_t *list_ids = new list_ids_t(query->get_n_probe());
     for (size_t query_id = 0; query_id < query->get_n_probe(); query_id++)
     {
       size_t insertion_index = query->get_n_probe() - query_id - 1;
-      (*list_ids)[insertion_index] = nearest_centroids->top().list_id;
+      list_id_t list_id = nearest_centroids->top().list_id;
+      query->set_list_to_probe(insertion_index, list_id);
       nearest_centroids->pop();
     }
-    query->preassign(list_ids);
   }
 
   void RootIndex::preassign_query(Query *query)
