@@ -78,16 +78,48 @@ namespace ann_dkvs
     }
     return work_items;
   }
+
+  QueryResultsBatch StorageIndex::batch_search_preassigned(const QueryBatch &queries)
   {
     QueryResultsBatch results(queries.size());
 
-#if PMODE == 1
+#if PMODE == 0 || PMODE == 1
+#if PMODE != 0
 #pragma omp parallel for
 #endif
     for (len_t i = 0; i < queries.size(); i++)
     {
       results[i] = search_preassigned(queries[i]);
     }
+#elif PMODE == 2
+    std::vector<heap_t> candidate_lists(queries.size());
+
+    QueryListPairs work_items = get_work_items(queries);
+
+#pragma omp parallel for
+    for (len_t i = 0; i < work_items.size(); i++)
+    {
+      len_t query_index = work_items[i].first;
+      const Query *query = queries[query_index];
+      list_id_t list_id = work_items[i].second;
+      heap_t local_candidates;
+      search_preassigned_list(query, list_id, local_candidates);
+#pragma omp critical
+      {
+        while (local_candidates.size() > 0)
+        {
+          QueryResult result = local_candidates.top();
+          local_candidates.pop();
+          add_candidate(query, result, candidate_lists[query_index]);
+        }
+      }
+    }
+#pragma omp single
+    for (len_t j = 0; j < queries.size(); j++)
+    {
+      results[j] = extract_results(&candidate_lists[j]);
+    }
+#endif
     return results;
   }
 }
