@@ -46,7 +46,7 @@ namespace ann_dkvs
 
   void RootIndex::batch_preassign_queries(QueryBatch queries)
   {
-#ifdef _OPENMP
+#if PMODE == 1
 #pragma omp parallel for
 #endif
     for (len_t i = 0; i < queries.size(); i++)

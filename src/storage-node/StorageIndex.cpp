@@ -63,7 +63,8 @@ namespace ann_dkvs
   QueryResultsBatch StorageIndex::batch_search_preassigned(QueryBatch queries)
   {
     QueryResultsBatch results(queries.size());
-#ifdef _OPENMP
+
+#if PMODE == 1
 #pragma omp parallel for
 #endif
     for (len_t i = 0; i < queries.size(); i++)

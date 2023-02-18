@@ -2,29 +2,51 @@
 # 'make'        build executable file 'main'
 # 'make clean'  removes all .o and executable files
 #
+# set flags for makefile like so:
+# make USE_SIMD=TRUE USE_OMP=TRUE PMODE=1
 
 # define the Cpp compiler to use
 CXX = g++
 
 # define any compile-time flags
 CXXFLAGS	:= -std=c++17 -Wall -Wextra -g
+USE_SIMD := TRUE
+USE_OMP := TRUE
 
-ifeq ($(DISABLE_SIMD),TRUE)
-    $(info SIMD disabled)
+ifeq ($(USE_SIMD),TRUE)
+CXXFLAGS += -mavx
 else
-		CXXFLAGS += -mavx
+$(info SIMD disabled)
 endif
 
-ifeq ($(DISABLE_OMP),TRUE)
-    $(info OpenMP disabled)
+ifeq ($(USE_OMP),TRUE)
+CXXFLAGS += -fopenmp
 else
-		CXXFLAGS += -fopenmp
+$(info OpenMP disabled)
 endif
+
+# defines the parallel mode
+# (0: sequential mode, 1: parallelize over queries, 2: parallelize over queries and lists)
+ifneq ($(PMODE),0)
+ifneq ($(PMODE),1)
+ifneq ($(PMODE),2)
+$(error PMODE must be 0, 1 or 2)
+endif
+endif
+ifeq ($(USE_OMP),FALSE)
+override PMODE := 0
+else
+PMODE := 1
+endif
+endif
+$(info PMODE is $(PMODE))
+CXXFLAGS += -D PMODE=$(PMODE)
+
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS =
+# LFLAGS =
 
 # define output directory
 OUTPUT	:= out
