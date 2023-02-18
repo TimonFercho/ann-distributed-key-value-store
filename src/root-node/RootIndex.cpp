@@ -47,9 +47,9 @@ namespace ann_dkvs
   void RootIndex::batch_preassign_queries(QueryBatch queries)
   {
 #pragma omp parallel for
-    for (len_t query_id = 0; query_id < queries.size(); query_id++)
+    for (len_t i = 0; i < queries.size(); i++)
     {
-      preassign_query(queries[query_id]);
+      preassign_query(queries[i]);
     }
   }
 }

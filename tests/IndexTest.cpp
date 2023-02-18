@@ -187,7 +187,7 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
     len_t n_entries = (len_t)1E6;
     len_t n_query_vectors = (len_t)1E4;
     len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-    len_t n_results = 2;
+    len_t n_results = 1;
     len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
     len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096);
 
@@ -232,45 +232,6 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
   }
 }
 
-SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][SIFT1M]")
-{
-  len_t vector_dim = 128;
-  len_t n_entries = (len_t)1E6;
-  len_t n_query_vectors = (len_t)1E4;
-  len_t n_results = 1;
-  len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-  len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
-  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
-
-  auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
-  {
-    UNUSED(groundtruth);
-    WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
-    {
-      WARN("n_lists := " << n_lists);
-      WARN("n_probe := " << n_probe);
-      BENCHMARK_ADVANCED("search_preassigned(): includes finding the nearest centroids")
-      (Catch::Benchmark::Chronometer meter)
-      {
-        meter.measure([&]
-                      {
-#pragma omp parallel for
-                for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
-                {
-                  uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-                  vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-                  Query query = Query(query_vector, n_results, n_probe);
-                  root_index->preassign_query(&query);
-                  storage_index->search_preassigned(&query);
-                  free(query_vector);
-                } });
-      };
-    }
-  };
-
-  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
-}
-
 auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probe)
 {
   QueryBatch queries;
@@ -292,6 +253,39 @@ auto free_queries = [](QueryBatch queries)
   }
 };
 
+SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][SIFT1M]")
+{
+  len_t vector_dim = 128;
+  len_t n_entries = (len_t)1E6;
+  len_t n_query_vectors = (len_t)1E4;
+  len_t n_results = 1;
+  len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+  len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
+  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
+
+  auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
+  {
+    UNUSED(groundtruth);
+    WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
+    {
+      WARN("n_lists := " << n_lists);
+      WARN("n_probe := " << n_probe);
+      BENCHMARK_ADVANCED("search_preassigned(): measurement excludes preassigning queries")
+      (Catch::Benchmark::Chronometer meter)
+      {
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+        root_index->batch_preassign_queries(queries);
+        meter.measure([&storage_index, &queries] {storage_index->batch_search_preassigned(queries);} );
+        free_queries(queries);
+      };
+    }
+  };
+
+  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+}
+
+
+
 SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M]")
 {
   len_t vector_dim = 128;
@@ -311,12 +305,11 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
       WARN("n_lists := " << n_lists);
       WARN("n_probe := " << n_probe);
 
-      BENCHMARK_ADVANCED("preassign_query(): no search")
+      BENCHMARK_ADVANCED("preassign_query(): does not measure search")
       (Catch::Benchmark::Chronometer meter)
       {
         QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
-        meter.measure([&]
-                      { root_index->batch_preassign_queries(queries); });
+        meter.measure([&root_index, &queries] { root_index->batch_preassign_queries(queries); });
         free_queries(queries);
       };
     }

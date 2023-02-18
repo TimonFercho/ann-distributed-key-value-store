@@ -36,6 +36,7 @@ namespace ann_dkvs
   public:
     StorageIndex(InvertedLists *lists);
     QueryResults search_preassigned(Query *query);
+    QueryResultsBatch batch_search_preassigned(QueryBatch queries);
   };
 }
 #endif // INDEX_HPP_

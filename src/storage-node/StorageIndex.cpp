@@ -59,4 +59,15 @@ namespace ann_dkvs
     }
     return extract_results(&knn);
   }
+
+  QueryResultsBatch StorageIndex::batch_search_preassigned(QueryBatch queries)
+  {
+    QueryResultsBatch results(queries.size());
+    #pragma omp parallel for
+    for (len_t i = 0; i < queries.size(); i++)
+    {
+      results[i] = search_preassigned(queries[i]);
+    }
+    return results;
+  }
 }
