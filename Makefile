@@ -168,9 +168,3 @@ runtest: test
 
 runtests: test
 	./$(OUTPUTTEST) --success
-
-runbench: bench
-	./$(OUTPUTBENCH)
-
-clusters:
-	cd cluster && python cluster-dataset.py
