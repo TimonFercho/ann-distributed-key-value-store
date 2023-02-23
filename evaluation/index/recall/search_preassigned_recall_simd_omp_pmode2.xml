@@ -1,0 +1,2067 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageIndex][search_preassigned][SIFT1M][recall]">
+  <Group name="testmain">
+    <TestCase name="Scenario: search_preassigned(): test recall with SIFT1M" tags="[SIFT1M][StorageIndex][recall][search_preassigned][test]" filename="tests/IndexTest.cpp" line="225">
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 1
+                </Warning>
+                <Warning>
+                  n_results := 1
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.4377
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 1
+                </Warning>
+                <Warning>
+                  n_results := 2
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.4377
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 1
+                </Warning>
+                <Warning>
+                  n_results := 4
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.4377
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 1
+                </Warning>
+                <Warning>
+                  n_results := 8
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.4377
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 1
+                </Warning>
+                <Warning>
+                  n_results := 16
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.4377
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 1
+                </Warning>
+                <Warning>
+                  n_results := 32
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.4377
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 2
+                </Warning>
+                <Warning>
+                  n_results := 1
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.6024
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 2
+                </Warning>
+                <Warning>
+                  n_results := 2
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.6024
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 2
+                </Warning>
+                <Warning>
+                  n_results := 4
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.6024
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 2
+                </Warning>
+                <Warning>
+                  n_results := 8
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.6024
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 2
+                </Warning>
+                <Warning>
+                  n_results := 16
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.6024
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 2
+                </Warning>
+                <Warning>
+                  n_results := 32
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.6024
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 4
+                </Warning>
+                <Warning>
+                  n_results := 1
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.7573
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 4
+                </Warning>
+                <Warning>
+                  n_results := 2
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.7573
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 4
+                </Warning>
+                <Warning>
+                  n_results := 4
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.7573
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 4
+                </Warning>
+                <Warning>
+                  n_results := 8
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.7573
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 4
+                </Warning>
+                <Warning>
+                  n_results := 16
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.7573
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 4
+                </Warning>
+                <Warning>
+                  n_results := 32
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.7573
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 8
+                </Warning>
+                <Warning>
+                  n_results := 1
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.872
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 8
+                </Warning>
+                <Warning>
+                  n_results := 2
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.872
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 8
+                </Warning>
+                <Warning>
+                  n_results := 4
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.872
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 8
+                </Warning>
+                <Warning>
+                  n_results := 8
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.872
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 8
+                </Warning>
+                <Warning>
+                  n_results := 16
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.872
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 8
+                </Warning>
+                <Warning>
+                  n_results := 32
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.872
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 16
+                </Warning>
+                <Warning>
+                  n_results := 1
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9476
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 16
+                </Warning>
+                <Warning>
+                  n_results := 2
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9476
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 16
+                </Warning>
+                <Warning>
+                  n_results := 4
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9476
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 16
+                </Warning>
+                <Warning>
+                  n_results := 8
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9476
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 16
+                </Warning>
+                <Warning>
+                  n_results := 16
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9476
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 16
+                </Warning>
+                <Warning>
+                  n_results := 32
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9476
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 32
+                </Warning>
+                <Warning>
+                  n_results := 1
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9835
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 32
+                </Warning>
+                <Warning>
+                  n_results := 2
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9835
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 32
+                </Warning>
+                <Warning>
+                  n_results := 4
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9835
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 32
+                </Warning>
+                <Warning>
+                  n_results := 8
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9835
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 32
+                </Warning>
+                <Warning>
+                  n_results := 16
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9835
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
+              <OverallResults successes="6" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="6" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="12" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="12" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Given: the SIFT1M dataset" filename="tests/IndexTest.cpp" line="227">
+        <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
+          <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
+            <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
+              <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="239">
+                <Warning>
+                  max_n_threads := 128
+                </Warning>
+                <Warning>
+                  n_lists := 1024
+                </Warning>
+                <Warning>
+                  n_probe := 32
+                </Warning>
+                <Warning>
+                  n_results := 32
+                </Warning>
+                <Warning>
+                  Recall@1 := 0.9835
+                </Warning>
+                <Section name="Then: the Recall@1 is 100% if we search all lists" filename="tests/IndexTest.cpp" line="256">
+                  <OverallResults successes="0" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="7" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="7" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true">
+        <StdOut>
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+Checking if file cluster/out/SIFT1M/vectors.bin exists
+Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+Checking if file cluster/data/bigann/bigann_query.bvecs exists
+Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+        </StdOut>
+      </OverallResult>
+    </TestCase>
+    <OverallResults successes="684" failures="0" expectedFailures="0"/>
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+  </Group>
+  <OverallResults successes="684" failures="0" expectedFailures="0"/>
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+</Catch>
