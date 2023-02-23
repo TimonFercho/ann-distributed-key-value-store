@@ -12,6 +12,10 @@
 #define UNUSED(x) (void)(x)
 #define N_RESULTS_GROUNDTRUTH 1000
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 using namespace ann_dkvs;
 
 auto alloc_query_as_vector_el = [](uint8_t *query_vector, len_t vector_dim)
@@ -117,59 +121,59 @@ auto setup_indices_and_run = [](len_t n_probe,
       REQUIRE(file_exists(centroids_filepath));
       REQUIRE(file_exists(query_vectors_filepath));
       REQUIRE(file_exists(groundtruth_filepath));
-    }
 
-    WHEN("the files are mapped to memory")
-    {
-      len_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
-      len_t ids_size = n_entries * sizeof(list_id_t);
-      len_t list_ids_size = n_entries * sizeof(list_id_t);
-      len_t centroids_size = n_lists * vector_dim * sizeof(vector_el_t);
-      len_t query_vectors_size = n_query_vectors * vector_dim * sizeof(vector_el_t);
-      len_t groundtruth_size = n_query_vectors * n_results_groundtruth * sizeof(vector_id_t);
-
-      vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
-      vector_id_t *vector_ids = (vector_id_t *)mmap_file(vectors_ids_filepath, ids_size);
-      list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
-      vector_el_t *centroids = (vector_el_t *)mmap_file(centroids_filepath, centroids_size);
-      uint8_t *query_vectors = (uint8_t *)mmap_file(query_vectors_filepath, query_vectors_size);
-      uint32_t *groundtruth = nullptr;
-      if (mmap_groundtruth)
+      WHEN("the files are mapped to memory")
       {
-        groundtruth = (uint32_t *)mmap_file(groundtruth_filepath, groundtruth_size);
-      }
+        len_t vectors_size = n_entries * vector_dim * sizeof(vector_el_t);
+        len_t ids_size = n_entries * sizeof(list_id_t);
+        len_t list_ids_size = n_entries * sizeof(list_id_t);
+        len_t centroids_size = n_lists * vector_dim * sizeof(vector_el_t);
+        len_t query_vectors_size = n_query_vectors * vector_dim * sizeof(vector_el_t);
+        len_t groundtruth_size = n_query_vectors * n_results_groundtruth * sizeof(vector_id_t);
 
-      THEN("the files are mapped correctly")
-      {
-        REQUIRE(vectors != nullptr);
-        REQUIRE(vector_ids != nullptr);
-        REQUIRE(list_ids != nullptr);
-        REQUIRE(centroids != nullptr);
-        REQUIRE(query_vectors != nullptr);
+        vector_el_t *vectors = (vector_el_t *)mmap_file(vectors_filepath, vectors_size);
+        vector_id_t *vector_ids = (vector_id_t *)mmap_file(vectors_ids_filepath, ids_size);
+        list_id_t *list_ids = (list_id_t *)mmap_file(list_ids_filepath, list_ids_size);
+        vector_el_t *centroids = (vector_el_t *)mmap_file(centroids_filepath, centroids_size);
+        uint8_t *query_vectors = (uint8_t *)mmap_file(query_vectors_filepath, query_vectors_size);
+        uint32_t *groundtruth = nullptr;
         if (mmap_groundtruth)
         {
-          REQUIRE(groundtruth != nullptr);
+          groundtruth = (uint32_t *)mmap_file(groundtruth_filepath, groundtruth_size);
         }
-      }
 
-      WHEN("the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
-      {
+        THEN("the files are mapped correctly")
+        {
+          REQUIRE(vectors != nullptr);
+          REQUIRE(vector_ids != nullptr);
+          REQUIRE(list_ids != nullptr);
+          REQUIRE(centroids != nullptr);
+          REQUIRE(query_vectors != nullptr);
+          if (mmap_groundtruth)
+          {
+            REQUIRE(groundtruth != nullptr);
+          }
+        }
 
-        StorageLists lists = get_inverted_lists_object(vector_dim);
-        lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
-        StorageIndex storage_index(&lists);
-        RootIndex root_index(vector_dim, centroids, n_lists);
+        WHEN("the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
+        {
 
-        run(query_vectors, groundtruth, &storage_index, &root_index);
-      }
-      munmap(vectors, vectors_size);
-      munmap(vector_ids, ids_size);
-      munmap(list_ids, list_ids_size);
-      munmap(centroids, centroids_size);
-      munmap(query_vectors, query_vectors_size);
-      if (mmap_groundtruth)
-      {
-        munmap(groundtruth, groundtruth_size);
+          StorageLists lists = get_inverted_lists_object(vector_dim);
+          lists.bulk_insert_entries(vectors_filepath, vectors_ids_filepath, list_ids_filepath, n_entries);
+          StorageIndex storage_index(&lists);
+          RootIndex root_index(vector_dim, centroids, n_lists);
+
+          run(query_vectors, groundtruth, &storage_index, &root_index);
+        }
+        munmap(vectors, vectors_size);
+        munmap(vector_ids, ids_size);
+        munmap(list_ids, list_ids_size);
+        munmap(centroids, centroids_size);
+        munmap(query_vectors, query_vectors_size);
+        if (mmap_groundtruth)
+        {
+          munmap(groundtruth, groundtruth_size);
+        }
       }
     }
   }
@@ -218,7 +222,7 @@ auto get_recall_at_r = [](const QueryResultsBatch &result_batch, const uint32_t 
   return (float)n_correct / n_query_vectors;
 };
 
-SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][SIFT1M]")
+SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][recall][SIFT1M]")
 {
   GIVEN("the SIFT1M dataset")
   {
@@ -226,16 +230,20 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
     len_t n_entries = (len_t)1E6;
     len_t n_query_vectors = (len_t)1E4;
     len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-    len_t n_results = 1;
-    len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
-    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096);
+    len_t n_lists = 1024;
+    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32);
+    len_t n_results = GENERATE(1, 2, 4, 8, 16, 32);
 
     auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
     {
       WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
       {
+#ifdef _OPENMP
+        WARN("max_n_threads := " << omp_get_max_threads());
+#endif
         WARN("n_lists := " << n_lists);
         WARN("n_probe := " << n_probe);
+        WARN("n_results := " << n_results);
 
         QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
 
@@ -266,18 +274,22 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
   len_t vector_dim = 128;
   len_t n_entries = (len_t)1E6;
   len_t n_query_vectors = (len_t)1E4;
-  len_t n_results = 1;
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-  len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
-  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
+  len_t n_lists = 1024;
+  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32);
+  len_t n_results = 1;
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
     UNUSED(groundtruth);
     WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
     {
+#ifdef _OPENMP
+      WARN("max_n_threads := " << omp_get_max_threads());
+#endif
       WARN("n_lists := " << n_lists);
       WARN("n_probe := " << n_probe);
+      WARN("n_results := " << n_results);
       BENCHMARK_ADVANCED("search_preassigned(): measurement excludes preassigning queries")
       (Catch::Benchmark::Chronometer meter)
       {
@@ -291,6 +303,42 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
   };
 
   setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+}
+
+SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][SIFT100M]")
+{
+  len_t vector_dim = 128;
+  len_t n_entries = (len_t)1E8;
+  len_t n_query_vectors = (len_t)1E5;
+  len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+  len_t n_lists = 1024;
+  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32);
+  len_t n_results = GENERATE(1, 2, 4, 8, 16, 32);
+
+  auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
+  {
+    UNUSED(groundtruth);
+    WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
+    {
+#ifdef _OPENMP
+      WARN("max_n_threads := " << omp_get_max_threads());
+#endif
+      WARN("n_lists := " << n_lists);
+      WARN("n_probe := " << n_probe);
+      WARN("n_results := " << n_results);
+      BENCHMARK_ADVANCED("search_preassigned(): measurement excludes preassigning queries")
+      (Catch::Benchmark::Chronometer meter)
+      {
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+        root_index->batch_preassign_queries(queries);
+        meter.measure([&storage_index, &queries]
+                      { storage_index->batch_search_preassigned(queries); });
+        free_queries(queries);
+      };
+    }
+  };
+
+  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT100M", "idx_100M.ivecs", run);
 }
 
 SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M]")
@@ -309,8 +357,12 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
     UNUSED(storage_index);
     WHEN("for each query vector, the closest centroids are determined")
     {
+#ifdef _OPENMP
+      WARN("max_n_threads := " << omp_get_max_threads());
+#endif
       WARN("n_lists := " << n_lists);
       WARN("n_probe := " << n_probe);
+      WARN("n_results := " << n_results);
 
       BENCHMARK_ADVANCED("preassign_query(): does not measure search")
       (Catch::Benchmark::Chronometer meter)
