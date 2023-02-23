@@ -66,9 +66,9 @@ namespace ann_dkvs
   void are_vectors_equal(vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries);
   void are_ids_equal(vector_id_t *actual, vector_id_t *expected, len_t n_entries);
   std::string get_lists_filename();
-  std::string get_vectors_filename();
-  std::string get_vector_ids_filename();
-  std::string get_list_ids_filename(len_t n_lists);
+  std::string get_vectors_filename(bool is_dataset_sorted = false, len_t n_lists = 1024);
+  std::string get_vector_ids_filename(bool is_dataset_sorted = false, len_t n_lists = 1024);
+  std::string get_list_ids_filename(len_t n_lists, bool is_dataset_sorted = false);
   void setup_run_teardown_bulk_insert_entries_dataset(
       len_t n_entries,
       len_t vector_dim,

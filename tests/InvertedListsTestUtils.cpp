@@ -119,26 +119,41 @@ namespace ann_dkvs
     return filename + file_ext;
   }
 
-  std::string get_vectors_filename()
+  std::string get_vectors_filename(bool is_dataset_sorted, len_t n_lists)
   {
     std::string filename = VECTORS_FILENAME;
     std::string file_ext = FILE_EXT;
-    return filename + file_ext;
+    std::string result = filename;
+    if (is_dataset_sorted)
+    {
+      result += "_" + std::to_string(n_lists) + "_sorted";
+    }
+    return result + file_ext;
   }
 
-  std::string get_vector_ids_filename()
+  std::string get_vector_ids_filename(bool is_dataset_sorted, len_t n_lists)
   {
     std::string filename = VECTOR_IDS_FILENAME;
     std::string file_ext = FILE_EXT;
-    return filename + file_ext;
+    std::string result = filename;
+    if (is_dataset_sorted)
+    {
+      result += "_" + std::to_string(n_lists) + "_sorted";
+    }
+    return result + file_ext;
   }
 
-  std::string get_list_ids_filename(len_t n_lists)
+  std::string get_list_ids_filename(len_t n_lists, bool is_dataset_sorted)
   {
     std::string filename = LIST_IDS_FILENAME;
     std::string separator = "_";
     std::string file_ext = FILE_EXT;
-    return filename + separator + std::to_string(n_lists) + file_ext;
+    std::string result = filename + separator + std::to_string(n_lists);
+    if (is_dataset_sorted)
+    {
+      result += "_sorted";
+    }
+    return result + file_ext;
   }
 
   void setup_run_teardown_bulk_insert_entries_dataset(
