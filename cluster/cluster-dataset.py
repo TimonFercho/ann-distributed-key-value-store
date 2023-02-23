@@ -13,20 +13,21 @@ except ImportError:
 
 DATASET_LINK = "http://corpus-texmex.irisa.fr/"
 
-
 #################################################################
 # Preparing the data
 #################################################################
 
+
 def load_dataset(cfg):
-    n_splits = cfg.total_dataset_size // cfg.dataset_size 
-    xb = cfg.dataset.database_iterator(bs=cfg.batch_size, split=(n_splits, 0)) 
+    n_splits = cfg.total_dataset_size // cfg.dataset_size
+    xb = cfg.dataset.database_iterator(bs=cfg.batch_size, split=(n_splits, 0))
     return xb
 
 
 #################################################################
 # Training the index
 #################################################################
+
 
 def get_trained_index(cfg):
     if exists(cfg.trained_index_file):
@@ -47,10 +48,13 @@ def get_trained_index(cfg):
 # Building the index
 #################################################################
 
+
 def write_batch_index(cfg, batch, batch_no):
     index = None
     if exists(cfg.get_batch_index_file(batch_no)):
-        print(f"\tIndex file {cfg.get_batch_index_file(batch_no)} already populated, skipping")
+        print(
+            f"\tIndex file {cfg.get_batch_index_file(batch_no)} already populated, skipping"
+        )
     else:
         index = get_trained_index(cfg)
         print(f"\tAdding vectors to index")
@@ -58,6 +62,7 @@ def write_batch_index(cfg, batch, batch_no):
         print(f"\tWriting index to {cfg.get_batch_index_file(batch_no)}")
         faiss.write_index(index, cfg.get_batch_index_file(batch_no))
     return index
+
 
 def write_batch_indices(cfg):
     xb = load_dataset(cfg)
@@ -68,8 +73,10 @@ def write_batch_indices(cfg):
         write_vectors(cfg, batch, batch_no)
         index = write_batch_index(cfg, batch, batch_no)
         write_list_ids(cfg, index, batch_no)
-    assert getsize(cfg.vectors_file) == cfg.get_expected_vectors_file_size(), "Vectors file does not have the expected size"
+    assert getsize(cfg.vectors_file) == cfg.get_expected_vectors_file_size(
+    ), "Vectors file does not have the expected size"
     return index_files
+
 
 def get_merged_index(cfg, index_files):
     if exists(cfg.merged_index_file):
@@ -88,6 +95,7 @@ def get_merged_index(cfg, index_files):
 # Extracting clusters from the index
 #################################################################
 
+
 def get_vector_ids(index, list_id):
     list_length = index.invlists.list_size(list_id)
     vector_ids_ptr = index.invlists.get_ids(list_id)
@@ -104,56 +112,77 @@ def get_ids_map(cfg, index, batch_no):
             ids_map[start_id + vector_id] = list_id
     return ids_map
 
+
 def get_centroids(index):
     return index.quantizer.reconstruct_n(0, index.nlist)
+
 
 #################################################################
 # Writing test files to disk
 #################################################################
 
+
 def write_vectors(cfg, batch, batch_no):
-    if getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(batch_no):
-        print(f"\tVectors file {cfg.vectors_file} is already populated, skipping")
+    if getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(
+            batch_no):
+        print(
+            f"\tVectors file {cfg.vectors_file} is already populated, skipping"
+        )
     else:
-        expected_size = cfg.get_expected_partial_vectors_file_size(batch_no - 1)
+        expected_size = cfg.get_expected_partial_vectors_file_size(batch_no -
+                                                                   1)
         with open(cfg.vectors_file, "ab") as f:
             if getsize(cfg.vectors_file) > expected_size:
                 f.truncate(expected_size)
             print(f"\tWriting vectors to {cfg.vectors_file}")
             batch.tofile(f)
-    assert getsize(cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(batch_no), "Vectors file does not have the expected size"
+    assert getsize(
+        cfg.vectors_file) >= cfg.get_expected_partial_vectors_file_size(
+            batch_no), "Vectors file does not have the expected size"
+
 
 def write_vector_ids(cfg):
     print(f"Writing vector ids to {cfg.vector_ids_file}")
-    if exists(cfg.vector_ids_file) and getsize(cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size():
-            print(f"\tVector ids file already exists, skipping")
-            return
+    if exists(cfg.vector_ids_file) and getsize(
+            cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size():
+        print(f"\tVector ids file already exists, skipping")
+        return
     ids = np.arange(cfg.dataset_size, dtype=np.int64)
     with open(cfg.vector_ids_file, "wb") as f:
         ids.tofile(f)
-    assert getsize(cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size(), "Vector ids file does not have the expected size"
+    assert getsize(
+        cfg.vector_ids_file) == cfg.get_expected_vector_ids_file_size(
+        ), "Vector ids file does not have the expected size"
+
 
 def write_list_ids(cfg, index, batch_no):
-    if getsize(cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(batch_no):
-            print(f"\tList ids file {cfg.list_ids_file} already populated, skipping")
+    if getsize(cfg.list_ids_file
+               ) >= cfg.get_expected_partial_list_ids_file_size(batch_no):
+        print(
+            f"\tList ids file {cfg.list_ids_file} already populated, skipping")
     else:
         if not index:
             print(f"\tLoading index from {cfg.get_batch_index_file(batch_no)}")
             index = faiss.read_index(cfg.get_batch_index_file(batch_no))
-        expected_size = cfg.get_expected_partial_list_ids_file_size(batch_no - 1)
+        expected_size = cfg.get_expected_partial_list_ids_file_size(batch_no -
+                                                                    1)
         with open(cfg.list_ids_file, "ab") as f:
             if getsize(cfg.list_ids_file) > expected_size:
                 f.truncate(expected_size)
             start_id = batch_no * cfg.batch_size
             end_id = start_id + cfg.batch_size
-            print(f"\tPopulating ids map for vector ids {start_id} to {end_id}")
+            print(
+                f"\tPopulating ids map for vector ids {start_id} to {end_id}")
             ids_map = get_ids_map(cfg, index, batch_no)
             map_all_to_list_ids = np.vectorize(lambda i: ids_map[i])
             ids = np.arange(start=start_id, stop=end_id, dtype=np.int64)
             list_ids = map_all_to_list_ids(ids)
             print(f"\tWriting list ids to {cfg.list_ids_file}")
             list_ids.tofile(f)
-    assert getsize(cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(batch_no), "List ids file does not have the expected size"
+    assert getsize(
+        cfg.list_ids_file) >= cfg.get_expected_partial_list_ids_file_size(
+            batch_no), "List ids file does not have the expected size"
+
 
 def write_centroids(cfg, index):
     if exists(cfg.centroids_file):
@@ -163,26 +192,38 @@ def write_centroids(cfg, index):
         centroids = get_centroids(index)
         with open(cfg.centroids_file, "wb") as f:
             centroids.tofile(f)
-    assert getsize(cfg.centroids_file) == cfg.get_expected_centroids_file_size(), "Centroids file does not have the expected size"
+    assert getsize(cfg.centroids_file) == cfg.get_expected_centroids_file_size(
+    ), "Centroids file does not have the expected size"
+
 
 #################################################################
 # Main
 #################################################################
 
+
 class Config:
+
     def __init__(self, args):
-        self.dataset_size_millions = 1000 if args.dataset.lower().endswith("1b") else int(args.dataset[4:-1])
-        self.indices_dir = join(args.temp_dir, f"SIFT{self.dataset_size_millions}M")
-        self.output_dir = join(args.output_dir, f"SIFT{self.dataset_size_millions}M")
-        self.indices_base = join(self.indices_dir, f"SIFT{self.dataset_size_millions}M")
+        self.dataset_size_millions = 1000 if args.dataset.lower().endswith(
+            "1b") else int(args.dataset[4:-1])
+        self.indices_dir = join(args.temp_dir,
+                                f"SIFT{self.dataset_size_millions}M")
+        self.output_dir = join(args.output_dir,
+                               f"SIFT{self.dataset_size_millions}M")
+        self.indices_base = join(self.indices_dir,
+                                 f"SIFT{self.dataset_size_millions}M")
         self.dataset_size = self.dataset_size_millions * 10**6
-        self.n_lists=args.n_lists
-        self.trained_index_file=join(args.temp_dir, f"SIFT1000M_{args.n_lists}_trained.index")
-        self.merged_index_file=f"{self.indices_base}_{args.n_lists}_merged.index"
-        self.vectors_file=join(self.output_dir, f"{args.vectors_file}.bin")
-        self.vector_ids_file=join(self.output_dir, f"{args.vector_ids_file}.bin")
-        self.list_ids_file=join(self.output_dir, f"{args.list_ids_file}_{args.n_lists}.bin")
-        self.centroids_file=join(self.output_dir, f"{args.centroids_file}_{args.n_lists}.bin")
+        self.n_lists = args.n_lists
+        self.trained_index_file = join(
+            args.temp_dir, f"SIFT1000M_{args.n_lists}_trained.index")
+        self.merged_index_file = f"{self.indices_base}_{args.n_lists}_merged.index"
+        self.vectors_file = join(self.output_dir, f"{args.vectors_file}.bin")
+        self.vector_ids_file = join(self.output_dir,
+                                    f"{args.vector_ids_file}.bin")
+        self.list_ids_file = join(self.output_dir,
+                                  f"{args.list_ids_file}_{args.n_lists}.bin")
+        self.centroids_file = join(
+            self.output_dir, f"{args.centroids_file}_{args.n_lists}.bin")
         self.batch_size = min(args.batch_size, self.dataset_size)
         self.n_batches = self.dataset_size // self.batch_size
         self.reconstruct_centroids = args.reconstruct_centroids
@@ -195,13 +236,14 @@ class Config:
         print(f"\tNumber of clusters: {self.n_lists}")
         print(f"\tBatch size: {self.batch_size}")
         print(f"\tNumber of batches: {self.n_batches}")
-        print(f"\tReconstruct centroids from index: {self.reconstruct_centroids}")
+        print(
+            f"\tReconstruct centroids from index: {self.reconstruct_centroids}"
+        )
         print(f"\tTemporary directory: {self.indices_dir}")
         print(f"\tOutput directory: {self.output_dir}")
         if not input("Continue? [Y/N] ").lower().startswith("y"):
             print("Aborting")
             exit(1)
-
 
     def prepare_dataset(self):
         try:
@@ -215,7 +257,8 @@ class Config:
             self.dataset = DatasetBigANN()
         except FileNotFoundError:
             print(
-                f"Could not find bigann dataset in data/bigann, please download it first from", DATASET_LINK)
+                f"Could not find bigann dataset in data/bigann, please download it first from",
+                DATASET_LINK)
             exit(1)
         self.dimension = self.dataset.d
         self.total_dataset_size = self.dataset.nb
@@ -243,6 +286,7 @@ class Config:
     def get_expected_centroids_file_size(self):
         return self.n_lists * self.dimension * 4
 
+
 def cluster_dataset(cfg):
     makedirs(cfg.output_dir, exist_ok=True)
     makedirs(cfg.indices_dir, exist_ok=True)
@@ -262,18 +306,55 @@ def cluster_dataset(cfg):
         write_centroids(cfg, index)
     write_vector_ids(cfg)
 
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog="SIFT Dataset Clustering", description="Cluster subsets of SIFT dataset and output as lists of vectors, vector ids and list ids")
-    parser.add_argument("--dataset", type=str, default="SIFT100M", help="Dataset to cluster, one of SIFT1M, SIFT10M, SIFT100M, SIFT1000M/1B", choices=["SIFT1M", "SIFT10M", "SIFT100M", "SIFT1000M", "SIFT1B"])
-    parser.add_argument("--batch_size", type=int, default=10**7, help="Batch size")
-    parser.add_argument("--n_lists", type=int, default=2**10, help="Number of clusters")
-    parser.add_argument("--output_dir", type=str, default="./out", help="Directory to store output files in")
-    parser.add_argument("--temp_dir", type=str, default="./tmp", help="Directory to store temporary indices in")
-    parser.add_argument("--vectors_file", type=str, default="vectors", help="File to output vectors to")
-    parser.add_argument("--vector_ids_file", type=str, default="vector_ids", help="File to output vector ids to")
-    parser.add_argument("--list_ids_file", type=str, default="list_ids", help="File to output list ids to")
-    parser.add_argument("--centroids_file", type=str, default="centroids", help="File to output centroids to")
-    parser.add_argument("--reconstruct_centroids", action="store_true", help="Construct centroids from built index")
+    parser = argparse.ArgumentParser(
+        prog="SIFT Dataset Clustering",
+        description=
+        "Cluster subsets of SIFT dataset and output as lists of vectors, vector ids and list ids"
+    )
+    parser.add_argument(
+        "--dataset",
+        type=str,
+        default="SIFT100M",
+        help=
+        "Dataset to cluster, one of SIFT1M, SIFT10M, SIFT100M, SIFT1000M/1B",
+        choices=["SIFT1M", "SIFT10M", "SIFT100M", "SIFT1000M", "SIFT1B"])
+    parser.add_argument("--batch_size",
+                        type=int,
+                        default=10**7,
+                        help="Batch size")
+    parser.add_argument("--n_lists",
+                        type=int,
+                        default=2**10,
+                        help="Number of clusters")
+    parser.add_argument("--output_dir",
+                        type=str,
+                        default="./out",
+                        help="Directory to store output files in")
+    parser.add_argument("--temp_dir",
+                        type=str,
+                        default="./tmp",
+                        help="Directory to store temporary indices in")
+    parser.add_argument("--vectors_file",
+                        type=str,
+                        default="vectors",
+                        help="File to output vectors to")
+    parser.add_argument("--vector_ids_file",
+                        type=str,
+                        default="vector_ids",
+                        help="File to output vector ids to")
+    parser.add_argument("--list_ids_file",
+                        type=str,
+                        default="list_ids",
+                        help="File to output list ids to")
+    parser.add_argument("--centroids_file",
+                        type=str,
+                        default="centroids",
+                        help="File to output centroids to")
+    parser.add_argument("--reconstruct_centroids",
+                        action="store_true",
+                        help="Construct centroids from built index")
 
     args = parser.parse_args()
 
@@ -281,5 +362,5 @@ if __name__ == "__main__":
     # make sure working directory is correct
     if not getcwd().endswith("cluster"):
         chdir("cluster")
-    
+
     cluster_dataset(cfg)
