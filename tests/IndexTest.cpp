@@ -197,14 +197,15 @@ auto free_queries = [](QueryBatch queries)
   }
 };
 
-auto get_recall = [](const QueryResultsBatch &result_batch, const uint32_t *groundtruth, len_t n_query_vectors, len_t n_results_groundtruth, len_t n_results)
+auto get_recall_at_r = [](const QueryResultsBatch &result_batch, const uint32_t *groundtruth, len_t n_query_vectors, len_t n_results_groundtruth, len_t n_results, len_t r)
 {
+  REQUIRE(r <= n_results);
   len_t n_correct = 0;
   for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
   {
     const QueryResults results = result_batch[query_id];
     vector_id_t groundtruth_first_nearest_neighbor = groundtruth[query_id * (n_results_groundtruth + 1) + 1];
-    for (len_t result_id = 0; result_id < n_results; result_id++)
+    for (len_t result_id = 0; result_id < r; result_id++)
     {
       const vector_id_t id = results[result_id].vector_id;
       if (id == groundtruth_first_nearest_neighbor)
@@ -214,7 +215,7 @@ auto get_recall = [](const QueryResultsBatch &result_batch, const uint32_t *grou
       }
     }
   }
-  return (float)n_correct / (n_query_vectors * n_results);
+  return (float)n_correct / n_query_vectors;
 };
 
 SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][SIFT1M]")
@@ -241,14 +242,14 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
         root_index->batch_preassign_queries(queries);
         QueryResultsBatch results = storage_index->batch_search_preassigned(queries);
 
-        float recall = get_recall(results, groundtruth, n_query_vectors, n_results_groundtruth, n_results);
+        float recall_at_1 = get_recall_at_r(results, groundtruth, n_query_vectors, n_results_groundtruth, n_results, 1);
 
-        WARN("Recall@1 := " << recall);
+        WARN("Recall@1 := " << recall_at_1);
         THEN("the Recall@1 is 100% if we search all lists")
         {
           if (n_probe == n_lists)
           {
-            REQUIRE(recall == 1.0);
+            REQUIRE(recall_at_1 == 1.0);
           }
         }
 
