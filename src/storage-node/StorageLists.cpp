@@ -487,11 +487,11 @@ namespace ann_dkvs
     return filestream;
   }
 
-  StorageLists::list_id_counts_map_t StorageLists::bulk_create_lists(
+  void StorageLists::bulk_create_lists(
+      list_id_counts_map_t &lists_counts,
       const std::string &list_ids_filename,
       const len_t n_entries)
   {
-    list_id_counts_map_t lists_counts;
     std::ifstream list_ids_file = open_filestream(list_ids_filename);
     list_id_t list_id;
     len_t n_entries_read = 0;
@@ -514,7 +514,6 @@ namespace ann_dkvs
     {
       create_list(list_it.first, list_it.second);
     }
-    return lists_counts;
   }
 
   void StorageLists::bulk_insert_entries(
@@ -528,7 +527,8 @@ namespace ann_dkvs
       throw std::runtime_error("bulk_insert_entries() can only be called on an empty inverted lists");
     }
     reserve_space(n_entries);
-    list_id_counts_map_t entries_left = bulk_create_lists(list_ids_filename, n_entries);
+    list_id_counts_map_t entries_left;
+    bulk_create_lists(entries_left, list_ids_filename, n_entries);
 
     std::ifstream vectors_file = open_filestream(vectors_filename);
     std::ifstream ids_file = open_filestream(ids_filename);
@@ -568,5 +568,6 @@ namespace ann_dkvs
     vectors_file.close();
     ids_file.close();
     list_ids_file.close();
+    delete[] cur_vector;
   }
 }

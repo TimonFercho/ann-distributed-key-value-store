@@ -66,7 +66,7 @@ namespace ann_dkvs
     bool are_slots_adjacent(const Slot *slot_left, const Slot *slot_right) const;
     Slot *to_slot(const slot_it_t it) const;
     void reserve_space(const len_t n_entries);
-    list_id_counts_map_t bulk_create_lists(const std::string &list_ids_filename, const len_t n_entries);
+    void bulk_create_lists(list_id_counts_map_t& entries_left, const std::string &list_ids_filename, const len_t n_entries);
     std::ifstream open_filestream(const std::string &filename) const;
 
   public:
