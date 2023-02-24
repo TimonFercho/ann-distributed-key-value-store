@@ -1,40 +1,30 @@
 #ifndef QUERY_HPP_
 #define QUERY_HPP_
 
+#include <vector>
+
+#include "types.hpp"
+
 namespace ann_dkvs
 {
-  struct Query
+  class Query
   {
   private:
     vector_el_t *query_vector;
     list_id_t *list_to_probe;
-    len_t n_results;
-    len_t n_probes;
+    const len_t n_results;
+    const len_t n_probes;
     bool free_list_to_probe = false;
 
   public:
-    Query(vector_el_t *query_vector, len_t n_results, len_t n_probes) : query_vector(query_vector), list_to_probe(nullptr), n_results(n_results), n_probes(n_probes)
-    {
-      list_to_probe = new list_id_t[n_probes];
-      free_list_to_probe = true;
-    }
-    Query(vector_el_t *query_vector, list_id_t *list_to_probe, len_t n_results, len_t n_probes) : query_vector(query_vector), list_to_probe(list_to_probe), n_results(n_results), n_probes(n_probes) {}
-    vector_el_t *get_query_vector() const { return query_vector; }
-    list_id_t get_list_to_probe(len_t i) const { return list_to_probe[i]; }
-    len_t get_n_results() const { return n_results; }
-    len_t get_n_probe() const { return n_probes; }
-    void set_list_to_probe(len_t offset, list_id_t list_id)
-    {
-      assert(offset < n_probes);
-      list_to_probe[offset] = list_id;
-    }
-    ~Query()
-    {
-      if (free_list_to_probe)
-      {
-        delete[] list_to_probe;
-      }
-    }
+    Query(vector_el_t *query_vector, const len_t n_results, const len_t n_probes);
+    Query(vector_el_t *query_vector, list_id_t *list_to_probe, const len_t n_results, const len_t n_probes);
+    vector_el_t *get_query_vector() const;
+    list_id_t get_list_to_probe(const len_t i) const;
+    len_t get_n_results() const;
+    len_t get_n_probe() const;
+    void set_list_to_probe(const len_t offset, const list_id_t list_id) const;
+    ~Query();
   };
 
   typedef std::vector<Query *> QueryBatch;
