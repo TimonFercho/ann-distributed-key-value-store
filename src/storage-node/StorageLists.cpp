@@ -437,8 +437,8 @@ namespace ann_dkvs
       const list_id_t list_id,
       const vector_el_t *vectors,
       const vector_id_t *ids,
-      const size_t offset,
-      const len_t n_entries) const
+      const len_t n_entries,
+      const size_t offset) const
   {
     list_id_list_map_t::const_iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
@@ -464,7 +464,7 @@ namespace ann_dkvs
   {
     InvertedList *list = &id_to_list_map[list_id];
     resize_list(list_id, list->used_entries + n_entries);
-    update_entries(list_id, vectors, ids, list->used_entries - n_entries, n_entries);
+    update_entries(list_id, vectors, ids, n_entries, list->used_entries - n_entries);
   }
 
   void StorageLists::reserve_space(const len_t n_entries)

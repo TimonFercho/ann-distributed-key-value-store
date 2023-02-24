@@ -84,7 +84,7 @@ namespace ann_dkvs
     len_t get_list_length(const list_id_t list_id) const;
     void resize_list(const list_id_t list_id, const len_t length);
     void insert_entries(const list_id_t list_id, const vector_el_t *vectors, const vector_id_t *ids, const len_t n_entries);
-    void update_entries(const list_id_t list_id, const vector_el_t *vectors, const vector_id_t *ids, const size_t offset, const len_t n_entries) const;
+    void update_entries(const list_id_t list_id, const vector_el_t *vectors, const vector_id_t *ids, const len_t n_entries, const size_t offset) const;
     void create_list(
         const list_id_t list_id,
         const len_t n_entries);
