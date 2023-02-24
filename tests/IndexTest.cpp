@@ -57,8 +57,8 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
       vector_el_t query_vector[] = {0};
       len_t n_results = 3;
       list_id_t list_ids_to_probe[] = {1, 2};
-      len_t n_probe = 2;
-      Query query = Query(query_vector, list_ids_to_probe, n_results, n_probe);
+      len_t n_probes = 2;
+      Query query = Query(query_vector, list_ids_to_probe, n_results, n_probes);
 
       WHEN("the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object")
       {
@@ -86,7 +86,7 @@ SCENARIO("search_preassigned(): use index to find top k ANN of a query vector", 
   }
 }
 
-auto setup_indices_and_run = [](len_t n_probe,
+auto setup_indices_and_run = [](len_t n_probes,
                                 len_t n_lists,
                                 len_t n_entries,
                                 len_t n_query_vectors,
@@ -97,7 +97,7 @@ auto setup_indices_and_run = [](len_t n_probe,
                                 std::string groundtruth_filename,
                                 std::function<void(uint8_t *, uint32_t *, StorageIndex *, RootIndex *)> run)
 {
-  if (n_probe <= n_lists)
+  if (n_probes <= n_lists)
   {
     std::string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
     // groundtruth format: sizeof(uint32_t) + [n_results_groundtruth * sizeof(uint32_t)]
@@ -179,14 +179,14 @@ auto setup_indices_and_run = [](len_t n_probe,
   }
 };
 
-auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probe)
+auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
 {
   QueryBatch queries;
   for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
   {
     uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
     vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-    Query *query = new Query(query_vector, n_results, n_probe);
+    Query *query = new Query(query_vector, n_results, n_probes);
     queries.push_back(query);
   }
   return queries;
@@ -231,7 +231,7 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
     len_t n_query_vectors = (len_t)1E4;
     len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
     len_t n_lists = 1024;
-    len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32);
+    len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32);
     len_t n_results = GENERATE(1, 2, 4, 8, 16, 32);
 
     auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
@@ -242,10 +242,10 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
         WARN("max_n_threads := " << omp_get_max_threads());
 #endif
         WARN("n_lists := " << n_lists);
-        WARN("n_probe := " << n_probe);
+        WARN("n_probes := " << n_probes);
         WARN("n_results := " << n_results);
 
-        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
 
         root_index->batch_preassign_queries(queries);
         QueryResultsBatch results = storage_index->batch_search_preassigned(queries);
@@ -255,7 +255,7 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
         WARN("Recall@1 := " << recall_at_1);
         THEN("the Recall@1 is 100% if we search all lists")
         {
-          if (n_probe == n_lists)
+          if (n_probes == n_lists)
           {
             REQUIRE(recall_at_1 == 1.0);
           }
@@ -265,7 +265,7 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
       }
     };
 
-    setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, true, "SIFT1M", "idx_1M.ivecs", run);
+    setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, true, "SIFT1M", "idx_1M.ivecs", run);
   }
 }
 
@@ -276,7 +276,7 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
   len_t n_query_vectors = (len_t)1E4;
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
   len_t n_lists = 1024;
-  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32);
+  len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32);
   len_t n_results = 1;
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
@@ -288,12 +288,12 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
       WARN("max_n_threads := " << omp_get_max_threads());
 #endif
       WARN("n_lists := " << n_lists);
-      WARN("n_probe := " << n_probe);
+      WARN("n_probes := " << n_probes);
       WARN("n_results := " << n_results);
       BENCHMARK_ADVANCED("search_preassigned(): measurement excludes preassigning queries")
       (Catch::Benchmark::Chronometer meter)
       {
-        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
         root_index->batch_preassign_queries(queries);
         meter.measure([&storage_index, &queries]
                       { storage_index->batch_search_preassigned(queries); });
@@ -302,7 +302,7 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
     }
   };
 
-  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+  setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }
 
 SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][SIFT100M]")
@@ -312,7 +312,7 @@ SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][
   len_t n_query_vectors = (len_t)1E5;
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
   len_t n_lists = 1024;
-  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32);
+  len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32);
   len_t n_results = GENERATE(1, 2, 4, 8, 16, 32);
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
@@ -324,12 +324,12 @@ SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][
       WARN("max_n_threads := " << omp_get_max_threads());
 #endif
       WARN("n_lists := " << n_lists);
-      WARN("n_probe := " << n_probe);
+      WARN("n_probes := " << n_probes);
       WARN("n_results := " << n_results);
       BENCHMARK_ADVANCED("search_preassigned(): measurement excludes preassigning queries")
       (Catch::Benchmark::Chronometer meter)
       {
-        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
         root_index->batch_preassign_queries(queries);
         meter.measure([&storage_index, &queries]
                       { storage_index->batch_search_preassigned(queries); });
@@ -338,7 +338,7 @@ SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][
     }
   };
 
-  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT100M", "idx_100M.ivecs", run);
+  setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT100M", "idx_100M.ivecs", run);
 }
 
 SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M]")
@@ -347,7 +347,7 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
   len_t n_entries = (len_t)1E6;
   len_t n_query_vectors = (len_t)1E4;
   len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
-  len_t n_probe = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
+  len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
   len_t n_results = 1;
 
@@ -361,18 +361,18 @@ SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M
       WARN("max_n_threads := " << omp_get_max_threads());
 #endif
       WARN("n_lists := " << n_lists);
-      WARN("n_probe := " << n_probe);
+      WARN("n_probes := " << n_probes);
       WARN("n_results := " << n_results);
 
       BENCHMARK_ADVANCED("preassign_query(): does not measure search")
       (Catch::Benchmark::Chronometer meter)
       {
-        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probe);
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
         meter.measure([&root_index, &queries]
                       { root_index->batch_preassign_queries(queries); });
         free_queries(queries);
       };
     }
   };
-  setup_indices_and_run(n_probe, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+  setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }

@@ -1,7 +1,7 @@
 # `search_preassigned_list`: Correctly finds 1st nearest neighbor
 - Dataset: `cluster/out/SIFT1M`
 - Groundtruth: `cluster/data/bigann/gnd/idx_1M.ivecs`
-- `n_probe = n_lists = 1024`
+- `n_probes = n_lists = 1024`
 
 
 ## 1st NN for query `5759` does not match groundtruth
@@ -13,7 +13,7 @@ Inserted 1000000 entries of 1000000 (100%)
 True nearest neighbor 151761 of query 5759 not found among results
 -------------------------------------------------------------------------------
 Scenario: search_preassigned_list(): test recall with SIFT1M
-      Given: the SIFT1M dataset, n_probe as large as the number of clusters
+      Given: the SIFT1M dataset, n_probes as large as the number of clusters
        When: the files are mapped to memory
        When: the StorageLists object is populated with the vectors, ids and
              list ids and used to initialize an StorageIndex object
@@ -123,6 +123,6 @@ All tests passed (13 assertions in 1 test case)
 
 # `search_preassigned_list`: Recall@1 for SIFT1M
 - `n_lists = [256, 512, 1024, 2048, 4096]`
-- `n_probe = [1, 2, ..., n_lists]`
+- `n_probes = [1, 2, ..., n_lists]`
 
 ![index-recall-at-1](index-recall-at-1.jpg)

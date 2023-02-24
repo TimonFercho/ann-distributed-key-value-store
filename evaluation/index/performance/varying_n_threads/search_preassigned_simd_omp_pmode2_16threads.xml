@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Catch name="testmain" filters="[search_preassigned][SIFT1M][benchmark]">
   <Group name="testmain">
-    <TestCase name="Scenario: search_preassigned(): benchmark querying with SIFT1M" tags="[SIFT1M][StorageIndex][benchmark][search_preassigned]" filename="tests/IndexTest.cpp" line="271">
+    <TestCase name="Scenario: search_preassigned(): benchmark querying with SIFT1M"
+      tags="[SIFT1M][StorageIndex][benchmark][search_preassigned]" filename="tests/IndexTest.cpp"
+      line="271">
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
-            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp"
+            line="145">
+            <OverallResults successes="5" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          <OverallResults successes="5" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+        <OverallResults successes="11" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
-            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="284">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section
+            name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object"
+            filename="tests/IndexTest.cpp" line="158">
+            <Section
+              name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors"
+              filename="tests/IndexTest.cpp" line="284">
               <Warning>
                 max_n_threads := 16
               </Warning>
@@ -22,38 +31,50 @@
                 n_lists := 1024
               </Warning>
               <Warning>
-                n_probe := 1
+                n_probes := 1
               </Warning>
               <Warning>
                 n_results := 1
               </Warning>
-              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="87.8011" estimatedDuration="7.9086e+08">
-                <!--All values in nano seconds-->
-                <mean value="2.5725e+08" lowerBound="2.54221e+08" upperBound="2.58879e+08" ci="0.95"/>
-                <standardDeviation value="2.16034e+06" lowerBound="0" upperBound="2.30317e+06" ci="0.95"/>
-                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              <BenchmarkResults
+                name="search_preassigned(): measurement excludes preassigning queries" samples="3"
+                resamples="100000" iterations="1" clockResolution="87.8011"
+                estimatedDuration="7.9086e+08">
+                <!--All
+                values in nano seconds-->
+                <mean value="2.5725e+08" lowerBound="2.54221e+08" upperBound="2.58879e+08" ci="0.95" />
+                <standardDeviation value="2.16034e+06" lowerBound="0" upperBound="2.30317e+06"
+                  ci="0.95" />
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0" />
               </BenchmarkResults>
-              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+              <OverallResults successes="0" failures="0" expectedFailures="0" />
             </Section>
-            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          <OverallResults successes="0" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+        <OverallResults successes="6" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
-            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp"
+            line="145">
+            <OverallResults successes="5" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          <OverallResults successes="5" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+        <OverallResults successes="11" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
-            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="284">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section
+            name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object"
+            filename="tests/IndexTest.cpp" line="158">
+            <Section
+              name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors"
+              filename="tests/IndexTest.cpp" line="284">
               <Warning>
                 max_n_threads := 16
               </Warning>
@@ -61,38 +82,51 @@
                 n_lists := 1024
               </Warning>
               <Warning>
-                n_probe := 2
+                n_probes := 2
               </Warning>
               <Warning>
                 n_results := 1
               </Warning>
-              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="87.8011" estimatedDuration="1.39522e+09">
-                <!--All values in nano seconds-->
-                <mean value="4.93383e+08" lowerBound="4.86753e+08" upperBound="4.98355e+08" ci="0.95"/>
-                <standardDeviation value="6.20007e+06" lowerBound="0" upperBound="7.03071e+06" ci="0.95"/>
-                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              <BenchmarkResults
+                name="search_preassigned(): measurement excludes preassigning queries" samples="3"
+                resamples="100000" iterations="1" clockResolution="87.8011"
+                estimatedDuration="1.39522e+09">
+                <!--All
+                values in nano seconds-->
+                <mean value="4.93383e+08" lowerBound="4.86753e+08" upperBound="4.98355e+08"
+                  ci="0.95" />
+                <standardDeviation value="6.20007e+06" lowerBound="0" upperBound="7.03071e+06"
+                  ci="0.95" />
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0" />
               </BenchmarkResults>
-              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+              <OverallResults successes="0" failures="0" expectedFailures="0" />
             </Section>
-            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          <OverallResults successes="0" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+        <OverallResults successes="6" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
-            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp"
+            line="145">
+            <OverallResults successes="5" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          <OverallResults successes="5" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+        <OverallResults successes="11" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
-            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="284">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section
+            name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object"
+            filename="tests/IndexTest.cpp" line="158">
+            <Section
+              name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors"
+              filename="tests/IndexTest.cpp" line="284">
               <Warning>
                 max_n_threads := 16
               </Warning>
@@ -100,38 +134,51 @@
                 n_lists := 1024
               </Warning>
               <Warning>
-                n_probe := 4
+                n_probes := 4
               </Warning>
               <Warning>
                 n_results := 1
               </Warning>
-              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="87.8011" estimatedDuration="3.55714e+09">
-                <!--All values in nano seconds-->
-                <mean value="8.45515e+08" lowerBound="8.12162e+08" upperBound="8.73446e+08" ci="0.95"/>
-                <standardDeviation value="3.62779e+07" lowerBound="0" upperBound="3.94995e+07" ci="0.95"/>
-                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              <BenchmarkResults
+                name="search_preassigned(): measurement excludes preassigning queries" samples="3"
+                resamples="100000" iterations="1" clockResolution="87.8011"
+                estimatedDuration="3.55714e+09">
+                <!--All
+                values in nano seconds-->
+                <mean value="8.45515e+08" lowerBound="8.12162e+08" upperBound="8.73446e+08"
+                  ci="0.95" />
+                <standardDeviation value="3.62779e+07" lowerBound="0" upperBound="3.94995e+07"
+                  ci="0.95" />
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0" />
               </BenchmarkResults>
-              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+              <OverallResults successes="0" failures="0" expectedFailures="0" />
             </Section>
-            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          <OverallResults successes="0" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+        <OverallResults successes="6" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
-            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp"
+            line="145">
+            <OverallResults successes="5" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          <OverallResults successes="5" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+        <OverallResults successes="11" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
-            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="284">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section
+            name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object"
+            filename="tests/IndexTest.cpp" line="158">
+            <Section
+              name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors"
+              filename="tests/IndexTest.cpp" line="284">
               <Warning>
                 max_n_threads := 16
               </Warning>
@@ -139,38 +186,50 @@
                 n_lists := 1024
               </Warning>
               <Warning>
-                n_probe := 8
+                n_probes := 8
               </Warning>
               <Warning>
                 n_results := 1
               </Warning>
-              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="87.8011" estimatedDuration="6.17032e+09">
-                <!--All values in nano seconds-->
-                <mean value="1.8822e+09" lowerBound="1.86164e+09" upperBound="1.89349e+09" ci="0.95"/>
-                <standardDeviation value="1.47461e+07" lowerBound="0" upperBound="1.59678e+07" ci="0.95"/>
-                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              <BenchmarkResults
+                name="search_preassigned(): measurement excludes preassigning queries" samples="3"
+                resamples="100000" iterations="1" clockResolution="87.8011"
+                estimatedDuration="6.17032e+09">
+                <!--All
+                values in nano seconds-->
+                <mean value="1.8822e+09" lowerBound="1.86164e+09" upperBound="1.89349e+09" ci="0.95" />
+                <standardDeviation value="1.47461e+07" lowerBound="0" upperBound="1.59678e+07"
+                  ci="0.95" />
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0" />
               </BenchmarkResults>
-              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+              <OverallResults successes="0" failures="0" expectedFailures="0" />
             </Section>
-            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          <OverallResults successes="0" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+        <OverallResults successes="6" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
-            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp"
+            line="145">
+            <OverallResults successes="5" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          <OverallResults successes="5" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+        <OverallResults successes="11" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
-            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="284">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section
+            name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object"
+            filename="tests/IndexTest.cpp" line="158">
+            <Section
+              name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors"
+              filename="tests/IndexTest.cpp" line="284">
               <Warning>
                 max_n_threads := 16
               </Warning>
@@ -178,38 +237,51 @@
                 n_lists := 1024
               </Warning>
               <Warning>
-                n_probe := 16
+                n_probes := 16
               </Warning>
               <Warning>
                 n_results := 1
               </Warning>
-              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="87.8011" estimatedDuration="1.2412e+10">
-                <!--All values in nano seconds-->
-                <mean value="3.93688e+09" lowerBound="3.69141e+09" upperBound="4.08734e+09" ci="0.95"/>
-                <standardDeviation value="1.86391e+08" lowerBound="0" upperBound="2.12789e+08" ci="0.95"/>
-                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              <BenchmarkResults
+                name="search_preassigned(): measurement excludes preassigning queries" samples="3"
+                resamples="100000" iterations="1" clockResolution="87.8011"
+                estimatedDuration="1.2412e+10">
+                <!--All
+                values in nano seconds-->
+                <mean value="3.93688e+09" lowerBound="3.69141e+09" upperBound="4.08734e+09"
+                  ci="0.95" />
+                <standardDeviation value="1.86391e+08" lowerBound="0" upperBound="2.12789e+08"
+                  ci="0.95" />
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0" />
               </BenchmarkResults>
-              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+              <OverallResults successes="0" failures="0" expectedFailures="0" />
             </Section>
-            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          <OverallResults successes="0" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+        <OverallResults successes="6" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="145">
-            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp"
+            line="145">
+            <OverallResults successes="5" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          <OverallResults successes="5" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+        <OverallResults successes="11" failures="0" expectedFailures="0" />
       </Section>
       <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="116">
-        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="125">
-          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="158">
-            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="284">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="125">
+          <Section
+            name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object"
+            filename="tests/IndexTest.cpp" line="158">
+            <Section
+              name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors"
+              filename="tests/IndexTest.cpp" line="284">
               <Warning>
                 max_n_threads := 16
               </Warning>
@@ -217,105 +289,110 @@
                 n_lists := 1024
               </Warning>
               <Warning>
-                n_probe := 32
+                n_probes := 32
               </Warning>
               <Warning>
                 n_results := 1
               </Warning>
-              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="87.8011" estimatedDuration="2.32696e+10">
-                <!--All values in nano seconds-->
-                <mean value="6.7589e+09" lowerBound="6.21981e+09" upperBound="7.03563e+09" ci="0.95"/>
-                <standardDeviation value="3.81606e+08" lowerBound="0" upperBound="3.91352e+08" ci="0.95"/>
-                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              <BenchmarkResults
+                name="search_preassigned(): measurement excludes preassigning queries" samples="3"
+                resamples="100000" iterations="1" clockResolution="87.8011"
+                estimatedDuration="2.32696e+10">
+                <!--All
+                values in nano seconds-->
+                <mean value="6.7589e+09" lowerBound="6.21981e+09" upperBound="7.03563e+09" ci="0.95" />
+                <standardDeviation value="3.81606e+08" lowerBound="0" upperBound="3.91352e+08"
+                  ci="0.95" />
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0" />
               </BenchmarkResults>
-              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+              <OverallResults successes="0" failures="0" expectedFailures="0" />
             </Section>
-            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
           </Section>
-          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          <OverallResults successes="0" failures="0" expectedFailures="0" />
         </Section>
-        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+        <OverallResults successes="6" failures="0" expectedFailures="0" />
       </Section>
       <OverallResult success="true">
         <StdOut>
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
-Checking if file cluster/out/SIFT1M/vectors.bin exists
-Checking if file cluster/out/SIFT1M/vector_ids.bin exists
-Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
-Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
-Checking if file cluster/data/bigann/bigann_query.bvecs exists
-Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
+          Checking if file cluster/out/SIFT1M/vectors.bin exists
+          Checking if file cluster/out/SIFT1M/vector_ids.bin exists
+          Checking if file cluster/out/SIFT1M/list_ids_1024.bin exists
+          Checking if file cluster/out/SIFT1M/centroids_1024.bin exists
+          Checking if file cluster/data/bigann/bigann_query.bvecs exists
+          Checking if file cluster/data/bigann/gnd/idx_1M.ivecs exists
         </StdOut>
       </OverallResult>
     </TestCase>
-    <OverallResults successes="102" failures="0" expectedFailures="0"/>
-    <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+    <OverallResults successes="102" failures="0" expectedFailures="0" />
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0" />
   </Group>
-  <OverallResults successes="102" failures="0" expectedFailures="0"/>
-  <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+  <OverallResults successes="102" failures="0" expectedFailures="0" />
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0" />
 </Catch>

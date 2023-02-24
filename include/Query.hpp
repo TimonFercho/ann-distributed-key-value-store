@@ -9,23 +9,23 @@ namespace ann_dkvs
     vector_el_t *query_vector;
     list_id_t *list_to_probe;
     len_t n_results;
-    len_t n_probe;
+    len_t n_probes;
     bool free_list_to_probe = false;
 
   public:
-    Query(vector_el_t *query_vector, len_t n_results, len_t n_probe) : query_vector(query_vector), list_to_probe(nullptr), n_results(n_results), n_probe(n_probe)
+    Query(vector_el_t *query_vector, len_t n_results, len_t n_probes) : query_vector(query_vector), list_to_probe(nullptr), n_results(n_results), n_probes(n_probes)
     {
-      list_to_probe = new list_id_t[n_probe];
+      list_to_probe = new list_id_t[n_probes];
       free_list_to_probe = true;
     }
-    Query(vector_el_t *query_vector, list_id_t *list_to_probe, len_t n_results, len_t n_probe) : query_vector(query_vector), list_to_probe(list_to_probe), n_results(n_results), n_probe(n_probe) {}
+    Query(vector_el_t *query_vector, list_id_t *list_to_probe, len_t n_results, len_t n_probes) : query_vector(query_vector), list_to_probe(list_to_probe), n_results(n_results), n_probes(n_probes) {}
     vector_el_t *get_query_vector() const { return query_vector; }
     list_id_t get_list_to_probe(len_t i) const { return list_to_probe[i]; }
     len_t get_n_results() const { return n_results; }
-    len_t get_n_probe() const { return n_probe; }
+    len_t get_n_probe() const { return n_probes; }
     void set_list_to_probe(len_t offset, list_id_t list_id)
     {
-      assert(offset < n_probe);
+      assert(offset < n_probes);
       list_to_probe[offset] = list_id;
     }
     ~Query()
