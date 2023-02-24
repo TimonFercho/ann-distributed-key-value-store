@@ -81,7 +81,7 @@ namespace ann_dkvs
     return max_free_space;
   }
 
-  StorageLists::StorageLists(const len_t vector_dim, const std::string filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
+  StorageLists::StorageLists(const len_t vector_dim, const std::string &filename) : filename(filename), vector_dim(vector_dim), vector_size(vector_dim * sizeof(vector_el_t)), total_size(0)
   {
     if (vector_dim == 0)
     {
@@ -332,7 +332,7 @@ namespace ann_dkvs
 
   bool StorageLists::are_slots_adjacent(
       const Slot *slot_left, const Slot *slot_right) const
-  { 
+  {
     if (slot_left == nullptr || slot_right == nullptr)
     {
       return false;
@@ -477,7 +477,7 @@ namespace ann_dkvs
     grow_region_until_enough_space(size_to_reserve);
   }
 
-  std::ifstream StorageLists::open_filestream(const std::string filename) const
+  std::ifstream StorageLists::open_filestream(const std::string &filename) const
   {
     std::ifstream filestream(filename, std::ios::in | std::ios::binary);
     if (!filestream.is_open())
@@ -488,7 +488,7 @@ namespace ann_dkvs
   }
 
   StorageLists::list_id_counts_map_t StorageLists::bulk_create_lists(
-      const std::string list_ids_filename,
+      const std::string &list_ids_filename,
       const len_t n_entries)
   {
     list_id_counts_map_t lists_counts;
@@ -518,9 +518,9 @@ namespace ann_dkvs
   }
 
   void StorageLists::bulk_insert_entries(
-      const std::string vectors_filename,
-      const std::string ids_filename,
-      const std::string list_ids_filename,
+      const std::string &vectors_filename,
+      const std::string &ids_filename,
+      const std::string &list_ids_filename,
       const len_t n_entries)
   {
     if (total_size != 0)
