@@ -3,7 +3,7 @@
 
 #include "../lib/catch.hpp"
 
-#include "../include/tests/InvertedListsTestUtils.hpp"
+#include "../include/tests/StorageListsTestUtils.hpp"
 #include "../include/storage-node/StorageIndex.hpp"
 #include "../include/L2Space.hpp"
 #include "../include/root-node/RootIndex.hpp"

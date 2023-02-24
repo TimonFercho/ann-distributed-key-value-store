@@ -1,4 +1,4 @@
-#include "../include/tests/InvertedListsTestUtils.hpp"
+#include "../include/tests/StorageListsTestUtils.hpp"
 #include <sys/mman.h>
 
 namespace ann_dkvs

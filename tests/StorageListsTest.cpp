@@ -7,7 +7,7 @@
 
 #include "../lib/catch.hpp"
 
-#include "../include/tests/InvertedListsTestUtils.hpp"
+#include "../include/tests/StorageListsTestUtils.hpp"
 SCENARIO("StorageLists(): an StorageLists object can be constructed", "[.StorageLists]")
 {
   GIVEN("a nonzero vector dimension")
