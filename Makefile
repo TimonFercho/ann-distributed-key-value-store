@@ -9,7 +9,7 @@
 CXX = g++
 
 # define any compile-time flags
-CXXFLAGS	:= -std=c++17 -Wall -Wextra -g
+CXXFLAGS	:= -std=c++17 -Wall -Wextra
 USE_SIMD := TRUE
 USE_OMP := TRUE
 
@@ -40,6 +40,12 @@ endif
 endif
 CXXFLAGS += -D PMODE=$(PMODE)
 
+DEBUG := FALSE
+ifeq ($(DEBUG),TRUE)
+CXXFLAGS += -g
+else
+CXXFLAGS += -O3
+endif
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
