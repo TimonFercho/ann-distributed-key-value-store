@@ -47,7 +47,12 @@ namespace ann_dkvs
   void read_from_file(std::string filename, void *data, size_t size)
   {
     FILE *file = fopen(filename.c_str(), "r");
-    fread(data, size, 1, file);
+    size_t size_read = fread(data, size, 1, file);
+    if (size_read != size)
+    {
+      std::cout << "Error reading from file " << filename << std::endl;
+      exit(1);
+    }
     fclose(file);
   }
 
