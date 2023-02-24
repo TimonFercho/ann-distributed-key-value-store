@@ -2,5 +2,5 @@
 
 namespace ann_dkvs
 {
-  StorageNode::StorageNode(StorageIndex index) : index(index) {}
+  StorageNode::StorageNode(const StorageIndex &index) : index(index) {}
 }

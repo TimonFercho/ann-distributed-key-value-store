@@ -8,10 +8,10 @@ namespace ann_dkvs
   class StorageNode
   {
   private:
-    StorageIndex index;
+    const StorageIndex &index;
 
   public:
-    StorageNode(StorageIndex index);
+    StorageNode(const StorageIndex &index);
   };
 }
 
