@@ -13,7 +13,7 @@ namespace ann_dkvs
   class VectorDistanceIdMaxHeapCompare
   {
   public:
-    bool operator()(const QueryResult &parent, const QueryResult &child)
+    bool operator()(const QueryResult &parent, const QueryResult &child) const
     {
       bool swapParentWithChild = parent < child;
       return swapParentWithChild;
@@ -27,20 +27,20 @@ namespace ann_dkvs
   {
 
   private:
-    StorageLists *lists;
-    distance_func_t distance_func;
-    QueryResults extract_results(heap_t *candidates);
+    const StorageLists *lists;
+    const distance_func_t distance_func;
+    QueryResults extract_results(heap_t &candidates) const;
     void search_preassigned_list(
         const Query *query,
-        list_id_t list_id,
-        heap_t &candidates);
-    QueryListPairs get_work_items(QueryBatch queries);
-    void add_candidate(const Query *query, const QueryResult &candidate, heap_t &candidates);
+        const list_id_t list_id,
+        heap_t &candidates) const;
+    QueryListPairs get_work_items(const QueryBatch &queries) const;
+    void add_candidate(const Query *query, const QueryResult &candidate, heap_t &candidates) const;
 
   public:
-    StorageIndex(StorageLists *lists);
-    QueryResults search_preassigned(Query *query);
-    QueryResultsBatch batch_search_preassigned(const QueryBatch &queries);
+    StorageIndex(const StorageLists *lists);
+    QueryResults search_preassigned(const Query *query) const;
+    QueryResultsBatch batch_search_preassigned(const QueryBatch &queries) const;
   };
 }
 #endif // INDEX_HPP_

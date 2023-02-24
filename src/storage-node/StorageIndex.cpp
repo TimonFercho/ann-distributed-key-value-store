@@ -4,19 +4,19 @@
 namespace ann_dkvs
 {
 
-  QueryResults StorageIndex::extract_results(heap_t *candidates)
+  QueryResults StorageIndex::extract_results(heap_t &candidates) const
   {
-    len_t n_results = candidates->size();
+    len_t n_results = candidates.size();
     QueryResults results(n_results);
     for (size_t i = 0; i < n_results; i++)
     {
-      results[n_results - i - 1] = candidates->top();
-      candidates->pop();
+      results[n_results - i - 1] = candidates.top();
+      candidates.pop();
     }
     return results;
   }
 
-  void StorageIndex::add_candidate(const Query *query, const QueryResult &result, heap_t &candidates)
+  void StorageIndex::add_candidate(const Query *query, const QueryResult &result, heap_t &candidates) const
   {
     if (candidates.size() < query->get_n_results())
     {
@@ -31,8 +31,8 @@ namespace ann_dkvs
 
   void StorageIndex::search_preassigned_list(
       const Query *query,
-      list_id_t list_id,
-      heap_t &candidates)
+      const list_id_t list_id,
+      heap_t &candidates) const
   {
     vector_el_t *vectors = lists->get_vectors(list_id);
     vector_id_t *ids = lists->get_ids(list_id);
@@ -48,13 +48,12 @@ namespace ann_dkvs
     }
   }
 
-  StorageIndex::StorageIndex(StorageLists *lists)
-      : lists(lists)
+  StorageIndex::StorageIndex(const StorageLists *lists)
+      : lists(lists), distance_func(L2Space(lists->get_vector_dim()).get_distance_func())
   {
-    distance_func = L2Space(lists->get_vector_dim()).get_distance_func();
   }
 
-  QueryResults StorageIndex::search_preassigned(Query *query)
+  QueryResults StorageIndex::search_preassigned(const Query *query) const
   {
     heap_t candidates;
     for (len_t i = 0; i < query->get_n_probe(); i++)
@@ -62,10 +61,10 @@ namespace ann_dkvs
       list_id_t list_id = query->get_list_to_probe(i);
       search_preassigned_list(query, list_id, candidates);
     }
-    return extract_results(&candidates);
+    return extract_results(candidates);
   }
 
-  QueryListPairs StorageIndex::get_work_items(QueryBatch queries)
+  QueryListPairs StorageIndex::get_work_items(const QueryBatch &queries) const
   {
     QueryListPairs work_items;
     for (len_t i = 0; i < queries.size(); i++)
@@ -79,7 +78,7 @@ namespace ann_dkvs
     return work_items;
   }
 
-  QueryResultsBatch StorageIndex::batch_search_preassigned(const QueryBatch &queries)
+  QueryResultsBatch StorageIndex::batch_search_preassigned(const QueryBatch &queries) const
   {
     QueryResultsBatch results(queries.size());
 
@@ -117,7 +116,7 @@ namespace ann_dkvs
 #pragma omp single
     for (len_t j = 0; j < queries.size(); j++)
     {
-      results[j] = extract_results(&candidate_lists[j]);
+      results[j] = extract_results(candidate_lists[j]);
     }
 #endif
     return results;
