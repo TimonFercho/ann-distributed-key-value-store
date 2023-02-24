@@ -526,9 +526,12 @@ namespace ann_dkvs
     {
       throw std::runtime_error("bulk_insert_entries() can only be called on an empty inverted lists");
     }
+
+#ifndef DYNAMIC_INSERTION
     reserve_space(n_entries);
     list_id_counts_map_t entries_left;
     bulk_create_lists(entries_left, list_ids_filename, n_entries);
+#endif
 
     std::ifstream vectors_file = open_filestream(vectors_filename);
     std::ifstream ids_file = open_filestream(ids_filename);
@@ -553,10 +556,14 @@ namespace ann_dkvs
       {
         throw std::runtime_error("Error reading list ids file");
       }
+#ifdef DYNAMIC_INSERTION
+      insert_entries(cur_list_id, cur_vector, &cur_id, 1);
+#else
       len_t list_length = get_list_length(cur_list_id);
       len_t cur_list_offset = list_length - entries_left[cur_list_id];
       update_entries(cur_list_id, cur_vector, &cur_id, cur_list_offset, 1);
       entries_left[cur_list_id]--;
+#endif
       n_entries_read++;
     }
 
