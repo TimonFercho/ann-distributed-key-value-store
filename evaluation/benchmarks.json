@@ -1,0 +1,29 @@
+{
+  "defaults": {
+    "run": false,
+    "executable": "./out/testmain",
+    "make_command": "make clean && make test",
+    "env_OMP_NUM_THREADS": "128",
+    "DEBUG": "0",
+    "USE_SIMD": "1",
+    "USE_OMP": "1",
+    "PMODE": "2",
+    "DYNAMIC_INSERTION": "1",
+    "MIN_TOTAL_SIZE_BYTES": "32",
+    "MIN_N_ENTRIES_PER_LIST": "32",
+    "MAX_BUFFER_SIZE": "100000",
+    "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark]",
+    "benchmark-samples": "1",
+    "reporter": "xml",
+    "O": "3"
+  },
+  "benchmarks": [
+    {
+      "run": true
+    },
+    {
+      "run": true,
+      "env_OMP_NUM_THREADS": "64"
+    }
+  ]
+}
