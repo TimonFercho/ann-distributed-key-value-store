@@ -90,8 +90,8 @@ namespace ann_dkvs
 
   public:
     L2Space(size_t vector_dim);
-    distance_func_t get_distance_func();
-    size_t get_vector_dim();
+    distance_func_t get_distance_func() const;
+    size_t get_vector_dim() const;
   };
 
 } // namespace ann_dkvs

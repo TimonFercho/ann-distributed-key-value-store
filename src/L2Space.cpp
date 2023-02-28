@@ -19,12 +19,12 @@ namespace ann_dkvs
 #endif
   }
 
-  distance_func_t L2Space::get_distance_func()
+  distance_func_t L2Space::get_distance_func() const
   {
     return distance_func;
   }
 
-  len_t L2Space::get_vector_dim()
+  len_t L2Space::get_vector_dim() const
   {
     return vector_dim;
   }
