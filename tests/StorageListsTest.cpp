@@ -1057,6 +1057,15 @@ SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[StorageLists][bulk_ins
   bench_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists);
 }
 
+SCENARIO("benchmark bulk_insert_entries with sorted SIFT100M", "[StorageLists][bulk_insert_entries][.benchmark][SIFT100M][sorted]")
+{
+  len_t n_entries = (len_t)1E8;
+  len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
+  len_t n_lists = GENERATE(TEST_N_LISTS);
+  WARN("n_lists := " << n_lists);
+  bench_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists, true);
+}
+
 SCENARIO("test bulk_insert_entries with SIFT1B", "[StorageLists][bulk_insert_entries][.test][SIFT1B][SIFT1000M]")
 {
   len_t n_entries = (len_t)1E9;
