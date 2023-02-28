@@ -192,25 +192,36 @@ auto setup_indices_and_run = [](len_t n_probes,
   }
 };
 
+auto prepare_query = [](uint8_t *query_vectors, len_t query_id, len_t vector_dim, len_t n_results, len_t n_probes)
+{
+  uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
+  vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
+  Query *query = new Query(query_vector, n_results, n_probes);
+  return query;
+};
+
 auto prepare_queries = [](uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
 {
   QueryBatch queries;
   for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
   {
-    uint8_t *query_bytes = &query_vectors[query_id * (vector_dim + 4) + 4];
-    vector_el_t *query_vector = alloc_query_as_vector_el(query_bytes, vector_dim);
-    Query *query = new Query(query_vector, n_results, n_probes);
+    Query *query = prepare_query(query_vectors, query_id, vector_dim, n_results, n_probes);
     queries.push_back(query);
   }
   return queries;
+};
+
+auto free_query = [](Query *query)
+{
+  free(query->get_query_vector());
+  delete query;
 };
 
 auto free_queries = [](QueryBatch queries)
 {
   for (len_t query_id = 0; query_id < queries.size(); query_id++)
   {
-    free(queries[query_id]->get_query_vector());
-    delete queries[query_id];
+    free_query(queries[query_id]);
   }
 };
 
@@ -233,6 +244,37 @@ auto get_recall_at_r = [](const QueryResultsBatch &result_batch, const uint32_t 
     }
   }
   return (float)n_correct / n_query_vectors;
+};
+
+auto get_median_95th_99th_percentile = [](const std::vector<long> &values)
+{
+  std::vector<long> sorted_values = values;
+  std::sort(sorted_values.begin(), sorted_values.end());
+  len_t n_values = sorted_values.size();
+  len_t median_index = n_values / 2;
+  len_t percentile_95_index = (len_t)(n_values * 0.95);
+  len_t percentile_99_index = (len_t)(n_values * 0.99);
+  return std::make_tuple(sorted_values[median_index], sorted_values[percentile_95_index], sorted_values[percentile_99_index]);
+};
+
+auto measure_search_preassigned_latency = [](StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
+{
+  std::vector<long> latencies(n_query_vectors);
+  for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
+  {
+    Query *query = prepare_query(query_vectors, query_id, vector_dim, n_results, n_probes);
+    QueryBatch queries = {query};
+    root_index->batch_preassign_queries(queries);
+    auto begin = std::chrono::high_resolution_clock::now();
+
+    storage_index->batch_search_preassigned(queries);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto latency_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+    latencies[query_id] = latency_ns;
+    free_query(query);
+  }
+  return latencies;
 };
 
 SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][recall][SIFT1M]")
@@ -282,15 +324,15 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
   }
 }
 
-SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][SIFT1M]")
+SCENARIO("search_preassigned(): throughput benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][throughput][SIFT1M]")
 {
-  len_t vector_dim = 128;
+  len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_entries = (len_t)1E6;
   len_t n_query_vectors = (len_t)1E4;
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-  len_t n_lists = 1024;
-  len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32);
-  len_t n_results = 1;
+  len_t n_lists = GENERATE(TEST_N_LISTS);
+  len_t n_probes = GENERATE(TEST_N_PROBES);
+  len_t n_results = GENERATE(TEST_N_RESULTS);
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -312,6 +354,41 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
                       { storage_index->batch_search_preassigned(queries); });
         free_queries(queries);
       };
+    }
+  };
+
+  setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+}
+
+SCENARIO("search_preassigned(): latency benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][latency][SIFT1M]")
+{
+  len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
+  len_t n_entries = (len_t)1E6;
+  len_t n_query_vectors = (len_t)1E4;
+  len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+  len_t n_lists = GENERATE(TEST_N_LISTS);
+  len_t n_probes = GENERATE(TEST_N_PROBES);
+  len_t n_results = GENERATE(TEST_N_RESULTS);
+
+  auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
+  {
+    UNUSED(groundtruth);
+    WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
+    {
+#ifdef _OPENMP
+      WARN("max_n_threads := " << omp_get_max_threads());
+#endif
+      WARN("n_lists := " << n_lists);
+      WARN("n_probes := " << n_probes);
+      WARN("n_results := " << n_results);
+
+      std::vector<long> latencies = measure_search_preassigned_latency(
+          storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+
+      auto median_95th_99th = get_median_95th_99th_percentile(latencies);
+      WARN("latency_median := " << std::get<0>(median_95th_99th));
+      WARN("latency_95th_percentile := " << std::get<1>(median_95th_99th));
+      WARN("latency_99th_percentile := " << std::get<2>(median_95th_99th));
     }
   };
 
@@ -385,6 +462,61 @@ SCENARIO("preassign_query()", "[RootIndex][preassign_query][benchmark][SIFT1M][t
                       { root_index->batch_preassign_queries(queries); });
         free_queries(queries);
       };
+    }
+  };
+  setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
+}
+
+auto measure_preassign_query_latency(StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
+{
+  UNUSED(storage_index);
+  std::vector<long> latencies(n_query_vectors);
+  for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
+  {
+    Query *query = prepare_query(query_vectors, query_id, vector_dim, n_results, n_probes);
+    QueryBatch queries = {query};
+    auto start = std::chrono::high_resolution_clock::now();
+
+    root_index->batch_preassign_queries(queries);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto latency_ns = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+    latencies[query_id] = latency_ns;
+    free_query(query);
+  }
+  return latencies;
+}
+
+SCENARIO("preassign_query(): latency benchmark querying with SIFT1M", "[RootIndex][preassign_query][benchmark][latency][SIFT1M]")
+{
+  len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
+  len_t n_entries = (len_t)1E6;
+  len_t n_query_vectors = (len_t)1E4;
+  len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+  len_t n_lists = GENERATE(TEST_N_LISTS);
+  len_t n_probes = GENERATE(TEST_N_PROBES);
+  len_t n_results = GENERATE(TEST_N_RESULTS);
+
+  auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
+  {
+    UNUSED(groundtruth);
+    UNUSED(storage_index);
+    WHEN("for each query vector, the closest centroids are determined")
+    {
+#ifdef _OPENMP
+      WARN("max_n_threads := " << omp_get_max_threads());
+#endif
+      WARN("n_lists := " << n_lists);
+      WARN("n_probes := " << n_probes);
+      WARN("n_results := " << n_results);
+
+      std::vector<long> latencies = measure_preassign_query_latency(
+          storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+
+      auto median_95th_99th = get_median_95th_99th_percentile(latencies);
+      WARN("latency_median := " << std::get<0>(median_95th_99th));
+      WARN("latency_95th_percentile := " << std::get<1>(median_95th_99th));
+      WARN("latency_99th_percentile := " << std::get<2>(median_95th_99th));
     }
   };
   setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
