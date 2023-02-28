@@ -12,6 +12,19 @@
 #define UNUSED(x) (void)(x)
 #define N_RESULTS_GROUNDTRUTH 1000
 
+#ifndef TEST_VECTOR_DIM
+#define TEST_VECTOR_DIM 128
+#endif
+#ifndef TEST_N_LISTS
+#define TEST_N_LISTS 1024
+#endif
+#ifndef TEST_N_PROBES
+#define TEST_N_PROBES 32
+#endif
+#ifndef TEST_N_RESULTS
+#define TEST_N_RESULTS 1
+#endif
+
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -226,13 +239,13 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
 {
   GIVEN("the SIFT1M dataset")
   {
-    len_t vector_dim = 128;
+    len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
     len_t n_entries = (len_t)1E6;
     len_t n_query_vectors = (len_t)1E4;
     len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-    len_t n_lists = 1024;
-    len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32);
-    len_t n_results = GENERATE(1, 2, 4, 8, 16, 32);
+    len_t n_lists = GENERATE(TEST_N_LISTS);
+    len_t n_probes = GENERATE(TEST_N_PROBES);
+    len_t n_results = GENERATE(TEST_N_RESULTS);
 
     auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
     {
@@ -307,13 +320,13 @@ SCENARIO("search_preassigned(): benchmark querying with SIFT1M", "[StorageIndex]
 
 SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][SIFT100M]")
 {
-  len_t vector_dim = 128;
+  len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_entries = (len_t)1E8;
   len_t n_query_vectors = (len_t)1E5;
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-  len_t n_lists = 1024;
-  len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32);
-  len_t n_results = GENERATE(1, 2, 4, 8, 16, 32);
+  len_t n_lists = GENERATE(TEST_N_LISTS);
+  len_t n_probes = GENERATE(TEST_N_PROBES);
+  len_t n_results = GENERATE(TEST_N_RESULTS);
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -341,15 +354,15 @@ SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][
   setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT100M", "idx_100M.ivecs", run);
 }
 
-SCENARIO("preassign_query()", "[StorageIndex][preassign_query][benchmark][SIFT1M]")
+SCENARIO("preassign_query()", "[RootIndex][preassign_query][benchmark][SIFT1M][throughput]")
 {
-  len_t vector_dim = 128;
+  len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_entries = (len_t)1E6;
   len_t n_query_vectors = (len_t)1E4;
-  len_t n_lists = GENERATE(256, 512, 1024, 2048, 4096);
-  len_t n_probes = GENERATE(1, 2, 4, 8, 16, 32, 64, 128);
   len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
-  len_t n_results = 1;
+  len_t n_lists = GENERATE(TEST_N_LISTS);
+  len_t n_probes = GENERATE(TEST_N_PROBES);
+  len_t n_results = GENERATE(TEST_N_RESULTS);
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {

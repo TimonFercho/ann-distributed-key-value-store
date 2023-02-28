@@ -27,13 +27,14 @@ namespace ann_dkvs
   size_t get_list_size(len_t vector_dim, len_t n_entries)
   {
     len_t entries_allocated = round_up_to_next_power_of_two(n_entries);
+    entries_allocated = std::max((len_t)MIN_N_ENTRIES_PER_LIST, entries_allocated);
     size_t list_size = entries_allocated * (get_vector_size(vector_dim) + sizeof(vector_id_t));
     return list_size;
   }
 
   size_t get_total_size(size_t used_space)
   {
-    size_t total_size = std::max((size_t)32, round_up_to_next_power_of_two(used_space));
+    size_t total_size = std::max((size_t)MIN_TOTAL_SIZE_BYTES, round_up_to_next_power_of_two(used_space));
     return total_size;
   }
 

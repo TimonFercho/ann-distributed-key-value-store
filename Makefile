@@ -3,29 +3,66 @@
 # 'make clean'  removes all .o and executable files
 #
 # set flags for makefile like so:
-# make USE_SIMD=TRUE USE_OMP=TRUE PMODE=1
+# make USE_SIMD=1 USE_OMP=1 PMODE=1
 
 # define the Cpp compiler to use
 CXX = g++
 
 # define any compile-time flags
 CXXFLAGS	:= -std=c++17 -Wall -Wextra
-USE_SIMD := TRUE
-USE_OMP := TRUE
 
-ifeq ($(USE_SIMD),TRUE)
+# Toggle debug mode
+DEBUG := 0
+ifneq ($(DEBUG),0)
+ifneq ($(DEBUG),1)
+$(error DEBUG must be 0 or 1)
+endif
+endif
+ifeq ($(DEBUG),1)
+CXXFLAGS += -g
+endif
+
+# Set optimization level
+O := 3
+ifneq ($(O),0)
+ifneq ($(O),1)
+ifneq ($(O),2)
+ifneq ($(O),3)
+$(error O must be 0, 1, 2 or 3)
+endif
+endif
+endif
+endif
+CXXFLAGS += -O$(O)
+
+
+# Toggle SIMD
+USE_SIMD := 1
+ifneq ($(USE_SIMD),0)
+ifneq ($(USE_SIMD),1)
+$(error USE_SIMD must be 0 or 1)
+endif
+endif
+ifeq ($(USE_SIMD),1)
 CXXFLAGS += -mavx
 else
 $(info SIMD disabled)
 endif
 
-ifeq ($(USE_OMP),TRUE)
+# Toggle OpenMP
+USE_OMP := 1
+ifneq ($(USE_OMP),0)
+ifneq ($(USE_OMP),1)
+$(error USE_OMP must be 0 or 1)
+endif
+endif
+ifeq ($(USE_OMP),1)
 CXXFLAGS += -fopenmp
 else
 $(info OpenMP disabled)
 endif
 
-# defines the parallel mode
+# Set parallel mode
 # (0: sequential mode, 1: parallelize over queries, 2: parallelize over queries and lists)
 PMODE := 2
 ifneq ($(PMODE),0)
@@ -34,17 +71,41 @@ ifneq ($(PMODE),2)
 $(error PMODE must be 0, 1 or 2)
 endif
 endif
-ifeq ($(USE_OMP),FALSE)
-override PMODE := 0
 endif
+ifeq ($(USE_OMP),0)
+override PMODE := 0
 endif
 CXXFLAGS += -D PMODE=$(PMODE)
 
-DEBUG := FALSE
-ifeq ($(DEBUG),TRUE)
-CXXFLAGS += -g
-else
-CXXFLAGS += -O3
+# Toggle dynamic insertion
+DYNAMIC_INSERTION := 1
+ifneq ($(DYNAMIC_INSERTION),0)
+ifneq ($(DYNAMIC_INSERTION),1)
+$(error DYNAMIC_INSERTION must be 0 or 1)
+endif
+endif
+CXXFLAGS += -D DYNAMIC_INSERTION=$(DYNAMIC_INSERTION)
+
+# Other parameters
+ifdef MIN_TOTAL_SIZE_BYTES
+CXXFLAGS += -D MIN_TOTAL_SIZE_BYTES=$(MIN_TOTAL_SIZE_BYTES)
+endif
+ifdef MIN_N_ENTRIES_PER_LIST
+CXXFLAGS += -D MIN_N_ENTRIES_PER_LIST=$(MIN_N_ENTRIES_PER_LIST)
+endif
+ifdef MAX_BUFFER_SIZE
+CXXFLAGS += -D MAX_BUFFER_SIZE=$(MAX_BUFFER_SIZE)
+endif
+
+# Test parameters
+ifdef TEST_N_LISTS
+CXXFLAGS += -D TEST_N_LISTS=$(TEST_N_LISTS)
+endif
+ifdef TEST_N_PROBES
+CXXFLAGS += -D TEST_N_PROBES=$(TEST_N_PROBES)
+endif
+ifdef TEST_N_RESULTS
+CXXFLAGS += -D TEST_N_RESULTS=$(TEST_N_RESULTS)
 endif
 
 # define library paths in addition to /usr/lib

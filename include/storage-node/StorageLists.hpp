@@ -12,6 +12,16 @@
 #define FLAG_READ "r"
 #define FLAG_READ_WRITE "r+"
 
+#ifndef MIN_TOTAL_SIZE_BYTES
+#define MIN_TOTAL_SIZE_BYTES 32
+#endif
+#ifndef MIN_N_ENTRIES_PER_LIST
+#define MIN_N_ENTRIES_PER_LIST 1
+#endif
+#ifndef MAX_BUFFER_SIZE
+#define MAX_BUFFER_SIZE 100000
+#endif
+
 namespace ann_dkvs
 {
   class StorageLists
