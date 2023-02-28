@@ -52,6 +52,11 @@ namespace ann_dkvs
     return n_entries * sizeof(vector_id_t);
   }
 
+  size_t StorageLists::get_list_ids_size(const len_t n_entries) const
+  {
+    return n_entries * sizeof(list_id_t);
+  }
+
   size_t StorageLists::get_total_list_size(const InvertedList *list) const
   {
     len_t n_entries = list->allocated_entries;
@@ -222,7 +227,7 @@ namespace ann_dkvs
     list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
     {
-      throw std::invalid_argument("List " + std::to_string(list_id) + " does not exist");
+      throw std::invalid_argument("List not found");
     }
     if (n_entries == 0)
     {
@@ -253,8 +258,9 @@ namespace ann_dkvs
   {
     InvertedList list;
     list.used_entries = n_entries;
-    len_t allocated_entries = round_up_to_next_power_of_two(n_entries);
-    list.allocated_entries = allocated_entries;
+    const len_t min_list_length = (len_t)(MIN_N_ENTRIES_PER_LIST);
+    len_t allocated_entries = std::max(n_entries, min_list_length);
+    list.allocated_entries = round_up_to_next_power_of_two(allocated_entries);
     size_t list_size = get_total_list_size(&list);
     list.offset = alloc_slot(list_size);
     return list;
@@ -274,7 +280,7 @@ namespace ann_dkvs
 
   void StorageLists::grow_region_until_enough_space(size_t size)
   {
-    size_t new_size = total_size == 0 ? min_total_size : total_size;
+    size_t new_size = total_size == 0 ? MIN_TOTAL_SIZE_BYTES : total_size;
     if (has_free_slot_at_end())
     {
       size -= free_slots.back().size;
@@ -409,11 +415,15 @@ namespace ann_dkvs
 
   size_t StorageLists::round_up_to_next_power_of_two(const size_t n) const
   {
-    size_t power = 1;
-    while (power < n)
-    {
-      power *= 2;
-    }
+    size_t power = n;
+    power--;
+    power |= power >> 1;
+    power |= power >> 2;
+    power |= power >> 4;
+    power |= power >> 8;
+    power |= power >> 16;
+    power |= power >> 32;
+    power++;
     return power;
   }
 
@@ -524,7 +534,7 @@ namespace ann_dkvs
   {
     if (total_size != 0)
     {
-      throw std::runtime_error("bulk_insert_entries() can only be called on an empty inverted lists");
+      throw std::runtime_error("bulk_insert_entries() can only be called on an empty inverted lists object");
     }
 
 #ifndef DYNAMIC_INSERTION
@@ -537,35 +547,54 @@ namespace ann_dkvs
     std::ifstream ids_file = open_filestream(ids_filename);
     std::ifstream list_ids_file = open_filestream(list_ids_filename);
 
-    vector_el_t *cur_vector = new vector_el_t[vector_dim];
+    const len_t max_buffer_size = (len_t)(MAX_BUFFER_SIZE);
+    const len_t buffer_size = std::min(n_entries, max_buffer_size);
+
+    vector_el_t *vectors = (vector_el_t *)malloc(get_vectors_size(buffer_size));
+    vector_id_t *vector_ids = (vector_id_t *)malloc(get_ids_size(buffer_size));
+    list_id_t *list_ids = (list_id_t *)malloc(get_list_ids_size(buffer_size));
+
     len_t n_entries_read = 0;
-    vector_id_t cur_id;
-    list_id_t cur_list_id;
 
     while (n_entries_read < n_entries)
     {
-      if (!vectors_file.read((char *)cur_vector, sizeof(vector_el_t) * vector_dim))
+      len_t n_entries_to_read = std::min(buffer_size, n_entries - n_entries_read);
+
+      if (!vectors_file.read((char *)vectors, get_vectors_size(n_entries_to_read)))
       {
         throw std::runtime_error("Error reading vectors file");
       }
-      if (!ids_file.read((char *)&cur_id, sizeof(vector_id_t)))
+      if (!ids_file.read((char *)vector_ids, get_ids_size(n_entries_to_read)))
       {
         throw std::runtime_error("Error reading ids file");
       }
-      if (!list_ids_file.read((char *)&cur_list_id, sizeof(list_id_t)))
+      if (!list_ids_file.read((char *)list_ids, get_list_ids_size(n_entries_to_read)))
       {
         throw std::runtime_error("Error reading list ids file");
       }
+
+      for (len_t i = 0; i < n_entries_to_read; i++)
+      {
+        vector_el_t *vector = &vectors[i * vector_dim];
+        vector_id_t *vector_id = &vector_ids[i];
+        list_id_t list_id = list_ids[i];
+
 #ifdef DYNAMIC_INSERTION
-      insert_entries(cur_list_id, cur_vector, &cur_id, 1);
+        insert_entries(list_id, vector, vector_id, 1);
 #else
-      len_t list_length = get_list_length(cur_list_id);
-      len_t cur_list_offset = list_length - entries_left[cur_list_id];
-      update_entries(cur_list_id, cur_vector, &cur_id, cur_list_offset, 1);
-      entries_left[cur_list_id]--;
+        len_t list_length = get_list_length(list_id);
+        len_t cur_list_offset = list_length - entries_left[list_id];
+        update_entries(list_id, vectors, vector_ids, cur_list_offset, 1);
+        entries_left[list_id]--;
 #endif
-      n_entries_read++;
+      }
+
+      n_entries_read += n_entries_to_read;
     }
+
+    free(vectors);
+    free(vector_ids);
+    free(list_ids);
 
     if (vectors_file.fail() || ids_file.fail() || list_ids_file.fail())
     {
@@ -575,6 +604,5 @@ namespace ann_dkvs
     vectors_file.close();
     ids_file.close();
     list_ids_file.close();
-    delete[] cur_vector;
   }
 }
