@@ -101,7 +101,12 @@ for benchmark in tqdm(benchmarks['benchmarks']):
     print()
     envs = get_environment_variables(params)
     benchmark_cmd = get_benchmark_command(params)
-    envs_benchmark_cmd = f'export{envs}; {benchmark_cmd} >> "{filename}"'
+    if params['reporter'] == 'xml':
+        envs_benchmark_cmd = f'export{envs}; {benchmark_cmd} >> "{filename}"'
+    elif params['reporter'] == 'console':
+        envs_benchmark_cmd = f'export{envs}; {benchmark_cmd}'
+    else:
+        raise ValueError(f"Unknown reporter {params['reporter']}")
     print(envs_benchmark_cmd)
     if not dry_run:
         os.system(envs_benchmark_cmd)
