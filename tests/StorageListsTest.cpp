@@ -118,22 +118,22 @@ SCENARIO("create_list(): inverted lists can be created", "[.StorageLists]")
         THEN("an exception is thrown")
         {
           REQUIRE_THROWS_AS(lists.create_list(list_ids[0], list_lengths[1]), std::invalid_argument);
-        }
 
-        THEN("the number of lists is still 1")
-        {
-          REQUIRE(lists.get_length() == 1);
-        }
+          THEN("the number of lists is still 1")
+          {
+            REQUIRE(lists.get_length() == 1);
+          }
 
-        THEN("the first list has the correct length")
-        {
-          REQUIRE(lists.get_list_length(list_ids[0]) == list_lengths[0]);
-        }
+          THEN("the first list has the correct length")
+          {
+            REQUIRE(lists.get_list_length(list_ids[0]) == list_lengths[0]);
+          }
 
-        THEN("the total size is still correct")
-        {
-          size_t used_space = get_list_size(vector_dim, list_lengths[0]);
-          REQUIRE(lists.get_total_size() == get_total_size(used_space));
+          THEN("the total size is still correct")
+          {
+            size_t used_space = get_list_size(vector_dim, list_lengths[0]);
+            REQUIRE(lists.get_total_size() == get_total_size(used_space));
+          }
         }
       }
 
@@ -691,7 +691,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
 
 SCENARIO("get_list_length(): the length of an inverted list can be retrieved", "[.StorageLists]")
 {
-  GIVEN("an StorageLists object of 1D vectors")
+  GIVEN("an StorageLists object of 128D vectors")
   {
     len_t vector_dim = 128;
     StorageLists lists = get_inverted_lists_object(vector_dim);
