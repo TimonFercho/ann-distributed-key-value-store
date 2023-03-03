@@ -18,7 +18,7 @@
 #define MIN_N_ENTRIES_PER_LIST 1
 #endif
 #ifndef MAX_BUFFER_SIZE
-#define MAX_BUFFER_SIZE 100000
+#define MAX_BUFFER_SIZE 10000
 #endif
 
 namespace ann_dkvs
