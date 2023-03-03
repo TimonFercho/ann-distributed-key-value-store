@@ -48,21 +48,9 @@ def get_filename(params):
         if (key not in EXCLUDE_KEYS and key[0].isupper()) or key[:4] == 'env_'
     ])
     filename += f'.{params["reporter"]}'
-    ABBREVIATIONS = {
-        "MAX_BUFFER_SIZE": "BUF",
-        "DYNAMIC_INSERTION": "DIN",
-        "MIN_N_ENTRIES_PER_LIST": "MEN",
-        "MIN_TOTAL_SIZE_BYTES": "MSI",
-        "TEST_N_LISTS": "NLI",
-        "TEST_N_PROBES": "NPR",
-        "TEST_N_RESULTS": "NRE",
-        "TEST_N_DIMS": "NDI",
-        "env_OMP_NUM_THREADS": "NTH",
-        "PMODE": "PMO",
-        "USE_SIMD": "SIM",
-        "USE_OMP": "OMP"
-    }
-    for key, value in ABBREVIATIONS.items():
+    with open('parameter_abbreviations.json') as f:
+        abbreviations = json.load(f)
+    for key, value in abbreviations.items():
         filename = filename.replace(key, value)
 
     return os.path.join(directory, filename)
