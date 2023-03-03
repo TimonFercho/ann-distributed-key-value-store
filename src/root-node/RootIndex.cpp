@@ -1,6 +1,7 @@
 #include <vector>
 #include <cassert>
 #include <iostream>
+#include <cstring>
 
 #include "../include/L2Space.hpp"
 #include "../include/root-node/RootIndex.hpp"
@@ -8,7 +9,16 @@
 namespace ann_dkvs
 {
   RootIndex::RootIndex(len_t vector_dim, vector_el_t *centroids, len_t n_centroids)
-      : vector_dim(vector_dim), centroids(centroids), n_centroids(n_centroids) {}
+      : vector_dim(vector_dim), centroids(centroids), n_centroids(n_centroids)
+  {
+    this->centroids = (vector_el_t *)malloc(n_centroids * vector_dim * sizeof(vector_el_t));
+    memcpy(this->centroids, centroids, vector_dim * sizeof(vector_el_t));
+  }
+
+  RootIndex::~RootIndex()
+  {
+    free(centroids);
+  }
 
   void RootIndex::add_candidate(const Query *query, const CentroidsResult &result, centroids_heap_t &candidates)
   {

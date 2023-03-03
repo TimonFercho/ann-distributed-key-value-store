@@ -93,6 +93,13 @@ namespace ann_dkvs
     RootIndex(len_t vector_dim, vector_el_t *centroids, len_t n_centroids);
 
     /**
+     * Destroys the root index object.
+     * 
+     * Frees the memory allocated for the centroid vectors.
+     */
+    ~RootIndex();
+
+    /**
      * Finds the nearest centroids of the query
      * and sets the list ids to be searched for the query.
      *
