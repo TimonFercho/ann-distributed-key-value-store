@@ -1,5 +1,4 @@
-#ifndef QUERY_HPP_
-#define QUERY_HPP_
+#pragma once
 
 #include <vector>
 
@@ -44,4 +43,3 @@ namespace ann_dkvs
   typedef std::vector<QueryResult> QueryResults;
   typedef std::vector<QueryResults> QueryResultsBatch;
 } // namespace ann_dkvs
-#endif // QUERY_HPP_

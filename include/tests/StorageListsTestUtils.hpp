@@ -1,5 +1,4 @@
-#ifndef INVERTED_LISTS_TEST_UTILS_HPP
-#define INVERTED_LISTS_TEST_UTILS_HPP
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -77,5 +76,3 @@ namespace ann_dkvs
       std::string list_ids_filepath,
       std::function<void(len_t, size_t, vector_el_t *, vector_id_t *, list_id_t *, std::string, std::string, std::string)> run_bulk_insert_entries);
 }
-
-#endif // INVERTED_LISTS_TEST_UTILS_HPP

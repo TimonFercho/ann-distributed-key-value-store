@@ -1,5 +1,4 @@
-#ifndef ROOTNODE_HPP_
-#define ROOTNODE_HPP_
+#pragma once
 
 #include "RootIndex.hpp"
 
@@ -14,5 +13,3 @@ namespace ann_dkvs
     RootNode(const RootIndex &index);
   };
 }
-
-#endif // ROOTNODE_HPP_

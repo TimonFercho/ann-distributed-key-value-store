@@ -1,5 +1,4 @@
-#ifndef TEST_CONFIG_HPP
-#define TEST_CONFIG_HPP
+#pragma once
 
 #define TMP_DIR "tests/tmp"
 #define SIFT_OUTPUT_DIR "cluster/out"
@@ -26,5 +25,3 @@
 #define MAX_LIST_ID std::numeric_limits<int>::max()
 #define MIN_VECTOR_VAL -3.40282e+38
 #define MAX_VECTOR_VAL 3.40282e+38
-
-#endif // TEST_CONFIG_HPP

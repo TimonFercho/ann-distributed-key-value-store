@@ -1,5 +1,4 @@
-#ifndef ROOT_INDEX_HPP_
-#define ROOT_INDEX_HPP_
+#pragma once
 
 #include <vector>
 #include <queue>
@@ -110,4 +109,3 @@ namespace ann_dkvs
     void batch_preassign_queries(QueryBatch queries);
   };
 } // namespace ann_dkvs
-#endif // ROOT_INDEX_HPP_

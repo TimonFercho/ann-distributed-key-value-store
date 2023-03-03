@@ -1,5 +1,4 @@
-#ifndef STORAGE_NODE_HPP_
-#define STORAGE_NODE_HPP_
+#pragma once
 
 #include "StorageIndex.hpp"
 
@@ -14,5 +13,3 @@ namespace ann_dkvs
     StorageNode(const StorageIndex &index);
   };
 }
-
-#endif // STORAGE_NODE_HPP_

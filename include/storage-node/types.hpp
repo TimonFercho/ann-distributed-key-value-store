@@ -1,5 +1,4 @@
-#ifndef TYPES_HPP_
-#define TYPES_HPP_
+#pragma once
 
 #include <vector>
 #include <cassert>
@@ -18,4 +17,3 @@ namespace ann_dkvs
   typedef int64_t list_id_t;
   typedef int64_t vector_id_t;
 }
-#endif // TYPES_HPP_

@@ -1,5 +1,4 @@
-#ifndef INVERTED_LISTS_HPP_
-#define INVERTED_LISTS_HPP_
+#pragma once
 
 #include <unordered_map>
 #include <vector>
@@ -546,5 +545,3 @@ namespace ann_dkvs
     void bulk_insert_entries(const std::string &vectors_filename, const std::string &vector_ids_filename, const std::string &list_ids_filename, const len_t n_entries);
   };
 }
-
-#endif // INVERTED_LISTS_HPP_

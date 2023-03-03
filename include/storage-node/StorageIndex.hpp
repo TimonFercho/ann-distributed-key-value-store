@@ -1,5 +1,4 @@
-#ifndef INDEX_HPP_
-#define INDEX_HPP_
+#pragma once
 
 #include <string>
 #include <queue>
@@ -126,4 +125,3 @@ namespace ann_dkvs
     QueryResultsBatch batch_search_preassigned(const QueryBatch &queries) const;
   };
 }
-#endif // INDEX_HPP_
