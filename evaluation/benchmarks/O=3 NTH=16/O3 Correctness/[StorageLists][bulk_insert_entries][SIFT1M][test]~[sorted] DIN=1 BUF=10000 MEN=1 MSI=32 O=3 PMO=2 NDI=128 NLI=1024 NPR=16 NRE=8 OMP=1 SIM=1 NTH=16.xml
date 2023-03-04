@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageLists][bulk_insert_entries][SIFT1M][test]~[sorted]">
+  <Group name="testmain">
+    <TestCase name="Scenario: test bulk_insert_entries with SIFT1M" tags="[SIFT1M][StorageLists][bulk_insert_entries][test]" filename="tests/StorageListsTest.cpp" line="988">
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="931">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <Section name="Given: an StorageLists object and a list of 128D vectors and corresponding ids" filename="tests/StorageListsTest.cpp" line="816">
+              <Section name="When: the entries are bulk inserted" filename="tests/StorageListsTest.cpp" line="819">
+                <Section name="Then: the inverted lists exist and have the correct length" filename="tests/StorageListsTest.cpp" line="832">
+                  <OverallResults successes="1024" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1024" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1024" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1024" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="1027" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="1027" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="931">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <Section name="Given: an StorageLists object and a list of 128D vectors and corresponding ids" filename="tests/StorageListsTest.cpp" line="816">
+              <Section name="When: the entries are bulk inserted" filename="tests/StorageListsTest.cpp" line="819">
+                <Section name="Then: the inverted lists have the correct vectors" filename="tests/StorageListsTest.cpp" line="839">
+                  <OverallResults successes="128000000" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="128000000" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="128000000" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="128000000" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="128000003" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="128000003" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="931">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <Section name="Given: an StorageLists object and a list of 128D vectors and corresponding ids" filename="tests/StorageListsTest.cpp" line="816">
+              <Section name="When: the entries are bulk inserted" filename="tests/StorageListsTest.cpp" line="819">
+                <Section name="Then: the inverted lists have the correct ids" filename="tests/StorageListsTest.cpp" line="854">
+                  <OverallResults successes="1000000" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1000000" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1000000" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1000000" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="1000003" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="1000003" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="931">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <Section name="Given: an StorageLists object and a list of 128D vectors and corresponding ids" filename="tests/StorageListsTest.cpp" line="816">
+              <Section name="When: the entries are bulk inserted" filename="tests/StorageListsTest.cpp" line="819">
+                <Section name="Then: the total size is updated" filename="tests/StorageListsTest.cpp" line="865">
+                  <OverallResults successes="1" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="4" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="4" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="931">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <Section name="Given: an StorageLists object and a list of 128D vectors and corresponding ids" filename="tests/StorageListsTest.cpp" line="816">
+              <Section name="When: the entries are bulk inserted" filename="tests/StorageListsTest.cpp" line="819">
+                <Section name="And when: the entries are bulk inserted again" filename="tests/StorageListsTest.cpp" line="875">
+                  <Section name="Then: an exception is thrown" filename="tests/StorageListsTest.cpp" line="877">
+                    <OverallResults successes="1" failures="0" expectedFailures="0"/>
+                  </Section>
+                  <OverallResults successes="1" failures="0" expectedFailures="0"/>
+                </Section>
+                <OverallResults successes="1" failures="0" expectedFailures="0"/>
+              </Section>
+              <OverallResults successes="1" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="1" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="4" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="4" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <OverallResults successes="129001041" failures="0" expectedFailures="0"/>
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+  </Group>
+  <OverallResults successes="129001041" failures="0" expectedFailures="0"/>
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+</Catch>

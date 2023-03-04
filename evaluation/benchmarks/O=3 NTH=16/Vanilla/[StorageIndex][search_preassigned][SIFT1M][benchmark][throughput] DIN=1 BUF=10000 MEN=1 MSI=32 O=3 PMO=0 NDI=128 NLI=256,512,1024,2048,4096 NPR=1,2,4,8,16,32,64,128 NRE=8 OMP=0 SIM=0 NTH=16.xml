@@ -1,0 +1,1452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]">
+  <Group name="testmain">
+    <TestCase name="Scenario: search_preassigned(): throughput benchmark querying with SIFT1M" tags="[SIFT1M][StorageIndex][benchmark][search_preassigned][throughput]" filename="tests/IndexTest.cpp" line="327">
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 1
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="2.01826e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.50348e+09" lowerBound="5.44408e+09" upperBound="5.56243e+09" ci="0.95"/>
+                <standardDeviation value="8.30689e+07" lowerBound="0" upperBound="8.33767e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 2
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="3.56617e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.07324e+10" lowerBound="1.06817e+10" upperBound="1.07701e+10" ci="0.95"/>
+                <standardDeviation value="4.68459e+07" lowerBound="0" upperBound="5.32716e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 4
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="6.57028e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.10112e+10" lowerBound="2.09373e+10" upperBound="2.10821e+10" ci="0.95"/>
+                <standardDeviation value="9.83793e+07" lowerBound="0" upperBound="1.00385e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 8
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.27654e+11">
+                <!--All values in nano seconds-->
+                <mean value="4.11152e+10" lowerBound="4.1075e+10" upperBound="4.11387e+10" ci="0.95"/>
+                <standardDeviation value="2.96375e+07" lowerBound="0" upperBound="3.33146e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 16
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="2.44115e+11">
+                <!--All values in nano seconds-->
+                <mean value="8.09165e+10" lowerBound="8.08968e+10" upperBound="8.09321e+10" ci="0.95"/>
+                <standardDeviation value="1.97684e+07" lowerBound="0" upperBound="2.20316e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 32
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="4.77747e+11">
+                <!--All values in nano seconds-->
+                <mean value="1.58837e+11" lowerBound="1.58742e+11" upperBound="1.58898e+11" ci="0.95"/>
+                <standardDeviation value="7.52573e+07" lowerBound="0" upperBound="8.67766e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 64
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="9.40481e+11">
+                <!--All values in nano seconds-->
+                <mean value="3.12991e+11" lowerBound="3.12904e+11" upperBound="3.13041e+11" ci="0.95"/>
+                <standardDeviation value="6.32599e+07" lowerBound="0" upperBound="7.02019e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 256
+              </Warning>
+              <Warning>
+                n_probes := 128
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.86885e+12">
+                <!--All values in nano seconds-->
+                <mean value="6.22265e+11" lowerBound="6.21755e+11" upperBound="6.22579e+11" ci="0.95"/>
+                <standardDeviation value="3.88237e+08" lowerBound="0" upperBound="4.43607e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 1
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.11351e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.72659e+09" lowerBound="2.72427e+09" upperBound="2.72789e+09" ci="0.95"/>
+                <standardDeviation value="1.67241e+06" lowerBound="0" upperBound="1.82984e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 2
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.96286e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.34914e+09" lowerBound="5.32164e+09" upperBound="5.3641e+09" ci="0.95"/>
+                <standardDeviation value="1.9668e+07" lowerBound="0" upperBound="2.11522e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 4
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="3.36454e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.0493e+10" lowerBound="1.04834e+10" upperBound="1.04992e+10" ci="0.95"/>
+                <standardDeviation value="7.60449e+06" lowerBound="0" upperBound="8.76606e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 8
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="6.36355e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.04681e+10" lowerBound="2.0451e+10" upperBound="2.04831e+10" ci="0.95"/>
+                <standardDeviation value="1.99e+07" lowerBound="0" upperBound="2.12062e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 16
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.24106e+11">
+                <!--All values in nano seconds-->
+                <mean value="4.0132e+10" lowerBound="4.01034e+10" upperBound="4.01512e+10" ci="0.95"/>
+                <standardDeviation value="2.34856e+07" lowerBound="0" upperBound="2.71165e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 32
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="2.39465e+11">
+                <!--All values in nano seconds-->
+                <mean value="7.86536e+10" lowerBound="7.86078e+10" upperBound="7.86954e+10" ci="0.95"/>
+                <standardDeviation value="5.64434e+07" lowerBound="0" upperBound="5.9083e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 64
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="4.67484e+11">
+                <!--All values in nano seconds-->
+                <mean value="1.54549e+11" lowerBound="1.54435e+11" upperBound="1.54616e+11" ci="0.95"/>
+                <standardDeviation value="8.45681e+07" lowerBound="0" upperBound="9.55562e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 512
+              </Warning>
+              <Warning>
+                n_probes := 128
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="9.16483e+11">
+                <!--All values in nano seconds-->
+                <mean value="3.04156e+11" lowerBound="3.04102e+11" upperBound="3.04191e+11" ci="0.95"/>
+                <standardDeviation value="4.37073e+07" lowerBound="0" upperBound="5.04676e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 1
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="8.26251e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.43084e+09" lowerBound="1.43037e+09" upperBound="1.43119e+09" ci="0.95"/>
+                <standardDeviation value="432438" lowerBound="0" upperBound="491748" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 2
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.21832e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.80692e+09" lowerBound="2.79736e+09" upperBound="2.81558e+09" ci="0.95"/>
+                <standardDeviation value="1.16682e+07" lowerBound="0" upperBound="1.22528e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 4
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="2.04383e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.51533e+09" lowerBound="5.49149e+09" upperBound="5.53645e+09" ci="0.95"/>
+                <standardDeviation value="2.8156e+07" lowerBound="0" upperBound="2.98771e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 8
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="3.60959e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.08399e+10" lowerBound="1.07918e+10" upperBound="1.08716e+10" ci="0.95"/>
+                <standardDeviation value="3.89277e+07" lowerBound="2.19311e+07" upperBound="4.49455e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 16
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="6.77985e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.12262e+10" lowerBound="2.1206e+10" upperBound="2.12456e+10" ci="0.95"/>
+                <standardDeviation value="2.68912e+07" lowerBound="0" upperBound="2.74333e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 32
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.29291e+11">
+                <!--All values in nano seconds-->
+                <mean value="4.16506e+10" lowerBound="4.1602e+10" upperBound="4.16849e+10" ci="0.95"/>
+                <standardDeviation value="4.22473e+07" lowerBound="0" upperBound="4.85497e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 64
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="2.498e+11">
+                <!--All values in nano seconds-->
+                <mean value="8.18302e+10" lowerBound="8.1784e+10" upperBound="8.18612e+10" ci="0.95"/>
+                <standardDeviation value="3.79535e+07" lowerBound="0" upperBound="4.38219e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 128
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="4.87078e+11">
+                <!--All values in nano seconds-->
+                <mean value="1.61075e+11" lowerBound="1.61052e+11" upperBound="1.61097e+11" ci="0.95"/>
+                <standardDeviation value="3.0999e+07" lowerBound="0" upperBound="3.13161e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 1
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="3.26521e+09">
+                <!--All values in nano seconds-->
+                <mean value="7.07858e+08" lowerBound="7.0715e+08" upperBound="7.08289e+08" ci="0.95"/>
+                <standardDeviation value="534618" lowerBound="0" upperBound="608941" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 2
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="5.24562e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.398e+09" lowerBound="1.38918e+09" upperBound="1.40595e+09" ci="0.95"/>
+                <standardDeviation value="1.06919e+07" lowerBound="0" upperBound="1.1249e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 4
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="8.98055e+09">
+                <!--All values in nano seconds-->
+                <mean value="2.74046e+09" lowerBound="2.71513e+09" upperBound="2.75802e+09" ci="0.95"/>
+                <standardDeviation value="2.15598e+07" lowerBound="0" upperBound="2.48394e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 8
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.68159e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.33001e+09" lowerBound="5.30927e+09" upperBound="5.34927e+09" ci="0.95"/>
+                <standardDeviation value="2.62644e+07" lowerBound="0" upperBound="2.72419e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 16
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="3.2216e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.04845e+10" lowerBound="1.04201e+10" upperBound="1.05236e+10" ci="0.95"/>
+                <standardDeviation value="4.85651e+07" lowerBound="0" upperBound="5.52801e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 32
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="6.2554e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.04602e+10" lowerBound="2.04159e+10" upperBound="2.04838e+10" ci="0.95"/>
+                <standardDeviation value="3.15549e+07" lowerBound="0" upperBound="3.34313e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 64
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.21342e+11">
+                <!--All values in nano seconds-->
+                <mean value="3.99692e+10" lowerBound="3.99281e+10" upperBound="3.99947e+10" ci="0.95"/>
+                <standardDeviation value="3.15046e+07" lowerBound="0" upperBound="3.60811e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 2048
+              </Warning>
+              <Warning>
+                n_probes := 128
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="2.3756e+11">
+                <!--All values in nano seconds-->
+                <mean value="7.84806e+10" lowerBound="7.84437e+10" upperBound="7.85165e+10" ci="0.95"/>
+                <standardDeviation value="5.01035e+07" lowerBound="0" upperBound="5.07775e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 1
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.1722e+09">
+                <!--All values in nano seconds-->
+                <mean value="3.7512e+08" lowerBound="3.69216e+08" upperBound="3.80968e+08" ci="0.95"/>
+                <standardDeviation value="8.23155e+06" lowerBound="0" upperBound="8.27035e+06" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 2
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="2.21695e+09">
+                <!--All values in nano seconds-->
+                <mean value="7.16733e+08" lowerBound="7.16201e+08" upperBound="7.17073e+08" ci="0.95"/>
+                <standardDeviation value="418028" lowerBound="0" upperBound="481442" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 4
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="4.34294e+09">
+                <!--All values in nano seconds-->
+                <mean value="1.42545e+09" lowerBound="1.40056e+09" upperBound="1.45024e+09" ci="0.95"/>
+                <standardDeviation value="3.50042e+07" lowerBound="0" upperBound="3.50671e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 8
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="8.25847e+09">
+                <!--All values in nano seconds-->
+                <mean value="2.777e+09" lowerBound="2.75707e+09" upperBound="2.78796e+09" ci="0.95"/>
+                <standardDeviation value="1.43002e+07" lowerBound="0" upperBound="1.55098e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 16
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.61004e+10">
+                <!--All values in nano seconds-->
+                <mean value="5.3529e+09" lowerBound="5.34459e+09" upperBound="5.36119e+09" ci="0.95"/>
+                <standardDeviation value="1.17029e+07" lowerBound="0" upperBound="1.17214e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 32
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="3.15486e+10">
+                <!--All values in nano seconds-->
+                <mean value="1.05245e+10" lowerBound="1.04479e+10" upperBound="1.06008e+10" ci="0.95"/>
+                <standardDeviation value="1.07633e+08" lowerBound="0" upperBound="1.07878e+08" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 64
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="6.21196e+10">
+                <!--All values in nano seconds-->
+                <mean value="2.05114e+10" lowerBound="2.04325e+10" upperBound="2.05655e+10" ci="0.95"/>
+                <standardDeviation value="6.63783e+07" lowerBound="0" upperBound="7.65496e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="138">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="171">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="340">
+              <Warning>
+                n_lists := 4096
+              </Warning>
+              <Warning>
+                n_probes := 128
+              </Warning>
+              <Warning>
+                n_results := 8
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6201" estimatedDuration="1.2078e+11">
+                <!--All values in nano seconds-->
+                <mean value="4.01232e+10" lowerBound="4.0076e+10" upperBound="4.01495e+10" ci="0.95"/>
+                <standardDeviation value="3.39831e+07" lowerBound="0" upperBound="3.71379e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <OverallResults successes="680" failures="0" expectedFailures="0"/>
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+  </Group>
+  <OverallResults successes="680" failures="0" expectedFailures="0"/>
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+</Catch>
