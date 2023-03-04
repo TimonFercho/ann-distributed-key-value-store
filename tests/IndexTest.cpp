@@ -386,16 +386,16 @@ SCENARIO("search_preassigned(): latency benchmark querying with SIFT1M", "[Stora
           storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
 
       auto median_95th_99th = get_median_95th_99th_percentile(latencies);
-      WARN("latency_median := " << std::get<0>(median_95th_99th));
-      WARN("latency_95th_percentile := " << std::get<1>(median_95th_99th));
-      WARN("latency_99th_percentile := " << std::get<2>(median_95th_99th));
+      WARN("latency_50th := " << std::get<0>(median_95th_99th));
+      WARN("latency_95th := " << std::get<1>(median_95th_99th));
+      WARN("latency_99th := " << std::get<2>(median_95th_99th));
     }
   };
 
   setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }
 
-SCENARIO("search_preassigned()", "[StorageIndex][search_preassigned][benchmark][SIFT100M]")
+SCENARIO("search_preassigned(): throughput benchmark querying with SIFT100M", "[StorageIndex][search_preassigned][benchmark][SIFT100M]")
 {
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_entries = (len_t)1E8;
@@ -514,9 +514,9 @@ SCENARIO("preassign_query(): latency benchmark querying with SIFT1M", "[RootInde
           storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
 
       auto median_95th_99th = get_median_95th_99th_percentile(latencies);
-      WARN("latency_median := " << std::get<0>(median_95th_99th));
-      WARN("latency_95th_percentile := " << std::get<1>(median_95th_99th));
-      WARN("latency_99th_percentile := " << std::get<2>(median_95th_99th));
+      WARN("latency_50th := " << std::get<0>(median_95th_99th));
+      WARN("latency_95th := " << std::get<1>(median_95th_99th));
+      WARN("latency_99th := " << std::get<2>(median_95th_99th));
     }
   };
   setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
