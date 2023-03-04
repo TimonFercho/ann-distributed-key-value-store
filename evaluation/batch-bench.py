@@ -48,7 +48,7 @@ def get_filename(params):
         if (key not in EXCLUDE_KEYS and key[0].isupper()) or key[:4] == 'env_'
     ])
     filename += f'.{params["reporter"]}'
-    with open('parameter_abbreviations.json') as f:
+    with open('evaluation/parameter_abbreviations.json') as f:
         abbreviations = json.load(f)
     for key, value in abbreviations.items():
         filename = filename.replace(key, value)
