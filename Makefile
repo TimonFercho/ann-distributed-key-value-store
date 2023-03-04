@@ -23,7 +23,7 @@ CXXFLAGS += -g
 endif
 
 # Set optimization level
-O := 3
+O := 1
 ifneq ($(O),0)
 ifneq ($(O),1)
 ifneq ($(O),2)
@@ -78,7 +78,7 @@ endif
 CXXFLAGS += -D PMODE=$(PMODE)
 
 # Toggle dynamic insertion
-DYNAMIC_INSERTION := 1
+DYNAMIC_INSERTION := 0
 ifneq ($(DYNAMIC_INSERTION),0)
 ifneq ($(DYNAMIC_INSERTION),1)
 $(error DYNAMIC_INSERTION must be 0 or 1)
@@ -106,6 +106,9 @@ CXXFLAGS += -D TEST_N_PROBES=$(TEST_N_PROBES)
 endif
 ifdef TEST_N_RESULTS
 CXXFLAGS += -D TEST_N_RESULTS=$(TEST_N_RESULTS)
+endif
+ifdef TEST_N_THREADS
+CXXFLAGS += -D TEST_N_THREADS=$(TEST_N_THREADS)
 endif
 
 # define library paths in addition to /usr/lib
