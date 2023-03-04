@@ -12,7 +12,7 @@ namespace ann_dkvs
       : vector_dim(vector_dim), centroids(centroids), n_centroids(n_centroids)
   {
     this->centroids = (vector_el_t *)malloc(n_centroids * vector_dim * sizeof(vector_el_t));
-    memcpy(this->centroids, centroids, vector_dim * sizeof(vector_el_t));
+    memcpy(this->centroids, centroids, n_centroids * vector_dim * sizeof(vector_el_t));
   }
 
   RootIndex::~RootIndex()
