@@ -23,7 +23,7 @@ CXXFLAGS += -g
 endif
 
 # Set optimization level
-O := 1
+O := 2
 ifneq ($(O),0)
 ifneq ($(O),1)
 ifneq ($(O),2)
@@ -98,6 +98,9 @@ CXXFLAGS += -D MAX_BUFFER_SIZE=$(MAX_BUFFER_SIZE)
 endif
 
 # Test parameters
+ifdef TEST_N_SAMPLES
+CXXFLAGS += -D TEST_N_SAMPLES=$(TEST_N_SAMPLES)
+endif
 ifdef TEST_N_LISTS
 CXXFLAGS += -D TEST_N_LISTS=$(TEST_N_LISTS)
 endif

@@ -15,6 +15,9 @@
 #ifndef TEST_VECTOR_DIM
 #define TEST_VECTOR_DIM 128
 #endif
+#ifndef TEST_N_SAMPLES
+#define TEST_N_SAMPLES 3
+#endif
 #ifndef TEST_N_LISTS
 #define TEST_N_LISTS 1024
 #endif
@@ -280,6 +283,45 @@ auto measure_search_preassigned_latency = [](StorageIndex *storage_index, RootIn
   return latencies;
 };
 
+auto get_median_95th_99th_percentile_mean_std_latency = [](StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
+{
+  std::vector<long> warmup_latencies = measure_search_preassigned_latency(storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+
+  std::vector<std::tuple<long, long, long>> median_95th_99th_runs(TEST_N_SAMPLES);
+
+  for (len_t run = 0; run < TEST_N_SAMPLES; run++)
+  {
+    std::vector<long> run_latencies = measure_search_preassigned_latency(storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+    median_95th_99th_runs[run] = get_median_95th_99th_percentile(run_latencies);
+  }
+
+  long latency_median_mean = 0;
+  long latency_median_std = 1;
+  long latency_95th_mean = 0;
+  long latency_95th_std = 1;
+  long latency_99th_mean = 0;
+  long latency_99th_std = 1;
+
+  for (len_t run = 0; run < TEST_N_SAMPLES; run++)
+  {
+    latency_median_mean += std::get<0>(median_95th_99th_runs[run]);
+    latency_95th_mean += std::get<1>(median_95th_99th_runs[run]);
+    latency_99th_mean += std::get<2>(median_95th_99th_runs[run]);
+  }
+  latency_median_mean /= TEST_N_SAMPLES;
+  latency_95th_mean /= TEST_N_SAMPLES;
+  latency_99th_mean /= TEST_N_SAMPLES;
+
+  for (len_t run = 0; run < TEST_N_SAMPLES; run++)
+  {
+    latency_median_std += (std::get<0>(median_95th_99th_runs[run]) - latency_median_mean) * (std::get<0>(median_95th_99th_runs[run]) - latency_median_mean);
+    latency_95th_std += (std::get<1>(median_95th_99th_runs[run]) - latency_95th_mean) * (std::get<1>(median_95th_99th_runs[run]) - latency_95th_mean);
+    latency_99th_std += (std::get<2>(median_95th_99th_runs[run]) - latency_99th_mean) * (std::get<2>(median_95th_99th_runs[run]) - latency_99th_mean);
+  }
+
+  return std::make_tuple(latency_median_mean, latency_median_std, latency_95th_mean, latency_95th_std, latency_99th_mean, latency_99th_std);
+};
+
 SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search_preassigned][test][recall][SIFT1M]")
 {
   GIVEN("the SIFT1M dataset")
@@ -397,13 +439,15 @@ SCENARIO("search_preassigned(): latency benchmark querying with SIFT1M", "[Stora
       WARN("n_probes := " << n_probes);
       WARN("n_results := " << n_results);
 
-      std::vector<long> latencies = measure_search_preassigned_latency(
+      auto mean_std_latencies = get_median_95th_99th_percentile_mean_std_latency(
           storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
 
-      auto median_95th_99th = get_median_95th_99th_percentile(latencies);
-      WARN("latency_50th := " << std::get<0>(median_95th_99th));
-      WARN("latency_95th := " << std::get<1>(median_95th_99th));
-      WARN("latency_99th := " << std::get<2>(median_95th_99th));
+      WARN("latency_50th_mean := " << std::get<0>(mean_std_latencies));
+      WARN("latency_50th_std := " << std::get<1>(mean_std_latencies));
+      WARN("latency_95th_mean := " << std::get<2>(mean_std_latencies));
+      WARN("latency_95th_std := " << std::get<3>(mean_std_latencies));
+      WARN("latency_99th_mean := " << std::get<4>(mean_std_latencies));
+      WARN("latency_99th_std := " << std::get<5>(mean_std_latencies));
     }
   };
 
@@ -537,13 +581,15 @@ SCENARIO("preassign_query(): latency benchmark querying with SIFT1M", "[RootInde
       WARN("n_probes := " << n_probes);
       WARN("n_results := " << n_results);
 
-      std::vector<long> latencies = measure_preassign_query_latency(
+      auto mean_std_latencies = get_median_95th_99th_percentile_mean_std_latency(
           storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
 
-      auto median_95th_99th = get_median_95th_99th_percentile(latencies);
-      WARN("latency_50th := " << std::get<0>(median_95th_99th));
-      WARN("latency_95th := " << std::get<1>(median_95th_99th));
-      WARN("latency_99th := " << std::get<2>(median_95th_99th));
+      WARN("latency_50th_mean := " << std::get<0>(mean_std_latencies));
+      WARN("latency_50th_std := " << std::get<1>(mean_std_latencies));
+      WARN("latency_95th_mean := " << std::get<2>(mean_std_latencies));
+      WARN("latency_95th_std := " << std::get<3>(mean_std_latencies));
+      WARN("latency_99th_mean := " << std::get<4>(mean_std_latencies));
+      WARN("latency_99th_std := " << std::get<5>(mean_std_latencies));
     }
   };
   setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);

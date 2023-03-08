@@ -31,7 +31,7 @@ def get_environment_variables(params):
 def get_benchmark_command(params):
     cmd = params['executable']
     cmd += f" {params['catch_tags']}"
-    cmd += f" --benchmark-samples {params['benchmark-samples']}"
+    cmd += f" --benchmark-samples {params['TEST_N_SAMPLES']}"
     cmd += f" -r {params['reporter']}"
     return cmd
 
