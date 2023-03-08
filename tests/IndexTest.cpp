@@ -291,8 +291,10 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
     len_t n_lists = GENERATE(TEST_N_LISTS);
     len_t n_probes = GENERATE(TEST_N_PROBES);
     len_t n_results = GENERATE(TEST_N_RESULTS);
+#ifdef _OPENMP
     len_t n_threads = GENERATE(TEST_N_THREADS);
     omp_set_num_threads(n_threads);
+#endif
 
     auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
     {
@@ -338,8 +340,10 @@ SCENARIO("search_preassigned(): throughput benchmark querying with SIFT1M", "[St
   len_t n_lists = GENERATE(TEST_N_LISTS);
   len_t n_probes = GENERATE(TEST_N_PROBES);
   len_t n_results = GENERATE(TEST_N_RESULTS);
+#ifdef _OPENMP
   len_t n_threads = GENERATE(TEST_N_THREADS);
   omp_set_num_threads(n_threads);
+#endif
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -376,8 +380,10 @@ SCENARIO("search_preassigned(): latency benchmark querying with SIFT1M", "[Stora
   len_t n_lists = GENERATE(TEST_N_LISTS);
   len_t n_probes = GENERATE(TEST_N_PROBES);
   len_t n_results = GENERATE(TEST_N_RESULTS);
+#ifdef _OPENMP
   len_t n_threads = GENERATE(TEST_N_THREADS);
   omp_set_num_threads(n_threads);
+#endif
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -413,8 +419,10 @@ SCENARIO("search_preassigned(): throughput benchmark querying with SIFT100M", "[
   len_t n_lists = GENERATE(TEST_N_LISTS);
   len_t n_probes = GENERATE(TEST_N_PROBES);
   len_t n_results = GENERATE(TEST_N_RESULTS);
+#ifdef _OPENMP
   len_t n_threads = GENERATE(TEST_N_THREADS);
   omp_set_num_threads(n_threads);
+#endif
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -451,8 +459,10 @@ SCENARIO("preassign_query()", "[RootIndex][preassign_query][benchmark][SIFT1M][t
   len_t n_lists = GENERATE(TEST_N_LISTS);
   len_t n_probes = GENERATE(TEST_N_PROBES);
   len_t n_results = GENERATE(TEST_N_RESULTS);
+#ifdef _OPENMP
   len_t n_threads = GENERATE(TEST_N_THREADS);
   omp_set_num_threads(n_threads);
+#endif
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
@@ -509,8 +519,10 @@ SCENARIO("preassign_query(): latency benchmark querying with SIFT1M", "[RootInde
   len_t n_lists = GENERATE(TEST_N_LISTS);
   len_t n_probes = GENERATE(TEST_N_PROBES);
   len_t n_results = GENERATE(TEST_N_RESULTS);
+#ifdef _OPENMP
   len_t n_threads = GENERATE(TEST_N_THREADS);
   omp_set_num_threads(n_threads);
+#endif
 
   auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
   {
