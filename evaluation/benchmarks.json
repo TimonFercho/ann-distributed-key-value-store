@@ -6,37 +6,26 @@
     "DEBUG": "0",
     "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][througput]",
     "reporter": "xml",
-    "benchmark-samples": "3",
-    "O": "1",
-    "DYNAMIC_INSERTION": "0",
+    "O": "3",
+    "DYNAMIC_INSERTION": "1",
     "MAX_BUFFER_SIZE": "10000",
     "USE_SIMD": "1",
     "USE_OMP": "1",
     "PMODE": "2",
     "MIN_TOTAL_SIZE_BYTES": "32",
     "MIN_N_ENTRIES_PER_LIST": "1",
-    "env_OMP_NUM_THREADS": "64",
-    "TEST_N_THREADS": "64",
+    "env_OMP_NUM_THREADS": "8",
+    "env_OMP_SCHEDULE": "dynamic",
+    "TEST_N_SAMPLES": "3",
+    "TEST_N_THREADS": "8",
     "TEST_N_LISTS": "1024",
     "TEST_N_PROBES": "16",
-    "TEST_N_RESULTS": "8",
+    "TEST_N_RESULTS": "10",
     "TEST_N_DIMS": "128"
   },
   "benchmarks": [
     {
       "run": false,
-      "subdir": "O1 Correctness",
-      "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][test]",
-      "O": "1"
-    },
-    {
-      "run": false,
-      "subdir": "O1 Correctness",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][test]~[sorted]",
-      "O": "1"
-    },
-    {
-      "run": false,
       "subdir": "O3 Correctness",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][test]",
       "TEST_N_LISTS": "1024",
@@ -56,46 +45,88 @@
       "O": "3"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "max number of threads",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
       "O": "1"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "max number of threads",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
       "O": "1"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "max number of threads",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
       "O": "2"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "max number of threads",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
       "O": "2"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "max number of threads",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
       "O": "3"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "max number of threads",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
       "O": "3"
+    },
+    {
+      "run": false,
+      "subdir": "schedule and max number of threads",
+      "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
+      "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
+      "env_OMP_SCHEDULE": "static"
+    },
+    {
+      "run": false,
+      "subdir": "schedule and max number of threads",
+      "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
+      "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
+      "env_OMP_SCHEDULE": "static"
+    },
+    {
+      "run": false,
+      "subdir": "schedule and max number of threads",
+      "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
+      "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
+      "env_OMP_SCHEDULE": "dynamic"
+    },
+    {
+      "run": false,
+      "subdir": "schedule and max number of threads",
+      "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
+      "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
+      "env_OMP_SCHEDULE": "dynamic"
+    },
+    {
+      "run": false,
+      "subdir": "schedule and max number of threads",
+      "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
+      "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
+      "env_OMP_SCHEDULE": "guided"
+    },
+    {
+      "run": false,
+      "subdir": "schedule and max number of threads",
+      "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
+      "TEST_N_THREADS": "1,2,4,8,16,32,64,128,256,512,1024",
+      "env_OMP_SCHEDULE": "guided"
     },
     {
       "run": false,
@@ -236,6 +267,90 @@
       "USE_SIMD": "0",
       "USE_OMP": "0",
       "PMODE": "0"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "1",
+      "MIN_N_ENTRIES_PER_LIST": "1",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "1",
+      "MIN_N_ENTRIES_PER_LIST": "10",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "1",
+      "MIN_N_ENTRIES_PER_LIST": "100",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "1",
+      "MIN_N_ENTRIES_PER_LIST": "1000",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "1",
+      "MIN_N_ENTRIES_PER_LIST": "10000",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "1",
+      "MIN_N_ENTRIES_PER_LIST": "100000",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "0",
+      "MIN_N_ENTRIES_PER_LIST": "1",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "0",
+      "MIN_N_ENTRIES_PER_LIST": "10",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "0",
+      "MIN_N_ENTRIES_PER_LIST": "100",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "0",
+      "MIN_N_ENTRIES_PER_LIST": "1000",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "0",
+      "MIN_N_ENTRIES_PER_LIST": "10000",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "MIN_N_ENTRIES_PER_LIST",
+      "DYNAMIC_INSERTION": "0",
+      "MIN_N_ENTRIES_PER_LIST": "100000",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
     },
     {
       "run": false,
@@ -291,6 +406,13 @@
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "10000000",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "insertion strategy and buffer size",
+      "DYNAMIC_INSERTION": "0",
+      "MAX_BUFFER_SIZE": "1",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
     },
     {
@@ -499,14 +621,9 @@
     },
     {
       "run": false,
-      "subdir": "bulk inserting sorted data",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1000M][benchmark][sorted]"
-    },
-    {
-      "run": false,
       "subdir": "bulk insertion varying n_lists",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]",
-      "TEST_N_LISTS": "256,512,1024,2048"
+      "TEST_N_LISTS": "256,512,1024,2048,4096"
     },
     {
       "run": false,
@@ -526,7 +643,7 @@
     {
       "run": false,
       "subdir": "scaling bulk insertion",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1000M][benchmark]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1000M][benchmark]~[sorted]"
     }
   ]
 }
