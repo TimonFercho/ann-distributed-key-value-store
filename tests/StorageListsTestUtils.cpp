@@ -102,7 +102,7 @@ namespace ann_dkvs
     std::cout << std::endl;
   }
 
-  void are_vectors_equal(vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries)
+  void are_vectors_equal(const vector_el_t *actual, const vector_el_t *expected, len_t vector_dim, len_t n_entries)
   {
     for (len_t i = 0; i < n_entries * vector_dim; i++)
     {
@@ -110,7 +110,7 @@ namespace ann_dkvs
     }
   }
 
-  void are_ids_equal(vector_id_t *actual, vector_id_t *expected, len_t n_entries)
+  void are_ids_equal(const vector_id_t *actual, const vector_id_t *expected, len_t n_entries)
   {
     for (len_t i = 0; i < n_entries; i++)
     {

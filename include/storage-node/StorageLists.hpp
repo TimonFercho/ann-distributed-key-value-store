@@ -457,7 +457,7 @@ namespace ann_dkvs
      * @return A pointer to the first vector of the list.
      * @throws std::invalid_argument If the list does not exist.
      */
-    vector_el_t *get_vectors(const list_id_t list_id) const;
+    const vector_el_t *get_vectors(const list_id_t list_id) const;
 
     /**
      * Returns a pointer to the ids of the given list.
@@ -466,7 +466,7 @@ namespace ann_dkvs
      * @return A pointer to the first id of the list.
      * @throws std::invalid_argument If the list does not exist.
      */
-    vector_id_t *get_ids(const list_id_t list_id) const;
+    const vector_id_t *get_ids(const list_id_t list_id) const;
 
     /**
      * Returns the number of entries that are in used in the given list.
@@ -481,11 +481,11 @@ namespace ann_dkvs
      * Resizes the given list to the given number of entries.
      *
      * @param list_id The id of the list.
-     * @param length The new length of the list.
+     * @param n_entries The new length of the list.
      * @throws std::invalid_argument If the list does not exist.
      * @throws std::out_of_range If the target length is 0.
      */
-    void resize_list(const list_id_t list_id, const len_t length);
+    void resize_list(const list_id_t list_id, const len_t n_entries);
 
     /**
      * Inserts the given entries into the given list.
@@ -494,7 +494,6 @@ namespace ann_dkvs
      * @param vectors A pointer to the first vector to insert.
      * @param ids A pointer to the first id to insert.
      * @param n_entries The number of entries to insert.
-     * @throws std::invalid_argument If the list does not exist.
      */
     void insert_entries(const list_id_t list_id, const vector_el_t *vectors, const vector_id_t *ids, const len_t n_entries);
 

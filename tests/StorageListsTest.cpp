@@ -318,7 +318,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Stora
 
         THEN("all vectors are updated")
         {
-          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          const vector_el_t *list_vectors = lists.get_vectors(list_id);
           for (len_t i = 0; i < list_length * vector_dim; i++)
           {
             REQUIRE(list_vectors[i] == vectors[i]);
@@ -327,7 +327,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Stora
 
         THEN("all ids are updated")
         {
-          list_id_t *list_ids = lists.get_ids(list_id);
+          const list_id_t *list_ids = lists.get_ids(list_id);
           for (len_t i = 0; i < list_length; i++)
           {
             REQUIRE(list_ids[i] == ids[i]);
@@ -355,7 +355,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Stora
 
           THEN("only the first few entries are updated with the vectors from the second list")
           {
-            vector_el_t *list_vectors = lists.get_vectors(list_id);
+            const vector_el_t *list_vectors = lists.get_vectors(list_id);
 
             are_vectors_equal(list_vectors, vectors2, vector_dim, update_length);
 
@@ -364,7 +364,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Stora
 
           THEN("only the first few entries are updated with the ids from the second list")
           {
-            list_id_t *list_ids = lists.get_ids(list_id);
+            const list_id_t *list_ids = lists.get_ids(list_id);
 
             are_ids_equal(list_ids, ids2, update_length);
 
@@ -393,7 +393,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Stora
 
           THEN("only the last few entries are updated with the vectors from the second list")
           {
-            vector_el_t *list_vectors = lists.get_vectors(list_id);
+            const vector_el_t *list_vectors = lists.get_vectors(list_id);
 
             are_vectors_equal(list_vectors, vectors, vector_dim, list_length - update_length);
 
@@ -402,7 +402,7 @@ SCENARIO("update_entries(): multiple entries of a list can be updated", "[.Stora
 
           THEN("only the last few entries are updated with the ids from the second list")
           {
-            list_id_t *list_ids = lists.get_ids(list_id);
+            const list_id_t *list_ids = lists.get_ids(list_id);
 
             are_ids_equal(list_ids, ids, list_length - update_length);
 
@@ -475,13 +475,13 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Sto
 
         THEN("all vectors are updated")
         {
-          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          const vector_el_t *list_vectors = lists.get_vectors(list_id);
           are_vectors_equal(list_vectors, vectors, vector_dim, list1_length);
         }
 
         THEN("all ids are updated")
         {
-          list_id_t *list_ids = lists.get_ids(list_id);
+          const list_id_t *list_ids = lists.get_ids(list_id);
           are_ids_equal(list_ids, ids, list1_length);
         }
 
@@ -499,7 +499,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Sto
         {
           lists.insert_entries(list_id, vectors2, ids2, list2_length);
 
-          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          const vector_el_t *list_vectors = lists.get_vectors(list_id);
 
           THEN("all vectors of the first list are still present")
           {
@@ -511,7 +511,7 @@ SCENARIO("insert_entries(): entries can be appended to an inverted list", "[.Sto
             are_vectors_equal(list_vectors + list1_length * vector_dim, vectors2, vector_dim, list2_length);
           }
 
-          list_id_t *list_ids = lists.get_ids(list_id);
+          const list_id_t *list_ids = lists.get_ids(list_id);
 
           THEN("all ids of the first list are still present")
           {
@@ -571,7 +571,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
             REQUIRE(new_list_length < list_length);
             lists.resize_list(list_id, new_list_length);
 
-            vector_el_t *list_vectors = lists.get_vectors(list_id);
+            const vector_el_t *list_vectors = lists.get_vectors(list_id);
             THEN("all vectors of the first list are unchanged")
             {
               for (len_t i = 0; i < new_list_length; i++)
@@ -579,7 +579,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
                 REQUIRE(list_vectors[i] == vectors[i]);
               }
             }
-            list_id_t *list_ids = lists.get_ids(list_id);
+            const list_id_t *list_ids = lists.get_ids(list_id);
             THEN("all ids of the first list are unchanged")
             {
               for (len_t i = 0; i < new_list_length; i++)
@@ -606,7 +606,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
             REQUIRE(new_list_length > list_length);
             lists.resize_list(list_id, new_list_length);
 
-            vector_el_t *list_vectors = lists.get_vectors(list_id);
+            const vector_el_t *list_vectors = lists.get_vectors(list_id);
             THEN("all vectors of the first list are unchanged")
             {
               for (len_t i = 0; i < list_length; i++)
@@ -614,7 +614,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
                 REQUIRE(list_vectors[i] == vectors[i]);
               }
             }
-            list_id_t *list_ids = lists.get_ids(list_id);
+            const list_id_t *list_ids = lists.get_ids(list_id);
             THEN("all ids of the first list are unchanged")
             {
               for (len_t i = 0; i < list_length; i++)
@@ -640,7 +640,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
           len_t new_list_length = list_length;
           lists.resize_list(list_id, new_list_length);
 
-          vector_el_t *list_vectors = lists.get_vectors(list_id);
+          const vector_el_t *list_vectors = lists.get_vectors(list_id);
           THEN("all vectors of the first list are unchanged")
           {
             for (len_t i = 0; i < list_length; i++)
@@ -648,7 +648,7 @@ SCENARIO("resize_list(): an inverted list can be resized", "[.StorageLists]")
               REQUIRE(list_vectors[i] == vectors[i]);
             }
           }
-          list_id_t *list_ids = lists.get_ids(list_id);
+          const list_id_t *list_ids = lists.get_ids(list_id);
           THEN("all ids of the first list are unchanged")
           {
             for (len_t i = 0; i < list_length; i++)
@@ -739,7 +739,7 @@ SCENARIO("get_vectors(): the vectors of an inverted list can be retrieved", "[.S
       {
         lists.update_entries(list_ids[0], vectors, ids, 0, list_length);
 
-        vector_el_t *list_vectors = lists.get_vectors(list_ids[0]);
+        const vector_el_t *list_vectors = lists.get_vectors(list_ids[0]);
         THEN("all vectors of the first list are correctly retrieved")
         {
           for (len_t i = 0; i < list_length; i++)
@@ -781,7 +781,7 @@ SCENARIO("get_ids(): the ids of an inverted list can be retrieved", "[.StorageLi
       {
         lists.update_entries(list_ids[0], vectors, ids, 0, list_length);
 
-        list_id_t *actual_ids = lists.get_ids(list_ids[0]);
+        const list_id_t *actual_ids = lists.get_ids(list_ids[0]);
         THEN("all ids of the first list are correctly retrieved")
         {
           for (len_t i = 0; i < list_length; i++)
@@ -841,7 +841,7 @@ auto test_bulk_insert_entries =
         for (auto list : list_vectors_map)
         {
           len_t list_length = list.second.size();
-          vector_el_t *actual_vectors = lists.get_vectors(list.first);
+          const vector_el_t *actual_vectors = lists.get_vectors(list.first);
           for (len_t i = 0; i < list_length; i++)
           {
             for (len_t j = 0; j < vector_dim; j++)
@@ -855,7 +855,7 @@ auto test_bulk_insert_entries =
       {
         for (auto list : list_ids_map)
         {
-          list_id_t *actual_ids = lists.get_ids(list.first);
+          const list_id_t *actual_ids = lists.get_ids(list.first);
           for (len_t i = 0; i < list.second.size(); i++)
           {
             REQUIRE(actual_ids[i] == list.second[i]);

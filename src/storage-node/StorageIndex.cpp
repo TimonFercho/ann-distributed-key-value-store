@@ -34,15 +34,15 @@ namespace ann_dkvs
       const list_id_t list_id,
       heap_t &candidates) const
   {
-    vector_el_t *vectors = lists->get_vectors(list_id);
-    vector_id_t *ids = lists->get_ids(list_id);
+    const vector_el_t *vectors = lists->get_vectors(list_id);
+    const vector_id_t *ids = lists->get_ids(list_id);
     size_t list_size = lists->get_list_length(list_id);
     size_t vector_dim = lists->get_vector_dim();
     for (size_t j = 0; j < list_size; j++)
     {
-      vector_el_t *vector = &vectors[j * vector_dim];
+      const vector_el_t *vector = &vectors[j * vector_dim];
       float distance = distance_func(vector, query->get_query_vector(), &vector_dim);
-      vector_id_t vector_id = ids[j];
+      const vector_id_t vector_id = ids[j];
       QueryResult result = {distance, vector_id};
       add_candidate(query, result, candidates);
     }

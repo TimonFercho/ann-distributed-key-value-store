@@ -86,6 +86,8 @@ namespace ann_dkvs
     /**
      * Creates a new root index object.
      *
+     * Allocates memory on the heap for the centroid vectors.
+     *
      * @param vector_dim Dimension of the centroid vectors.
      * @param centroids Pointer to the centroid vectors.
      * @param n_centroids Number of centroid vectors.
@@ -94,7 +96,7 @@ namespace ann_dkvs
 
     /**
      * Destroys the root index object.
-     * 
+     *
      * Frees the memory allocated for the centroid vectors.
      */
     ~RootIndex();

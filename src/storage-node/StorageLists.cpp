@@ -383,7 +383,7 @@ namespace ann_dkvs
     }
   }
 
-  vector_el_t *StorageLists::get_vectors(const list_id_t list_id) const
+  const vector_el_t *StorageLists::get_vectors(const list_id_t list_id) const
   {
     list_id_list_map_t::const_iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())
@@ -393,7 +393,7 @@ namespace ann_dkvs
     return get_vectors_by_list(&list_it->second);
   }
 
-  vector_id_t *StorageLists::get_ids(const list_id_t list_id) const
+  const vector_id_t *StorageLists::get_ids(const list_id_t list_id) const
   {
     list_id_list_map_t::const_iterator list_it = id_to_list_map.find(list_id);
     if (list_it == id_to_list_map.end())

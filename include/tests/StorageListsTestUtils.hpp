@@ -62,8 +62,8 @@ namespace ann_dkvs
   std::string join(const std::string &a, const std::string &b);
   StorageLists get_inverted_lists_object(len_t vector_dim);
   void print_vector(vector_el_t *vector, len_t vector_dim, len_t n_entries);
-  void are_vectors_equal(vector_el_t *actual, vector_el_t *expected, len_t vector_dim, len_t n_entries);
-  void are_ids_equal(vector_id_t *actual, vector_id_t *expected, len_t n_entries);
+  void are_vectors_equal(const vector_el_t *actual, const vector_el_t *expected, len_t vector_dim, len_t n_entries);
+  void are_ids_equal(const vector_id_t *actual, const vector_id_t *expected, len_t n_entries);
   std::string get_lists_filename();
   std::string get_vectors_filename(bool is_dataset_sorted = false, len_t n_lists = 1024);
   std::string get_vector_ids_filename(bool is_dataset_sorted = false, len_t n_lists = 1024);
