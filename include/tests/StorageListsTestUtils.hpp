@@ -68,6 +68,7 @@ namespace ann_dkvs
   std::string get_vectors_filename(bool is_dataset_sorted = false, len_t n_lists = 1024);
   std::string get_vector_ids_filename(bool is_dataset_sorted = false, len_t n_lists = 1024);
   std::string get_list_ids_filename(len_t n_lists, bool is_dataset_sorted = false);
+  size_t get_file_size(std::string filename);
   void setup_run_teardown_bulk_insert_entries_dataset(
       len_t n_entries,
       len_t vector_dim,
