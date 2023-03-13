@@ -1,5 +1,6 @@
 #include <sys/mman.h>
 #include <unordered_set>
+#include <cmath>
 
 #include "../lib/catch.hpp"
 
