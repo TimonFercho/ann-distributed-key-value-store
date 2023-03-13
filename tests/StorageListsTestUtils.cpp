@@ -162,6 +162,12 @@ namespace ann_dkvs
     return result + file_ext;
   }
 
+  size_t get_file_size(std::string filename)
+  {
+    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+    return in.tellg();
+  }
+
   void setup_run_teardown_bulk_insert_entries_dataset(
       len_t n_entries,
       len_t vector_dim,

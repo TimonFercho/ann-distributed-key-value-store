@@ -898,13 +898,17 @@ auto benchmark_bulk_insert_entries =
   UNUSED(ids);
   UNUSED(list_ids);
 
+  size_t file_size = 0;
   BENCHMARK_ADVANCED("bulk_insert_entries()")
   (Catch::Benchmark::Chronometer meter)
   {
     StorageLists lists = get_inverted_lists_object(vector_dim);
-    meter.measure([&lists, vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries]
+    meter.measure([&lists, vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries, &file_size]
                   { return lists.bulk_insert_entries(vectors_filepath, vector_ids_filepath, list_ids_filepath, n_entries); });
+    std::string filename = lists.get_filename();
+    file_size = get_file_size(filename);
   };
+  WARN("file_size := " << std::to_string(file_size));
 };
 
 void bench_bulk_insert_entries_dataset(std::string dataset, len_t n_entries, len_t vector_dim, len_t n_lists, bool is_dataset_sorted = false)
