@@ -472,7 +472,17 @@ namespace ann_dkvs
       const vector_id_t *ids,
       const len_t n_entries)
   {
-    InvertedList *list = &id_to_list_map[list_id];
+    list_id_list_map_t::iterator list_it = id_to_list_map.find(list_id);
+    InvertedList *list;
+    if (list_it == id_to_list_map.end())
+    {
+      create_list(list_id, n_entries);
+      list = &id_to_list_map[list_id];
+    }
+    else
+    {
+      list = &list_it->second;
+    }
     resize_list(list_id, list->used_entries + n_entries);
     update_entries(list_id, vectors, ids, n_entries, list->used_entries - n_entries);
   }
