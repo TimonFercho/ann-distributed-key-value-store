@@ -296,11 +296,11 @@ auto get_median_95th_99th_percentile_mean_std_latency = [](StorageIndex *storage
   }
 
   long latency_median_mean = 0;
-  long latency_median_std = 1;
+  long latency_median_std = 0;
   long latency_95th_mean = 0;
-  long latency_95th_std = 1;
+  long latency_95th_std = 0;
   long latency_99th_mean = 0;
-  long latency_99th_std = 1;
+  long latency_99th_std = 0;
 
   for (len_t run = 0; run < TEST_N_SAMPLES; run++)
   {
@@ -314,10 +314,13 @@ auto get_median_95th_99th_percentile_mean_std_latency = [](StorageIndex *storage
 
   for (len_t run = 0; run < TEST_N_SAMPLES; run++)
   {
-    latency_median_std += (std::get<0>(median_95th_99th_runs[run]) - latency_median_mean) * (std::get<0>(median_95th_99th_runs[run]) - latency_median_mean);
-    latency_95th_std += (std::get<1>(median_95th_99th_runs[run]) - latency_95th_mean) * (std::get<1>(median_95th_99th_runs[run]) - latency_95th_mean);
-    latency_99th_std += (std::get<2>(median_95th_99th_runs[run]) - latency_99th_mean) * (std::get<2>(median_95th_99th_runs[run]) - latency_99th_mean);
+    latency_median_std += std::pow(std::get<0>(median_95th_99th_runs[run]) - latency_median_mean, 2);
+    latency_95th_std += std::pow(std::get<1>(median_95th_99th_runs[run]) - latency_95th_mean, 2);
+    latency_99th_std += std::pow(std::get<2>(median_95th_99th_runs[run]) - latency_99th_mean, 2);
   }
+  latency_median_std = std::sqrt(latency_median_std / TEST_N_SAMPLES);
+  latency_95th_std = std::sqrt(latency_95th_std / TEST_N_SAMPLES);
+  latency_99th_std = std::sqrt(latency_99th_std / TEST_N_SAMPLES);
 
   return std::make_tuple(latency_median_mean, latency_median_std, latency_95th_mean, latency_95th_std, latency_99th_mean, latency_99th_std);
 };
@@ -326,7 +329,7 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
 {
   GIVEN("the SIFT1M dataset")
   {
-    len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
+    len_t vector_dim = 128;
     len_t n_entries = (len_t)1E6;
     len_t n_query_vectors = (len_t)1E4;
     len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
