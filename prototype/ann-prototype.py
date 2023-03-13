@@ -3,6 +3,7 @@ import numpy as np
 import hnswlib
 from faiss.contrib import ivf_tools
 import os
+import argparse
 
 try:
     from faiss.contrib.datasets_fb import DatasetSIFT1M
@@ -15,8 +16,6 @@ def import_data():
     ds = DatasetSIFT1M()
     xq = ds.get_queries()
     xb = ds.get_database()
-    # print database vector data type
-    print("xb", xb.shape, xb.dtype)
     gt = ds.get_groundtruth()
     xt = ds.get_train()
     return xq, xb, gt, xt
@@ -68,9 +67,7 @@ def verify_centroids(xb, centroids, inverted_lists):
                 clostest_centroid_id = j
         closest_centroid[i] = clostest_centroid_id
 
-    print("closest_centroid", closest_centroid.shape, closest_centroid)
-    print("unique closest_centroid", np.unique(closest_centroid).shape)
-    # assert that closest centroid of list i is the same as the centroid i
+    # check that closest centroid of list i is the same as the centroid i
     assert np.all(np.equal(closest_centroid, np.arange(npartitions)))
 
 
@@ -107,29 +104,58 @@ def get_recall(I, gt):
     return recall
 
 
-def pipeline():
-    NPARTITIONS = 1024
-    EF = 10
-    EF_CONSTRUCTION = 100
-    M = 16
-    K = 1
-    NPROBE = 10
-    VERIFY_CENTROIDS = False
-
+def pipeline(args):
     xq, xb, gt, xt = import_data()
     nq, d = xq.shape
-    ivfflat, centroids, inverted_lists = build_IVFFlat(xb, xt, d, NPARTITIONS)
-
+    ivfflat, centroids, inverted_lists = build_IVFFlat(xb, xt, d,
+                                                       args.npartitions)
     if VERIFY_CENTROIDS:
         verify_centroids(xb, centroids, inverted_lists)
-    hnsw = build_hnsw(centroids, EF, EF_CONSTRUCTION, M)
-    D, I = query(ivfflat, hnsw, xq, K, NPROBE)
+    hnsw = build_hnsw(centroids, args.ef, args.ef_construction, args.m)
+    D, I = query(ivfflat, hnsw, xq, args.k, args.nprobe)
     recall = get_recall(I, gt)
-    print("recall:", recall)
+    for arg_key, arg_value in vars(args).items():
+        print(arg_key, ":= ", arg_value)
+    print("recall := ", recall)
 
 
 if __name__ == "__main__":
     if os.path.basename(os.getcwd()) != "prototype":
         print("please run this script from the prototype directory")
         exit(1)
-    pipeline()
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        "--verify-centroids",
+        action="store_true",
+        default=False,
+        help=
+        "Verify that the centroids are the closest to the vectors in their inverted lists"
+    )
+    parser.add_argument(
+        "--npartitions",
+        type=int,
+        default=1024,
+    )
+    parser.add_argument("--ef",
+                        type=int,
+                        default=10,
+                        help="ef parameter for HNSW")
+    parser.add_argument("--ef-construction",
+                        type=int,
+                        default=100,
+                        help="ef_construction parameter for HNSW")
+    parser.add_argument("--m",
+                        type=int,
+                        default=16,
+                        help="M parameter for HNSW")
+    parser.add_argument("--k",
+                        type=int,
+                        default=1,
+                        help="number of results to return")
+    parser.add_argument("--nprobe",
+                        type=int,
+                        default=10,
+                        help="nprobe parameter for IVFFlat")
+    args = parser.parse_args()
+    pipeline(args)
