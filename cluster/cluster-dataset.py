@@ -248,12 +248,12 @@ class Config:
     def prepare_dataset(self):
         try:
             # Assumes that the dataset is in data/{dataset}
-            # fvecs format:
-            # n * [[int] + d * [float32]]
+            # bvecs format:
+            # n * [[int] + d * [uint8]]
             # where n is the number of vectors,
             # d is the dimension (128),
             # the int is the vector dimension
-            # and the float32 is one vector component
+            # and the uint8 is one vector component
             self.dataset = DatasetBigANN()
         except FileNotFoundError:
             print(
