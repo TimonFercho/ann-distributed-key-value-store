@@ -20,6 +20,9 @@
 #ifndef MAX_BUFFER_SIZE
 #define MAX_BUFFER_SIZE 10000
 #endif
+#ifndef DYNAMIC_INSERTION
+#define DYNAMIC_INSERTION 1
+#endif
 
 namespace ann_dkvs
 {
