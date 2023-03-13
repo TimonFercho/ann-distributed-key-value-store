@@ -909,6 +909,7 @@ auto benchmark_bulk_insert_entries =
 
 void bench_bulk_insert_entries_dataset(std::string dataset, len_t n_entries, len_t vector_dim, len_t n_lists, bool is_dataset_sorted = false)
 {
+  WARN("n_lists := " << std::to_string(n_lists));
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
     std::string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
@@ -928,6 +929,7 @@ void bench_bulk_insert_entries_dataset(std::string dataset, len_t n_entries, len
 
 void test_bulk_insert_entries_dataset(std::string dataset, len_t n_entries, len_t vector_dim, len_t n_lists, bool is_dataset_sorted = false)
 {
+  WARN("n_lists := " << std::to_string(n_lists));
   GIVEN("the " + dataset + " dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()")
   {
     std::string dataset_dir = join(SIFT_OUTPUT_DIR, dataset);
@@ -990,7 +992,6 @@ SCENARIO("test bulk_insert_entries with SIFT1M", "[StorageLists][bulk_insert_ent
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   test_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists);
 }
 
@@ -999,7 +1000,6 @@ SCENARIO("test bulk_insert_entries with sorted SIFT1M", "[StorageLists][bulk_ins
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   test_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists, true);
 }
 
@@ -1008,7 +1008,6 @@ SCENARIO("benchmark bulk_insert_entries with SIFT1M", "[StorageLists][bulk_inser
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   bench_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists);
 }
 
@@ -1017,7 +1016,6 @@ SCENARIO("benchmark bulk_insert_entries with sorted SIFT1M", "[StorageLists][bul
   len_t n_entries = (len_t)1E6;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   bench_bulk_insert_entries_dataset("SIFT1M", n_entries, vector_dim, n_lists, true);
 }
 
@@ -1026,7 +1024,6 @@ SCENARIO("test bulk_insert_entries with SIFT10M", "[StorageLists][bulk_insert_en
   len_t n_entries = (len_t)1E7;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   test_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim, n_lists);
 }
 
@@ -1035,7 +1032,6 @@ SCENARIO("benchmark bulk_insert_entries with SIFT10M", "[StorageLists][bulk_inse
   len_t n_entries = (len_t)1E7;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   bench_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim, n_lists);
 }
 
@@ -1044,7 +1040,6 @@ SCENARIO("benchmark bulk_insert_entries with sorted SIFT10M", "[StorageLists][bu
   len_t n_entries = (len_t)1E7;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   bench_bulk_insert_entries_dataset("SIFT10M", n_entries, vector_dim, n_lists, true);
 }
 
@@ -1053,7 +1048,6 @@ SCENARIO("test bulk_insert_entries with SIFT100M", "[StorageLists][bulk_insert_e
   len_t n_entries = (len_t)1E8;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   test_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists);
 }
 
@@ -1062,7 +1056,6 @@ SCENARIO("benchmark bulk_insert_entries with SIFT100M", "[StorageLists][bulk_ins
   len_t n_entries = (len_t)1E8;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   bench_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists);
 }
 
@@ -1071,7 +1064,6 @@ SCENARIO("benchmark bulk_insert_entries with sorted SIFT100M", "[StorageLists][b
   len_t n_entries = (len_t)1E8;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   bench_bulk_insert_entries_dataset("SIFT100M", n_entries, vector_dim, n_lists, true);
 }
 
@@ -1080,7 +1072,6 @@ SCENARIO("test bulk_insert_entries with SIFT1B", "[StorageLists][bulk_insert_ent
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   test_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim, n_lists);
 }
 
@@ -1089,6 +1080,5 @@ SCENARIO("benchmark bulk_insert_entries with SIFT1B", "[StorageLists][bulk_inser
   len_t n_entries = (len_t)1E9;
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
   len_t n_lists = GENERATE(TEST_N_LISTS);
-  WARN("n_lists := " << n_lists);
   bench_bulk_insert_entries_dataset("SIFT1B", n_entries, vector_dim, n_lists);
 }
