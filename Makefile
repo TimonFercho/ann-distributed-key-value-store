@@ -23,7 +23,7 @@ CXXFLAGS += -g
 endif
 
 # Set optimization level
-O := 2
+O := 3
 ifneq ($(O),0)
 ifneq ($(O),1)
 ifneq ($(O),2)
@@ -78,7 +78,7 @@ endif
 CXXFLAGS += -D PMODE=$(PMODE)
 
 # Toggle dynamic insertion
-DYNAMIC_INSERTION := 0
+DYNAMIC_INSERTION := 1
 ifneq ($(DYNAMIC_INSERTION),0)
 ifneq ($(DYNAMIC_INSERTION),1)
 $(error DYNAMIC_INSERTION must be 0 or 1)
