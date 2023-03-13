@@ -84,7 +84,7 @@ namespace ann_dkvs
 
 #if PMODE == 0 || PMODE == 1
 #if PMODE != 0
-#pragma omp parallel for
+#pragma omp parallel for schedule(runtime)
 #endif
     for (len_t i = 0; i < queries.size(); i++)
     {
@@ -95,7 +95,7 @@ namespace ann_dkvs
 
     QueryListPairs work_items = get_work_items(queries);
 
-#pragma omp parallel for
+#pragma omp parallel for schedule(runtime)
     for (len_t i = 0; i < work_items.size(); i++)
     {
       len_t query_index = work_items[i].first;
