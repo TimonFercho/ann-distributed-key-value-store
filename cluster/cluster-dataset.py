@@ -311,8 +311,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="SIFT Dataset Clustering",
         description=
-        "Cluster subsets of SIFT dataset and output as lists of vectors, vector ids and list ids"
-    )
+        "Cluster subsets of SIFT dataset and output as lists of vectors, vector ids and list ids",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
         "--dataset",
         type=str,
