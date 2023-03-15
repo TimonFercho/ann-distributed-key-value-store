@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]">
+  <Group name="testmain">
+    <TestCase name="Scenario: benchmark bulk_insert_entries with SIFT10M"
+      tags="[!hide][.][SIFT10M][StorageLists][benchmark][bulk_insert_entries]"
+      filename="tests/StorageListsTest.cpp" line="1033">
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section
+        name="Given: the SIFT10M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()"
+        filename="tests/StorageListsTest.cpp" line="912">
+        <Section name="Then: the vector, vector id and list id files are already present"
+          filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory"
+            filename="tests/StorageListsTestUtils.cpp" line="179">
+            <BenchmarkResults name="bulk_insert_entries()" samples="3" resamples="100000"
+              iterations="1" clockResolution="27.6492" estimatedDuration="4.96618e+11">
+              <!--All
+              values in nano seconds-->
+              <mean value="1.51291e+11" lowerBound="1.49423e+11" upperBound="1.52907e+11" ci="0.95" />
+              <standardDeviation value="2.13042e+09" lowerBound="0" upperBound="2.2856e+09"
+                ci="0.95" />
+              <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0" />
+            </BenchmarkResults>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
+          </Section>
+          <OverallResults successes="3" failures="0" expectedFailures="0" />
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0" />
+      </Section>
+      <OverallResult success="true" />
+    </TestCase>
+    <OverallResults successes="3" failures="0" expectedFailures="0" />
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0" />
+  </Group>
+  <OverallResults successes="3" failures="0" expectedFailures="0" />
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0" />
+</Catch>

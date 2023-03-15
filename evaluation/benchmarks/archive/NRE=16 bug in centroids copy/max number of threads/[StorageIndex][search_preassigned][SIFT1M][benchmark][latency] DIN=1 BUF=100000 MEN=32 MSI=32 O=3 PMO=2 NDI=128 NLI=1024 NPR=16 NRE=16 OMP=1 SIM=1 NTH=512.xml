@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]">
+  <Group name="testmain">
+    <TestCase name="Scenario: search_preassigned(): latency benchmark querying with SIFT1M"
+      tags="[SIFT1M][StorageIndex][benchmark][latency][search_preassigned]"
+      filename="tests/IndexTest.cpp" line="363">
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="138">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp"
+            line="158">
+            <OverallResults successes="5" failures="0" expectedFailures="0" />
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0" />
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0" />
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="129">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp"
+          line="138">
+          <Section
+            name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object"
+            filename="tests/IndexTest.cpp" line="171">
+            <Section
+              name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors"
+              filename="tests/IndexTest.cpp" line="376">
+              <Warning>
+                max_n_threads := 512
+              </Warning>
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 16
+              </Warning>
+              <Warning>
+                n_results := 16
+              </Warning>
+              <Warning>
+                latency_50th := 2272736
+              </Warning>
+              <Warning>
+                latency_95th := 2794557
+              </Warning>
+              <Warning>
+                latency_99th := 4738790
+              </Warning>
+              <OverallResults successes="0" failures="0" expectedFailures="0" />
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0" />
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0" />
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0" />
+      </Section>
+      <OverallResult success="true" />
+    </TestCase>
+    <OverallResults successes="17" failures="0" expectedFailures="0" />
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0" />
+  </Group>
+  <OverallResults successes="17" failures="0" expectedFailures="0" />
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0" />
+</Catch>

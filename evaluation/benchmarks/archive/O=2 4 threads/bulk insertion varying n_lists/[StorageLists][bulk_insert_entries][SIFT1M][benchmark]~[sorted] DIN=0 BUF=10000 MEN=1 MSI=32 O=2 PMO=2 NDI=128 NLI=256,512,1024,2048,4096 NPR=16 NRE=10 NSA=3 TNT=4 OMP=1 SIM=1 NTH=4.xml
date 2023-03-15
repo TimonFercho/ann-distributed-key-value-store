@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]">
+  <Group name="testmain">
+    <TestCase name="Scenario: benchmark bulk_insert_entries with SIFT1M" tags="[!hide][.][SIFT1M][StorageLists][benchmark][bulk_insert_entries]" filename="tests/StorageListsTest.cpp" line="1006">
+      <Warning>
+        n_lists := 256
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="912">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <BenchmarkResults name="bulk_insert_entries()" samples="3" resamples="100000" iterations="1" clockResolution="27.4424" estimatedDuration="4.1685e+10">
+              <!--All values in nano seconds-->
+              <mean value="8.90109e+09" lowerBound="7.42534e+09" upperBound="9.74691e+09" ci="0.95"/>
+              <standardDeviation value="1.07649e+09" lowerBound="0" upperBound="1.19617e+09" ci="0.95"/>
+              <outliers variance="0.293767" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+            </BenchmarkResults>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="3" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 512
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="912">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <BenchmarkResults name="bulk_insert_entries()" samples="3" resamples="100000" iterations="1" clockResolution="27.4424" estimatedDuration="3.32323e+10">
+              <!--All values in nano seconds-->
+              <mean value="1.05546e+10" lowerBound="9.90532e+09" upperBound="1.10519e+10" ci="0.95"/>
+              <standardDeviation value="6.2425e+08" lowerBound="0" upperBound="7.03304e+08" ci="0.95"/>
+              <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+            </BenchmarkResults>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="3" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="912">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <BenchmarkResults name="bulk_insert_entries()" samples="3" resamples="100000" iterations="1" clockResolution="27.4424" estimatedDuration="3.38299e+10">
+              <!--All values in nano seconds-->
+              <mean value="1.32255e+10" lowerBound="1.21599e+10" upperBound="1.41379e+10" ci="0.95"/>
+              <standardDeviation value="1.19679e+09" lowerBound="0" upperBound="1.29034e+09" ci="0.95"/>
+              <outliers variance="0.262662" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+            </BenchmarkResults>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="3" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 2048
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="912">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <BenchmarkResults name="bulk_insert_entries()" samples="3" resamples="100000" iterations="1" clockResolution="27.4424" estimatedDuration="3.85076e+10">
+              <!--All values in nano seconds-->
+              <mean value="1.61997e+10" lowerBound="1.3752e+10" upperBound="1.78219e+10" ci="0.95"/>
+              <standardDeviation value="1.98687e+09" lowerBound="0" upperBound="2.29412e+09" ci="0.95"/>
+              <outliers variance="0.294862" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+            </BenchmarkResults>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="3" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Warning>
+        n_lists := 4096
+      </Warning>
+      <Section name="Given: the SIFT1M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="912">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <BenchmarkResults name="bulk_insert_entries()" samples="3" resamples="100000" iterations="1" clockResolution="27.4424" estimatedDuration="6.05384e+10">
+              <!--All values in nano seconds-->
+              <mean value="1.20079e+10" lowerBound="9.45964e+09" upperBound="1.36031e+10" ci="0.95"/>
+              <standardDeviation value="1.96609e+09" lowerBound="0" upperBound="2.25602e+09" ci="0.95"/>
+              <outliers variance="0.311747" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+            </BenchmarkResults>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="3" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <OverallResults successes="15" failures="0" expectedFailures="0"/>
+    <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+  </Group>
+  <OverallResults successes="15" failures="0" expectedFailures="0"/>
+  <OverallResultsCases successes="1" failures="0" expectedFailures="0"/>
+</Catch>

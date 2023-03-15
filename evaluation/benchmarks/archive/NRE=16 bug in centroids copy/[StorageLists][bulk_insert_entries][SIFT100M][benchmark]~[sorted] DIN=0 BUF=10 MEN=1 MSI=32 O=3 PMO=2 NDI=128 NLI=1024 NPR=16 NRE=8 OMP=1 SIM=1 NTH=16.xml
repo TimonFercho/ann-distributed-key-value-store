@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]">
+  <Group name="testmain">
+    <TestCase name="Scenario: benchmark bulk_insert_entries with SIFT100M" tags="[!hide][.][SIFT100M][StorageLists][benchmark][bulk_insert_entries]" filename="tests/StorageListsTest.cpp" line="1060">
+      <Warning>
+        n_lists := 1024
+      </Warning>
+      <Section name="Given: the SIFT100M dataset which has already been clusered and  written to files according to the format required by bulk_insert_entries()" filename="tests/StorageListsTest.cpp" line="912">
+        <Section name="Then: the vector, vector id and list id files are already present" filename="tests/StorageListsTestUtils.cpp" line="173">
+          <Section name="And given: the files are mapped to memory" filename="tests/StorageListsTestUtils.cpp" line="179">
+            <BenchmarkResults name="bulk_insert_entries()" samples="3" resamples="100000" iterations="1" clockResolution="27.5451" estimatedDuration="7.16706e+12">
+              <!--All values in nano seconds-->
+              <Expression success="false" filename="tests/StorageListsTestUtils.cpp" line="179">
+                <Original>
+                  {Unknown expression after the reported line}
+                </Original>
+                <Expanded>
+                  {Unknown expression after the reported line}
+                </Expanded>
+                <FatalErrorCondition filename="tests/StorageListsTestUtils.cpp" line="179">
+                  SIGINT - Terminal interrupt signal
+                </FatalErrorCondition>
+              </Expression>
+              <OverallResults successes="0" failures="1" expectedFailures="0"/>
+            </BenchmarkResults>
+            <OverallResult success="false"/>
+          </Section>
+          <OverallResults successes="3" failures="1" expectedFailures="0"/>
+          <OverallResultsCases successes="0" failures="1" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="1" expectedFailures="0"/>
+        <OverallResultsCases successes="0" failures="1" expectedFailures="0"/>
+      </Section>
