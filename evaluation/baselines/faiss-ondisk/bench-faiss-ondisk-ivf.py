@@ -60,22 +60,45 @@ def main():
         index = faiss.read_index(tmpdir + "populated.index")
         index.nprobe = 16
 
-        xq = cfg['dataset'].get_queries()
+        for pmode in [0, 1, 2, 0, 1, 2, 0, 1, 2]:
+            index.parallel_mode = 2
+            print("parallel_mode = %d" % pmode)
+            xq = cfg['dataset'].get_queries()
 
-        num_runs = 3
-        runtimes = []
-        for i in range(num_runs):
-            start_time = time.time()
-            D, I = index.search(xq, 10)
-            end_time = time.time()
-            runtime = end_time - start_time
-            runtimes.append(runtime)
+            # measure throughput
+            num_runs = 3
+            runtimes = []
+            for i in range(num_runs):
+                start_time = time.time()
+                D, I = index.search(xq, 10)
+                end_time = time.time()
+                runtime = end_time - start_time
+                runtimes.append(runtime)
 
-        # Compute the average runtime and queries per second
-        avg_runtime = sum(runtimes) / num_runs
-        queries_per_sec = cfg['n_queries'] / avg_runtime
-        print("Average runtime: %.3f seconds" % avg_runtime)
-        print("Queries per second: %.3f" % queries_per_sec)
+            # Compute the average runtime and queries per second
+            avg_runtime = sum(runtimes) / num_runs
+            queries_per_sec = cfg['n_queries'] / avg_runtime
+            print("Average runtime: %.3f seconds" % avg_runtime)
+            print("Queries per second: %.3f" % queries_per_sec)
+
+            # measure latency
+            latencies = []
+            n_queries = xq.shape[0]
+            for i in range(n_queries):
+                start_time = time.time()
+                D, I = index.search(xq[i:i + 1], 10)
+                end_time = time.time()
+                latency = end_time - start_time
+                latency_ms = latency * 1000
+                latencies.append(latency_ms)
+
+            # Compute the median and 95th percentile latency
+            latencies = np.array(latencies)
+            median_latency = np.median(latencies)
+            percentile_95th = np.percentile(latencies, 95)
+            print("Median latency: %.3f ms" % median_latency)
+            print("95th percentile latency: %.3f ms" % percentile_95th)
+            print("=====================================")
 
 
 if __name__ == "__main__":
