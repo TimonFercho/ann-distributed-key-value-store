@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch name="testmain" filters="[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]">
+  <Group name="testmain">
+    <TestCase name="Scenario: search_preassigned(): throughput benchmark querying with SIFT1M" tags="[SIFT1M][StorageIndex][benchmark][search_preassigned][throughput]" filename="tests/IndexTest.cpp" line="438">
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="136">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="145">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="165">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="136">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="145">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="178">
+            <Section name="When: for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors" filename="tests/IndexTest.cpp" line="455">
+              <Warning>
+                max_n_threads := 1
+              </Warning>
+              <Warning>
+                n_lists := 1024
+              </Warning>
+              <Warning>
+                n_probes := 16
+              </Warning>
+              <Warning>
+                n_results := 10
+              </Warning>
+              <BenchmarkResults name="search_preassigned(): measurement excludes preassigning queries" samples="3" resamples="100000" iterations="1" clockResolution="27.6678" estimatedDuration="2.63131e+10">
+                <!--All values in nano seconds-->
+                <mean value="7.41197e+09" lowerBound="7.36351e+09" upperBound="7.45018e+09" ci="0.95"/>
+                <standardDeviation value="4.84345e+07" lowerBound="0" upperBound="5.40311e+07" ci="0.95"/>
+                <outliers variance="0.222222" lowMild="0" lowSevere="0" highMild="0" highSevere="0"/>
+              </BenchmarkResults>
+              <OverallResults successes="0" failures="0" expectedFailures="0"/>
+            </Section>
+            <OverallResults successes="0" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="0" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="6" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="136">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="145">
+          <Section name="Then: the files are mapped correctly" filename="tests/IndexTest.cpp" line="165">
+            <OverallResults successes="5" failures="0" expectedFailures="0"/>
+          </Section>
+          <OverallResults successes="5" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="11" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Then: all required files are present" filename="tests/IndexTest.cpp" line="136">
+        <Section name="When: the files are mapped to memory" filename="tests/IndexTest.cpp" line="145">
+          <Section name="When: the StorageLists object is populated with the vectors, ids and list ids and used to initialize an StorageIndex object" filename="tests/IndexTest.cpp" line="178">
+            <Expression success="false" filename="tests/IndexTest.cpp" line="178">
+              <Original>
+                {Unknown expression after the reported line}
+              </Original>
+              <Expanded>
+                {Unknown expression after the reported line}
+              </Expanded>
+              <FatalErrorCondition filename="tests/IndexTest.cpp" line="178">
+                SIGINT - Terminal interrupt signal
+              </FatalErrorCondition>
+            </Expression>
+            <OverallResults successes="0" failures="1" expectedFailures="0"/>
+          </Section>
+          <OverallResult success="false"/>
+        </Section>
+        <OverallResults successes="34" failures="1" expectedFailures="0"/>
+        <OverallResultsCases successes="0" failures="1" expectedFailures="0"/>
+      </Section>
+      <OverallResults successes="34" failures="1" expectedFailures="0"/>
+      <OverallResultsCases successes="0" failures="1" expectedFailures="0"/>
+    </TestCase>
