@@ -23,13 +23,13 @@
 #define TEST_N_LISTS 1024
 #endif
 #ifndef TEST_N_PROBES
-#define TEST_N_PROBES 32
+#define TEST_N_PROBES 16
 #endif
 #ifndef TEST_N_RESULTS
 #define TEST_N_RESULTS 1
 #endif
 #ifndef TEST_N_THREADS
-#define TEST_N_THREADS 64
+#define TEST_N_THREADS 32
 #endif
 
 #ifdef _OPENMP
@@ -264,7 +264,7 @@ auto get_median_95th_99th_percentile = [](const std::vector<long> &values)
   return std::make_tuple(sorted_values[median_index], sorted_values[percentile_95_index], sorted_values[percentile_99_index]);
 };
 
-auto measure_search_preassigned_latency = [](StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
+auto measure_latency = [](StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes, bool measure_search_preassigned)
 {
   std::vector<long> latencies(n_query_vectors);
   for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
@@ -274,7 +274,14 @@ auto measure_search_preassigned_latency = [](StorageIndex *storage_index, RootIn
     root_index->batch_preassign_queries(queries);
     auto begin = std::chrono::high_resolution_clock::now();
 
-    storage_index->batch_search_preassigned(queries);
+    if (measure_search_preassigned)
+    {
+      storage_index->batch_search_preassigned(queries);
+    }
+    else
+    {
+      root_index->batch_preassign_queries(queries);
+    }
 
     auto end = std::chrono::high_resolution_clock::now();
     auto latency_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
@@ -284,15 +291,15 @@ auto measure_search_preassigned_latency = [](StorageIndex *storage_index, RootIn
   return latencies;
 };
 
-auto get_median_95th_99th_percentile_mean_std_latency = [](StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
+auto get_median_95th_99th_percentile_mean_std_latency = [](StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes, bool measure_search_preassigned)
 {
-  std::vector<long> warmup_latencies = measure_search_preassigned_latency(storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+  std::vector<long> warmup_latencies = measure_latency(storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes, measure_search_preassigned);
 
   std::vector<std::tuple<long, long, long>> median_95th_99th_runs(TEST_N_SAMPLES);
 
   for (len_t run = 0; run < TEST_N_SAMPLES; run++)
   {
-    std::vector<long> run_latencies = measure_search_preassigned_latency(storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+    std::vector<long> run_latencies = measure_latency(storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes, measure_search_preassigned);
     median_95th_99th_runs[run] = get_median_95th_99th_percentile(run_latencies);
   }
 
@@ -377,6 +384,57 @@ SCENARIO("search_preassigned(): test recall with SIFT1M", "[StorageIndex][search
   }
 }
 
+SCENARIO("search_preassigned(): test recall with SIFT10M", "[StorageIndex][search_preassigned][test][recall][SIFT10M]")
+{
+  GIVEN("the SIFT1M dataset")
+  {
+    len_t vector_dim = 128;
+    len_t n_entries = (len_t)1E7;
+    len_t n_query_vectors = (len_t)1E4;
+    len_t n_results_groundtruth = N_RESULTS_GROUNDTRUTH;
+    len_t n_lists = GENERATE(TEST_N_LISTS);
+    len_t n_probes = GENERATE(TEST_N_PROBES);
+    len_t n_results = GENERATE(TEST_N_RESULTS);
+#ifdef _OPENMP
+    len_t n_threads = GENERATE(TEST_N_THREADS);
+    omp_set_num_threads(n_threads);
+#endif
+
+    auto run = [=](uint8_t *query_vectors, uint32_t *groundtruth, StorageIndex *storage_index, RootIndex *root_index)
+    {
+      WHEN("for each query vector, the closest centroids are determined, their lists are searched for the nearest n_results neighbors")
+      {
+#ifdef _OPENMP
+        WARN("max_n_threads := " << omp_get_max_threads());
+#endif
+        WARN("n_lists := " << n_lists);
+        WARN("n_probes := " << n_probes);
+        WARN("n_results := " << n_results);
+
+        QueryBatch queries = prepare_queries(query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+
+        root_index->batch_preassign_queries(queries);
+        QueryResultsBatch results = storage_index->batch_search_preassigned(queries);
+
+        float recall_at_1 = get_recall_at_r(results, groundtruth, n_query_vectors, n_results_groundtruth, n_results, 1);
+
+        WARN("Recall@1 := " << recall_at_1);
+        THEN("the Recall@1 is 100% if we search all lists")
+        {
+          if (n_probes == n_lists)
+          {
+            REQUIRE(recall_at_1 == 1.0);
+          }
+        }
+
+        free_queries(queries);
+      }
+    };
+
+    setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, true, "SIFT10M", "idx_10M.ivecs", run);
+  }
+}
+
 SCENARIO("search_preassigned(): throughput benchmark querying with SIFT1M", "[StorageIndex][search_preassigned][benchmark][throughput][SIFT1M]")
 {
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
@@ -444,7 +502,7 @@ SCENARIO("search_preassigned(): latency benchmark querying with SIFT1M", "[Stora
       WARN("n_results := " << n_results);
 
       auto mean_std_latencies = get_median_95th_99th_percentile_mean_std_latency(
-          storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+          storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes, true);
 
       WARN("latency_50th_mean := " << std::get<0>(mean_std_latencies));
       WARN("latency_50th_std := " << std::get<1>(mean_std_latencies));
@@ -538,26 +596,6 @@ SCENARIO("preassign_query()", "[RootIndex][preassign_query][benchmark][SIFT1M][t
   setup_indices_and_run(n_probes, n_lists, n_entries, n_query_vectors, n_results_groundtruth, vector_dim, false, "SIFT1M", "idx_1M.ivecs", run);
 }
 
-auto measure_preassign_query_latency(StorageIndex *storage_index, RootIndex *root_index, uint8_t *query_vectors, len_t n_query_vectors, len_t vector_dim, len_t n_results, len_t n_probes)
-{
-  UNUSED(storage_index);
-  std::vector<long> latencies(n_query_vectors);
-  for (len_t query_id = 0; query_id < n_query_vectors; query_id++)
-  {
-    Query *query = prepare_query(query_vectors, query_id, vector_dim, n_results, n_probes);
-    QueryBatch queries = {query};
-    auto start = std::chrono::high_resolution_clock::now();
-
-    root_index->batch_preassign_queries(queries);
-
-    auto end = std::chrono::high_resolution_clock::now();
-    auto latency_ns = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-    latencies[query_id] = latency_ns;
-    free_query(query);
-  }
-  return latencies;
-}
-
 SCENARIO("preassign_query(): latency benchmark querying with SIFT1M", "[RootIndex][preassign_query][benchmark][latency][SIFT1M]")
 {
   len_t vector_dim = GENERATE(TEST_VECTOR_DIM);
@@ -586,7 +624,7 @@ SCENARIO("preassign_query(): latency benchmark querying with SIFT1M", "[RootInde
       WARN("n_results := " << n_results);
 
       auto mean_std_latencies = get_median_95th_99th_percentile_mean_std_latency(
-          storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes);
+          storage_index, root_index, query_vectors, n_query_vectors, vector_dim, n_results, n_probes, false);
 
       WARN("latency_50th_mean := " << std::get<0>(mean_std_latencies));
       WARN("latency_50th_std := " << std::get<1>(mean_std_latencies));

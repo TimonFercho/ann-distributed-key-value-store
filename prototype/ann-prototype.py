@@ -109,7 +109,7 @@ def pipeline(args):
     nq, d = xq.shape
     ivfflat, centroids, inverted_lists = build_IVFFlat(xb, xt, d,
                                                        args.npartitions)
-    if VERIFY_CENTROIDS:
+    if args.verify_centroids:
         verify_centroids(xb, centroids, inverted_lists)
     hnsw = build_hnsw(centroids, args.ef, args.ef_construction, args.m)
     D, I = query(ivfflat, hnsw, xq, args.k, args.nprobe)

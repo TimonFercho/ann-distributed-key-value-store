@@ -10,14 +10,14 @@ namespace ann_dkvs
   {
   private:
     vector_el_t *query_vector;
-    list_id_t *list_to_probe;
+    list_id_t *lists_to_probe;
     const len_t n_results;
     const len_t n_probes;
-    bool free_list_to_probe = false;
+    bool free_lists_to_probe = false;
 
   public:
     Query(vector_el_t *query_vector, const len_t n_results, const len_t n_probes);
-    Query(vector_el_t *query_vector, list_id_t *list_to_probe, const len_t n_results, const len_t n_probes);
+    Query(vector_el_t *query_vector, list_id_t *lists_to_probe, const len_t n_results, const len_t n_probes);
     vector_el_t *get_query_vector() const;
     list_id_t get_list_to_probe(const len_t i) const;
     len_t get_n_results() const;

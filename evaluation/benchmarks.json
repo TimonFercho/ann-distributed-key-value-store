@@ -25,7 +25,7 @@
   },
   "benchmarks": [
     {
-      "run": true,
+      "run": false,
       "subdir": "O3 Correctness",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][test]",
       "TEST_N_LISTS": "1024",
@@ -35,7 +35,7 @@
       "O": "3"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "O3 Correctness",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][test]~[sorted]",
       "TEST_N_LISTS": "1024",
@@ -87,7 +87,7 @@
       "env_OMP_SCHEDULE": "guided"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "OpenMP PMODE 2",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -97,7 +97,7 @@
       "PMODE": "2"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "OpenMP PMODE 2",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -107,7 +107,7 @@
       "PMODE": "2"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "OpenMP PMODE 1",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -117,7 +117,7 @@
       "PMODE": "1"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "OpenMP PMODE 1",
       "catch_tags": "[RootIndex][preassign_query][SIFT1M][benchmark][latency]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -127,7 +127,7 @@
       "PMODE": "1"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "OpenMP PMODE 1",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -137,7 +137,7 @@
       "PMODE": "1"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "OpenMP PMODE 1",
       "catch_tags": "[RootIndex][preassign_query][SIFT1M][benchmark][throughput]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -147,7 +147,7 @@
       "PMODE": "1"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "SIMD",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -157,7 +157,7 @@
       "PMODE": "0"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "SIMD",
       "catch_tags": "[RootIndex][preassign_query][SIFT1M][benchmark][throughput]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -167,7 +167,7 @@
       "PMODE": "0"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "SIMD",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -177,7 +177,7 @@
       "PMODE": "0"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "SIMD",
       "catch_tags": "[RootIndex][preassign_query][SIFT1M][benchmark][latency]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -187,7 +187,7 @@
       "PMODE": "0"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "Vanilla",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -197,7 +197,7 @@
       "PMODE": "0"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "Vanilla",
       "catch_tags": "[RootIndex][preassign_query][SIFT1M][benchmark][throughput]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -207,7 +207,7 @@
       "PMODE": "0"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "Vanilla",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -217,7 +217,7 @@
       "PMODE": "0"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "Vanilla",
       "catch_tags": "[RootIndex][preassign_query][SIFT1M][benchmark][latency]",
       "TEST_N_LISTS": "256,512,1024,2048,4096",
@@ -228,90 +228,6 @@
     },
     {
       "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "1",
-      "MIN_N_ENTRIES_PER_LIST": "1",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "1",
-      "MIN_N_ENTRIES_PER_LIST": "10",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "1",
-      "MIN_N_ENTRIES_PER_LIST": "100",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "1",
-      "MIN_N_ENTRIES_PER_LIST": "1000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "1",
-      "MIN_N_ENTRIES_PER_LIST": "10000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "1",
-      "MIN_N_ENTRIES_PER_LIST": "100000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "0",
-      "MIN_N_ENTRIES_PER_LIST": "1",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "0",
-      "MIN_N_ENTRIES_PER_LIST": "10",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "0",
-      "MIN_N_ENTRIES_PER_LIST": "100",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "0",
-      "MIN_N_ENTRIES_PER_LIST": "1000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "0",
-      "MIN_N_ENTRIES_PER_LIST": "10000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
-      "subdir": "MIN_N_ENTRIES_PER_LIST",
-      "DYNAMIC_INSERTION": "0",
-      "MIN_N_ENTRIES_PER_LIST": "100000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
-    },
-    {
-      "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "1",
@@ -434,174 +350,213 @@
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "1",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "10",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "100",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "1000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "10000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "100000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "1000000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "1",
       "MAX_BUFFER_SIZE": "10000000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "1",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "10",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "100",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "1000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "10000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "100000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "1000000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
       "run": false,
       "subdir": "insertion strategy and buffer size",
       "DYNAMIC_INSERTION": "0",
       "MAX_BUFFER_SIZE": "10000000",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "number of results",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][throughput]",
       "TEST_N_PROBES": "1,2,4,8,16,32,64,128",
       "TEST_N_RESULTS": "1,2,4,8,16,32,64,128"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "number of results",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][benchmark][latency]",
       "TEST_N_PROBES": "1,2,4,8,16,32,64,128",
       "TEST_N_RESULTS": "1,2,4,8,16,32,64,128"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "recall",
       "catch_tags": "[StorageIndex][search_preassigned][SIFT1M][recall]",
-      "TEST_N_PROBES": "1,2,4,8,16,32,64,128,256,512,1024",
-      "TEST_N_RESULTS": "1,2,4,8,16,32"
+      "TEST_N_LISTS": "256,512,1024,2048,4096",
+      "TEST_N_PROBES": "1,2,4,8,16,32,64,128"
     },
     {
-      "run": true,
-      "subdir": "bulk inserting sorted data",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark][sorted]"
-    },
-    {
-      "run": true,
-      "subdir": "bulk inserting sorted data",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark][sorted]"
-    },
-    {
-      "run": true,
-      "subdir": "bulk inserting sorted data",
-      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark][sorted]"
-    },
-    {
-      "run": true,
+      "run": false,
       "subdir": "bulk insertion varying n_lists",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]",
       "TEST_N_LISTS": "256,512,1024,2048,4096"
     },
     {
-      "run": true,
+      "run": false,
+      "subdir": "scaling bulk insertion",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark][sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "scaling bulk insertion",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark][sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "scaling bulk insertion",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark][sorted]"
+    },
+    {
+      "run": false,
+      "DYNAMIC_INSERTION": "1",
       "subdir": "scaling bulk insertion",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]"
     },
     {
-      "run": true,
+      "run": false,
+      "DYNAMIC_INSERTION": "1",
       "subdir": "scaling bulk insertion",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "scaling bulk insertion",
+      "DYNAMIC_INSERTION": "1",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]"
     },
     {
-      "run": true,
+      "run": false,
       "subdir": "scaling bulk insertion",
+      "DYNAMIC_INSERTION": "1",
       "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1000M][benchmark]~[sorted]"
+    },
+    {
+      "run": false,
+      "subdir": "scaling dynamic insertion",
+      "DYNAMIC_INSERTION": "0",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1M][benchmark]~[sorted]",
+      "TEST_N_SAMPLES": 2
+    },
+    {
+      "run": false,
+      "subdir": "scaling dynamic insertion",
+      "DYNAMIC_INSERTION": "0",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT10M][benchmark]~[sorted]",
+      "TEST_N_SAMPLES": 2
+    },
+    {
+      "run": false,
+      "subdir": "scaling dynamic insertion",
+      "DYNAMIC_INSERTION": "0",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]",
+      "TEST_N_SAMPLES": 2
+    },
+    {
+      "run": false,
+      "subdir": "scaling dynamic insertion",
+      "DYNAMIC_INSERTION": "0",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT100M][benchmark]~[sorted]",
+      "TEST_N_SAMPLES": 2
+    },
+    {
+      "run": false,
+      "subdir": "scaling dynamic insertion",
+      "DYNAMIC_INSERTION": "0",
+      "catch_tags": "[StorageLists][bulk_insert_entries][SIFT1000M][benchmark]~[sorted]",
+      "TEST_N_SAMPLES": 2
     }
   ]
 }
