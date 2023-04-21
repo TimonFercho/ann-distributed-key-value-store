@@ -21,9 +21,11 @@ def main():
     cfg['n_queries'] = 10**5
     cfg['dimension'] = 128
     cfg['n_lists'] = 1024
-    cfg['n_probe'] = 4
+    cfg['n_probes'] = [1, 2, 4, 8, 16, 32, 64, 128]
+    cfg['n_runs'] = 3
     cfg['n_splits'] = cfg['total_dataset_size'] // cfg['dataset_size']
     cfg['batch_size'] = cfg['dataset_size'] // cfg['n_batches']
+    cfg['output_file'] = f'results/results-{cfg["n_lists"]}.csv'
 
     for stage in [3]:
         if stage == 0:
@@ -57,47 +59,47 @@ def main():
 
         if stage == 3:
             index = faiss.read_index(tmpdir + "populated.index")
-            index.nprobe = cfg['n_probe']
 
-            for pmode in [0, 0, 0, 1, 1, 1, 2, 2, 2]:
-                index.parallel_mode = pmode
-                print("parallel_mode = %d" % pmode)
-                xq = cfg['dataset'].get_queries()
+            xq = cfg['dataset'].get_queries()
 
-                # measure throughput
-                num_runs = 3
-                runtimes = []
-                for i in range(num_runs):
-                    start_time = time.time()
-                    D, I = index.search(xq, 10)
-                    end_time = time.time()
-                    runtime = end_time - start_time
-                    runtimes.append(runtime)
+            measurements = []
+            with open(cfg['output_file'], 'a') as f:
+                header = 'n_probes,parallel_mode,run,queries_per_s,latency_50th,latency_95th'
+                f.write(header + '\n')
 
-                # Compute the average runtime and queries per second
-                avg_runtime = sum(runtimes) / num_runs
-                queries_per_sec = cfg['n_queries'] / avg_runtime
-                print("Average runtime: %.3f seconds" % avg_runtime)
-                print("Queries per second: %.3f" % queries_per_sec)
+                for nprobe in cfg['n_probes']:
+                    index.nprobe = nprobe
+                    print("nprobe = %d" % nprobe)
+                    for pmode in [0, 1, 2]:
+                        index.parallel_mode = pmode
+                        print("parallel_mode = %d" % pmode)
 
-                # measure latency
-                latencies = []
-                n_queries = xq.shape[0]
-                for i in range(n_queries):
-                    start_time = time.time()
-                    D, I = index.search(xq[i:i + 1], 10)
-                    end_time = time.time()
-                    latency = end_time - start_time
-                    latency_ms = latency * 1000
-                    latencies.append(latency_ms)
+                        for run in range(cfg['n_runs']):
+                            # measure qps
+                            start_time = time.time()
+                            D, I = index.search(xq, 10)
+                            end_time = time.time()
+                            runtime = end_time - start_time
+                            qps = cfg['n_queries'] / runtime
 
-                # Compute the median and 95th percentile latency
-                latencies = np.array(latencies)
-                median_latency = np.median(latencies)
-                percentile_95th = np.percentile(latencies, 95)
-                print("Median latency: %.3f ms" % median_latency)
-                print("95th percentile latency: %.3f ms" % percentile_95th)
-                print("=====================================")
+                            # measure latency
+                            latencies = []
+                            n_queries = xq.shape[0]
+                            for i in range(n_queries):
+                                start_time = time.time()
+                                D, I = index.search(xq[i:i + 1], 10)
+                                end_time = time.time()
+                                latency_s = end_time - start_time
+                                latencies.append(latency_s)
+
+                            latencies = np.array(latencies)
+                            latency_50 = np.percentile(latencies, 50)
+                            latency_95 = np.percentile(latencies, 95)
+
+                            line = f'{nprobe},{pmode},{run},{qps},{latency_50},{latency_95}'
+
+                            f.write(line + '\n')
+                            f.flush()
 
 
 if __name__ == "__main__":
